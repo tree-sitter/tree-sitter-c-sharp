@@ -1,5 +1,6 @@
 node_modules
 build
+src
 npm-debug.log
 package-lock.json
 parser.exp

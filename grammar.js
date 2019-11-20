@@ -30,6 +30,7 @@ module.exports = grammar({
   conflicts: $ => [
     [$._expression, $.generic_name],
     [$._expression, $._identifier_or_global],
+    [$._expression, $._identifier_or_global, $.parameter],
 
     [$.qualified_name, $.explicit_interface_specifier],
 
@@ -49,6 +50,8 @@ module.exports = grammar({
 
     [$.modifier, $.object_creation_expression],
     [$.event_declaration, $.variable_declarator],
+
+    //[$.argument_list, $.cast_expression],
   ],
 
   inline: $ => [
@@ -171,7 +174,6 @@ module.exports = grammar({
       ';'
     ),
 
-    //TODO: split into class_modifier, constant_modifier, field_modifier, method_modifier, property_modifier... 
     modifier: $ => choice(
       'abstract',
       'async',
@@ -887,12 +889,12 @@ module.exports = grammar({
 
     await_expression: $ => prec.right(PREC.SEQ, seq('await', $._expression)),
 
-    cast_expression: $ => seq(
-      ')',
+    cast_expression: $ => prec.right(seq(
+      '(',
       $._type,
       ')',
       $._expression
-    ),
+    )),
 
     checked_expression: $ => choice(
       seq('checked', '(', $._expression, ')'),
@@ -1173,7 +1175,7 @@ module.exports = grammar({
       $.assignment_expression,
       $.await_expression,
       $.binary_expression,
-      // $.cast_expression
+      $.cast_expression,
       $.checked_expression,
       // $.conditional_access_expression,
       $.conditional_expression,

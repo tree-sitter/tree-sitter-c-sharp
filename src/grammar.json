@@ -4588,7 +4588,7 @@
     },
     "conditional_access_expression": {
       "type": "PREC_RIGHT",
-      "value": 3,
+      "value": 0,
       "content": {
         "type": "SEQ",
         "members": [
@@ -7043,6 +7043,11 @@
     [
       "event_declaration",
       "variable_declarator"
+    ],
+    [
+      "await_expression",
+      "conditional_access_expression",
+      "conditional_expression"
     ]
   ],
   "externals": [],

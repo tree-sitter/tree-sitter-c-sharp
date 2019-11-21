@@ -85,6 +85,29 @@ class Foo {
           (prefix_unary_expression
             (identifier_name))))))))
 
+=====================================
+Cast expressions
+=====================================
+
+void Test() {
+  a = (B)c + (C)d;
+}
+
+---
+
+(compilation_unit
+  (method_declaration
+    (void_keyword)
+    (identifier_name)
+    (parameter_list)
+    (block
+      (expression_statement (assignment_expression
+        (identifier_name)
+        (assignment_operator)
+        (binary_expression
+          (cast_expression (identifier_name) (identifier_name))
+          (cast_expression (identifier_name) (identifier_name))))))))
+
 ============================
 Anonymous object creation with empty body
 ============================
@@ -199,6 +222,10 @@ Object creation expressions
 
 void b() {
   new C.D(1, "hi");
+  a = new E
+  {
+    Foo = bar,
+  };
 }
 
 ---
@@ -212,7 +239,17 @@ void b() {
       (expression_statement
         (object_creation_expression
           (qualified_name (identifier_name) (identifier_name))
-          (argument_list (integer_literal) (string_literal)))))))
+          (argument_list
+            (argument (integer_literal))
+            (argument (string_literal)))))
+      (expression_statement
+        (assignment_expression
+          (identifier_name)
+          (assignment_operator)
+          (object_creation_expression
+            (identifier_name)
+            (initializer_expression
+              (assignment_expression (identifier_name) (assignment_operator) (identifier_name)))))))))
 
 ============================
 Anonymous method expressions
@@ -267,7 +304,30 @@ void a() {
           (block (return_statement
             (invocation_expression
               (member_access_expression (identifier_name) (identifier_name))
-              (argument_list (identifier_name))))))))))
+              (argument_list (argument (identifier_name)))))))))))
+
+============================
+Invocation expressions
+============================
+
+void a() {
+  b(c, in d, out e);
+}
+
+---
+
+(compilation_unit (method_declaration
+  (void_keyword)
+  (identifier_name)
+  (parameter_list)
+  (block
+    (expression_statement
+      (invocation_expression
+        (identifier_name)
+        (argument_list
+          (argument (identifier_name))
+          (argument (identifier_name))
+          (argument (identifier_name))))))))
 
 ============================
 Tuple expressions
@@ -317,7 +377,7 @@ void b() {
             (identifier_name)
             (equals_value_clause
               (implicit_array_creation_expression
-                (array_initalizer
+                (initializer_expression
                   (integer_literal)
                   (integer_literal)
                   (integer_literal))))))))))
@@ -345,14 +405,14 @@ void b() {
             (identifier_name)
             (equals_value_clause
               (implicit_array_creation_expression
-                (array_initalizer
-                  (array_initalizer
+                (initializer_expression
+                  (initializer_expression
                     (integer_literal)
                     (integer_literal))
-                  (array_initalizer
+                  (initializer_expression
                     (integer_literal)
                     (integer_literal))
-                  (array_initalizer
+                  (initializer_expression
                     (integer_literal)
                     (integer_literal)))))))))))
 
@@ -379,7 +439,7 @@ void b() {
             (identifier_name)
             (equals_value_clause
               (implicit_stack_alloc_array_creation_expression
-                (array_initalizer
+                (initializer_expression
                   (integer_literal)
                   (integer_literal)
                   (integer_literal))))))))))
@@ -408,7 +468,7 @@ void b() {
             (equals_value_clause
               (stack_alloc_array_creation_expression
                 (array_type (predefined_type) (array_rank_specifier))
-                (array_initalizer
+                (initializer_expression
                   (integer_literal)
                   (integer_literal)
                   (integer_literal))))))))))
@@ -436,10 +496,10 @@ void b() {
             (identifier_name)
             (equals_value_clause
               (array_creation_expression
-                (array_type 
+                (array_type
                   (predefined_type)
                   (array_rank_specifier (integer_literal)))
-                (array_initalizer
+                (initializer_expression
                   (integer_literal)
                   (integer_literal)
                   (integer_literal))))))))))
@@ -467,19 +527,19 @@ void b() {
             (identifier_name)
             (equals_value_clause
               (array_creation_expression
-                (array_type 
+                (array_type
                   (predefined_type)
                   (array_rank_specifier
                     (integer_literal)
                     (integer_literal)))
-                (array_initalizer
-                  (array_initalizer
+                (initializer_expression
+                  (initializer_expression
                     (integer_literal)
                     (integer_literal))
-                  (array_initalizer
+                  (initializer_expression
                     (integer_literal)
                     (integer_literal))
-                  (array_initalizer
+                  (initializer_expression
                     (integer_literal)
                     (integer_literal)))))))))))
 
@@ -731,13 +791,150 @@ class Foo {
                 (throw_expression (identifier_name))))))))))
 
 =====================================
+range expressions full
+=====================================
+
+class Foo {
+  void Test() {
+    var a = b[1..4];
+    var c = 1..^4;
+  }
+}
+
+---
+
+(compilation_unit
+  (class_declaration
+    (identifier_name)
+    (class_body
+      (method_declaration
+        (void_keyword)
+        (identifier_name)
+        (parameter_list)
+        (block
+          (local_declaration_statement
+            (variable_declaration
+              (identifier_name)
+              (variable_declarator
+                (identifier_name)
+                (equals_value_clause
+                  (element_access_expression
+                    (identifier_name)
+                    (bracketed_argument_list
+                      (argument
+                        (range_expression
+                          (integer_literal)
+                          (integer_literal)))))))))
+            (local_declaration_statement
+              (variable_declaration
+                (identifier_name)
+                  (variable_declarator
+                    (identifier_name)
+                    (equals_value_clause
+                      (range_expression
+                        (integer_literal)
+                        (prefix_unary_expression (integer_literal))))))))))))
+
+=====================================
+range expressions partial
+=====================================
+
+class Foo {
+  void Test() {
+    var a = b[..4];
+    var c = ^1..;
+    var d = b[..];
+  }
+}
+
+---
+
+(compilation_unit
+  (class_declaration
+    (identifier_name)
+    (class_body
+      (method_declaration
+        (void_keyword)
+        (identifier_name)
+        (parameter_list)
+        (block
+          (local_declaration_statement
+            (variable_declaration
+              (identifier_name)
+              (variable_declarator
+                (identifier_name)
+                (equals_value_clause
+                  (element_access_expression
+                    (identifier_name)
+                    (bracketed_argument_list
+                      (argument
+                        (range_expression
+                          (integer_literal)))))))))
+            (local_declaration_statement
+              (variable_declaration
+                (identifier_name)
+                  (variable_declarator
+                    (identifier_name)
+                    (equals_value_clause
+                      (range_expression
+                        (prefix_unary_expression (integer_literal)))))))                        
+              (local_declaration_statement
+                (variable_declaration
+                  (identifier_name)
+                  (variable_declarator
+                    (identifier_name)
+                    (equals_value_clause
+                      (element_access_expression
+                        (identifier_name)
+                        (bracketed_argument_list (argument (range_expression)))))))))))))
+
+=====================================
+conditional access expression
+=====================================
+
+class Foo {
+  void Test() {
+    var a = b?.Something;
+    c.Something();
+  }
+}
+
+---
+
+(compilation_unit
+  (class_declaration
+    (identifier_name)
+    (class_body
+      (method_declaration
+        (void_keyword)
+        (identifier_name)
+        (parameter_list)
+        (block
+          (local_declaration_statement
+            (variable_declaration
+              (identifier_name)
+              (variable_declarator
+                (identifier_name)
+                (equals_value_clause
+                  (conditional_access_expression
+                    (identifier_name)
+                    (member_binding_expression
+                    (identifier_name)))))))
+          (expression_statement
+            (invocation_expression
+              (member_access_expression
+                (identifier_name)
+                (identifier_name))
+              (argument_list))))))))
+
+=====================================
 cast expression
 =====================================
 
 class Foo {
   void Test() {
     x = (int) y;
-  }
+      }
 }
 
 ---

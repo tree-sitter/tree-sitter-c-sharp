@@ -1,4 +1,5 @@
 const PREC = {
+  DOT: 17,
   POSTFIX: 16,
   PREFIX: 15,
   UNARY: 15,
@@ -40,6 +41,7 @@ module.exports = grammar({
 
     [$._expression, $.parameter],
     [$._expression, $.attribute],
+    [$._expression, $.parameter, $._identifier_or_global],
     [$.argument, $.parameter_modifier],
     [$.modifier, $.array_creation_expression, $.object_creation_expression],
 
@@ -50,8 +52,7 @@ module.exports = grammar({
 
     [$.modifier, $.object_creation_expression],
     [$.event_declaration, $.variable_declarator],
-
-    //[$.argument_list, $.cast_expression],
+    [$.await_expression, $.conditional_access_expression, $.conditional_expression]
   ],
 
   inline: $ => [
@@ -124,7 +125,7 @@ module.exports = grammar({
 
     type_argument_list: $ => seq('<', commaSep1($._type), '>'),
 
-    qualified_name: $ => seq($._name, '.', $._simple_name),
+    qualified_name: $ => prec(PREC.DOT, seq($._name, '.', $._simple_name)),
 
     attribute_list: $ => seq('[', commaSep1($.attribute), ']'),
     attribute: $ => seq($.identifier_name, optional($.attribute_argument_list)),
@@ -278,11 +279,7 @@ module.exports = grammar({
       $.argument_list
     ),
 
-    argument_list: $ => seq(
-      '(',
-      commaSep($._expression),
-      ')'
-    ),
+    argument_list: $ => seq('(', commaSep($.argument), ')'),
 
     block: $ => seq('{', repeat($._statement), '}'),
 
@@ -328,7 +325,7 @@ module.exports = grammar({
       $._function_body,
     ),
 
-    explicit_interface_specifier: $ => seq($._name, '.'),
+    explicit_interface_specifier: $ => prec(PREC.DOT, seq($._name, '.')),
 
     type_parameter_list: $ => seq('<', commaSep1($.identifier_name), '>'),
 
@@ -432,7 +429,7 @@ module.exports = grammar({
       $._type,
       $.identifier_name,
       choice(
-        seq($._accessor_list, optional(seq('=', $._initializer, ';'))), // Roslyn deviation or does not allow bodyless properties.
+        seq($._accessor_list, optional(seq('=', $._expression, ';'))), // Roslyn deviation or does not allow bodyless properties.
         seq($.arrow_expression_clause, ';')
       ),
     ),
@@ -544,7 +541,7 @@ module.exports = grammar({
       // $.tuple_type,  // TODO: Conflicts
     ),
 
-    array_type: $ => seq($._type, $.array_rank_specifier),
+    array_type: $ => prec(PREC.POSTFIX, seq($._type, $.array_rank_specifier)),
 
     array_rank_specifier: $ => seq('[', commaSep($._expression), ']'),
 
@@ -586,7 +583,7 @@ module.exports = grammar({
       )),
       ')'
     ),
-    
+
     tuple_element: $ => seq($._type, optional($.identifier_name)),
 
     _statement: $ => choice(
@@ -870,12 +867,14 @@ module.exports = grammar({
     array_creation_expression: $ => seq(
       'new',
       $.array_type,
-      optional($.array_initalizer)
+      optional($.initializer_expression)
     ),
 
-    _initializer_expression: $ => seq(
+    initializer_expression: $ => seq(
       '{',
-      commaSep($._expression),
+      $._expression,
+      repeat(seq(',', $._expression)),
+      optional(','),
       '}'
     ),
 
@@ -889,7 +888,7 @@ module.exports = grammar({
 
     await_expression: $ => prec.right(PREC.SEQ, seq('await', $._expression)),
 
-    cast_expression: $ => prec.right(seq(
+    cast_expression: $ => prec.right(PREC.CAST, seq(
       '(',
       $._type,
       ')',
@@ -901,11 +900,11 @@ module.exports = grammar({
       seq('unchecked', '(', $._expression, ')')
     ),
 
-    conditional_access_expression: $ => seq(
+    conditional_access_expression: $ => prec.right(seq(
       $._expression,
       '?',
       $._expression
-    ),
+    )),
 
     conditional_expression: $ => prec.right(PREC.COND, seq(
       $._expression, '?', $._expression, ':', $._expression
@@ -933,7 +932,7 @@ module.exports = grammar({
       '[',
       repeat(','),
       ']',
-      $.array_initalizer
+      $.initializer_expression
     ),
 
     implicit_element_access: $ => $.bracketed_argument_list,
@@ -942,7 +941,7 @@ module.exports = grammar({
       'stackalloc',
       '[',
       ']',
-      $.array_initalizer
+      $.initializer_expression
     ),
 
     _instance_expression: $ => choice(
@@ -951,7 +950,42 @@ module.exports = grammar({
     ),
 
     base_expression: $ => 'base',
+
     this_expression: $ => 'this',
+
+    interpolated_string_expression: $ => choice(
+      seq('$"', repeat($._interpolated_string_content), '"'),
+      seq('$@"', repeat($._interpolated_verbatim_string_content), '"'),
+    ),
+
+    _interpolated_string_content: $ => choice(
+      $.interpolated_string_text,
+      $.interpolation
+    ),
+
+    _interpolated_verbatim_string_content: $ => choice(
+      $.interpolated_verbatim_string_text,
+      $.interpolation
+    ),
+
+    interpolated_string_text: $ => choice(
+      token.immediate(prec(1, /[^{"\\\n]+/)),
+      $.escape_sequence
+    ),
+
+    interpolated_verbatim_string_text: $ => choice(/[^{"]+/, '""'),
+
+    interpolation: $ => seq(
+      '{',
+      $._expression,
+      optional($.interpolation_alignment_clause),
+      optional($.interpolation_format_clause),
+      '}'
+    ),
+
+    interpolation_alignment_clause: $ => seq(',', $._expression),
+
+    interpolation_format_clause: $ => seq(':', /[^}"]+/),
 
     invocation_expression: $ => seq(
       $._expression,
@@ -985,22 +1019,23 @@ module.exports = grammar({
       ')'
     ),
 
-    member_access_expression: $ => seq(
+    member_access_expression: $ => prec(PREC.DOT, seq(
       $._expression,
       choice('.', '->'),
       $._simple_name
-    ),
+    )),
 
     member_binding_expression: $ => seq(
       '.',
       $._simple_name,
     ),
 
-    object_creation_expression: $ => seq(
+    object_creation_expression: $ => prec.right(seq(
       'new',
       $._type,
-      $.argument_list
-    ),
+      optional($.argument_list),
+      optional($.initializer_expression)
+    )),
 
     parenthesized_expression: $ => seq('(', $._expression, ')'),
 
@@ -1098,12 +1133,11 @@ module.exports = grammar({
 
     query_continuation: $ => seq('into', $.identifier_name, $._query_body),
 
-    // TODO: Conflicts
-    range_expression: $ => seq(
+    range_expression: $ => prec.right(seq(
       optional($._expression),
       '..',
       optional($._expression)
-    ),
+    )),
 
     // TODO: Conflicts with modifier
     ref_expression: $ => seq('ref', $._expression),
@@ -1134,7 +1168,7 @@ module.exports = grammar({
     stack_alloc_array_creation_expression: $ => seq(
       'stackalloc',
       $.array_type,
-      optional($.array_initalizer)
+      optional($.initializer_expression)
     ),
 
     switch_expression: $ => seq(
@@ -1177,7 +1211,7 @@ module.exports = grammar({
       $.binary_expression,
       $.cast_expression,
       $.checked_expression,
-      // $.conditional_access_expression,
+      $.conditional_access_expression,
       $.conditional_expression,
       // $.declaration_expression,
       // $.default_expression,
@@ -1186,9 +1220,9 @@ module.exports = grammar({
       $.implicit_array_creation_expression,
       // $.implicit_element_access,
       $.implicit_stack_alloc_array_creation_expression,
-      // $._initializer_expression,
+      $.initializer_expression,
       $._instance_expression,
-      // $.interpolated_string_expression,
+      $.interpolated_string_expression,
       $.invocation_expression,
       //$.is_pattern_expression,
       $._literal_expression,
@@ -1200,7 +1234,7 @@ module.exports = grammar({
       $.postfix_unary_expression,
       $.prefix_unary_expression,
       // $.query_expression,
-      // $.range_expression,
+      $.range_expression,
       // $.ref_expression,
       $.ref_type_expression,
       $.ref_value_expression,
@@ -1215,13 +1249,6 @@ module.exports = grammar({
       // These should be removed when the ones above get activated
       $.identifier_name
     ),
-
-    _initializer: $ => choice(
-      $._expression,
-      $.array_initalizer
-    ),
-
-    array_initalizer: $ => seq('{', commaSep1($._initializer), '}'),
 
     binary_expression: $ => choice(
       ...[
@@ -1273,8 +1300,9 @@ module.exports = grammar({
 
     integer_literal: $ => seq(
       choice(
-        (/[0-9]+/),
-        (/0x[0-9a-fA-F]+/)
+        (/[0-9_]+/), // Decimal
+        (/0x[0-9a-fA-F_]+/), // Hex
+        (/0b[01_]+/) // Binary
       ),
       optional($._integer_type_suffix)
     ),
@@ -1285,28 +1313,28 @@ module.exports = grammar({
 
     real_literal: $ => {
       const suffix = /[fFdDmM]/;
-      const exponent = /[eE][+-]?[0-9]+/;
+      const exponent = /[eE][+-]?[0-9_]+/;
       return token(choice(
         seq(
-          (/[0-9]+/),
+          (/[0-9_]+/),
           '.',
-          (/[0-9]+/),
+          (/[0-9_]+/),
           optional(exponent),
           optional(suffix)
         ),
         seq(
           '.',
-          (/[0-9]+/),
+          (/[0-9_]+/),
           optional(exponent),
           optional(suffix)
         ),
         seq(
-          (/[0-9]+/),
+          (/[0-9_]+/),
           exponent,
           optional(suffix)
         ),
         seq(
-          (/[0-9]+/),
+          (/[0-9_]+/),
           suffix
         )
       ))
@@ -1315,17 +1343,20 @@ module.exports = grammar({
     string_literal: $ => seq(
       '"',
       repeat(choice(
-        /[^"\\\n]+/,
+        token.immediate(prec(1, /[^"\\\n]+/)),
         $.escape_sequence
       )),
       '"'
     ),
 
-    verbatim_string_literal: $ => seq(
+    verbatim_string_literal: $ => token(seq(
       '@"',
-      /[^"]*/,
+      repeat(choice(
+        /[^"]/,
+        '""',
+      )),
       '"'
-    ),
+    )),
 
     // Commments
 

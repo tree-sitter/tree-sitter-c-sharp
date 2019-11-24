@@ -1,5 +1,6 @@
 const PREC = {
   DOT: 17,
+  SELECT: 16,
   POSTFIX: 16,
   PREFIX: 15,
   UNARY: 15,
@@ -1097,11 +1098,11 @@ module.exports = grammar({
       //optional($.query_continuation)
     ),
 
-    _query_clause: $ => seq(
+    _query_clause: $ => choice(
       // $.from_clause,
       // $.join_clause,
-      // $.let_clause,
-      // $.order_by_clause,
+      $.let_clause,
+      $.order_by_clause,
       $.where_clause
     ),
 
@@ -1129,10 +1130,10 @@ module.exports = grammar({
 
     order_by_clause: $ => seq(
       'orderby',
-      commaSep1($.ordering)
+      commaSep1($._ordering)
     ),
 
-    ordering: $ => seq(
+    _ordering: $ => seq(
       $._expression,
       optional(choice('ascending', 'descending'))
     ),
@@ -1151,7 +1152,7 @@ module.exports = grammar({
       $._expression
     ),
 
-    select_clause: $ => prec.left(5, seq('select', $._expression)),
+    select_clause: $ => prec.left(PREC.SELECT, seq('select', $._expression)),
 
     query_continuation: $ => seq('into', $.identifier_name, $._query_body),
 

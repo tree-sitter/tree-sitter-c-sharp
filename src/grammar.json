@@ -5450,8 +5450,16 @@
       ]
     },
     "_query_clause": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
+        {
+          "type": "SYMBOL",
+          "name": "let_clause"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "order_by_clause"
+        },
         {
           "type": "SYMBOL",
           "name": "where_clause"
@@ -5565,7 +5573,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "ordering"
+              "name": "_ordering"
             },
             {
               "type": "REPEAT",
@@ -5578,7 +5586,7 @@
                   },
                   {
                     "type": "SYMBOL",
-                    "name": "ordering"
+                    "name": "_ordering"
                   }
                 ]
               }
@@ -5587,7 +5595,7 @@
         }
       ]
     },
-    "ordering": {
+    "_ordering": {
       "type": "SEQ",
       "members": [
         {
@@ -5662,7 +5670,7 @@
     },
     "select_clause": {
       "type": "PREC_LEFT",
-      "value": 5,
+      "value": 16,
       "content": {
         "type": "SEQ",
         "members": [

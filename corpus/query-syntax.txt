@@ -190,3 +190,84 @@ var x = from a in source
                   (identifier_name))))
             (select_clause
               (identifier_name))))))))
+
+=====================================
+Query from select with join
+=====================================
+
+var x = from a in sourceA
+  join b in sourceB on a.FK equals b.PK
+  select new { A.A, B.B };
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (implicit_type)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (query_expression
+            (from_clause
+              (identifier_name)
+              (identifier_name))
+            (join_clause
+              (identifier_name)
+              (identifier_name)
+              (member_access_expression
+                (identifier_name)
+                (identifier_name))
+              (member_access_expression
+                (identifier_name)
+                (identifier_name)))
+            (select_clause
+              (anonymous_object_creation_expression
+                (member_access_expression
+                  (identifier_name)
+                  (identifier_name))
+                (member_access_expression
+                  (identifier_name)
+                  (identifier_name))))))))))
+
+=====================================
+Query from select with join
+=====================================
+
+var x = from a in sourceA
+  from b in sourceB
+  where a.FK == b.FK
+  select new { A.A, B.B };
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (implicit_type)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (query_expression
+            (from_clause
+              (identifier_name)
+              (identifier_name))
+            (from_clause
+              (identifier_name)
+              (identifier_name))
+            (where_clause
+              (binary_expression
+                (member_access_expression
+                  (identifier_name)
+                  (identifier_name))
+                (member_access_expression
+                  (identifier_name)
+                  (identifier_name))))
+            (select_clause
+              (anonymous_object_creation_expression
+                (member_access_expression
+                  (identifier_name)
+                  (identifier_name))
+                (member_access_expression
+                  (identifier_name)
+                  (identifier_name))))))))))

@@ -5454,6 +5454,14 @@
       "members": [
         {
           "type": "SYMBOL",
+          "name": "from_clause"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "join_clause"
+        },
+        {
+          "type": "SYMBOL",
           "name": "let_clause"
         },
         {

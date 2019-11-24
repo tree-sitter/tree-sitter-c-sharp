@@ -1099,8 +1099,8 @@ module.exports = grammar({
     ),
 
     _query_clause: $ => choice(
-      // $.from_clause,
-      // $.join_clause,
+      $.from_clause,
+      $.join_clause,
       $.let_clause,
       $.order_by_clause,
       $.where_clause

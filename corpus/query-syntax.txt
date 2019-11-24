@@ -86,7 +86,7 @@ Query from select with where and projection
 
 var x = from a in source
   where a.B == "A" && a.C == "D"
-  select { Name = a.B };
+  select new { Name = a.B };
 
 ---
 
@@ -114,13 +114,11 @@ var x = from a in source
                     (identifier_name))
                   (string_literal))))
               (select_clause
-                (initializer_expression
-                  (assignment_expression
+                (anonymous_object_creation_expression
+                  (name_equals (identifier_name))
+                  (member_access_expression
                     (identifier_name)
-                      (assignment_operator)
-                        (member_access_expression
-                          (identifier_name)
-                          (identifier_name)))))))))))
+                    (identifier_name))))))))))
 
 =====================================
 Query from select with orderby
@@ -271,3 +269,50 @@ var x = from a in sourceA
                 (member_access_expression
                   (identifier_name)
                   (identifier_name))))))))))
+
+=====================================
+Query from select with group by & continuation
+=====================================
+
+var x = from a in sourceA
+  group a by a.Country into g
+  select new { Country = g.Key, Population = g.Sum(p => p.Population) };
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (implicit_type)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (query_expression
+            (from_clause
+              (identifier_name)
+              (identifier_name))
+            (group_clause
+              (identifier_name)
+              (member_access_expression
+                (identifier_name)
+                (identifier_name)))
+            (query_continuation
+              (identifier_name)
+              (select_clause
+                (anonymous_object_creation_expression
+                  (name_equals (identifier_name))
+                  (member_access_expression
+                    (identifier_name)
+                    (identifier_name))
+                  (name_equals (identifier_name))
+                  (invocation_expression
+                    (member_access_expression
+                      (identifier_name)
+                      (identifier_name))
+                    (argument_list
+                      (argument
+                        (lambda_expression
+                          (identifier_name)
+                          (member_access_expression
+                            (identifier_name)
+                            (identifier_name)))))))))))))))

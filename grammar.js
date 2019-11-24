@@ -1092,11 +1092,11 @@ module.exports = grammar({
       $._expression
     ),
 
-    _query_body: $ => seq(
+    _query_body: $ => prec.right(seq(
       repeat($._query_clause), // Grammar.txt is incorrect with '+'
       $._select_or_group_clause,
-      //optional($.query_continuation)
-    ),
+      optional($.query_continuation)
+    )),
 
     _query_clause: $ => choice(
       $.from_clause,
@@ -1141,16 +1141,16 @@ module.exports = grammar({
     where_clause: $ => seq('where', $._expression),
 
     _select_or_group_clause: $ => choice(
-//      $.group_clause,
+      $.group_clause,
       $.select_clause
     ),
 
-    group_clause: $ => seq(
+    group_clause: $ => prec.left(PREC.SELECT, seq(
       'group',
       $._expression,
       'by',
       $._expression
-    ),
+    )),
 
     select_clause: $ => prec.left(PREC.SELECT, seq('select', $._expression)),
 

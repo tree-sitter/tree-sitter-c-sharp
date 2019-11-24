@@ -1,0 +1,123 @@
+=====================================
+Query from select
+=====================================
+
+var x = from a in source select a.B;
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (implicit_type)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (query_expression
+            (from_clause
+              (identifier_name)
+              (identifier_name))
+              (select_clause
+                (member_access_expression
+                  (identifier_name)
+                  (identifier_name)))))))))
+
+=====================================
+Query from select projection
+=====================================
+
+var x = from a in source select { Name = a.B };
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (implicit_type)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (query_expression
+            (from_clause
+              (identifier_name)
+              (identifier_name))
+              (select_clause
+                (initializer_expression
+                  (assignment_expression
+                    (identifier_name)
+                      (assignment_operator)
+                        (member_access_expression
+                          (identifier_name)
+                          (identifier_name)))))))))))
+
+=====================================
+Query from select with where
+=====================================
+
+var x = from a in source
+  where a.B == "A"
+  select a;
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (implicit_type)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (query_expression
+            (from_clause
+              (identifier_name)
+              (identifier_name))
+            (where_clause
+              (binary_expression
+                (member_access_expression
+                  (identifier_name)
+                  (identifier_name))
+                (string_literal)))
+            (select_clause
+              (identifier_name))))))))
+
+=====================================
+Query from select with where and projection
+=====================================
+
+var x = from a in source
+  where a.B == "A" && a.C == "D"
+  select { Name = a.B };
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (implicit_type)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (query_expression
+            (from_clause
+              (identifier_name)
+              (identifier_name))
+            (where_clause
+              (binary_expression
+                (binary_expression
+                  (member_access_expression
+                    (identifier_name)
+                    (identifier_name))
+                  (string_literal))
+                (binary_expression
+                  (member_access_expression
+                    (identifier_name)
+                    (identifier_name))
+                  (string_literal))))
+              (select_clause
+                (initializer_expression
+                  (assignment_expression
+                    (identifier_name)
+                      (assignment_operator)
+                        (member_access_expression
+                          (identifier_name)
+                          (identifier_name)))))))))))

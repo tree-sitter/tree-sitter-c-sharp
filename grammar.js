@@ -1081,7 +1081,6 @@ module.exports = grammar({
         '~'
       ].map(operator => seq(operator, $._expression)))),
 
-    // TODO: Lots of conflicts
     query_expression: $ => seq($.from_clause, $._query_body),
 
     from_clause: $ => seq(
@@ -1093,16 +1092,16 @@ module.exports = grammar({
     ),
 
     _query_body: $ => seq(
-      repeat1($.query_clause),
+      repeat($._query_clause), // Grammar.txt is incorrect with '+'
       $._select_or_group_clause,
-      optional($.query_continuation)
+      //optional($.query_continuation)
     ),
 
-    query_clause: $ => seq(
-      $.from_clause,
-      $.join_clause,
-      $.let_clause,
-      $.order_by_clause,
+    _query_clause: $ => seq(
+      // $.from_clause,
+      // $.join_clause,
+      // $.let_clause,
+      // $.order_by_clause,
       $.where_clause
     ),
 
@@ -1141,7 +1140,7 @@ module.exports = grammar({
     where_clause: $ => seq('where', $._expression),
 
     _select_or_group_clause: $ => choice(
-      $.group_clause,
+//      $.group_clause,
       $.select_clause
     ),
 
@@ -1152,7 +1151,7 @@ module.exports = grammar({
       $._expression
     ),
 
-    select_clause: $ => seq('select', $._expression),
+    select_clause: $ => prec.left(5, seq('select', $._expression)),
 
     query_continuation: $ => seq('into', $.identifier_name, $._query_body),
 
@@ -1256,7 +1255,7 @@ module.exports = grammar({
       $.parenthesized_expression,
       $.postfix_unary_expression,
       $.prefix_unary_expression,
-      // $.query_expression,
+      $.query_expression,
       $.range_expression,
       // $.ref_expression,
       $.ref_type_expression,

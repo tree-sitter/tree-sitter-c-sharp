@@ -5437,49 +5437,21 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "REPEAT1",
+          "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
-            "name": "query_clause"
+            "name": "_query_clause"
           }
         },
         {
           "type": "SYMBOL",
           "name": "_select_or_group_clause"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "query_continuation"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
         }
       ]
     },
-    "query_clause": {
+    "_query_clause": {
       "type": "SEQ",
       "members": [
-        {
-          "type": "SYMBOL",
-          "name": "from_clause"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "join_clause"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "let_clause"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "order_by_clause"
-        },
         {
           "type": "SYMBOL",
           "name": "where_clause"
@@ -5663,10 +5635,6 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "group_clause"
-        },
-        {
-          "type": "SYMBOL",
           "name": "select_clause"
         }
       ]
@@ -5693,17 +5661,21 @@
       ]
     },
     "select_clause": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "select"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_expression"
-        }
-      ]
+      "type": "PREC_LEFT",
+      "value": 5,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "select"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_expression"
+          }
+        ]
+      }
     },
     "query_continuation": {
       "type": "SEQ",
@@ -6128,6 +6100,10 @@
         {
           "type": "SYMBOL",
           "name": "prefix_unary_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "query_expression"
         },
         {
           "type": "SYMBOL",
@@ -6950,7 +6926,7 @@
                     },
                     {
                       "type": "PATTERN",
-                      "value": "\\*[^/]"
+                      "value": "\\*[^\\/]"
                     }
                   ]
                 }

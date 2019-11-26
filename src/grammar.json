@@ -6227,6 +6227,15 @@
           "name": "type_of_expression"
         },
         {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_reserved_identifier"
+          },
+          "named": true,
+          "value": "identifier_name"
+        },
+        {
           "type": "SYMBOL",
           "name": "identifier_name"
         }
@@ -7025,6 +7034,15 @@
         ]
       }
     },
+    "_reserved_identifier": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "from"
+        }
+      ]
+    },
     "return_type": {
       "type": "CHOICE",
       "members": [
@@ -7147,6 +7165,10 @@
       "_expression",
       "_identifier_or_global",
       "parameter"
+    ],
+    [
+      "from_clause",
+      "_reserved_identifier"
     ],
     [
       "qualified_name",

@@ -34,6 +34,8 @@ module.exports = grammar({
     [$._expression, $._identifier_or_global],
     [$._expression, $._identifier_or_global, $.parameter],
 
+    [$.from_clause, $._reserved_identifier],
+
     [$.qualified_name, $.explicit_interface_specifier],
 
     [$._identifier_or_global, $.enum_member_declaration],
@@ -1274,7 +1276,8 @@ module.exports = grammar({
       // $.type,
       $.type_of_expression,
 
-      // These should be removed when the ones above get activated
+      // These should be reconsidered when the ones above get activated
+      alias($._reserved_identifier, $.identifier_name),
       $.identifier_name
     ),
 
@@ -1401,6 +1404,9 @@ module.exports = grammar({
     )),
 
     // Custom non-Roslyn additions beyond this point that will not sync up with grammar.txt
+    _reserved_identifier: $ => choice(
+      'from'
+    ),
 
     // We use this instead of type so 'void' is only treated as type in the right contexts
     return_type: $ => choice($._type, $.void_keyword),

@@ -1003,3 +1003,60 @@ var t = typeof(Tuple<,,,>);
             (generic_name
               (identifier_name)
               (type_argument_list))))))))
+
+=====================================
+default expression
+=====================================
+
+var a = default(int);
+int b = default;
+
+---
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (implicit_type)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (default_expression
+            (predefined_type))))))
+  (field_declaration
+    (variable_declaration
+      (predefined_type)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (default_expression))))))
+
+=====================================
+Generic type name no type args
+=====================================
+
+ref VeryLargeStruct reflocal = ref veryLargeStruct;
+ref var elementRef = ref arr[0];
+---
+
+(compilation_unit
+  (field_declaration
+    (modifier)
+    (variable_declaration
+      (identifier_name)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (ref_expression
+            (identifier_name))))))
+  (field_declaration
+    (modifier)
+    (variable_declaration
+      (implicit_type)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (ref_expression
+            (element_access_expression
+              (identifier_name)
+              (bracketed_argument_list
+                (argument
+                  (integer_literal))))))))))

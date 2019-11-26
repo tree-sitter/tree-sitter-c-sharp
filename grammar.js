@@ -53,7 +53,9 @@ module.exports = grammar({
 
     [$.modifier, $.object_creation_expression],
     [$.event_declaration, $.variable_declarator],
-    [$.await_expression, $.conditional_access_expression, $.conditional_expression]
+    [$.await_expression, $.conditional_access_expression, $.conditional_expression],
+
+    [$.switch_section]
   ],
 
   inline: $ => [
@@ -185,7 +187,7 @@ module.exports = grammar({
       ';'
     ),
 
-    modifier: $ => choice(
+    modifier: $ => prec.right(choice(
       'abstract',
       'async',
       'const',
@@ -205,7 +207,7 @@ module.exports = grammar({
       'unsafe',
       'virtual',
       'volatile'
-    ),
+    )),
 
     variable_declaration: $ => seq($._type, commaSep1($.variable_declarator)),
 
@@ -221,7 +223,7 @@ module.exports = grammar({
       ']'
     ),
 
-    argument: $ => seq(
+    argument: $ => prec(1, seq(
       optional($.name_colon),
       choice(
         seq(
@@ -234,7 +236,7 @@ module.exports = grammar({
           $.identifier_name
         )
       )
-    ),
+    )),
 
     equals_value_clause: $ => seq('=', $._expression),
 
@@ -283,7 +285,7 @@ module.exports = grammar({
       optional($.equals_value_clause)
     ),
 
-    parameter_modifier: $ => choice('ref', 'out', 'this'),
+    parameter_modifier: $ => prec.right(choice('ref', 'out', 'this')),
 
     parameter_array: $ => seq(
       repeat($.attribute_list),
@@ -811,7 +813,7 @@ module.exports = grammar({
 
     case_switch_label: $ => prec.left(1, seq('case', $._expression, ':')),
 
-    default_switch_label: $ => seq('default', ':'),
+    default_switch_label: $ => prec.left(1, seq('default', ':')),
 
     throw_statement: $ => seq('throw', optional($._expression), ';'),
 
@@ -939,12 +941,16 @@ module.exports = grammar({
       $._variable_designation
     ),
 
-    default_expression: $ => seq(
+    default_expression: $ => prec.right(seq(
       'default',
-      '(',
-      $._type,
-      ')'
-    ),
+      optional(
+        seq(
+          '(',
+          $._type,
+          ')'
+        )
+      )
+    )),
 
     element_access_expression: $ => seq($._expression, $.bracketed_argument_list),
 
@@ -1162,8 +1168,7 @@ module.exports = grammar({
       optional($._expression)
     )),
 
-    // TODO: Conflicts with modifier
-    ref_expression: $ => seq('ref', $._expression),
+    ref_expression: $ => prec.right(seq('ref', $._expression)),
 
     ref_type_expression: $ => seq(
       '__reftype',
@@ -1237,7 +1242,7 @@ module.exports = grammar({
       $.conditional_access_expression,
       $.conditional_expression,
       // $.declaration_expression,
-      // $.default_expression,
+      $.default_expression,
       $.element_access_expression,
       $.element_binding_expression,
       $.implicit_array_creation_expression,
@@ -1258,7 +1263,7 @@ module.exports = grammar({
       $.prefix_unary_expression,
       $.query_expression,
       $.range_expression,
-      // $.ref_expression,
+      $.ref_expression,
       $.ref_type_expression,
       $.ref_value_expression,
       $.size_of_expression,

@@ -7051,23 +7051,11 @@
         },
         {
           "type": "STRING",
-          "value": "async"
-        },
-        {
-          "type": "STRING",
-          "value": "await"
-        },
-        {
-          "type": "STRING",
           "value": "by"
         },
         {
           "type": "STRING",
           "value": "descending"
-        },
-        {
-          "type": "STRING",
-          "value": "dynamic"
         },
         {
           "type": "STRING",
@@ -7128,10 +7116,6 @@
         {
           "type": "STRING",
           "value": "unmanaged"
-        },
-        {
-          "type": "STRING",
-          "value": "value"
         },
         {
           "type": "STRING",

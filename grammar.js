@@ -1409,11 +1409,11 @@ module.exports = grammar({
       'add',
       'alias',
       'ascending',
-      'async',
-      'await',
+      // 'async', // TODO: Figure out conflict rule
+      // 'await', // TODO: Figure out conflict rule
       'by',
       'descending',
-      'dynamic',
+      // 'dynamic', // TODO: Figure out conflict rule
       'equals',
       'from',
       'get',
@@ -1430,7 +1430,7 @@ module.exports = grammar({
       'select',
       'set',
       'unmanaged',
-      'value',
+      // 'value', // TODO: Figure out conflict rule
       'var',
       'when',
       'where',

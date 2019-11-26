@@ -56,44 +56,6 @@ ascending ascending = ascending(ascending);
             (argument_list (argument (identifier_name)))))))))             
 
 =======================================
-Async keyword is contextual
-=======================================
-
-var async = async(async);
-
----
-
-(compilation_unit
-  (field_declaration
-    (variable_declaration
-      (implicit_type)
-      (variable_declarator
-        (identifier_name)
-        (equals_value_clause
-          (invocation_expression
-            (identifier_name)
-            (argument_list (argument (identifier_name)))))))))    
-
-=======================================
-Await keyword is contextual
-=======================================
-
-var await = something(await);
-
----
-
-(compilation_unit
-  (field_declaration
-    (variable_declaration
-      (implicit_type)
-      (variable_declarator
-        (identifier_name)
-        (equals_value_clause
-          (invocation_expression
-            (identifier_name)
-            (argument_list (argument (identifier_name))))))))) 
-
-=======================================
 By keyword is contextual
 =======================================
 

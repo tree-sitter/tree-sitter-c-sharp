@@ -7039,7 +7039,115 @@
       "members": [
         {
           "type": "STRING",
+          "value": "add"
+        },
+        {
+          "type": "STRING",
+          "value": "alias"
+        },
+        {
+          "type": "STRING",
+          "value": "ascending"
+        },
+        {
+          "type": "STRING",
+          "value": "async"
+        },
+        {
+          "type": "STRING",
+          "value": "await"
+        },
+        {
+          "type": "STRING",
+          "value": "by"
+        },
+        {
+          "type": "STRING",
+          "value": "descending"
+        },
+        {
+          "type": "STRING",
+          "value": "dynamic"
+        },
+        {
+          "type": "STRING",
+          "value": "equals"
+        },
+        {
+          "type": "STRING",
           "value": "from"
+        },
+        {
+          "type": "STRING",
+          "value": "get"
+        },
+        {
+          "type": "STRING",
+          "value": "group"
+        },
+        {
+          "type": "STRING",
+          "value": "into"
+        },
+        {
+          "type": "STRING",
+          "value": "join"
+        },
+        {
+          "type": "STRING",
+          "value": "let"
+        },
+        {
+          "type": "STRING",
+          "value": "nameof"
+        },
+        {
+          "type": "STRING",
+          "value": "on"
+        },
+        {
+          "type": "STRING",
+          "value": "orderby"
+        },
+        {
+          "type": "STRING",
+          "value": "partial"
+        },
+        {
+          "type": "STRING",
+          "value": "remove"
+        },
+        {
+          "type": "STRING",
+          "value": "select"
+        },
+        {
+          "type": "STRING",
+          "value": "set"
+        },
+        {
+          "type": "STRING",
+          "value": "unmanaged"
+        },
+        {
+          "type": "STRING",
+          "value": "value"
+        },
+        {
+          "type": "STRING",
+          "value": "var"
+        },
+        {
+          "type": "STRING",
+          "value": "when"
+        },
+        {
+          "type": "STRING",
+          "value": "where"
+        },
+        {
+          "type": "STRING",
+          "value": "yield"
         }
       ]
     },
@@ -7159,6 +7267,10 @@
     ],
     [
       "_expression",
+      "parameter"
+    ],
+    [
+      "_expression",
       "_identifier_or_global"
     ],
     [
@@ -7167,12 +7279,16 @@
       "parameter"
     ],
     [
-      "from_clause",
-      "_reserved_identifier"
+      "_reserved_identifier",
+      "anonymous_method_expression"
     ],
     [
-      "qualified_name",
-      "explicit_interface_specifier"
+      "_reserved_identifier",
+      "from_clause"
+    ],
+    [
+      "_reserved_identifier",
+      "implicit_type"
     ],
     [
       "_identifier_or_global",
@@ -7187,28 +7303,6 @@
       "generic_name"
     ],
     [
-      "_expression",
-      "parameter"
-    ],
-    [
-      "_expression",
-      "attribute"
-    ],
-    [
-      "_expression",
-      "parameter",
-      "_identifier_or_global"
-    ],
-    [
-      "argument",
-      "parameter_modifier"
-    ],
-    [
-      "modifier",
-      "array_creation_expression",
-      "object_creation_expression"
-    ],
-    [
       "_type",
       "array_creation_expression"
     ],
@@ -7217,12 +7311,17 @@
       "stack_alloc_array_creation_expression"
     ],
     [
-      "element_access_expression",
-      "enum_member_declaration"
+      "modifier",
+      "array_creation_expression",
+      "object_creation_expression"
     ],
     [
-      "modifier",
-      "object_creation_expression"
+      "qualified_name",
+      "explicit_interface_specifier"
+    ],
+    [
+      "element_access_expression",
+      "enum_member_declaration"
     ],
     [
       "event_declaration",

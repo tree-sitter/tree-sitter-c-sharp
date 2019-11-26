@@ -1,8 +1,65 @@
 =======================================
-From keyword can be a variable
+Add keyword is contextual
 =======================================
 
-var a = Assert.Range(from, to);
+add add = add(add);
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (identifier_name)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (invocation_expression
+            (identifier_name)
+            (argument_list (argument (identifier_name))))))))) 
+
+=======================================
+Alias keyword is contextual
+=======================================
+
+alias alias = alias(alias);
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (identifier_name)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (invocation_expression
+            (identifier_name)
+            (argument_list (argument (identifier_name))))))))) 
+
+=======================================
+Ascending keyword is contextual
+=======================================
+
+ascending ascending = ascending(ascending);
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (identifier_name)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (invocation_expression
+            (identifier_name)
+            (argument_list (argument (identifier_name)))))))))             
+
+=======================================
+Async keyword is contextual
+=======================================
+
+var async = async(async);
 
 ---
 
@@ -14,5 +71,461 @@ var a = Assert.Range(from, to);
         (identifier_name)
         (equals_value_clause
           (invocation_expression
-            (member_access_expression (identifier_name) (identifier_name))
-            (argument_list (argument (identifier_name)) (argument (identifier_name))))))))) 
+            (identifier_name)
+            (argument_list (argument (identifier_name)))))))))    
+
+=======================================
+Await keyword is contextual
+=======================================
+
+var await = something(await);
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (implicit_type)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (invocation_expression
+            (identifier_name)
+            (argument_list (argument (identifier_name))))))))) 
+
+=======================================
+By keyword is contextual
+=======================================
+
+by by = by(by);
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (identifier_name)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (invocation_expression
+            (identifier_name)
+            (argument_list (argument (identifier_name))))))))) 
+
+=======================================
+Descending keyword is contextual
+=======================================
+
+descending descending = descending(descending);
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (identifier_name)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (invocation_expression
+            (identifier_name)
+            (argument_list (argument (identifier_name))))))))) 
+
+=======================================
+Dynamic keyword is contextual
+=======================================
+
+dynamic dynamic = dynamic(dynamic);
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (identifier_name)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (invocation_expression
+            (identifier_name)
+            (argument_list (argument (identifier_name))))))))) 
+
+=======================================
+Equals keyword is contextual
+=======================================
+
+equals equals = equals(equals);
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (identifier_name)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (invocation_expression
+            (identifier_name)
+            (argument_list (argument (identifier_name))))))))) 
+
+=======================================
+From keyword is contextual
+=======================================
+
+from from = from(from);
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (identifier_name)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (invocation_expression
+            (identifier_name)
+            (argument_list (argument (identifier_name))))))))) 
+
+=======================================
+Get keyword is contextual
+=======================================
+
+get get = get(get);
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (identifier_name)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (invocation_expression
+            (identifier_name)
+            (argument_list (argument (identifier_name))))))))) 
+
+=======================================
+Group keyword is contextual
+=======================================
+
+group group = group(group);
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (identifier_name)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (invocation_expression
+            (identifier_name)
+            (argument_list (argument (identifier_name))))))))) 
+
+=======================================
+Into keyword is contextual
+=======================================
+
+into into = into(into);
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (identifier_name)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (invocation_expression
+            (identifier_name)
+            (argument_list (argument (identifier_name))))))))) 
+
+=======================================
+Join keyword is contextual
+=======================================
+
+join join = join(join);
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (identifier_name)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (invocation_expression
+            (identifier_name)
+            (argument_list (argument (identifier_name))))))))) 
+
+=======================================
+Let keyword is contextual
+=======================================
+
+let let = let(let);
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (identifier_name)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (invocation_expression
+            (identifier_name)
+            (argument_list (argument (identifier_name))))))))) 
+
+=======================================
+Nameof keyword is contextual
+=======================================
+
+nameof nameof = nameof(nameof);
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (identifier_name)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (invocation_expression
+            (identifier_name)
+            (argument_list (argument (identifier_name)))))))))             
+
+=======================================
+On keyword is contextual
+=======================================
+
+on on = on(on);
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (identifier_name)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (invocation_expression
+            (identifier_name)
+            (argument_list (argument (identifier_name)))))))))                 
+
+=======================================
+Orderby keyword is contextual
+=======================================
+
+orderby orderby = orderby(orderby);
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (identifier_name)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (invocation_expression
+            (identifier_name)
+            (argument_list (argument (identifier_name)))))))))     
+
+=======================================
+Partial keyword is contextual
+=======================================
+
+var partial = partial(partial);
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (implicit_type)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (invocation_expression
+            (identifier_name)
+            (argument_list (argument (identifier_name)))))))))                 
+
+=======================================
+Remove keyword is contextual
+=======================================
+
+remove remove = remove(remove);
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (identifier_name)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (invocation_expression
+            (identifier_name)
+            (argument_list (argument (identifier_name)))))))))       
+
+=======================================
+Select keyword is contextual
+=======================================
+
+select select = select(select);
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (identifier_name)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (invocation_expression
+            (identifier_name)
+            (argument_list (argument (identifier_name)))))))))       
+
+=======================================
+Set keyword is contextual
+=======================================
+
+set set = set(set);
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (identifier_name)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (invocation_expression
+            (identifier_name)
+            (argument_list (argument (identifier_name)))))))))       
+
+=======================================
+Unmanaged keyword is contextual
+=======================================
+
+unmanaged unmanaged = unmanaged(unmanaged);
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (identifier_name)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (invocation_expression
+            (identifier_name)
+            (argument_list (argument (identifier_name)))))))))                               
+            
+=======================================
+Value keyword is contextual
+=======================================
+
+value value = value(value);
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (identifier_name)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (invocation_expression
+            (identifier_name)
+            (argument_list (argument (identifier_name)))))))))      
+
+=======================================
+Var keyword is contextual
+=======================================
+
+var var = var(var);
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (implicit_type)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (invocation_expression
+            (identifier_name)
+            (argument_list (argument (identifier_name)))))))))      
+
+=======================================
+When keyword is contextual
+=======================================
+
+when when = when(when);
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (identifier_name)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (invocation_expression
+            (identifier_name)
+            (argument_list (argument (identifier_name)))))))))                
+
+=======================================
+Where keyword is contextual
+=======================================
+
+where where = where(where);
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (identifier_name)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (invocation_expression
+            (identifier_name)
+            (argument_list (argument (identifier_name)))))))))                 
+
+=======================================
+Yield keyword is contextual
+=======================================
+
+yield yield = yield(yield);
+
+---
+
+(compilation_unit
+  (field_declaration
+    (variable_declaration
+      (identifier_name)
+      (variable_declarator
+        (identifier_name)
+        (equals_value_clause
+          (invocation_expression
+            (identifier_name)
+            (argument_list (argument (identifier_name)))))))))                 

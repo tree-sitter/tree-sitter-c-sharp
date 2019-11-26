@@ -31,30 +31,29 @@ module.exports = grammar({
 
   conflicts: $ => [
     [$._expression, $.generic_name],
+    [$._expression, $.parameter],
     [$._expression, $._identifier_or_global],
     [$._expression, $._identifier_or_global, $.parameter],
 
-    [$.from_clause, $._reserved_identifier],
-
-    [$.qualified_name, $.explicit_interface_specifier],
+    [$._reserved_identifier, $.anonymous_method_expression],
+    [$._reserved_identifier, $.from_clause],
+    [$._reserved_identifier, $.implicit_type],
 
     [$._identifier_or_global, $.enum_member_declaration],
     [$._identifier_or_global, $.type_parameter_list],
     [$._identifier_or_global, $.generic_name],
 
-    [$._expression, $.parameter],
-    [$._expression, $.attribute],
-    [$._expression, $.parameter, $._identifier_or_global],
-    [$.argument, $.parameter_modifier],
-    [$.modifier, $.array_creation_expression, $.object_creation_expression],
-
     [$._type, $.array_creation_expression],
     [$._type, $.stack_alloc_array_creation_expression],
 
+    [$.modifier, $.array_creation_expression, $.object_creation_expression],
+
+    [$.qualified_name, $.explicit_interface_specifier],
+
     [$.element_access_expression, $.enum_member_declaration],
 
-    [$.modifier, $.object_creation_expression],
     [$.event_declaration, $.variable_declarator],
+
     [$.await_expression, $.conditional_access_expression, $.conditional_expression],
 
     [$.switch_section]
@@ -1404,8 +1403,38 @@ module.exports = grammar({
     )),
 
     // Custom non-Roslyn additions beyond this point that will not sync up with grammar.txt
+
+    // Contextual keywords
     _reserved_identifier: $ => choice(
-      'from'
+      'add',
+      'alias',
+      'ascending',
+      'async',
+      'await',
+      'by',
+      'descending',
+      'dynamic',
+      'equals',
+      'from',
+      'get',
+      // 'global', // TODO: Figure out conflict rule
+      'group',
+      'into',
+      'join',
+      'let',
+      'nameof',
+      'on',
+      'orderby',
+      'partial',
+      'remove',
+      'select',
+      'set',
+      'unmanaged',
+      'value',
+      'var',
+      'when',
+      'where',
+      'yield'
     ),
 
     // We use this instead of type so 'void' is only treated as type in the right contexts

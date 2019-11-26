@@ -16124,6 +16124,10 @@
     "named": false
   },
   {
+    "type": "dynamic",
+    "named": false
+  },
+  {
     "type": "else",
     "named": false
   },
@@ -16253,6 +16257,10 @@
   },
   {
     "type": "module",
+    "named": false
+  },
+  {
+    "type": "nameof",
     "named": false
   },
   {
@@ -16408,6 +16416,10 @@
     "named": false
   },
   {
+    "type": "unmanaged",
+    "named": false
+  },
+  {
     "type": "unsafe",
     "named": false
   },
@@ -16417,6 +16429,10 @@
   },
   {
     "type": "using",
+    "named": false
+  },
+  {
+    "type": "value",
     "named": false
   },
   {

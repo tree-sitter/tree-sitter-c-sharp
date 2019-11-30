@@ -1180,6 +1180,10 @@
           {
             "type": "STRING",
             "value": "this"
+          },
+          {
+            "type": "STRING",
+            "value": "in"
           }
         ]
       }
@@ -1636,8 +1640,16 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "_class_or_struct_constraint"
+          "type": "STRING",
+          "value": "class"
+        },
+        {
+          "type": "STRING",
+          "value": "struct"
+        },
+        {
+          "type": "STRING",
+          "value": "unmanaged"
         },
         {
           "type": "SYMBOL",
@@ -1646,19 +1658,6 @@
         {
           "type": "SYMBOL",
           "name": "type_constraint"
-        }
-      ]
-    },
-    "_class_or_struct_constraint": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "class"
-        },
-        {
-          "type": "STRING",
-          "value": "struct"
         }
       ]
     },

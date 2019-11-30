@@ -281,7 +281,7 @@ module.exports = grammar({
       optional($.equals_value_clause)
     ),
 
-    parameter_modifier: $ => prec.right(choice('ref', 'out', 'this')),
+    parameter_modifier: $ => prec.right(choice('ref', 'out', 'this', 'in')),
 
     parameter_array: $ => seq(
       repeat($.attribute_list),
@@ -357,14 +357,11 @@ module.exports = grammar({
     ),
 
     type_parameter_constraint: $ => choice(
-      $._class_or_struct_constraint,
+      'class',
+      'struct',
+      'unmanaged',
       $.constructor_constraint,
       $.type_constraint
-    ),
-
-    _class_or_struct_constraint: $ => choice(
-      'class',
-      'struct'
     ),
 
     constructor_constraint: $ => seq('new', '(', ')'),

@@ -9,7 +9,75 @@
         "members": [
           {
             "type": "SYMBOL",
-            "name": "_declaration"
+            "name": "global_attribute_list"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "class_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "constructor_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "conversion_operator_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "delegate_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "destructor_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "enum_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "event_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "extern_alias_directive"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_base_field_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "indexer_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "interface_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "method_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "namespace_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "operator_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "property_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "struct_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "using_directive"
           }
         ]
       }
@@ -32,87 +100,6 @@
         {
           "type": "STRING",
           "value": ";"
-        }
-      ]
-    },
-    "_declaration": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "global_attribute_list"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "class_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "delegate_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "destructor_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "enum_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "event_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "extern_alias_directive"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_base_field_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "indexer_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "interface_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "method_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "namespace_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "operator_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "conversion_operator_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "constructor_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "destructor_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "property_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "struct_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "using_directive"
         }
       ]
     },
@@ -4977,10 +4964,6 @@
         }
       ]
     },
-    "implicit_element_access": {
-      "type": "SYMBOL",
-      "name": "bracketed_argument_list"
-    },
     "implicit_stack_alloc_array_creation_expression": {
       "type": "SEQ",
       "members": [
@@ -7173,7 +7156,7 @@
                     },
                     {
                       "type": "PATTERN",
-                      "value": "\\*[^/]"
+                      "value": "\\*[^\\/]"
                     }
                   ]
                 }
@@ -7307,8 +7290,20 @@
   ],
   "conflicts": [
     [
+      "block",
+      "initializer_expression"
+    ],
+    [
+      "element_access_expression",
+      "enum_member_declaration"
+    ],
+    [
+      "event_declaration",
+      "variable_declarator"
+    ],
+    [
       "_expression",
-      "generic_name"
+      "declaration_pattern"
     ],
     [
       "_expression",
@@ -7329,10 +7324,6 @@
       "_reserved_identifier"
     ],
     [
-      "qualified_name",
-      "explicit_interface_specifier"
-    ],
-    [
       "_identifier_or_global",
       "enum_member_declaration"
     ],
@@ -7345,30 +7336,8 @@
       "generic_name"
     ],
     [
-      "_expression",
-      "parameter"
-    ],
-    [
-      "_expression",
-      "attribute"
-    ],
-    [
-      "_expression",
-      "parameter",
-      "_identifier_or_global"
-    ],
-    [
-      "_expression",
-      "declaration_pattern"
-    ],
-    [
-      "argument",
-      "parameter_modifier"
-    ],
-    [
-      "modifier",
-      "array_creation_expression",
-      "object_creation_expression"
+      "qualified_name",
+      "explicit_interface_specifier"
     ],
     [
       "_type",
@@ -7383,33 +7352,11 @@
       "attribute"
     ],
     [
-      "element_access_expression",
-      "enum_member_declaration"
-    ],
-    [
-      "block",
-      "initializer_expression"
-    ],
-    [
-      "modifier",
-      "object_creation_expression"
-    ],
-    [
-      "event_declaration",
-      "variable_declarator"
-    ],
-    [
-      "is_pattern_expression",
-      "binary_expression"
-    ],
-    [
       "switch_section"
     ]
   ],
   "externals": [],
-  "inline": [
-    "return_type"
-  ],
+  "inline": [],
   "supertypes": []
 }
 

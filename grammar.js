@@ -1330,8 +1330,8 @@ module.exports = grammar({
     integer_literal: $ => seq(
       choice(
         (/[0-9_]+/), // Decimal
-        (/0x[0-9a-fA-F_]+/), // Hex
-        (/0b[01_]+/) // Binary
+        (/0[xX][0-9a-fA-F_]+/), // Hex
+        (/0[bB][01_]+/) // Binary
       ),
       optional($._integer_type_suffix)
     ),

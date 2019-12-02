@@ -52,8 +52,6 @@ module.exports = grammar({
     [$._type, $.array_creation_expression],
     [$._type, $.stack_alloc_array_creation_expression],
     [$._type, $.attribute],
-
-    [$.switch_section]
   ],
 
   inline: $ => [
@@ -742,13 +740,14 @@ module.exports = grammar({
       '}'
     ),
 
-    switch_section: $ => seq(repeat1($._switch_label), repeat1($._statement)),
-
-    _switch_label: $ => choice(
-      $.case_switch_label,
-      $.case_pattern_switch_label,
-      $.default_switch_label
-    ),
+    switch_section: $ => prec.left(seq(
+      repeat1(choice(
+        $.case_switch_label,
+        $.case_pattern_switch_label,
+        $.default_switch_label
+      )),
+      repeat1($._statement)
+    )),
 
     case_pattern_switch_label: $ => seq(
       'case',

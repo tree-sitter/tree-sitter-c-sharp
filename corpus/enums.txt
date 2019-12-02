@@ -9,7 +9,8 @@ enum A { One }
 (compilation_unit
   (enum_declaration
     (identifier_name)
-    (enum_member_declaration (identifier_name))))
+    (enum_member_declaration_list
+      (enum_member_declaration (identifier_name)))))
 
 =======================================
 enum with integer values
@@ -22,8 +23,9 @@ enum B { Ten = 10, Twenty = 20 }
 (compilation_unit
   (enum_declaration
     (identifier_name)
-    (enum_member_declaration (identifier_name) (integer_literal))
-    (enum_member_declaration (identifier_name) (integer_literal))))
+    (enum_member_declaration_list
+      (enum_member_declaration (identifier_name) (integer_literal))
+      (enum_member_declaration (identifier_name) (integer_literal)))))
 
 =======================================
 enum with byte base
@@ -38,8 +40,10 @@ namespace A {
 (compilation_unit
   (namespace_declaration
     (identifier_name)
-    (enum_declaration
-      (identifier_name)
-      (base_list (predefined_type))
-      (enum_member_declaration (identifier_name) (integer_literal))
-      (enum_member_declaration (identifier_name) (integer_literal)))))
+    (declaration_list
+      (enum_declaration
+        (identifier_name)
+        (base_list (predefined_type))
+        (enum_member_declaration_list
+          (enum_member_declaration (identifier_name) (integer_literal))
+          (enum_member_declaration (identifier_name) (integer_literal)))))))

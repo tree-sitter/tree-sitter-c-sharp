@@ -10,7 +10,7 @@ public class F {}
   (class_declaration
     (modifier)
     (identifier_name)
-    (class_body)))
+    (declaration_list)))
 
 =====================================
 Class base is dynamic
@@ -25,7 +25,7 @@ public class F : dynamic { }
     (modifier)
     (identifier_name)
     (base_list (identifier_name))
-    (class_body)))
+    (declaration_list)))
 
 =====================================
 Class base is object with interfaces
@@ -43,7 +43,7 @@ public class F : object, IAlpha, IOmega { }
       (predefined_type)
       (identifier_name)
       (identifier_name))
-    (class_body)))
+    (declaration_list)))
 
 =====================================
 Partial class
@@ -57,7 +57,7 @@ public partial class F {}
  (class_declaration
    (modifier) (modifier)
    (identifier_name)
-   (class_body)))
+   (declaration_list)))
 
 =====================================
 Class with a single type parameter
@@ -71,7 +71,7 @@ class F<T> {}
   (class_declaration
     (identifier_name)
      (type_parameter_list (type_parameter (identifier_name)))
-     (class_body)))
+     (declaration_list)))
 
 =====================================
 Class with multiple type parameters
@@ -88,7 +88,7 @@ internal class F<T1, T2> {}
     (type_parameter_list
       (type_parameter (identifier_name))
       (type_parameter (identifier_name)))
-    (class_body)))
+    (declaration_list)))
 
 =====================================
 Class with co-variant and contra-variant type parameters
@@ -105,7 +105,7 @@ internal class F<in T1, out T2> {}
     (type_parameter_list
       (type_parameter (identifier_name))
       (type_parameter (identifier_name)))
-    (class_body)))
+    (declaration_list)))
 
 =====================================
 Class with a type parameter struct constraint
@@ -122,7 +122,7 @@ public class F<T> where T:struct {}
     (type_parameter_list (type_parameter (identifier_name)))
     (type_parameter_constraints_clause
       (identifier_name) (type_parameter_constraint))
-    (class_body)))
+    (declaration_list)))
 
 =====================================
 Class with a type parameter unmanaged constraint
@@ -139,7 +139,7 @@ public class F<T> where T:unmanaged {}
     (type_parameter_list (type_parameter (identifier_name)))
     (type_parameter_constraints_clause
       (identifier_name) (type_parameter_constraint))
-    (class_body)))
+    (declaration_list)))
 
 =====================================
 Class with a type parameter class constraint
@@ -156,7 +156,7 @@ public class F<T> where T:class {}
     (type_parameter_list (type_parameter (identifier_name)))
     (type_parameter_constraints_clause
       (identifier_name) (type_parameter_constraint))
-    (class_body)))
+    (declaration_list)))
 
 =====================================
 Class with type parameter new constraint
@@ -174,7 +174,7 @@ public class F<T> where T: new() {}
     (type_parameter_constraints_clause
       (identifier_name)
       (type_parameter_constraint (constructor_constraint)))
-    (class_body)))
+    (declaration_list)))
 
 =====================================
 Class with type parameter identifier constraint
@@ -192,7 +192,7 @@ public class F<T> where T: I {}
     (type_parameter_constraints_clause
       (identifier_name)
       (type_parameter_constraint (type_constraint (identifier_name))))
-    (class_body)))
+    (declaration_list)))
 
 =====================================
 Class with type parameter identifier and new constraints
@@ -212,7 +212,7 @@ public class F<T> where T: I, new() {}
       (type_parameter_constraint
         (type_constraint (identifier_name)))
       (type_parameter_constraint (constructor_constraint)))
-    (class_body)))
+    (declaration_list)))
 
 =====================================
 Class with multiple type parameter constraints
@@ -237,7 +237,7 @@ private class F<T1,T2> where T1 : I1, I2, new() where T2 : I2 { }
     (type_parameter_constraints_clause
       (identifier_name)
       (type_parameter_constraint (type_constraint (identifier_name))))
-    (class_body)))
+    (declaration_list)))
 
 =====================================
 Class with public constructor
@@ -252,7 +252,7 @@ class Foo {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (constructor_declaration
         (modifier)
         (identifier_name)
@@ -272,7 +272,7 @@ class Foo {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (constructor_declaration
         (modifier)
         (identifier_name)
@@ -295,7 +295,7 @@ class Foo {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (constructor_declaration
         (modifier)
         (identifier_name)
@@ -325,7 +325,7 @@ class Foo {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (destructor_declaration
         (identifier_name)
         (parameter_list)
@@ -344,7 +344,7 @@ class Foo {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (destructor_declaration
         (identifier_name)
         (parameter_list)
@@ -367,7 +367,7 @@ class Foo {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (field_declaration
         (modifier) (modifier)
         (variable_declaration
@@ -401,7 +401,7 @@ class Foo {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (indexer_declaration
         (modifier)
         (predefined_type)
@@ -424,7 +424,7 @@ class Foo {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (indexer_declaration
         (modifier)
         (predefined_type)
@@ -450,7 +450,7 @@ class Foo {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (indexer_declaration
         (modifier)
         (predefined_type)
@@ -480,7 +480,7 @@ class A {
 
 (compilation_unit
   (class_declaration (identifier_name)
-    (class_body
+    (declaration_list
       (method_declaration
         (qualified_name (identifier_name) (identifier_name))
         (identifier_name)

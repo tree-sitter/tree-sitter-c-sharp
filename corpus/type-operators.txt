@@ -17,7 +17,7 @@ class A
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (operator_declaration
         (attribute_list (attribute (identifier_name)))
         (modifier) (modifier)
@@ -53,7 +53,7 @@ class A
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (operator_declaration
         (modifier) (modifier)
         (predefined_type)
@@ -81,7 +81,7 @@ class A
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (conversion_operator_declaration
         (modifier) (modifier)
         (predefined_type)
@@ -106,7 +106,7 @@ class A
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (conversion_operator_declaration
         (modifier) (modifier)
         (predefined_type)
@@ -129,7 +129,7 @@ class A
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (operator_declaration
         (modifier) (modifier) (modifier)
         (predefined_type)
@@ -162,7 +162,7 @@ class A
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (operator_declaration
         (modifier) (modifier) (modifier)
         (predefined_type)

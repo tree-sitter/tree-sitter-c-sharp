@@ -13,7 +13,7 @@ public struct F<T> where T:struct {}
     (type_parameter_list (type_parameter (identifier_name)))
     (type_parameter_constraints_clause
       (identifier_name) (type_parameter_constraint))
-    (class_body)))
+    (declaration_list)))
 
 =====================================
 Struct with a type parameter class constraint
@@ -30,7 +30,7 @@ public struct F<T> where T:class {}
     (type_parameter_list (type_parameter (identifier_name)))
     (type_parameter_constraints_clause
       (identifier_name) (type_parameter_constraint))
-    (class_body)))
+    (declaration_list)))
 
 =====================================
 Struct with type parameter new constraint
@@ -48,7 +48,7 @@ public struct F<T> where T: new() {}
     (type_parameter_constraints_clause
       (identifier_name)
       (type_parameter_constraint (constructor_constraint)))
-    (class_body)))
+    (declaration_list)))
 
 =====================================
 Struct with interface
@@ -63,7 +63,7 @@ public struct A : ISomething { }
     (modifier)
     (identifier_name)
     (base_list (identifier_name))
-    (class_body)))
+    (declaration_list)))
 
 =====================================
 Struct with multiple type parameter constraints
@@ -88,7 +88,7 @@ private struct F<T1,T2> where T1 : I1, I2, new() where T2 : I2 { }
     (type_parameter_constraints_clause
       (identifier_name)
       (type_parameter_constraint (type_constraint (identifier_name))))
-    (class_body)))
+    (declaration_list)))
 
 =====================================
 Struct with readonly modifier
@@ -103,7 +103,7 @@ readonly struct Test {
   (struct_declaration
     (modifier)
     (identifier_name)
-    (class_body)))
+    (declaration_list)))
 
 =====================================
 Struct with ref modifier
@@ -118,4 +118,4 @@ ref struct Test {
   (struct_declaration
     (modifier)
     (identifier_name)
-    (class_body)))
+    (declaration_list)))

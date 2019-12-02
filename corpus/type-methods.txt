@@ -13,7 +13,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (method_declaration
         (modifier)
         (predefined_type)
@@ -37,7 +37,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (method_declaration
         (void_keyword)
         (identifier_name)
@@ -60,7 +60,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (method_declaration
         (void_keyword)
         (identifier_name)
@@ -83,7 +83,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (method_declaration
         (void_keyword)
         (identifier_name)
@@ -111,7 +111,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (method_declaration
         (void_keyword)
         (identifier_name)
@@ -144,7 +144,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (method_declaration
         (void_keyword)
         (identifier_name)
@@ -166,7 +166,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (method_declaration
         (void_keyword)
         (identifier_name)
@@ -188,7 +188,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (method_declaration
         (void_keyword)
         (identifier_name)
@@ -210,7 +210,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (method_declaration
         (void_keyword)
         (identifier_name)
@@ -236,7 +236,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (method_declaration
         (modifier)
         (predefined_type)
@@ -263,7 +263,7 @@ class A : ISomething {
   (class_declaration
     (identifier_name)
     (base_list (identifier_name))
-    (class_body
+    (declaration_list
       (method_declaration
         (predefined_type)
         (explicit_interface_specifier (identifier_name))
@@ -287,7 +287,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (property_declaration
         (modifier)
         (modifier)

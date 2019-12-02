@@ -11,7 +11,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (event_declaration
         (modifier)
         (generic_name (identifier_name)
@@ -33,7 +33,7 @@ struct A {
 (compilation_unit
   (struct_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (event_declaration
         (modifier)
         (generic_name (identifier_name)
@@ -55,7 +55,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (event_declaration
         (modifier)
         (identifier_name)

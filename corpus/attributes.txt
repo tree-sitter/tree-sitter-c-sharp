@@ -31,7 +31,7 @@ class D {}
         (attribute_argument_list
           (attribute_argument (member_access_expression (identifier_name) (identifier_name))))))
     (identifier_name)
-    (class_body)))
+    (declaration_list)))
 
 =======================================
 Attributes with qualified name
@@ -50,7 +50,7 @@ class D {}
         (attribute_argument_list
           (attribute_argument (member_access_expression (identifier_name) (identifier_name))))))
     (identifier_name)
-    (class_body)))
+    (declaration_list)))
 
 =======================================
 Attributes on classes
@@ -73,20 +73,20 @@ class A { }
   (class_declaration
     (attribute_list (attribute (identifier_name)))
     (identifier_name)
-    (class_body))
+    (declaration_list))
 
   (class_declaration
     (attribute_list (attribute (identifier_name)))
     (attribute_list (attribute (identifier_name)))
     (attribute_list (attribute (identifier_name)))
     (identifier_name)
-    (class_body))
+    (declaration_list))
 
   (class_declaration
     (attribute_list (attribute (identifier_name)))
     (attribute_list (attribute (identifier_name)) (attribute (identifier_name) (attribute_argument_list)))
     (identifier_name)
-    (class_body)))
+    (declaration_list)))
 
 =======================================
 Attributes on structs
@@ -102,7 +102,7 @@ struct A { }
     (attribute_list (attribute (identifier_name)) (attribute (identifier_name) (attribute_argument_list)))
     (attribute_list (attribute (identifier_name)))
     (identifier_name)
-    (class_body)))
+    (declaration_list)))
 
 =======================================
 Attributes on fields
@@ -118,7 +118,7 @@ class Zzz {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (field_declaration
         (attribute_list
           (attribute (identifier_name))
@@ -148,7 +148,7 @@ class Methods {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (method_declaration
         (attribute_list
           (attribute (identifier_name)))
@@ -194,23 +194,26 @@ enum A { B, C }
   (enum_declaration
     (attribute_list (attribute (identifier_name)))
     (identifier_name)
-    (enum_member_declaration (identifier_name))
-    (enum_member_declaration (identifier_name)))
+    (enum_member_declaration_list
+      (enum_member_declaration (identifier_name))
+      (enum_member_declaration (identifier_name))))
 
   (enum_declaration
     (attribute_list (attribute (identifier_name)))
     (attribute_list (attribute (identifier_name)))
     (attribute_list (attribute (identifier_name)))
     (identifier_name)
-    (enum_member_declaration (identifier_name))
-    (enum_member_declaration (identifier_name)))
+    (enum_member_declaration_list
+      (enum_member_declaration (identifier_name))
+      (enum_member_declaration (identifier_name))))
 
   (enum_declaration
     (attribute_list (attribute (identifier_name)))
     (attribute_list (attribute (identifier_name)) (attribute (identifier_name) (attribute_argument_list)))
     (identifier_name)
-    (enum_member_declaration (identifier_name))
-    (enum_member_declaration (identifier_name))))
+    (enum_member_declaration_list
+      (enum_member_declaration (identifier_name))
+      (enum_member_declaration (identifier_name)))))
 
 =======================================
 Attributes on events
@@ -226,7 +229,7 @@ class Zzz {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (event_declaration
         (attribute_list (attribute (identifier_name)) (attribute (identifier_name) (attribute_argument_list)))
         (attribute_list (attribute (identifier_name)))
@@ -252,7 +255,7 @@ class Zzz {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (event_declaration
         (modifier)
         (identifier_name)

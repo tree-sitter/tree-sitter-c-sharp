@@ -63,27 +63,28 @@ module.exports = grammar({
 
   rules: {
     // Intentionally deviates from spec so that we can syntax highlight fragments of code
-    compilation_unit: $ => repeat(
-      choice(
-        $.global_attribute_list,
-        $.class_declaration,
-        $.constructor_declaration,
-        $.conversion_operator_declaration,
-        $.delegate_declaration,
-        $.destructor_declaration,
-        $.enum_declaration,
-        $.event_declaration,
-        $.extern_alias_directive,
-        $._base_field_declaration,
-        $.indexer_declaration,
-        $.interface_declaration,
-        $.method_declaration,
-        $.namespace_declaration,
-        $.operator_declaration,
-        $.property_declaration,
-        $.struct_declaration,
-        $.using_directive,
-        )
+    compilation_unit: $ => repeat($._declaration),
+
+    _declaration: $ => choice(
+      $.global_attribute_list,
+      $.class_declaration,
+      $.constructor_declaration,
+      $.conversion_operator_declaration,
+      $.delegate_declaration,
+      $.destructor_declaration,
+      $.enum_declaration,
+      $.event_declaration,
+      $.extern_alias_directive,
+      $.event_field_declaration,
+      $.field_declaration,
+      $.indexer_declaration,
+      $.interface_declaration,
+      $.method_declaration,
+      $.namespace_declaration,
+      $.operator_declaration,
+      $.property_declaration,
+      $.struct_declaration,
+      $.using_directive,
     ),
 
     extern_alias_directive: $ => seq('extern', 'alias', $.identifier_name, ';'),
@@ -160,21 +161,6 @@ module.exports = grammar({
 
     name_colon: $ => seq($._identifier_or_global, ':'),
 
-    _member_declaration: $ => choice(
-      $._base_field_declaration,
-      $._base_method_declaration,
-      $._base_property_declaration,
-      $._base_type_declaration,
-      $.delegate_declaration,
-      $.enum_member_declaration,
-      $.namespace_declaration,
-    ),
-
-    _base_field_declaration: $ => choice(
-      $.event_field_declaration,
-      $.field_declaration
-    ),
-
     event_field_declaration: $ => seq(
       repeat($.attribute_list),
       repeat($.modifier),
@@ -241,14 +227,6 @@ module.exports = grammar({
       repeat($.modifier),
       $.variable_declaration,
       ';'
-    ),
-
-    _base_method_declaration: $ => choice(
-      $.constructor_declaration,
-      $.conversion_operator_declaration,
-      $.destructor_declaration,
-      $.method_declaration,
-      $.operator_declaration
     ),
 
     constructor_declaration: $ => seq(
@@ -395,12 +373,6 @@ module.exports = grammar({
       '>=', '<='
     ),
 
-    _base_property_declaration: $ => choice(
-      $.event_declaration,
-      $.indexer_declaration,
-      $.property_declaration
-    ),
-
     event_declaration: $ => seq(
       repeat($.attribute_list),
       repeat($.modifier),
@@ -454,37 +426,29 @@ module.exports = grammar({
       ),
     ),
 
-    _base_type_declaration: $ => choice(
-      $.enum_declaration,
-      $._type_declaration,
-    ),
-
     enum_declaration: $ => seq(
       repeat($.attribute_list),
       repeat($.modifier),
       'enum',
       $.identifier_name,
       optional($.base_list),
+      $.enum_member_declaration_list,
+      optional(';')
+    ),
+
+    base_list: $ => seq(':', commaSep1($._type)),
+
+    enum_member_declaration_list: $ => seq(
       '{',
       commaSep($.enum_member_declaration),
       optional(','),
       '}',
-      optional(';')
     ),
-
-    base_list: $ => seq(':', commaSep1($._base_type)),
-    _base_type: $ => $._type,
 
     enum_member_declaration: $ => seq(
       repeat($.attribute_list),
       $.identifier_name,
       optional(seq('=', $._expression))
-    ),
-
-    _type_declaration: $ => choice(
-      $.class_declaration,
-      $.interface_declaration,
-      $.struct_declaration
     ),
 
     class_declaration: $ => seq(
@@ -495,13 +459,13 @@ module.exports = grammar({
       optional($.type_parameter_list),
       optional($.base_list),
       repeat($.type_parameter_constraints_clause),
-      $.class_body,
+      $.declaration_list,
       optional(';')
     ),
 
-    class_body: $ => seq(
+    declaration_list: $ => seq(
       '{',
-      repeat($._member_declaration),
+      repeat($._declaration),
       '}'
     ),
 
@@ -513,7 +477,7 @@ module.exports = grammar({
       optional($.type_parameter_list),
       optional($.base_list),
       repeat($.type_parameter_constraints_clause),
-      $.class_body,
+      $.declaration_list,
       optional(';')
     ),
 
@@ -525,7 +489,7 @@ module.exports = grammar({
       optional($.type_parameter_list),
       optional($.base_list),
       repeat($.type_parameter_constraints_clause),
-      $.class_body,
+      $.declaration_list,
       optional(';')
     ),
 
@@ -544,11 +508,7 @@ module.exports = grammar({
     namespace_declaration: $ => seq(
       'namespace',
       $._name,
-      '{',
-      repeat($.extern_alias_directive),
-      repeat($.using_directive),
-      repeat($._member_declaration),
-      '}',
+      $.declaration_list,
       optional(';')
     ),
 

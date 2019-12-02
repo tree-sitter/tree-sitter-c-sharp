@@ -14,7 +14,7 @@ class Foo {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (property_declaration
         (predefined_type)
         (identifier_name)
@@ -46,7 +46,7 @@ class Foo {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (property_declaration
         (predefined_type)
         (identifier_name)
@@ -84,7 +84,7 @@ class Foo {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (property_declaration
         (predefined_type)
         (identifier_name)
@@ -127,7 +127,7 @@ class Foo {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (property_declaration
         (predefined_type)
         (identifier_name)
@@ -158,7 +158,7 @@ class Foo: IFoo {
   (class_declaration
     (identifier_name)
     (base_list (identifier_name))
-    (class_body
+    (declaration_list
       (property_declaration
         (predefined_type)
         (explicit_interface_specifier (identifier_name))

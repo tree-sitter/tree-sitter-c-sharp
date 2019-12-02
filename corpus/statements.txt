@@ -13,7 +13,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (predefined_type)
       (identifier_name)
       (parameter_list)
@@ -35,7 +35,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (method_declaration
         (void_keyword)
         (identifier_name)
@@ -58,7 +58,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (method_declaration
         (void_keyword)
         (identifier_name)
@@ -82,7 +82,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (void_keyword)
       (identifier_name)
       (parameter_list)
@@ -105,7 +105,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (void_keyword)
       (identifier_name)
       (parameter_list)
@@ -127,7 +127,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (void_keyword)
       (identifier_name)
       (parameter_list)
@@ -149,7 +149,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (void_keyword)
       (identifier_name)
       (parameter_list
@@ -176,7 +176,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (void_keyword)
       (identifier_name)
       (parameter_list)
@@ -200,7 +200,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (predefined_type)
       (identifier_name)
       (parameter_list)
@@ -224,7 +224,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (predefined_type)
       (identifier_name)
       (parameter_list)
@@ -256,7 +256,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (predefined_type)
       (identifier_name)
       (parameter_list
@@ -289,7 +289,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (void_keyword)
       (identifier_name)
       (parameter_list)
@@ -316,7 +316,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (void_keyword)
       (identifier_name)
       (parameter_list)
@@ -345,7 +345,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (void_keyword)
       (identifier_name)
       (parameter_list)
@@ -376,7 +376,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (void_keyword)
       (identifier_name)
       (parameter_list)
@@ -407,7 +407,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (void_keyword)
       (identifier_name)
       (parameter_list)
@@ -436,7 +436,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (void_keyword)
       (identifier_name)
       (parameter_list)
@@ -462,7 +462,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (void_keyword)
       (identifier_name)
       (parameter_list)
@@ -488,7 +488,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (void_keyword)
       (identifier_name)
       (parameter_list)
@@ -514,7 +514,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (generic_name
         (identifier_name)
         (type_argument_list (predefined_type)))
@@ -539,7 +539,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (void_keyword)
       (identifier_name)
       (parameter_list)
@@ -573,7 +573,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (method_declaration (void_keyword) (identifier_name) (parameter_list)
       (block
         (local_function_statement (modifier) (void_keyword) (identifier_name)
@@ -606,7 +606,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (void_keyword)
       (identifier_name)
       (parameter_list)
@@ -639,7 +639,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (void_keyword)
       (identifier_name)
       (parameter_list)
@@ -665,7 +665,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (void_keyword)
       (identifier_name)
       (parameter_list)
@@ -697,7 +697,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (void_keyword)
       (identifier_name)
       (parameter_list)
@@ -725,7 +725,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (void_keyword)
       (identifier_name)
       (parameter_list)
@@ -758,7 +758,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (void_keyword)
       (identifier_name)
       (parameter_list)
@@ -790,7 +790,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (void_keyword)
       (identifier_name)
       (parameter_list)
@@ -822,7 +822,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (void_keyword)
       (identifier_name)
       (parameter_list)
@@ -848,7 +848,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (void_keyword)
       (identifier_name)
       (parameter_list)
@@ -879,7 +879,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (void_keyword)
       (identifier_name)
       (parameter_list)
@@ -908,7 +908,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (void_keyword)
       (identifier_name)
       (parameter_list)
@@ -936,7 +936,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (void_keyword)
       (identifier_name)
       (parameter_list)
@@ -967,7 +967,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (void_keyword)
       (identifier_name)
       (parameter_list)
@@ -1007,7 +1007,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body (method_declaration
+    (declaration_list (method_declaration
       (void_keyword)
       (identifier_name)
       (parameter_list)

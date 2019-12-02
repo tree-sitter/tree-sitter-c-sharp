@@ -154,7 +154,7 @@ class A {}
 (compilation_unit
   (preprocessor_directive)
   (preprocessor_directive)
-  (class_declaration (identifier_name) (class_body)))
+  (class_declaration (identifier_name) (declaration_list)))
 
 ===================================
 Warning and error directives
@@ -169,7 +169,7 @@ class Of1879 {
 
 (compilation_unit
   (class_declaration (identifier_name)
-    (class_body
+    (declaration_list
       (preprocessor_directive)
       (preprocessor_directive))))
 
@@ -189,7 +189,7 @@ class Of1879 {
 
 (compilation_unit
   (class_declaration (identifier_name)
-    (class_body
+    (declaration_list
       (method_declaration (void_keyword) (identifier_name) (parameter_list)
         (block
           (preprocessor_directive)

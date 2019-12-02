@@ -13,7 +13,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (field_declaration
         (modifier) (modifier)
         (variable_declaration
@@ -44,7 +44,7 @@ struct A {
 (compilation_unit
   (struct_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (field_declaration
         (modifier) (modifier)
         (variable_declaration
@@ -65,7 +65,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (field_declaration
         (modifier) (modifier)
         (variable_declaration
@@ -91,7 +91,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (field_declaration
         (modifier) (modifier)
         (variable_declaration
@@ -116,7 +116,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (property_declaration
         (modifier)
         (modifier)
@@ -138,7 +138,7 @@ class A {
 (compilation_unit
   (class_declaration
     (identifier_name)
-    (class_body
+    (declaration_list
       (field_declaration
         (variable_declaration
           (nullable_type (predefined_type))

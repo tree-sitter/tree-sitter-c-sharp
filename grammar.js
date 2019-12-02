@@ -701,7 +701,7 @@ module.exports = grammar({
     ),
 
     switch_section: $ => prec.left(seq(
-      repeat1(choice(
+      repeat1(choice( // switch_label
         $.case_switch_label,
         $.case_pattern_switch_label,
         $.default_switch_label
@@ -1162,8 +1162,6 @@ module.exports = grammar({
     // TODO: Expressions need work on precedence and conflicts.
 
     _expression: $ => choice(
-      // $.declaration_expression,
-      //$.is_expression,
       $.anonymous_method_expression,
       $.anonymous_object_creation_expression,
       $.array_creation_expression,
@@ -1175,6 +1173,7 @@ module.exports = grammar({
       $.checked_expression,
       $.conditional_access_expression,
       $.conditional_expression,
+      // $.declaration_expression,
       $.default_expression,
       $.element_access_expression,
       $.element_binding_expression,
@@ -1206,19 +1205,16 @@ module.exports = grammar({
       $.type_of_expression,
       $._type,
 
-      // These should be reconsidered when the ones above get activated
-      alias($._reserved_identifier, $.identifier),
       $.identifier,
+      alias($._reserved_identifier, $.identifier),
 
       // Literals
       $.null_literal,
       $.boolean_literal,
       $.character_literal,
-      // We don't bunch real and integer literals together
-      $.real_literal,
+      $.real_literal, // Don't combine real and integer literals together
       $.integer_literal,
-      // Or strings and verbatim strings
-      $.string_literal,
+      $.string_literal, // Or strings and verbatim strings
       $.verbatim_string_literal
     ),
 

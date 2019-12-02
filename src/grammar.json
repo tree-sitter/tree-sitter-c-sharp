@@ -6181,6 +6181,10 @@
           "name": "_type"
         },
         {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
           "type": "ALIAS",
           "content": {
             "type": "SYMBOL",
@@ -6188,10 +6192,6 @@
           },
           "named": true,
           "value": "identifier"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "identifier"
         },
         {
           "type": "SYMBOL",

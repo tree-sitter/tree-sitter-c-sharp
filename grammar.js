@@ -1283,16 +1283,14 @@ module.exports = grammar({
       /\\[^xuU]/,
     )),
 
-    integer_literal: $ => seq(
+    integer_literal: $ => token(seq(
       choice(
         (/[0-9_]+/), // Decimal
         (/0[xX][0-9a-fA-F_]+/), // Hex
         (/0[bB][01_]+/) // Binary
       ),
-      optional($._integer_type_suffix)
-    ),
-
-    _integer_type_suffix: $ => (/u|U|l|L|ul|UL|uL|Ul|lu|LU|Lu|lU/),
+      optional(/u|U|l|L|ul|UL|uL|Ul|lu|LU|Lu|lU/)
+    )),
 
     null_literal: $ => 'null',
 

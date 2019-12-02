@@ -37,15 +37,15 @@ module.exports = grammar({
     [$.event_declaration, $.variable_declarator],
 
     [$._expression, $.declaration_pattern],
-    [$._expression, $._identifier_or_global],
-    [$._expression, $._identifier_or_global, $.generic_name],
-    [$._expression, $._identifier_or_global, $.parameter],
+    [$._expression, $._simple_name],
+    [$._expression, $._simple_name, $.generic_name],
+    [$._expression, $._simple_name, $.parameter],
 
     [$.from_clause, $._reserved_identifier],
 
-    [$._identifier_or_global, $.enum_member_declaration],
-    [$._identifier_or_global, $.type_parameter],
-    [$._identifier_or_global, $.generic_name],
+    [$._simple_name, $.enum_member_declaration],
+    [$._simple_name, $.type_parameter],
+    [$._simple_name, $.generic_name],
 
     [$.qualified_name, $.explicit_interface_specifier],
 
@@ -57,7 +57,8 @@ module.exports = grammar({
   ],
 
   inline: $ => [
-    $.return_type
+    $.return_type,
+    $._identifier_or_global,
   ],
 
   word: $ => $.identifier_name,
@@ -102,7 +103,8 @@ module.exports = grammar({
     name_equals: $ => prec(1, seq($._identifier_or_global, '=')),
 
     identifier_name: $ => token(seq(optional('@'), /[a-zA-Z_][a-zA-Z_0-9]*/)), // identifier_token in Roslyn
-    _identifier_or_global: $ => choice('global', $.identifier_name), // identifier_name in Roslyn
+    global: $ => 'global',
+    _identifier_or_global: $ => choice($.global, $.identifier_name),
 
     _name: $ => choice(
       $.alias_qualified_name,

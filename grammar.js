@@ -719,7 +719,7 @@ module.exports = grammar({
     _pattern: $ => choice(
       $.constant_pattern,
       $.declaration_pattern,
-      $.discard_pattern,
+      $.discard,
 //      $.recursive_pattern,
       $.var_pattern
     ),
@@ -729,12 +729,12 @@ module.exports = grammar({
     declaration_pattern: $ => seq($._type, $._variable_designation),
 
     _variable_designation: $ => choice(
-      $.discard_designation,
+      $.discard,
       $.parenthesized_variable_designation,
       $.single_variable_designation
     ),
 
-    discard_designation: $ => '_',
+    discard: $ => '_',
 
     parenthesized_variable_designation: $ => seq(
       '(',
@@ -743,8 +743,6 @@ module.exports = grammar({
     ),
 
     single_variable_designation: $ => $.identifier_name,
-
-    discard_pattern: $ => '_',
 
     // TODO: Matches everything as optional which won't work.
     // Figure out valid combinations with at least one item to remove ambiguity.

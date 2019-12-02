@@ -772,7 +772,7 @@ void b() {
                   (constant_pattern (integer_literal))
                   (string_literal))
                 (switch_expression_arm
-                  (discard_pattern)
+                  (discard)
                   (string_literal))))))))))
 
 =====================================

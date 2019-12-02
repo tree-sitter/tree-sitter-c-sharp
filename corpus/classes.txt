@@ -9,7 +9,7 @@ public class F {}
 (compilation_unit
   (class_declaration
     (modifier)
-    (identifier_name)
+    (identifier)
     (declaration_list)))
 
 =====================================
@@ -23,8 +23,8 @@ public class F : dynamic { }
 (compilation_unit
   (class_declaration
     (modifier)
-    (identifier_name)
-    (base_list (identifier_name))
+    (identifier)
+    (base_list (identifier))
     (declaration_list)))
 
 =====================================
@@ -38,11 +38,11 @@ public class F : object, IAlpha, IOmega { }
 (compilation_unit
   (class_declaration
     (modifier)
-    (identifier_name)
+    (identifier)
     (base_list
       (predefined_type)
-      (identifier_name)
-      (identifier_name))
+      (identifier)
+      (identifier))
     (declaration_list)))
 
 =====================================
@@ -56,7 +56,7 @@ public partial class F {}
 (compilation_unit
  (class_declaration
    (modifier) (modifier)
-   (identifier_name)
+   (identifier)
    (declaration_list)))
 
 =====================================
@@ -69,8 +69,8 @@ class F<T> {}
 
 (compilation_unit
   (class_declaration
-    (identifier_name)
-     (type_parameter_list (type_parameter (identifier_name)))
+    (identifier)
+     (type_parameter_list (type_parameter (identifier)))
      (declaration_list)))
 
 =====================================
@@ -84,10 +84,10 @@ internal class F<T1, T2> {}
 (compilation_unit
  (class_declaration
    (modifier)
-   (identifier_name)
+   (identifier)
     (type_parameter_list
-      (type_parameter (identifier_name))
-      (type_parameter (identifier_name)))
+      (type_parameter (identifier))
+      (type_parameter (identifier)))
     (declaration_list)))
 
 =====================================
@@ -101,10 +101,10 @@ internal class F<in T1, out T2> {}
 (compilation_unit
  (class_declaration
    (modifier)
-   (identifier_name)
+   (identifier)
     (type_parameter_list
-      (type_parameter (identifier_name))
-      (type_parameter (identifier_name)))
+      (type_parameter (identifier))
+      (type_parameter (identifier)))
     (declaration_list)))
 
 =====================================
@@ -118,10 +118,10 @@ public class F<T> where T:struct {}
 (compilation_unit
   (class_declaration
     (modifier)
-    (identifier_name)
-    (type_parameter_list (type_parameter (identifier_name)))
+    (identifier)
+    (type_parameter_list (type_parameter (identifier)))
     (type_parameter_constraints_clause
-      (identifier_name) (type_parameter_constraint))
+      (identifier) (type_parameter_constraint))
     (declaration_list)))
 
 =====================================
@@ -135,10 +135,10 @@ public class F<T> where T:unmanaged {}
 (compilation_unit
   (class_declaration
     (modifier)
-    (identifier_name)
-    (type_parameter_list (type_parameter (identifier_name)))
+    (identifier)
+    (type_parameter_list (type_parameter (identifier)))
     (type_parameter_constraints_clause
-      (identifier_name) (type_parameter_constraint))
+      (identifier) (type_parameter_constraint))
     (declaration_list)))
 
 =====================================
@@ -152,10 +152,10 @@ public class F<T> where T:class {}
 (compilation_unit
   (class_declaration
     (modifier)
-    (identifier_name)
-    (type_parameter_list (type_parameter (identifier_name)))
+    (identifier)
+    (type_parameter_list (type_parameter (identifier)))
     (type_parameter_constraints_clause
-      (identifier_name) (type_parameter_constraint))
+      (identifier) (type_parameter_constraint))
     (declaration_list)))
 
 =====================================
@@ -169,10 +169,10 @@ public class F<T> where T: new() {}
 (compilation_unit
   (class_declaration
     (modifier)
-    (identifier_name)
-    (type_parameter_list (type_parameter (identifier_name)))
+    (identifier)
+    (type_parameter_list (type_parameter (identifier)))
     (type_parameter_constraints_clause
-      (identifier_name)
+      (identifier)
       (type_parameter_constraint (constructor_constraint)))
     (declaration_list)))
 
@@ -187,11 +187,11 @@ public class F<T> where T: I {}
 (compilation_unit
   (class_declaration
     (modifier)
-    (identifier_name)
-    (type_parameter_list (type_parameter (identifier_name)))
+    (identifier)
+    (type_parameter_list (type_parameter (identifier)))
     (type_parameter_constraints_clause
-      (identifier_name)
-      (type_parameter_constraint (type_constraint (identifier_name))))
+      (identifier)
+      (type_parameter_constraint (type_constraint (identifier))))
     (declaration_list)))
 
 =====================================
@@ -205,12 +205,12 @@ public class F<T> where T: I, new() {}
 (compilation_unit
   (class_declaration
     (modifier)
-    (identifier_name)
-    (type_parameter_list (type_parameter (identifier_name)))
+    (identifier)
+    (type_parameter_list (type_parameter (identifier)))
     (type_parameter_constraints_clause
-      (identifier_name)
+      (identifier)
       (type_parameter_constraint
-        (type_constraint (identifier_name)))
+        (type_constraint (identifier)))
       (type_parameter_constraint (constructor_constraint)))
     (declaration_list)))
 
@@ -225,18 +225,18 @@ private class F<T1,T2> where T1 : I1, I2, new() where T2 : I2 { }
 (compilation_unit
   (class_declaration
     (modifier)
-    (identifier_name)
+    (identifier)
     (type_parameter_list
-      (type_parameter (identifier_name))
-      (type_parameter (identifier_name)))
+      (type_parameter (identifier))
+      (type_parameter (identifier)))
     (type_parameter_constraints_clause
-      (identifier_name)
-      (type_parameter_constraint (type_constraint (identifier_name)))
-      (type_parameter_constraint (type_constraint (identifier_name)))
+      (identifier)
+      (type_parameter_constraint (type_constraint (identifier)))
+      (type_parameter_constraint (type_constraint (identifier)))
       (type_parameter_constraint (constructor_constraint)))
     (type_parameter_constraints_clause
-      (identifier_name)
-      (type_parameter_constraint (type_constraint (identifier_name))))
+      (identifier)
+      (type_parameter_constraint (type_constraint (identifier))))
     (declaration_list)))
 
 =====================================
@@ -251,11 +251,11 @@ class Foo {
 
 (compilation_unit
   (class_declaration
-    (identifier_name)
+    (identifier)
     (declaration_list
       (constructor_declaration
         (modifier)
-        (identifier_name)
+        (identifier)
         (parameter_list)
         (block)))))
 
@@ -271,14 +271,14 @@ class Foo {
 
 (compilation_unit
   (class_declaration
-    (identifier_name)
+    (identifier)
     (declaration_list
       (constructor_declaration
         (modifier)
-        (identifier_name)
-        (parameter_list (parameter (predefined_type) (identifier_name)))
+        (identifier)
+        (parameter_list (parameter (predefined_type) (identifier)))
         (arrow_expression_clause
-          (assignment_expression (identifier_name) (assignment_operator) (identifier_name)))))))
+          (assignment_expression (identifier) (assignment_operator) (identifier)))))))
 
 =====================================
 Class with static constructor
@@ -294,21 +294,21 @@ class Foo {
 
 (compilation_unit
   (class_declaration
-    (identifier_name)
+    (identifier)
     (declaration_list
       (constructor_declaration
         (modifier)
-        (identifier_name)
+        (identifier)
         (parameter_list)
         (block))
       (constructor_declaration
         (modifier) (modifier)
-        (identifier_name)
+        (identifier)
         (parameter_list)
         (block))
       (constructor_declaration
         (modifier) (modifier)
-        (identifier_name)
+        (identifier)
         (parameter_list)
         (block)))))
 
@@ -324,10 +324,10 @@ class Foo {
 
 (compilation_unit
   (class_declaration
-    (identifier_name)
+    (identifier)
     (declaration_list
       (destructor_declaration
-        (identifier_name)
+        (identifier)
         (parameter_list)
         (block)))))
 
@@ -343,14 +343,14 @@ class Foo {
 
 (compilation_unit
   (class_declaration
-    (identifier_name)
+    (identifier)
     (declaration_list
       (destructor_declaration
-        (identifier_name)
+        (identifier)
         (parameter_list)
         (arrow_expression_clause
           (invocation_expression
-            (identifier_name)
+            (identifier)
             (argument_list)))))))
 
 =====================================
@@ -366,14 +366,14 @@ class Foo {
 
 (compilation_unit
   (class_declaration
-    (identifier_name)
+    (identifier)
     (declaration_list
       (field_declaration
         (modifier) (modifier)
         (variable_declaration
           (predefined_type)
           (variable_declarator
-            (identifier_name)
+            (identifier)
             (equals_value_clause
               (integer_literal)))))
       (field_declaration
@@ -381,7 +381,7 @@ class Foo {
         (variable_declaration
           (predefined_type)
           (variable_declarator
-            (identifier_name)
+            (identifier)
             (equals_value_clause
               (string_literal))))))))
 
@@ -400,16 +400,16 @@ class Foo {
 
 (compilation_unit
   (class_declaration
-    (identifier_name)
+    (identifier)
     (declaration_list
       (indexer_declaration
         (modifier)
         (predefined_type)
-        (bracketed_parameter_list (parameter (predefined_type) (identifier_name)))
+        (bracketed_parameter_list (parameter (predefined_type) (identifier)))
         (accessor_declaration
-          (block (return_statement (identifier_name))))
+          (block (return_statement (identifier))))
         (accessor_declaration
-          (block (expression_statement (assignment_expression (identifier_name) (assignment_operator) (identifier_name)))))))))
+          (block (expression_statement (assignment_expression (identifier) (assignment_operator) (identifier)))))))))
 
 =====================================
 Class with expression bodied indexer
@@ -423,15 +423,15 @@ class Foo {
 
 (compilation_unit
   (class_declaration
-    (identifier_name)
+    (identifier)
     (declaration_list
       (indexer_declaration
         (modifier)
         (predefined_type)
-        (bracketed_parameter_list (parameter (predefined_type) (identifier_name)))
+        (bracketed_parameter_list (parameter (predefined_type) (identifier)))
         (arrow_expression_clause
-          (element_access_expression (identifier_name)
-            (bracketed_argument_list (argument (identifier_name)))))))))
+          (element_access_expression (identifier)
+            (bracketed_argument_list (argument (identifier)))))))))
 
 =====================================
 Class with expression bodied indexer accessors
@@ -449,22 +449,22 @@ class Foo {
 
 (compilation_unit
   (class_declaration
-    (identifier_name)
+    (identifier)
     (declaration_list
       (indexer_declaration
         (modifier)
         (predefined_type)
-        (bracketed_parameter_list (parameter (predefined_type) (identifier_name)))
+        (bracketed_parameter_list (parameter (predefined_type) (identifier)))
         (accessor_declaration
           (arrow_expression_clause
-            (element_access_expression (identifier_name)
-              (bracketed_argument_list (argument (identifier_name))))))
+            (element_access_expression (identifier)
+              (bracketed_argument_list (argument (identifier))))))
         (accessor_declaration
           (arrow_expression_clause
             (assignment_expression 
-              (element_access_expression (identifier_name)
-                (bracketed_argument_list (argument (identifier_name))))
-                (assignment_operator) (identifier_name))))))))
+              (element_access_expression (identifier)
+                (bracketed_argument_list (argument (identifier))))
+                (assignment_operator) (identifier))))))))
 
 =================================
 Method with qualified return type
@@ -479,11 +479,11 @@ class A {
 ---
 
 (compilation_unit
-  (class_declaration (identifier_name)
+  (class_declaration (identifier)
     (declaration_list
       (method_declaration
-        (qualified_name (identifier_name) (identifier_name))
-        (identifier_name)
+        (qualified_name (identifier) (identifier))
+        (identifier)
         (parameter_list)
         (block
           (return_statement (null_literal)))))))

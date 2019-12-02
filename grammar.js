@@ -816,11 +816,6 @@ module.exports = grammar({
       ';'
     ),
 
-    _anonymous_function_expression: $=> choice(
-      $.anonymous_method_expression,
-      $.lambda_expression
-    ),
-
     anonymous_method_expression: $ => seq(
       optional('async'),
       'delegate',
@@ -928,11 +923,6 @@ module.exports = grammar({
       $.initializer_expression
     ),
 
-    _instance_expression: $ => choice(
-      $.base_expression,
-      $.this_expression,
-    ),
-
     base_expression: $ => 'base',
 
     this_expression: $ => 'this',
@@ -982,18 +972,6 @@ module.exports = grammar({
       'is',
       $._pattern
     )),
-
-    _literal_expression: $ => choice(
-      $.null_literal,
-      $.boolean_literal,
-      $.character_literal,
-      // We don't bunch real and integer literals together
-      $.real_literal,
-      $.integer_literal,
-      // Or strings and verbatim strings
-      $.string_literal,
-      $.verbatim_string_literal
-    ),
 
     make_ref_expression: $ => seq(
       '__makeref',
@@ -1184,29 +1162,29 @@ module.exports = grammar({
     // TODO: Expressions need work on precedence and conflicts.
 
     _expression: $ => choice(
-      $._anonymous_function_expression,
+      // $.declaration_expression,
+      //$.is_expression,
+      $.anonymous_method_expression,
       $.anonymous_object_creation_expression,
       $.array_creation_expression,
       $.assignment_expression,
       $.await_expression,
+      $.base_expression,
       $.binary_expression,
-      //$.is_expression,
       $.cast_expression,
       $.checked_expression,
       $.conditional_access_expression,
       $.conditional_expression,
-      // $.declaration_expression,
       $.default_expression,
       $.element_access_expression,
       $.element_binding_expression,
       $.implicit_array_creation_expression,
       $.implicit_stack_alloc_array_creation_expression,
       $.initializer_expression,
-      $._instance_expression,
       $.interpolated_string_expression,
       $.invocation_expression,
       $.is_pattern_expression,
-      $._literal_expression,
+      $.lambda_expression,
       $.make_ref_expression,
       $.member_access_expression,
       $.member_binding_expression,
@@ -1222,14 +1200,26 @@ module.exports = grammar({
       $.size_of_expression,
       $.stack_alloc_array_creation_expression,
       $.switch_expression,
+      $.this_expression,
       $.throw_expression,
       $.tuple_expression,
-      $._type,
       $.type_of_expression,
+      $._type,
 
       // These should be reconsidered when the ones above get activated
       alias($._reserved_identifier, $.identifier_name),
-      $.identifier_name
+      $.identifier_name,
+
+      // Literals
+      $.null_literal,
+      $.boolean_literal,
+      $.character_literal,
+      // We don't bunch real and integer literals together
+      $.real_literal,
+      $.integer_literal,
+      // Or strings and verbatim strings
+      $.string_literal,
+      $.verbatim_string_literal
     ),
 
     binary_expression: $ => choice(
@@ -1261,7 +1251,7 @@ module.exports = grammar({
       )
     ),
 
-    // literals - grammar.txt is useless here as it just refs to lexical specification
+    // Literals - grammar.txt is useless here as it just refs to lexical specification
 
     boolean_literal: $ => choice(
       'true',
@@ -1270,7 +1260,7 @@ module.exports = grammar({
 
     character_literal: $ => seq(
       "'",
-      choice(/[^'\\]/, $.escape_sequence),
+      choice(token.immediate(/[^'\\]/), $.escape_sequence),
       "'"
     ),
 

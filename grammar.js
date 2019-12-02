@@ -986,7 +986,6 @@ module.exports = grammar({
     )),
 
     _literal_expression: $ => choice(
-      '__arglist',
       $.null_literal,
       $.boolean_literal,
       $.character_literal,

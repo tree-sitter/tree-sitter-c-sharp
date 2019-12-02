@@ -1206,8 +1206,7 @@ var c = s is "test";
             (identifier_name)
             (declaration_pattern
               (predefined_type)
-              (single_variable_designation
-                (identifier_name))))))))
+              (identifier_name)))))))
   (field_declaration
     (variable_declaration
       (implicit_type)

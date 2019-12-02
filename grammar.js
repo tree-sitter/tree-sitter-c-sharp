@@ -731,7 +731,7 @@ module.exports = grammar({
     _variable_designation: $ => choice(
       $.discard,
       $.parenthesized_variable_designation,
-      $.single_variable_designation
+      $.identifier_name
     ),
 
     discard: $ => '_',
@@ -741,8 +741,6 @@ module.exports = grammar({
       commaSep($._variable_designation),
       ')'
     ),
-
-    single_variable_designation: $ => $.identifier_name,
 
     // TODO: Matches everything as optional which won't work.
     // Figure out valid combinations with at least one item to remove ambiguity.

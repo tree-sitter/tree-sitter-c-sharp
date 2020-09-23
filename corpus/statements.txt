@@ -1030,6 +1030,7 @@ class A {
     var (a, b) = c;
     (a, b) = c;
     var (a, _) = c;
+    var (a, (b, _)) = c;
   }
 }
 
@@ -1065,4 +1066,9 @@ class A {
             (implicit_type)
             (variable_declarator
               (tuple_pattern (identifier) (discard))
+              (equals_value_clause (identifier)))))
+          (local_declaration_statement (variable_declaration
+            (implicit_type)
+            (variable_declarator
+              (tuple_pattern (identifier) (tuple_pattern (identifier) (discard)))
               (equals_value_clause (identifier))))))))))

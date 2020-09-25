@@ -149,6 +149,23 @@
         }
       ]
     },
+    "element_binding_equals": {
+      "type": "PREC",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "element_binding_expression"
+          },
+          {
+            "type": "STRING",
+            "value": "="
+          }
+        ]
+      }
+    },
     "name_equals": {
       "type": "PREC",
       "value": 1,
@@ -949,8 +966,17 @@
           "value": "="
         },
         {
-          "type": "SYMBOL",
-          "name": "_expression"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_expression"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "initializer_expression"
+            }
+          ]
         }
       ]
     },
@@ -5044,12 +5070,30 @@
             "type": "SEQ",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "name_equals"
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "name_equals"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "element_binding_equals"
+                  }
+                ]
               },
               {
-                "type": "SYMBOL",
-                "name": "_expression"
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_expression"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "initializer_expression"
+                  }
+                ]
               }
             ]
           }
@@ -5103,7 +5147,7 @@
                   "members": [
                     {
                       "type": "SYMBOL",
-                      "name": "_expression"
+                      "name": "_anonymous_object_member_declarator"
                     },
                     {
                       "type": "SYMBOL",
@@ -5125,7 +5169,7 @@
                         "members": [
                           {
                             "type": "SYMBOL",
-                            "name": "_expression"
+                            "name": "_anonymous_object_member_declarator"
                           },
                           {
                             "type": "SYMBOL",

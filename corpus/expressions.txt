@@ -200,12 +200,13 @@ void b() {
               (anonymous_object_creation_expression (identifier)))))))))
 
 ============================
-Anonymous object creation with single named
+Anonymous object creation with two named
 ============================
 
 void b() {
   var x = new {
-    test = "This"
+    test = "This",
+    arr = {1, 2, 3}
   };
 }
 
@@ -226,7 +227,13 @@ void b() {
               (anonymous_object_creation_expression
                 (name_equals
                   (identifier))
-                (string_literal)))))))))
+                (string_literal)
+                (name_equals
+                  (identifier))
+                (initializer_expression
+                  (integer_literal)
+                  (integer_literal)
+                  (integer_literal))))))))))
 
 ============================
 Checked expressions
@@ -264,6 +271,7 @@ void b() {
   a = new E
   {
     Foo = bar,
+    baz = { ["key"] = { 1 } }
   };
 
   b = new E(1);
@@ -292,8 +300,15 @@ void b() {
           (object_creation_expression
             (identifier)
             (initializer_expression
-              (assignment_expression
-                (identifier) (assignment_operator) (identifier))))))
+              (name_equals (identifier))
+              (identifier)
+              (name_equals (identifier))
+              (initializer_expression
+                (element_binding_equals
+                  (element_binding_expression
+                    (bracketed_argument_list
+                      (argument (string_literal)))))
+                (initializer_expression (integer_literal)))))))
       (expression_statement
         (assignment_expression
           (identifier)
@@ -534,6 +549,7 @@ Implicit array creation
 
 void b() {
   var z = new [] { 1, 2, 3 };
+  int[] args = { 1, 2, 3 };
 }
 
 ---
@@ -554,7 +570,19 @@ void b() {
                 (initializer_expression
                   (integer_literal)
                   (integer_literal)
-                  (integer_literal))))))))))
+                  (integer_literal)))))))
+      (local_declaration_statement
+        (variable_declaration
+          (array_type
+            (predefined_type)
+            (array_rank_specifier))
+          (variable_declarator
+            (identifier)
+            (equals_value_clause
+              (initializer_expression
+                (integer_literal)
+                (integer_literal)
+                (integer_literal)))))))))
 
 ============================
 Implicit multi array creation
@@ -1293,11 +1321,10 @@ var x = new Dictionary<string,int> { ["a"] = 65 };
               (identifier)
               (type_argument_list (predefined_type) (predefined_type)))
             (initializer_expression
-              (assignment_expression
+              (element_binding_equals
                 (element_binding_expression
-                  (bracketed_argument_list (argument (string_literal))))
-                (assignment_operator)
-                (integer_literal)))))))))
+                  (bracketed_argument_list (argument (string_literal)))))
+              (integer_literal))))))))
 
 =====================================
 Conditional access to element (should be implicit_element_access)

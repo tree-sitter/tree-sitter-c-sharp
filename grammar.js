@@ -114,6 +114,8 @@ module.exports = grammar({
       ';'
     ),
 
+    element_binding_equals: $ => prec(1, seq($.element_binding_expression, '=')),
+
     name_equals: $ => prec(1, seq($._identifier_or_global, '=')),
 
     _name: $ => choice(
@@ -245,7 +247,7 @@ module.exports = grammar({
       )
     )),
 
-    equals_value_clause: $ => seq('=', $._expression),
+    equals_value_clause: $ => seq('=', choice($._expression, $.initializer_expression)),
 
     field_declaration: $ => seq(
       repeat($.attribute_list),
@@ -929,7 +931,10 @@ module.exports = grammar({
     ),
 
     _anonymous_object_member_declarator: $ => choice(
-      prec.dynamic(PREC.ASSIGN, seq($.name_equals, $._expression)),
+      prec.dynamic(PREC.ASSIGN, seq(
+        choice($.name_equals, $.element_binding_equals),
+        choice($._expression, $.initializer_expression))
+      ),
       $._expression
     ),
 
@@ -941,7 +946,7 @@ module.exports = grammar({
 
     initializer_expression: $ => seq(
       '{',
-      commaSep(choice($._expression, $.initializer_expression)),
+      commaSep(choice($._anonymous_object_member_declarator, $.initializer_expression)),
       optional(','),
       '}'
     ),

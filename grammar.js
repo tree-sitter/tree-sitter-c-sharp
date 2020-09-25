@@ -42,8 +42,6 @@ module.exports = grammar({
   ],
 
   conflicts: $ => [
-    [$.block, $.initializer_expression],
-
     [$.element_access_expression, $.enum_member_declaration],
 
     [$.event_declaration, $.variable_declarator],
@@ -943,7 +941,7 @@ module.exports = grammar({
 
     initializer_expression: $ => seq(
       '{',
-      commaSep($._expression),
+      commaSep(choice($._expression, $.initializer_expression)),
       optional(','),
       '}'
     ),
@@ -1277,7 +1275,6 @@ module.exports = grammar({
       $.element_binding_expression,
       $.implicit_array_creation_expression,
       $.implicit_stack_alloc_array_creation_expression,
-      $.initializer_expression,
       $.interpolated_string_expression,
       $.invocation_expression,
       $.is_pattern_expression,

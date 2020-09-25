@@ -26,7 +26,7 @@ var x = from a in source select a.B;
 Query from select projection
 =====================================
 
-var x = from a in source select { Name = a.B };
+var x = from a in source select new { Name = a.B };
 
 ---
 
@@ -41,14 +41,12 @@ var x = from a in source select { Name = a.B };
             (from_clause
               (identifier)
               (identifier))
-              (select_clause
-                (initializer_expression
-                  (assignment_expression
+              (select_clause 
+                (anonymous_object_creation_expression
+                  (name_equals (identifier))
+                  (member_access_expression
                     (identifier)
-                      (assignment_operator)
-                        (member_access_expression
-                          (identifier)
-                          (identifier)))))))))))
+                    (identifier))))))))))
 
 =====================================
 Query from select with where

@@ -170,10 +170,6 @@
         "named": true
       },
       {
-        "type": "initializer_expression",
-        "named": true
-      },
-      {
         "type": "integer_literal",
         "named": true
       },
@@ -2537,6 +2533,10 @@
       "types": [
         {
           "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "initializer_expression",
           "named": true
         }
       ]

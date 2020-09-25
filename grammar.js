@@ -1,7 +1,6 @@
 const PREC = {
   DOT: 17,
   SELECT: 16,
-  INVOCATION: 16,
   POSTFIX: 16,
   PREFIX: 15,
   UNARY: 15,
@@ -921,6 +920,14 @@ module.exports = grammar({
       field('body', choice($.block, $._expression))
     )),
 
+    target_type_new_object_creation_expression: $ => seq(
+      'new',
+      '(',
+      commaSep($._expression),
+      optional(','),
+      ')'
+    ),
+
     anonymous_object_creation_expression: $ => seq(
       'new',
       '{',
@@ -1059,10 +1066,10 @@ module.exports = grammar({
 
     interpolation_format_clause: $ => seq(':', /[^}"]+/),
 
-    invocation_expression: $ => prec(PREC.INVOCATION, seq(
+    invocation_expression: $ => seq(
       field('function', $._expression),
       field('arguments', $.argument_list)
-    )),
+    ),
 
     is_pattern_expression: $ => prec.left(PREC.EQUAL, seq(
       field('expression', $._expression),
@@ -1262,6 +1269,7 @@ module.exports = grammar({
     _expression: $ => choice(
       $.anonymous_method_expression,
       $.anonymous_object_creation_expression,
+      $.target_type_new_object_creation_expression,
       $.array_creation_expression,
       $.assignment_expression,
       $.await_expression,

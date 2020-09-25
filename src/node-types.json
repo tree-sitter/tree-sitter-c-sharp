@@ -266,6 +266,10 @@
         "named": true
       },
       {
+        "type": "target_type_new_object_creation_expression",
+        "named": true
+      },
+      {
         "type": "this_expression",
         "named": true
       },
@@ -4346,6 +4350,21 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "target_type_new_object_creation_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        }
+      ]
     }
   },
   {

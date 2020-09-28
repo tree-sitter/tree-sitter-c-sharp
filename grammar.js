@@ -207,7 +207,7 @@ module.exports = grammar({
       'protected',
       'public',
       'readonly',
-      'ref',
+      prec(1, 'ref'),
       'sealed',
       'static',
       'unsafe',

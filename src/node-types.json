@@ -166,6 +166,10 @@
         "named": true
       },
       {
+        "type": "implicit_object_creation_expression",
+        "named": true
+      },
+      {
         "type": "implicit_stack_alloc_array_creation_expression",
         "named": true
       },
@@ -2444,6 +2448,21 @@
     }
   },
   {
+    "type": "implicit_object_creation_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "argument_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "implicit_stack_alloc_array_creation_expression",
     "named": true,
     "fields": {},
@@ -3560,6 +3579,10 @@
         },
         {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "nullable_type",
           "named": true
         }
       ]

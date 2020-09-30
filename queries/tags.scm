@@ -1,9 +1,11 @@
 (class_declaration
  name: (identifier) @name
+ bases: (base_list (_) @name)
  ) @definition.class
 
 (interface_declaration
  name: (identifier) @name
+ bases: (base_list (_) @name)
  ) @definition.interface
 
 (method_declaration

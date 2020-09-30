@@ -16,6 +16,14 @@
  type: (identifier) @name
  ) @reference.class
 
+(type_parameter_constraints_clause
+ target: (identifier) @name
+ ) @reference.class
+
+(type_constraint
+ type: (identifier) @name
+ ) @reference.class
+
 (invocation_expression
  function:
   (member_access_expression

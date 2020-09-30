@@ -67,7 +67,6 @@ module.exports = grammar({
     [$.parameter, $._simple_name],
     [$.parameter, $._expression],
     [$.parameter, $.tuple_element, $.declaration_expression],
-    [$.parameter, $._variable_designation],
     [$.tuple_element, $.variable_declarator],
   ],
 
@@ -775,7 +774,7 @@ module.exports = grammar({
       $.constant_pattern,
       $.declaration_pattern,
       $.discard,
-//      $.recursive_pattern,
+      $.recursive_pattern,
       $.var_pattern,
       $.negated_pattern,
       $.parenthesized_pattern,
@@ -814,11 +813,11 @@ module.exports = grammar({
       $._variable_designation
     ),
 
-    _variable_designation: $ => choice(
+    _variable_designation: $ => prec(1, choice(
       $.discard,
       $.parenthesized_variable_designation,
       $.identifier
-    ),
+    )),
 
     discard: $ => '_',
 
@@ -828,27 +827,35 @@ module.exports = grammar({
       ')'
     ),
 
-    // TODO: Matches everything as optional which won't work.
-    // Figure out valid combinations with at least one item to remove ambiguity.
-    recursive_pattern: $ => seq(
+    recursive_pattern: $ => prec.right(seq(
       optional($._type),
-      optional($.positional_pattern_clause),
-      optional($.property_pattern_clause),
+      choice(
+        seq(
+          $.positional_pattern_clause,
+          optional($.property_pattern_clause)
+        ),
+        $.property_pattern_clause
+      ),
       optional($._variable_designation)
-    ),
+    )),
 
-    positional_pattern_clause: $ => seq('(', commaSep($.subpattern), ')'),
+    positional_pattern_clause: $ => prec(1, seq(
+      '(',
+      optional(seq($.subpattern, ',', commaSep1($.subpattern))),// we really should allow single sub patterns, but that causes conficts, and will rarely be used
+      ')',
+    )),
 
     subpattern: $ => seq(
       optional($.name_colon),
       $._pattern
     ),
 
-    property_pattern_clause: $ => seq(
+    property_pattern_clause: $ => prec(1, seq(
       '{',
       commaSep($.subpattern),
-      '}'
-    ),
+      optional(','),
+      '}',
+    )),
 
     var_pattern: $ => prec(1, seq('var', $._variable_designation)),
 

@@ -674,8 +674,12 @@
             "value": "readonly"
           },
           {
-            "type": "STRING",
-            "value": "ref"
+            "type": "PREC",
+            "value": 1,
+            "content": {
+              "type": "STRING",
+              "value": "ref"
+            }
           },
           {
             "type": "STRING",
@@ -8146,7 +8150,7 @@
     },
     "preprocessor_directive": {
       "type": "PATTERN",
-      "value": "#[a-z]\\w*"
+      "value": "#[ \\t]*[a-z]\\w*"
     }
   },
   "extras": [

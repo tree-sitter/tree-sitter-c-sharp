@@ -207,7 +207,7 @@ module.exports = grammar({
       'protected',
       'public',
       'readonly',
-      'ref',
+      prec(1, 'ref'), //make sure that 'ref' is treated as a modifier for local variable declarations instead of as a ref expression
       'sealed',
       'static',
       'unsafe',
@@ -1474,7 +1474,7 @@ module.exports = grammar({
       $._preproc_directive_end
     ),
 
-    preprocessor_directive: $ => /#[a-z]\w*/,
+    preprocessor_directive: $ => /#[ \t]*[a-z]\w*/,
   }
 })
 

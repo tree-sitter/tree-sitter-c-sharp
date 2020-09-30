@@ -68,6 +68,7 @@ module.exports = grammar({
     [$.parameter, $._expression],
     [$.parameter, $.tuple_element, $.declaration_expression],
     [$.parameter, $._variable_designation],
+    [$.tuple_element, $.declaration_expression],
     [$.tuple_element, $.variable_declarator],
   ],
 
@@ -924,6 +925,10 @@ module.exports = grammar({
 
     anonymous_object_creation_expression: $ => seq(
       'new',
+      choice($._member_declarator_list, $.argument_list),
+    ),
+
+    _member_declarator_list: $ => seq(
       '{',
       commaSep($._anonymous_object_member_declarator),
       optional(','),

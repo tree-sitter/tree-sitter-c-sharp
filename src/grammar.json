@@ -4984,6 +4984,24 @@
           "value": "new"
         },
         {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_member_declarator_list"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "argument_list"
+            }
+          ]
+        }
+      ]
+    },
+    "_member_declarator_list": {
+      "type": "SEQ",
+      "members": [
+        {
           "type": "STRING",
           "value": "{"
         },
@@ -8231,6 +8249,10 @@
     [
       "parameter",
       "_variable_designation"
+    ],
+    [
+      "tuple_element",
+      "declaration_expression"
     ],
     [
       "tuple_element",

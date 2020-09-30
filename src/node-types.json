@@ -3580,6 +3580,10 @@
         {
           "type": "identifier",
           "named": true
+        },
+        {
+          "type": "nullable_type",
+          "named": true
         }
       ]
     }

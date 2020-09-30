@@ -18,7 +18,8 @@ const PREC = {
   LOGOR: 4,
   COND: 3,
   ASSIGN: 2,
-  SEQ: 1
+  SEQ: 1,
+  TUPLE: -1,
 };
 
 module.exports = grammar({
@@ -68,7 +69,6 @@ module.exports = grammar({
     [$.parameter, $._expression],
     [$.parameter, $.tuple_element, $.declaration_expression],
     [$.parameter, $._variable_designation],
-    [$.tuple_element, $.declaration_expression],
     [$.tuple_element, $.variable_declarator],
   ],
 
@@ -615,10 +615,10 @@ module.exports = grammar({
       ')'
     ),
 
-    tuple_element: $ => seq(
+    tuple_element: $ => prec(PREC.TUPLE, seq(
       field('type', $._type),
       field('name', optional($.identifier))
-    ),
+    )),
 
     _statement: $ => choice(
       $.block,
@@ -925,14 +925,15 @@ module.exports = grammar({
 
     anonymous_object_creation_expression: $ => seq(
       'new',
-      choice($._member_declarator_list, $.argument_list),
-    ),
-
-    _member_declarator_list: $ => seq(
       '{',
       commaSep($._anonymous_object_member_declarator),
       optional(','),
       '}'
+    ),
+
+    implicit_object_creation_expression: $ => seq(
+      'new',
+      $.argument_list,
     ),
 
     _anonymous_object_member_declarator: $ => choice(
@@ -1285,6 +1286,7 @@ module.exports = grammar({
       $.element_access_expression,
       $.element_binding_expression,
       $.implicit_array_creation_expression,
+      $.implicit_object_creation_expression,
       $.implicit_stack_alloc_array_creation_expression,
       $.initializer_expression,
       $.interpolated_string_expression,

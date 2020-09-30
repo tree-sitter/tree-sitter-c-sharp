@@ -195,7 +195,7 @@ void b() {
           (variable_declarator
           (identifier)
             (equals_value_clause
-              (anonymous_object_creation_expression
+              (implicit_object_creation_expression
                 (argument_list (argument (string_literal)))))))))))
 
 ============================

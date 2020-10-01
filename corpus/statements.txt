@@ -1177,6 +1177,24 @@ class A {
               (equals_value_clause (identifier))))))))))
 
 =====================================
+Function with dynamic local variable
+=====================================
+
+void A() {
+  dynamic dyn = "";
+}
+
+---
+
+ (compilation_unit
+  (method_declaration (void_keyword) (identifier) (parameter_list)
+    (block
+      (local_declaration_statement
+        (variable_declaration (identifier)
+          (variable_declarator (identifier)
+            (equals_value_clause (string_literal))))))))
+
+=====================================
 Function with contextually reserved identifiers
 =====================================
 
@@ -1185,7 +1203,7 @@ async void Sample() {
   int partial = from;
   A into = select;
   R await = get;
-  T set = let + yield + group + add + alias + ascending + async + descending + equals;
+  T set = let + yield + group + add + alias + ascending + notnull + descending + equals;
 }
 
 ---

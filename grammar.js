@@ -59,7 +59,9 @@ module.exports = grammar({
     [$.qualified_name, $.explicit_interface_specifier],
     [$.qualified_name, $.member_access_expression],
 
-    [$.from_clause, $._reserved_identifier],
+    [$._contextual_keywords, $.from_clause, ],
+    [$._contextual_keywords, $.accessor_declaration],
+    [$._contextual_keywords, $.type_parameter_constraint],
 
     [$._type, $.array_creation_expression],
     [$._type, $.stack_alloc_array_creation_expression],
@@ -77,7 +79,7 @@ module.exports = grammar({
     $._identifier_or_global,
   ],
 
-  word: $ => $.identifier,
+  word: $ => $._identifier_token,
 
   rules: {
     // Intentionally deviates from spec so that we can syntax highlight fragments of code
@@ -178,13 +180,7 @@ module.exports = grammar({
       ']'
     ),
 
-    name_colon: $ => seq(
-      choice(
-        $._identifier_or_global,
-        alias($._reserved_identifier, $.identifier)
-      ),
-      ':'
-    ),
+    name_colon: $ => seq($._identifier_or_global, ':'),
 
     event_field_declaration: $ => prec.dynamic(1, seq(
       repeat($.attribute_list),
@@ -196,7 +192,7 @@ module.exports = grammar({
 
     modifier: $ => prec.right(choice(
       'abstract',
-      prec(1, 'async'),
+      'async',
       'const',
       'extern',
       'fixed',
@@ -283,7 +279,7 @@ module.exports = grammar({
       repeat($.attribute_list),
       optional($.parameter_modifier),
       optional(field('type', $._type)),
-      field('name', choice($.identifier, alias($._reserved_identifier, $.identifier))),
+      field('name', $.identifier),
       optional($.equals_value_clause)
     ),
 
@@ -1322,7 +1318,6 @@ module.exports = grammar({
       $.type_of_expression,
 
       $._simple_name,
-      alias($._reserved_identifier, $.identifier),
       $._literal
     ),
 
@@ -1362,7 +1357,9 @@ module.exports = grammar({
       )
     ),
 
-    identifier: $ => token(seq(optional('@'), /[a-zA-Zα-ωΑ-Ωµ_][a-zA-Zα-ωΑ-Ωµ_0-9]*/)), // identifier_token in Roslyn
+    _identifier_token: $ => token(seq(optional('@'), /[a-zA-Zα-ωΑ-Ωµ_][a-zA-Zα-ωΑ-Ωµ_0-9]*/)), // identifier_token in Roslyn
+    identifier: $ => choice($._identifier_token, $._contextual_keywords),
+
     global: $ => 'global',
     _identifier_or_global: $ => choice($.global, $.identifier),
 
@@ -1473,7 +1470,7 @@ module.exports = grammar({
     // Custom non-Roslyn additions beyond this point that will not sync up with grammar.txt
 
     // Contextual keywords - keywords that can also be identifiers...
-    _reserved_identifier: $ => choice(
+    _contextual_keywords: $ => choice(
       // LINQ comprehension syntax
       'ascending',
       'by',
@@ -1495,9 +1492,9 @@ module.exports = grammar({
       'remove',
       'set',
 
-      // Async
-      'async',
-      'await',
+      // Async - These need to be more contextual
+      // 'async',
+      // 'await',
 
       // Misc
       'alias',

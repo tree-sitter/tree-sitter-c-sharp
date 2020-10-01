@@ -626,8 +626,12 @@
             "value": "abstract"
           },
           {
-            "type": "STRING",
-            "value": "async"
+            "type": "PREC",
+            "value": 1,
+            "content": {
+              "type": "STRING",
+              "value": "async"
+            }
           },
           {
             "type": "STRING",
@@ -8203,6 +8207,10 @@
         {
           "type": "STRING",
           "value": "set"
+        },
+        {
+          "type": "STRING",
+          "value": "async"
         },
         {
           "type": "STRING",

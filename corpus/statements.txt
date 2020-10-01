@@ -1180,18 +1180,19 @@ class A {
 Function with contextually reserved identifiers
 =====================================
 
-void Sample() {
+async void Sample() {
   var var = "";
   int partial = from;
   A into = select;
   R await = get;
-  T set = let + yield + group + add + alias + ascending + descending + equals;
+  T set = let + yield + group + add + alias + ascending + async + descending + equals;
 }
 
 ---
 
 (compilation_unit
   (method_declaration
+      (modifier)
       (void_keyword)
       (identifier)
       (parameter_list)
@@ -1222,7 +1223,9 @@ void Sample() {
                       (binary_expression
                         (binary_expression
                           (binary_expression
-                            (binary_expression (identifier) (identifier))
+                            (binary_expression
+                              (binary_expression (identifier) (identifier))
+                            (identifier))
                           (identifier))
                         (identifier))
                       (identifier))

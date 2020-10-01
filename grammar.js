@@ -196,7 +196,7 @@ module.exports = grammar({
 
     modifier: $ => prec.right(choice(
       'abstract',
-      'async',
+      prec(1, 'async'),
       'const',
       'extern',
       'fixed',
@@ -1496,7 +1496,7 @@ module.exports = grammar({
       'set',
 
       // Async
-      // 'async', // conflicts, need a way to enable for fewer scenarios
+      'async',
       'await',
 
       // Misc

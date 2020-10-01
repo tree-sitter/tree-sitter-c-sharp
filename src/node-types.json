@@ -5173,6 +5173,10 @@
     "named": false
   },
   {
+    "type": "dynamic",
+    "named": false
+  },
+  {
     "type": "else",
     "named": false
   },
@@ -5298,6 +5302,10 @@
   },
   {
     "type": "module",
+    "named": false
+  },
+  {
+    "type": "nameof",
     "named": false
   },
   {

@@ -1471,8 +1471,42 @@ module.exports = grammar({
     )),
 
     // Custom non-Roslyn additions beyond this point that will not sync up with grammar.txt
+
+    // Contextual keywords - keywords that can also be identifiers...
     _reserved_identifier: $ => choice(
-      'from'
+      // LINQ comprehension syntax
+      'ascending',
+      'by',
+      'descending',
+      'equals',
+      'from',
+      'group',
+      'into',
+      'join',
+      'let',
+      'on',
+      'orderby',
+      'select',
+      'where',
+
+      // Property/event handlers
+      'add',
+      'get',
+      'remove',
+      'set',
+
+      // Async
+      // 'async', // conflicts, need a way to enable for fewer scenarios
+      'await',
+
+      // Misc
+      'alias',
+      'dynamic',
+      'nameof',
+      'notnull',
+      'unmanaged',
+      'when',
+      'yield'
     ),
 
     // We use this instead of type so 'void' is only treated as type in the right contexts

@@ -4995,7 +4995,7 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "_expression",
           "named": true
         },
         {

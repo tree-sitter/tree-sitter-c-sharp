@@ -2,14 +2,20 @@
 Basic record declaration
 =====================================
 
-record F { }
+record F {
+  int Age { get; init; }
+}
 
 ---
 
 (compilation_unit
   (record_declaration
     (identifier)
-    (declaration_list)))
+    (declaration_list
+      (property_declaration
+        (predefined_type)
+        (identifier)
+        (accessor_list (accessor_declaration) (accessor_declaration))))))
 
 =====================================
 Record with a type parameter struct constraint
@@ -166,7 +172,7 @@ record Teacher(string FirstName, string LastName, string Subject) : Person(First
       (identifier))))
 
 =====================================
-Record inheritance with constructor overload and interfaces
+With expression typical basic form
 =====================================
 
 void A() {
@@ -183,10 +189,42 @@ void A() {
           (implicit_type)
           (variable_declarator
             (identifier)
-              (equals_value_clause 
+            (equals_value_clause
+              (with_expression
+                (identifier)
+                (with_initializer_expression
+                  (simple_assignment_expression
+                    (identifier)
+                    (string_literal)))))))))))
+
+=====================================
+With expression using expressions
+=====================================
+
+void A() {
+  var friend = GetAFriend() with {
+      ForeName = RandomFirstName(),
+      LastName = RandomLastName()
+  };
+}
+
+---
+
+(compilation_unit
+  (method_declaration (void_keyword) (identifier) (parameter_list)
+    (block
+      (local_declaration_statement
+        (variable_declaration
+          (implicit_type)
+          (variable_declarator
+              (identifier)
+              (equals_value_clause
                 (with_expression
-                  (identifier)
+                  (invocation_expression (identifier) (argument_list))
                   (with_initializer_expression
                     (simple_assignment_expression
                       (identifier)
-                      (string_literal)))))))))))
+                      (invocation_expression (identifier) (argument_list)))
+                    (simple_assignment_expression
+                      (identifier)
+                      (invocation_expression (identifier) (argument_list))))))))))))

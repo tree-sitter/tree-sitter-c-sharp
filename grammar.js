@@ -1303,7 +1303,7 @@ module.exports = grammar({
 
     type_of_expression: $ => seq('typeof', '(', $._type, ')'),
 
-    with_expression: $ => seq($.identifier, 'with', '{', optional($.with_initializer_expression), '}'),
+    with_expression: $ => seq($._expression, 'with', '{', optional($.with_initializer_expression), '}'),
 
     with_initializer_expression: $ => commaSep1($.simple_assignment_expression),
 

@@ -8900,10 +8900,6 @@
       "initializer_expression"
     ],
     [
-      "element_access_expression",
-      "enum_member_declaration"
-    ],
-    [
       "event_declaration",
       "variable_declarator"
     ],
@@ -8979,10 +8975,6 @@
     [
       "parameter",
       "_pattern"
-    ],
-    [
-      "tuple_element",
-      "variable_declarator"
     ]
   ],
   "externals": [

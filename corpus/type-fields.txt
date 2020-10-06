@@ -104,6 +104,67 @@ class A {
           (variable_declarator (identifier)))))))
 
 =======================================
+Function pointer type
+=======================================
+
+class A {
+  // Function pointer equivalent without calling convention
+  delegate*<string, int> a;
+  delegate*<delegate*<string, int>, delegate*<string, int>> b;
+
+  // Function pointer equivalent with calling convention
+  delegate* managed<string, int> c;
+  delegate*<delegate* managed<string, int>, delegate*<string, int>> d;
+}
+
+---
+
+(compilation_unit
+  (class_declaration
+    (identifier)
+    (declaration_list
+      (comment)
+      (field_declaration
+        (variable_declaration
+          (function_pointer_type
+            (funcptr_parameter (predefined_type))
+            (funcptr_parameter (predefined_type)))
+          (variable_declarator (identifier))))
+      (field_declaration
+        (variable_declaration
+          (function_pointer_type
+            (funcptr_parameter
+              (function_pointer_type
+                (funcptr_parameter (predefined_type))
+                (funcptr_parameter (predefined_type))))
+            (funcptr_parameter
+              (function_pointer_type
+                (funcptr_parameter (predefined_type))
+                (funcptr_parameter (predefined_type)))))
+          (variable_declarator (identifier))))
+      (comment)
+      (field_declaration
+        (variable_declaration
+          (function_pointer_type
+            (calling_convention_specifier)
+            (funcptr_parameter (predefined_type))
+            (funcptr_parameter (predefined_type)))
+          (variable_declarator (identifier))))
+      (field_declaration
+        (variable_declaration
+          (function_pointer_type
+            (funcptr_parameter
+              (function_pointer_type
+                (calling_convention_specifier)
+                (funcptr_parameter (predefined_type))
+                (funcptr_parameter (predefined_type))))
+            (funcptr_parameter
+              (function_pointer_type
+                (funcptr_parameter (predefined_type))
+                (funcptr_parameter (predefined_type)))))
+          (variable_declarator (identifier)))))))
+
+=======================================
 Ref readonly
 =======================================
 

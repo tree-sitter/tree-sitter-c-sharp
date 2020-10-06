@@ -84,10 +84,15 @@ module.exports = grammar({
 
   rules: {
     // Intentionally deviates from spec so that we can syntax highlight fragments of code
-    compilation_unit: $ => repeat($._declaration),
+    compilation_unit: $ => seq(
+      repeat($.extern_alias_directive),
+      repeat($.using_directive),
+      repeat($.global_attribute_list),
+      repeat($._statement),
+      repeat($._namespace_member_declaration)
+    ),
 
     _declaration: $ => choice(
-      $.global_attribute_list,
       $.class_declaration,
       $.constructor_declaration,
       $.conversion_operator_declaration,
@@ -95,7 +100,6 @@ module.exports = grammar({
       $.destructor_declaration,
       $.enum_declaration,
       $.event_declaration,
-      $.extern_alias_directive,
       $.event_field_declaration,
       $.field_declaration,
       $.indexer_declaration,
@@ -107,6 +111,20 @@ module.exports = grammar({
       $.record_declaration,
       $.struct_declaration,
       $.using_directive,
+    ),
+
+    _namespace_member_declaration: $ => choice(
+      $.namespace_declaration,
+      $._type_declaration
+    ),
+
+    _type_declaration: $ => choice(
+      $.class_declaration,
+      $.struct_declaration,
+      $.interface_declaration,
+      $.enum_declaration,
+      $.delegate_declaration,
+      $.record_declaration
     ),
 
     extern_alias_directive: $ => seq('extern', 'alias', $.identifier, ';'),

@@ -19,10 +19,10 @@ Based on an export of the Roslyn grammar export with various changes in order to
 
 Comprehensive support for C# exists with the following exceptions:
 
-- [ ] [Contextual keywords](https://github.com/tree-sitter/tree-sitter-c-sharp/issues/47)
+- [ ] `async` and `await` cannot be used as identifiers
 - [ ] [Global statements](https://github.com/tree-sitter/tree-sitter-c-sharp/issues/12)
 
-#### C# 7.0
+#### C# 7.0 features (complete)
 
 - [x] Tuples
 - [x] Discards
@@ -53,7 +53,7 @@ Comprehensive support for C# exists with the following exceptions:
 - [x] `private protected` modifier
 - [ ] Conditional `ref` expressions
 
-#### C# 7.3
+#### C# 7.3 (complete)
 
 - [x] `stackalloc` array initializers
 - [x] `unmanaged` generic type parameter constraint
@@ -66,10 +66,32 @@ Comprehensive support for C# exists with the following exceptions:
 - [x] Default interface methods
 - [x] `switch` expressions
 - [ ] `switch` property patterns
-- [ ] `switch` tuple patterns
+- [x] `switch` tuple patterns
 - [x] `static` local functions
 - [x] nullable reference types
 - [x] null-forgiving operator
+
+#### C# 9.0 (TBC)
+
+- [x] Covariant returns
+- [x] Extending partial methods
+- [x] Extension GetEnumerator
+- [ ] Function pointers
+- [x] Init properties
+- [x] Lambda discard parameters
+- [x] Local function attributes
+- [x] Module initializers
+- [x] Native integers
+- [ ] Patterns
+  - [ ] Simple type patterns
+  - [x] Relational patterns
+  - [x] Logical patterns
+- [x] Records
+- [x] Skip Locals Init
+- [x] Static anonymous functions
+- [ ] Target-typed conditional expression
+- [x] Target-typed new
+- [ ] Top-level statements
 
 ### References
 

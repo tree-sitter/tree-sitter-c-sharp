@@ -18,7 +18,8 @@ const PREC = {
   LOGOR: 4,
   COND: 3,
   ASSIGN: 2,
-  SEQ: 1
+  SEQ: 1,
+  TUPLE: -1,
 };
 
 module.exports = grammar({
@@ -58,7 +59,9 @@ module.exports = grammar({
     [$.qualified_name, $.explicit_interface_specifier],
     [$.qualified_name, $.member_access_expression],
 
-    [$.from_clause, $._reserved_identifier],
+    [$._contextual_keywords, $.from_clause, ],
+    [$._contextual_keywords, $.accessor_declaration],
+    [$._contextual_keywords, $.type_parameter_constraint],
 
     [$._type, $.array_creation_expression],
     [$._type, $.stack_alloc_array_creation_expression],
@@ -67,6 +70,8 @@ module.exports = grammar({
     [$.parameter, $._simple_name],
     [$.parameter, $._expression],
     [$.parameter, $.tuple_element, $.declaration_expression],
+    [$.parameter, $._variable_designation],
+    [$.parameter, $._pattern],
     [$.tuple_element, $.variable_declarator],
   ],
 
@@ -75,7 +80,7 @@ module.exports = grammar({
     $._identifier_or_global,
   ],
 
-  word: $ => $.identifier,
+  word: $ => $._identifier_token,
 
   rules: {
     // Intentionally deviates from spec so that we can syntax highlight fragments of code
@@ -99,6 +104,7 @@ module.exports = grammar({
       $.namespace_declaration,
       $.operator_declaration,
       $.property_declaration,
+      $.record_declaration,
       $.struct_declaration,
       $.using_directive,
     ),
@@ -176,13 +182,7 @@ module.exports = grammar({
       ']'
     ),
 
-    name_colon: $ => seq(
-      choice(
-        $._identifier_or_global,
-        alias($._reserved_identifier, $.identifier)
-      ),
-      ':'
-    ),
+    name_colon: $ => seq($._identifier_or_global, ':'),
 
     event_field_declaration: $ => prec.dynamic(1, seq(
       repeat($.attribute_list),
@@ -281,7 +281,7 @@ module.exports = grammar({
       repeat($.attribute_list),
       optional($.parameter_modifier),
       optional(field('type', $._type)),
-      field('name', choice($.identifier, alias($._reserved_identifier, $.identifier))),
+      field('name', choice($.discard, $.identifier)),
       optional($.equals_value_clause)
     ),
 
@@ -357,7 +357,10 @@ module.exports = grammar({
     ),
 
     type_parameter_constraints_clause: $ => seq(
-      'where', $._identifier_or_global, ':', commaSep1($.type_parameter_constraint)
+      'where',
+      field('target', $._identifier_or_global),
+      ':',
+      field('constraints', commaSep1($.type_parameter_constraint)),
     ),
 
     type_parameter_constraint: $ => choice(
@@ -371,7 +374,7 @@ module.exports = grammar({
 
     constructor_constraint: $ => seq('new', '(', ')'),
 
-    type_constraint: $ => $._type,
+    type_constraint: $ => field('type', $._type),
 
     operator_declaration: $ => seq(
       repeat($.attribute_list),
@@ -422,7 +425,7 @@ module.exports = grammar({
     accessor_declaration: $ => seq(
       repeat($.attribute_list),
       repeat($.modifier),
-      choice('get', 'set', 'add', 'remove', $.identifier),
+      choice('get', 'set', 'add', 'remove', 'init', $.identifier),
       $._function_body
     ),
 
@@ -538,6 +541,33 @@ module.exports = grammar({
       ';'
     ),
 
+    record_declaration: $ => seq(
+      repeat($.attribute_list),
+      repeat($.modifier),
+      'record',
+      field('name', $.identifier),
+      field('type_parameters', optional($.type_parameter_list)),
+      field('parameters', optional($.parameter_list)),
+      field('bases', optional(alias($.record_base, $.base_list))),
+      repeat($.type_parameter_constraints_clause),
+      field('body', $._record_base),
+    ),
+
+    record_base: $ => choice(
+      seq(':', commaSep1($.identifier)),
+      seq(':', $.primary_constructor_base_type, optional(seq(',', commaSep1($.identifier)))),
+    ),
+
+    primary_constructor_base_type: $ => seq(
+      $.identifier,
+      $.argument_list
+    ),
+
+    _record_base: $ => choice(
+      $.declaration_list,
+      ';'
+    ),
+
     namespace_declaration: $ => seq(
       'namespace',
       field('name', $._name),
@@ -594,6 +624,8 @@ module.exports = grammar({
       'uint',
       'ulong',
       'ushort',
+      'nint',
+      'nuint'
       // void is handled in return_type for better matching
     )),
 
@@ -613,10 +645,10 @@ module.exports = grammar({
       ')'
     ),
 
-    tuple_element: $ => seq(
+    tuple_element: $ => prec(PREC.TUPLE, seq(
       field('type', $._type),
       field('name', optional($.identifier))
-    ),
+    )),
 
     _statement: $ => choice(
       $.block,
@@ -727,6 +759,7 @@ module.exports = grammar({
     ),
 
     local_function_statement: $ => seq(
+      repeat($.attribute_list),
       repeat($.modifier),
       field('type', $.return_type),
       field('name', $.identifier),
@@ -742,9 +775,14 @@ module.exports = grammar({
 
     switch_statement: $ => seq(
       'switch',
-      '(',
-      field('value', $._expression),
-      ')',
+      choice(
+        seq(
+          '(',
+          field('value', $._expression),
+          ')',
+        ),
+        field('value', $.tuple_expression)
+      ),
       field('body', $.switch_body)
     ),
 
@@ -935,6 +973,11 @@ module.exports = grammar({
       commaSep($._anonymous_object_member_declarator),
       optional(','),
       '}'
+    ),
+
+    implicit_object_creation_expression: $ => seq(
+      'new',
+      $.argument_list,
     ),
 
     _anonymous_object_member_declarator: $ => choice(
@@ -1269,6 +1312,12 @@ module.exports = grammar({
 
     type_of_expression: $ => seq('typeof', '(', $._type, ')'),
 
+    with_expression: $ => seq($._expression, 'with', '{', optional($.with_initializer_expression), '}'),
+
+    with_initializer_expression: $ => commaSep1($.simple_assignment_expression),
+
+    simple_assignment_expression: $ => seq($.identifier, '=', $._expression),
+
     // TODO: Expressions need work on precedence and conflicts.
 
     _expression: $ => choice(
@@ -1287,6 +1336,7 @@ module.exports = grammar({
       $.element_access_expression,
       $.element_binding_expression,
       $.implicit_array_creation_expression,
+      $.implicit_object_creation_expression,
       $.implicit_stack_alloc_array_creation_expression,
       $.initializer_expression,
       $.interpolated_string_expression,
@@ -1312,9 +1362,9 @@ module.exports = grammar({
       $.throw_expression,
       $.tuple_expression,
       $.type_of_expression,
+      $.with_expression,
 
       $._simple_name,
-      alias($._reserved_identifier, $.identifier),
       $._literal
     ),
 
@@ -1354,7 +1404,9 @@ module.exports = grammar({
       )
     ),
 
-    identifier: $ => token(seq(optional('@'), /[a-zA-Zα-ωΑ-Ωµ_][a-zA-Zα-ωΑ-Ωµ_0-9]*/)), // identifier_token in Roslyn
+    _identifier_token: $ => token(seq(optional('@'), /[a-zA-Zα-ωΑ-Ωµ_][a-zA-Zα-ωΑ-Ωµ_0-9]*/)), // identifier_token in Roslyn
+    identifier: $ => choice($._identifier_token, $._contextual_keywords),
+
     global: $ => 'global',
     _identifier_or_global: $ => choice($.global, $.identifier),
 
@@ -1463,8 +1515,42 @@ module.exports = grammar({
     )),
 
     // Custom non-Roslyn additions beyond this point that will not sync up with grammar.txt
-    _reserved_identifier: $ => choice(
-      'from'
+
+    // Contextual keywords - keywords that can also be identifiers...
+    _contextual_keywords: $ => choice(
+      // LINQ comprehension syntax
+      'ascending',
+      'by',
+      'descending',
+      'equals',
+      'from',
+      'group',
+      'into',
+      'join',
+      'let',
+      'on',
+      'orderby',
+      'select',
+      'where',
+
+      // Property/event handlers
+      'add',
+      'get',
+      'remove',
+      'set',
+
+      // Async - These need to be more contextual
+      // 'async',
+      // 'await',
+
+      // Misc
+      'alias',
+      'dynamic',
+      'nameof',
+      'notnull',
+      'unmanaged',
+      'when',
+      'yield'
     ),
 
     // We use this instead of type so 'void' is only treated as type in the right contexts

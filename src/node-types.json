@@ -1138,21 +1138,6 @@
     "fields": {}
   },
   {
-    "type": "calling_convention_specifier",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "unmanaged_calling_convention",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "case_pattern_switch_label",
     "named": true,
     "fields": {},
@@ -2355,7 +2340,22 @@
     }
   },
   {
-    "type": "funcptr_parameter",
+    "type": "function_pointer_calling_convention",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "function_pointer_unmanaged_calling_convention_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function_pointer_parameter",
     "named": true,
     "fields": {},
     "children": {
@@ -2382,11 +2382,41 @@
       "required": true,
       "types": [
         {
-          "type": "calling_convention_specifier",
+          "type": "function_pointer_calling_convention",
           "named": true
         },
         {
-          "type": "funcptr_parameter",
+          "type": "function_pointer_parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function_pointer_unmanaged_calling_convention",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function_pointer_unmanaged_calling_convention_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "function_pointer_unmanaged_calling_convention",
           "named": true
         }
       ]
@@ -4837,21 +4867,6 @@
       "types": [
         {
           "type": "type_parameter",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "unmanaged_calling_convention",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "identifier",
           "named": true
         }
       ]

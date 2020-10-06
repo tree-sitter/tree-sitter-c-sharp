@@ -612,30 +612,34 @@ module.exports = grammar({
     function_pointer_type: $ => seq(
       'delegate',
       '*',
-      optional($.calling_convention_specifier),
+      optional($.function_pointer_calling_convention),
       '<',
-      commaSep1($.funcptr_parameter),
+      commaSep1($.function_pointer_parameter),
       '>'
     ),
 
-    calling_convention_specifier: $ => choice(
+    function_pointer_calling_convention: $ => choice(
       'managed',
       seq(
         'unmanaged',
-        optional(seq('[', $.unmanaged_calling_convention, ']'))
+        optional($.function_pointer_unmanaged_calling_convention_list)
       )
     ),
 
-    unmanaged_calling_convention: $ => choice(
+    function_pointer_unmanaged_calling_convention_list: $ => seq(
+      '[', commaSep1($.function_pointer_unmanaged_calling_convention), ']'
+    ),
+
+    function_pointer_unmanaged_calling_convention: $ => choice(
       'Cdecl',
       'Stdcall',
       'Thiscall',
       'Fastcall',
-      commaSep1($.identifier)
+      $.identifier
     ),
 
-    funcptr_parameter: $ => seq(
-      repeat(choice('ref', 'out', 'in', 'readonly')),
+    function_pointer_parameter: $ => seq(
+      optional(choice('ref', 'out', 'in', seq('ref', 'readonly'))),
       choice($._type, $.void_keyword)
     ),
 

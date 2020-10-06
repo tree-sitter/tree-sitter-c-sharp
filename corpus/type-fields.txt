@@ -110,11 +110,11 @@ Function pointer type
 class A {
   // Function pointer equivalent without calling convention
   delegate*<string, int> a;
-  delegate*<delegate*<string, int>, delegate*<string, int>> b;
+  delegate*<delegate*<in string, int>, delegate*<string, ref readonly int>> b;
 
   // Function pointer equivalent with calling convention
   delegate* managed<string, int> c;
-  delegate*<delegate* managed<string, int>, delegate*<string, int>> d;
+  delegate*<delegate* unmanaged[MyCallConv, YourCallConv]<string, int>, delegate*<string, int>> d;
 }
 
 ---
@@ -127,41 +127,44 @@ class A {
       (field_declaration
         (variable_declaration
           (function_pointer_type
-            (funcptr_parameter (predefined_type))
-            (funcptr_parameter (predefined_type)))
+            (function_pointer_parameter (predefined_type))
+            (function_pointer_parameter (predefined_type)))
           (variable_declarator (identifier))))
       (field_declaration
         (variable_declaration
           (function_pointer_type
-            (funcptr_parameter
+            (function_pointer_parameter
               (function_pointer_type
-                (funcptr_parameter (predefined_type))
-                (funcptr_parameter (predefined_type))))
-            (funcptr_parameter
+                (function_pointer_parameter (predefined_type))
+                (function_pointer_parameter (predefined_type))))
+            (function_pointer_parameter
               (function_pointer_type
-                (funcptr_parameter (predefined_type))
-                (funcptr_parameter (predefined_type)))))
+                (function_pointer_parameter (predefined_type))
+                (function_pointer_parameter (predefined_type)))))
           (variable_declarator (identifier))))
       (comment)
       (field_declaration
         (variable_declaration
           (function_pointer_type
-            (calling_convention_specifier)
-            (funcptr_parameter (predefined_type))
-            (funcptr_parameter (predefined_type)))
+            (function_pointer_calling_convention)
+            (function_pointer_parameter (predefined_type))
+            (function_pointer_parameter (predefined_type)))
           (variable_declarator (identifier))))
       (field_declaration
         (variable_declaration
           (function_pointer_type
-            (funcptr_parameter
+            (function_pointer_parameter
               (function_pointer_type
-                (calling_convention_specifier)
-                (funcptr_parameter (predefined_type))
-                (funcptr_parameter (predefined_type))))
-            (funcptr_parameter
+                (function_pointer_calling_convention
+                  (function_pointer_unmanaged_calling_convention_list
+                    (function_pointer_unmanaged_calling_convention (identifier))
+                    (function_pointer_unmanaged_calling_convention (identifier))))
+                (function_pointer_parameter (predefined_type))
+                (function_pointer_parameter (predefined_type))))
+            (function_pointer_parameter
               (function_pointer_type
-                (funcptr_parameter (predefined_type))
-                (funcptr_parameter (predefined_type)))))
+                (function_pointer_parameter (predefined_type))
+                (function_pointer_parameter (predefined_type)))))
           (variable_declarator (identifier)))))))
 
 =======================================

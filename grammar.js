@@ -45,8 +45,6 @@ module.exports = grammar({
   conflicts: $ => [
     [$.block, $.initializer_expression],
 
-    [$.element_access_expression, $.enum_member_declaration],
-
     [$.event_declaration, $.variable_declarator],
 
     [$.nullable_type, $.binary_expression],
@@ -59,7 +57,7 @@ module.exports = grammar({
     [$.qualified_name, $.explicit_interface_specifier],
     [$.qualified_name, $.member_access_expression],
 
-    [$._contextual_keywords, $.from_clause, ],
+    [$._contextual_keywords, $.from_clause],
     [$._contextual_keywords, $.accessor_declaration],
     [$._contextual_keywords, $.type_parameter_constraint],
 
@@ -72,7 +70,6 @@ module.exports = grammar({
     [$.parameter, $.tuple_element, $.declaration_expression],
     [$.parameter, $._variable_designation],
     [$.parameter, $._pattern],
-    [$.tuple_element, $.variable_declarator],
   ],
 
   inline: $ => [
@@ -83,11 +80,17 @@ module.exports = grammar({
   word: $ => $._identifier_token,
 
   rules: {
-    // Intentionally deviates from spec so that we can syntax highlight fragments of code
-    compilation_unit: $ => repeat($._declaration),
+    compilation_unit: $ => seq(
+      repeat($.extern_alias_directive),
+      repeat($.using_directive),
+      repeat($.global_attribute_list),
+      repeat($.global_statement),
+      repeat($._namespace_member_declaration)
+    ),
+
+    global_statement: $ => $._statement,
 
     _declaration: $ => choice(
-      $.global_attribute_list,
       $.class_declaration,
       $.constructor_declaration,
       $.conversion_operator_declaration,
@@ -95,7 +98,6 @@ module.exports = grammar({
       $.destructor_declaration,
       $.enum_declaration,
       $.event_declaration,
-      $.extern_alias_directive,
       $.event_field_declaration,
       $.field_declaration,
       $.indexer_declaration,
@@ -107,6 +109,20 @@ module.exports = grammar({
       $.record_declaration,
       $.struct_declaration,
       $.using_directive,
+    ),
+
+    _namespace_member_declaration: $ => choice(
+      $.namespace_declaration,
+      $._type_declaration
+    ),
+
+    _type_declaration: $ => choice(
+      $.class_declaration,
+      $.struct_declaration,
+      $.interface_declaration,
+      $.enum_declaration,
+      $.delegate_declaration,
+      $.record_declaration
     ),
 
     extern_alias_directive: $ => seq('extern', 'alias', $.identifier, ';'),
@@ -581,6 +597,7 @@ module.exports = grammar({
       $._name,
       $.nullable_type,
       $.pointer_type,
+      $.function_pointer_type,
       $.predefined_type,
       $.tuple_type,  // TODO: Conflicts with everything
     ),
@@ -607,6 +624,40 @@ module.exports = grammar({
     ),
 
     pointer_type: $ => prec(PREC.POSTFIX, seq($._type, '*')),
+
+    function_pointer_type: $ => seq(
+      'delegate',
+      '*',
+      optional($.function_pointer_calling_convention),
+      '<',
+      commaSep1($.function_pointer_parameter),
+      '>'
+    ),
+
+    function_pointer_calling_convention: $ => choice(
+      'managed',
+      seq(
+        'unmanaged',
+        optional($.function_pointer_unmanaged_calling_convention_list)
+      )
+    ),
+
+    function_pointer_unmanaged_calling_convention_list: $ => seq(
+      '[', commaSep1($.function_pointer_unmanaged_calling_convention), ']'
+    ),
+
+    function_pointer_unmanaged_calling_convention: $ => choice(
+      'Cdecl',
+      'Stdcall',
+      'Thiscall',
+      'Fastcall',
+      $.identifier
+    ),
+
+    function_pointer_parameter: $ => seq(
+      optional(choice('ref', 'out', 'in', seq('ref', 'readonly'))),
+      choice($._type, $.void_keyword)
+    ),
 
     predefined_type: $ => token(choice(
       'bool',

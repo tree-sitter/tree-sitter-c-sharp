@@ -1189,13 +1189,14 @@ void A() {
 
 ---
 
- (compilation_unit
-  (method_declaration (void_keyword) (identifier) (parameter_list)
-    (block
-      (local_declaration_statement
-        (variable_declaration (identifier)
-          (variable_declarator (identifier)
-            (equals_value_clause (string_literal))))))))
+(compilation_unit
+  (global_statement
+    (local_function_statement (void_keyword) (identifier) (parameter_list)
+      (block
+        (local_declaration_statement
+          (variable_declaration (identifier)
+            (variable_declarator (identifier)
+              (equals_value_clause (string_literal)))))))))
 
 =====================================
 Function with contextually reserved identifiers
@@ -1212,7 +1213,8 @@ async void Sample() {
 ---
 
 (compilation_unit
-  (method_declaration
+  (global_statement
+    (local_function_statement
       (modifier)
       (void_keyword)
       (identifier)
@@ -1234,7 +1236,7 @@ async void Sample() {
           (variable_declaration (identifier)
             (variable_declarator (identifier)
               (equals_value_clause (identifier)))))
-       (local_declaration_statement
+        (local_declaration_statement
           (variable_declaration (identifier)
             (variable_declarator (identifier)
               (equals_value_clause
@@ -1252,4 +1254,4 @@ async void Sample() {
                       (identifier))
                     (identifier))
                   (identifier))
-                (identifier)))))))))
+                (identifier))))))))))

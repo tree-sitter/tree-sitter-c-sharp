@@ -3,19 +3,52 @@
   "word": "_identifier_token",
   "rules": {
     "compilation_unit": {
-      "type": "REPEAT",
-      "content": {
-        "type": "SYMBOL",
-        "name": "_declaration"
-      }
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "extern_alias_directive"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "using_directive"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "global_attribute_list"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "global_statement"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_namespace_member_declaration"
+          }
+        }
+      ]
+    },
+    "global_statement": {
+      "type": "SYMBOL",
+      "name": "_statement"
     },
     "_declaration": {
       "type": "CHOICE",
       "members": [
-        {
-          "type": "SYMBOL",
-          "name": "global_attribute_list"
-        },
         {
           "type": "SYMBOL",
           "name": "class_declaration"
@@ -43,10 +76,6 @@
         {
           "type": "SYMBOL",
           "name": "event_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "extern_alias_directive"
         },
         {
           "type": "SYMBOL",
@@ -91,6 +120,48 @@
         {
           "type": "SYMBOL",
           "name": "using_directive"
+        }
+      ]
+    },
+    "_namespace_member_declaration": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "namespace_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_type_declaration"
+        }
+      ]
+    },
+    "_type_declaration": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "class_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "struct_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "interface_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "enum_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "delegate_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "record_declaration"
         }
       ]
     },
@@ -3119,6 +3190,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "function_pointer_type"
+        },
+        {
+          "type": "SYMBOL",
           "name": "predefined_type"
         },
         {
@@ -3273,6 +3348,213 @@
           }
         ]
       }
+    },
+    "function_pointer_type": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "delegate"
+        },
+        {
+          "type": "STRING",
+          "value": "*"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "function_pointer_calling_convention"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "<"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "function_pointer_parameter"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "function_pointer_parameter"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ">"
+        }
+      ]
+    },
+    "function_pointer_calling_convention": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "managed"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "unmanaged"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "function_pointer_unmanaged_calling_convention_list"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "function_pointer_unmanaged_calling_convention_list": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "function_pointer_unmanaged_calling_convention"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "function_pointer_unmanaged_calling_convention"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
+    },
+    "function_pointer_unmanaged_calling_convention": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "Cdecl"
+        },
+        {
+          "type": "STRING",
+          "value": "Stdcall"
+        },
+        {
+          "type": "STRING",
+          "value": "Thiscall"
+        },
+        {
+          "type": "STRING",
+          "value": "Fastcall"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        }
+      ]
+    },
+    "function_pointer_parameter": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "ref"
+                },
+                {
+                  "type": "STRING",
+                  "value": "out"
+                },
+                {
+                  "type": "STRING",
+                  "value": "in"
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "ref"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "readonly"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_type"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "void_keyword"
+            }
+          ]
+        }
+      ]
     },
     "predefined_type": {
       "type": "TOKEN",
@@ -8673,10 +8955,6 @@
       "initializer_expression"
     ],
     [
-      "element_access_expression",
-      "enum_member_declaration"
-    ],
-    [
       "event_declaration",
       "variable_declarator"
     ],
@@ -8752,10 +9030,6 @@
     [
       "parameter",
       "_pattern"
-    ],
-    [
-      "tuple_element",
-      "variable_declarator"
     ]
   ],
   "externals": [

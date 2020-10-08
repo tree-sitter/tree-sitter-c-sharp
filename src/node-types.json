@@ -36,15 +36,7 @@
         "named": true
       },
       {
-        "type": "extern_alias_directive",
-        "named": true
-      },
-      {
         "type": "field_declaration",
-        "named": true
-      },
-      {
-        "type": "global_attribute_list",
         "named": true
       },
       {
@@ -411,6 +403,10 @@
       },
       {
         "type": "array_type",
+        "named": true
+      },
+      {
+        "type": "function_pointer_type",
         "named": true
       },
       {
@@ -1422,7 +1418,47 @@
       "required": false,
       "types": [
         {
-          "type": "_declaration",
+          "type": "class_declaration",
+          "named": true
+        },
+        {
+          "type": "delegate_declaration",
+          "named": true
+        },
+        {
+          "type": "enum_declaration",
+          "named": true
+        },
+        {
+          "type": "extern_alias_directive",
+          "named": true
+        },
+        {
+          "type": "global_attribute_list",
+          "named": true
+        },
+        {
+          "type": "global_statement",
+          "named": true
+        },
+        {
+          "type": "interface_declaration",
+          "named": true
+        },
+        {
+          "type": "namespace_declaration",
+          "named": true
+        },
+        {
+          "type": "record_declaration",
+          "named": true
+        },
+        {
+          "type": "struct_declaration",
+          "named": true
+        },
+        {
+          "type": "using_directive",
           "named": true
         }
       ]
@@ -2348,6 +2384,89 @@
     }
   },
   {
+    "type": "function_pointer_calling_convention",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "function_pointer_unmanaged_calling_convention_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function_pointer_parameter",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "_type",
+          "named": true
+        },
+        {
+          "type": "void_keyword",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function_pointer_type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "function_pointer_calling_convention",
+          "named": true
+        },
+        {
+          "type": "function_pointer_parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function_pointer_unmanaged_calling_convention",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function_pointer_unmanaged_calling_convention_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "function_pointer_unmanaged_calling_convention",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "generic_name",
     "named": true,
     "fields": {},
@@ -2376,6 +2495,21 @@
       "types": [
         {
           "type": "attribute",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "global_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "_statement",
           "named": true
         }
       ]
@@ -5287,6 +5421,22 @@
     "named": false
   },
   {
+    "type": "Cdecl",
+    "named": false
+  },
+  {
+    "type": "Fastcall",
+    "named": false
+  },
+  {
+    "type": "Stdcall",
+    "named": false
+  },
+  {
+    "type": "Thiscall",
+    "named": false
+  },
+  {
     "type": "[",
     "named": false
   },
@@ -5528,6 +5678,10 @@
   },
   {
     "type": "lock",
+    "named": false
+  },
+  {
+    "type": "managed",
     "named": false
   },
   {

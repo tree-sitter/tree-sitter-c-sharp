@@ -297,6 +297,25 @@ Declared tuple type with default
             (default_expression)))))))
 
 =====================================
+Invocation with inline tuple_type declaration
+=====================================
+
+M(out (int a, int b) c);
+
+---
+
+(compilation_unit
+  (global_statement
+    (expression_statement
+      (invocation_expression (identifier)
+        (argument_list
+          (argument (declaration_expression
+            (tuple_type
+              (tuple_element (predefined_type) (identifier))
+              (tuple_element (predefined_type) (identifier)))
+            (identifier))))))))
+
+=====================================
 Inferred tuples
 =====================================
 

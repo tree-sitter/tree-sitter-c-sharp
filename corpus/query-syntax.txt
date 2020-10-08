@@ -44,13 +44,11 @@ var x = from a in source select new { Name = a.B };
                 (identifier)
                 (identifier))
                 (select_clause
-                  (initializer_expression
-                    (assignment_expression
+                  (anonymous_object_creation_expression
+                    (name_equals (identifier))
+                    (member_access_expression
                       (identifier)
-                        (assignment_operator)
-                          (member_access_expression
-                            (identifier)
-                            (identifier))))))))))))
+                      (identifier)))))))))))
 
 =====================================
 Query from select with where

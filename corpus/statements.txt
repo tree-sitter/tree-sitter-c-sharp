@@ -316,6 +316,34 @@ M(out (int a, int b) c);
             (identifier))))))))
 
 =====================================
+Returning tuples
+=====================================
+
+void M() {
+  (bool a, bool b) M2() {
+    return (true, false);
+  }
+}
+
+---
+
+(compilation_unit
+  (global_statement
+    (local_function_statement (void_keyword) (identifier) (parameter_list)
+      (block
+        (local_function_statement
+          (tuple_type
+            (tuple_element (predefined_type) (identifier))
+            (tuple_element (predefined_type) (identifier)))
+          (identifier)
+          (parameter_list)
+          (block
+            (return_statement
+              (tuple_expression
+                (argument (boolean_literal))
+                (argument (boolean_literal))))))))))
+
+=====================================
 Inferred tuples
 =====================================
 

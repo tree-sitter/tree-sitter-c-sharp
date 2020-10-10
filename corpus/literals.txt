@@ -118,6 +118,7 @@ const float e = 1e6f;
 const Single en = 0e-1f;
 const Single ep = 1_1e+12f;
 const double d = 0.9_9d;
+const double e = .4_9d;
 const decimal m = 0_1_2.9m;
 const Decimal m2 = 102.349M;
 
@@ -147,6 +148,12 @@ const Decimal m2 = 102.349M;
       (modifier)
       (variable_declaration
       (identifier)
+      (variable_declarator (identifier) (equals_value_clause (real_literal))))))
+  (global_statement
+    (local_declaration_statement
+      (modifier)
+      (variable_declaration
+      (predefined_type)
       (variable_declarator (identifier) (equals_value_clause (real_literal))))))
   (global_statement
     (local_declaration_statement

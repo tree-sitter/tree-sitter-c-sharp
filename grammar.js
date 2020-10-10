@@ -1511,8 +1511,8 @@ module.exports = grammar({
     integer_literal: $ => token(seq(
       choice(
         decimalDigitSequence, // Decimal
-        (/0[xX]([0-9a-fA-F][0-9a-fA-F_]*[0-9a-fA-F]|[0-9a-fA-F])/), // Hex
-        (/0[bB]([01][01_]*[01]|[01])/) // Binary
+        (/0[xX][0-9a-fA-F_]+[0-9a-fA-F]*/), // Hex
+        (/0[bB][01_]+[01]*/) // Binary
       ),
       optional(/u|U|l|L|ul|UL|uL|Ul|lu|LU|Lu|lU/)
     )),

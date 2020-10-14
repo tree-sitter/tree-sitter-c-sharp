@@ -5980,7 +5980,7 @@
     },
     "conditional_access_expression": {
       "type": "PREC_RIGHT",
-      "value": 0,
+      "value": 16,
       "content": {
         "type": "SEQ",
         "members": [
@@ -9094,6 +9094,26 @@
     [
       "tuple_element",
       "variable_declarator"
+    ],
+    [
+      "conditional_access_expression",
+      "conditional_expression",
+      "prefix_unary_expression"
+    ],
+    [
+      "conditional_access_expression",
+      "conditional_expression",
+      "await_expression"
+    ],
+    [
+      "conditional_access_expression",
+      "conditional_expression",
+      "binary_expression"
+    ],
+    [
+      "conditional_access_expression",
+      "conditional_expression",
+      "cast_expression"
     ]
   ],
   "externals": [

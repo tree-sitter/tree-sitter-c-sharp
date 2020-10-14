@@ -1781,4 +1781,30 @@ var c = o is int; //binary_expression ("IsExpression" in Roslyn)
               (binary_expression
                 (identifier)
                 (predefined_type))))))) (comment))
-                
+
+=====================================
+Precedence of conditional_access_expression
+=====================================
+
+var b = (me as Person)?._Age != 1;
+
+---
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        (implicit_type)
+        (variable_declarator
+          (identifier)
+          (equals_value_clause
+            (binary_expression
+              (conditional_access_expression
+                (parenthesized_expression
+                  (binary_expression
+                    (identifier)
+                    (identifier)))
+                (member_binding_expression
+                  (identifier)))
+              (integer_literal))))))))
+              

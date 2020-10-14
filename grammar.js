@@ -76,7 +76,12 @@ module.exports = grammar({
     [$.parameter, $.declaration_expression],
     [$.tuple_element],
     [$.tuple_element, $.declaration_expression],
-    [$.tuple_element, $.variable_declarator]
+    [$.tuple_element, $.variable_declarator],
+
+    [$.conditional_access_expression, $.conditional_expression, $.prefix_unary_expression],
+    [$.conditional_access_expression, $.conditional_expression, $.await_expression],
+    [$.conditional_access_expression, $.conditional_expression, $.binary_expression],
+    [$.conditional_access_expression, $.conditional_expression, $.cast_expression],
   ],
 
   inline: $ => [
@@ -1086,7 +1091,7 @@ module.exports = grammar({
       seq('unchecked', '(', $._expression, ')')
     ),
 
-    conditional_access_expression: $ => prec.right(seq(
+    conditional_access_expression: $ => prec.right(PREC.INVOCATION, seq(
       field('condition', $._expression),
       '?',
       field('value', $._expression)

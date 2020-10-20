@@ -8,8 +8,11 @@
 
 (interface_declaration
  name: (identifier) @name
- bases: (base_list (_) @name)
  ) @definition.interface
+
+(interface_declaration
+ bases: (base_list (_) @name)
+ ) @reference.interface
 
 (method_declaration
  name: (identifier) @name

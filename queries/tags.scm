@@ -1,7 +1,10 @@
 (class_declaration
  name: (identifier) @name
- bases: (base_list (_) @name)
  ) @definition.class
+
+(class_declaration
+   bases: (base_list (_) @name)
+ ) @reference.class
 
 (interface_declaration
  name: (identifier) @name
@@ -21,6 +24,10 @@
  ) @reference.class
 
 (type_constraint
+ type: (identifier) @name
+ ) @reference.class
+
+(variable_declaration
  type: (identifier) @name
  ) @reference.class
 

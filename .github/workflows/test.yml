@@ -14,6 +14,9 @@ jobs:
         uses: actions/setup-node@v2-beta
         with:
           node-version: '12'
+        run: |
+          node --version
+          npm --version
       
       - name: Install dependencies
         run: npm install
@@ -21,7 +24,8 @@ jobs:
       - name: Test corpus
         run: npm test
 
-      - name: Test examples
+      - name: Parse examples
         run: |
+          PATH=$(npm bin):$PATH
           script/fetch-examples
           script/parse-examples

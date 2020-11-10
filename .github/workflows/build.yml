@@ -1,10 +1,10 @@
-name: Test grammar
+name: build
 
 on: [push, pull_request]
 
 jobs:
   build:
-    name: Test grammar
+    name: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

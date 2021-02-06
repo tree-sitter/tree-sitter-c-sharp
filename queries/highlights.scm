@@ -11,6 +11,9 @@
 
 (constructor_declaration name: (identifier) @type)
 
+(generic_name (identifier) @type)
+(type_argument_list (identifier) @type)
+
 [
   (implicit_type)
   (nullable_type)
@@ -222,3 +225,6 @@
 ;; Switch
 (switch_statement (identifier) @variable)
 (switch_expression (identifier) @variable)
+
+;; Lock statement
+(lock_statement (identifier) @variable)

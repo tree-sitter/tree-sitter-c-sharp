@@ -165,6 +165,12 @@
 (select_clause (identifier) @variable)
 (query_continuation (identifier) @variable) @keyword
 
+;; Record
+(with_expression
+  (with_initializer_expression
+    (simple_assignment_expression
+      (identifier) @variable)))
+
 ;; Exprs
 (binary_expression (identifier) @variable (identifier) @variable)
 (binary_expression (identifier)* @variable)

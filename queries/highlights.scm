@@ -11,9 +11,6 @@
 
 (constructor_declaration name: (identifier) @type)
 
-(generic_name (identifier) @type)
-(type_argument_list (identifier) @type)
-
 [
   (implicit_type)
   (nullable_type)
@@ -217,6 +214,15 @@
 ;; Return
 (return_statement (identifier) @variable)
 (yield_statement (identifier) @variable)
+
+;; Type
+(generic_name (identifier) @type)
+(type_argument_list (identifier) @type)
+
+;; Type constraints
+(type_parameter_constraints_clause (identifier) @property.definition)
+(type_parameter_constraint (identifier) @type)
+(type_constraint (identifier) @type)
 
 ;; Exception
 (catch_declaration (identifier) @type (identifier) @variable)

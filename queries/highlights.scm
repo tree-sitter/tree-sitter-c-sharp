@@ -217,6 +217,7 @@
 
 ;; Type
 (generic_name (identifier) @type)
+(type_parameter (identifier) @property.definition)
 (type_argument_list (identifier) @type)
 
 ;; Type constraints

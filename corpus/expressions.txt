@@ -73,7 +73,7 @@ var t = x is int
         (variable_declarator (identifier)
           (equals_value_clause
             (conditional_expression
-              (binary_expression (identifier) (predefined_type))
+              (is_expression (identifier) (predefined_type))
               (identifier)
               (identifier))))))))
 
@@ -94,7 +94,7 @@ var u = x is int?
         (variable_declarator (identifier)
           (equals_value_clause
             (conditional_expression
-              (binary_expression (identifier) (nullable_type (predefined_type)))
+              (is_expression (identifier) (nullable_type (predefined_type)))
               (identifier)
               (identifier))))))))
 
@@ -1479,7 +1479,7 @@ var b = s is string;
         (variable_declarator
           (identifier)
           (equals_value_clause
-            (binary_expression
+            (is_expression
               (identifier)
               (predefined_type))))))))
 
@@ -1725,7 +1725,7 @@ Type patterns
 =====================================
 
 var b = o is int or string; //is_pattern_expression with type_pattern
-var c = o is int; //binary_expression ("IsExpression" in Roslyn)
+var c = o is int; //is_expression with type
 
 ---
 
@@ -1749,7 +1749,7 @@ var c = o is int; //binary_expression ("IsExpression" in Roslyn)
           (variable_declarator
             (identifier)
             (equals_value_clause
-              (binary_expression
+              (is_expression
                 (identifier)
                 (predefined_type))))))) (comment))
 
@@ -1849,7 +1849,7 @@ if ((p as Person[])?[0]._Age != 1) { }
           (member_access_expression
             (conditional_access_expression
               (parenthesized_expression
-                (binary_expression (identifier) (array_type (identifier) (array_rank_specifier))))
+                (as_expression (identifier) (array_type (identifier) (array_rank_specifier))))
               (element_binding_expression
                 (bracketed_argument_list (argument (integer_literal)))))
             (identifier))

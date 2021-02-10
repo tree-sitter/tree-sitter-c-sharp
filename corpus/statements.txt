@@ -1535,7 +1535,8 @@ b = obj ?? a == 0;
   (global_statement
     (expression_statement
       (assignment_expression (identifier) (assignment_operator)
-        (coalesce_expression (identifier)
+        (binary_expression
+          (identifier)
           (binary_expression (identifier) (integer_literal)))))))
 
 =====================================

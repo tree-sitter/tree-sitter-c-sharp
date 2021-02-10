@@ -18,6 +18,7 @@ const PREC = {
   COND: 3,
   ASSIGN: 2,
   SEQ: 1,
+  TERNARY: 1,  
   SELECT: 0,
   TYPE_PATTERN: -2,
 };
@@ -1396,6 +1397,7 @@ module.exports = grammar({
       $.binary_expression,
       $.cast_expression,
       $.checked_expression,
+      $.coalesce_expression,
       $.conditional_access_expression,
       $.conditional_expression,
       $.default_expression,
@@ -1455,7 +1457,6 @@ module.exports = grammar({
         ['!=', PREC.EQUAL],
         ['>=', PREC.REL],
         ['>', PREC.REL],
-        ['??', PREC.EQUAL],
       ].map(([operator, precedence]) =>
         prec.left(precedence, seq(
           field('left', $._expression),
@@ -1464,6 +1465,12 @@ module.exports = grammar({
         ))
       )
     ),
+
+    coalesce_expression: $ => prec.left(PREC.TERNARY, seq(
+      field('left', $._expression),
+      field('operator', '??'),
+      field('right', $._expression)
+    )),
 
     as_expression: $ => prec.left(PREC.EQUAL, seq(
       field('left', $._expression),

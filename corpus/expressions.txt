@@ -1152,7 +1152,7 @@ class Foo {
             (assignment_expression
               (identifier)
               (assignment_operator)
-              (binary_expression
+              (coalesce_expression
                 (identifier)
                 (throw_expression (identifier))))))))))
 
@@ -1855,3 +1855,4 @@ if ((p as Person[])?[0]._Age != 1) { }
             (identifier))
           (integer_literal))
       (block))))
+      

@@ -130,6 +130,10 @@
         "named": true
       },
       {
+        "type": "coalesce_expression",
+        "named": true
+      },
+      {
         "type": "conditional_access_expression",
         "named": true
       },
@@ -977,10 +981,6 @@
             "named": false
           },
           {
-            "type": "??",
-            "named": false
-          },
-          {
             "type": "^",
             "named": false
           },
@@ -1447,6 +1447,42 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "coalesce_expression",
+    "named": true,
+    "fields": {
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      },
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "??",
+            "named": false
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {

@@ -1090,11 +1090,31 @@ module.exports = grammar({
       seq('unchecked', '(', $._expression, ')')
     ),
 
-    conditional_access_expression: $ => prec.right(PREC.COND, seq(
-      field('condition', $._expression),
-      '?',
-      choice($.member_binding_expression, $.element_binding_expression)
+    conditional_access_expression: $ => prec.right(seq(
+      $._expression,
+      $._null_conditional_operations
     )),
+
+    _null_conditional_operations: $ => prec.right(choice(
+      seq(optional($._null_conditional_operations), $.null_conditional_member_access),
+      seq(optional($._null_conditional_operations), $.null_conditional_element_access),
+      seq($._null_conditional_operations, $.member_binding_expression),
+      seq($._null_conditional_operations, $.element_binding_expression),
+      seq($._null_conditional_operations, $.conditional_invocation_expression),
+    )),
+
+    null_conditional_member_access: $ => seq(
+      '?.',
+      field('name', $._simple_name),
+    ),
+
+    null_conditional_element_access: $ => seq(
+      '?[',
+      commaSep($.argument),
+      ']'
+    ),
+
+    conditional_invocation_expression: $ => field('arguments', $.argument_list),
 
     conditional_expression: $ => prec.right(PREC.COND, seq(
       field('condition', $._expression),

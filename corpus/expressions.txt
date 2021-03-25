@@ -1897,8 +1897,8 @@ var a = b?.Something;
           (equals_value_clause
             (conditional_access_expression
               (identifier)
-              (member_binding_expression
-              (identifier)))))))))
+              (null_conditional_member_access
+                (identifier)))))))))
 
 =====================================
 Conditional access to element (should be implicit_element_access)
@@ -1918,8 +1918,8 @@ var x = dict?["a"];
           (equals_value_clause
             (conditional_access_expression
               (identifier)
-                (element_binding_expression
-                  (bracketed_argument_list (argument (string_literal)))))))))))
+              (null_conditional_element_access
+                (argument (string_literal))))))))))
 
 =====================================
 Conditional access expression with member binding
@@ -1933,7 +1933,7 @@ if (a?.B != 1) { }
   (global_statement
     (if_statement
       (binary_expression
-        (conditional_access_expression (identifier) (member_binding_expression (identifier)))
+        (conditional_access_expression (identifier) (null_conditional_member_access (identifier)))
         (integer_literal))
       (block))))
 
@@ -1953,8 +1953,8 @@ if ((p as Person[])?[0]._Age != 1) { }
             (conditional_access_expression
               (parenthesized_expression
                 (as_expression (identifier) (array_type (identifier) (array_rank_specifier))))
-              (element_binding_expression
-                (bracketed_argument_list (argument (integer_literal)))))
+              (null_conditional_element_access
+                (argument (integer_literal))))
             (identifier))
           (integer_literal))
       (block))))

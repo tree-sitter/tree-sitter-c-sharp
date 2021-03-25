@@ -1507,28 +1507,29 @@
   {
     "type": "conditional_access_expression",
     "named": true,
-    "fields": {
-      "condition": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "_expression",
-            "named": true
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "element_binding_expression",
+          "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "conditional_invocation_expression",
           "named": true
         },
         {
           "type": "member_binding_expression",
+          "named": true
+        },
+        {
+          "type": "null_conditional_element_access",
+          "named": true
+        },
+        {
+          "type": "null_conditional_member_access",
           "named": true
         }
       ]
@@ -1564,6 +1565,22 @@
         "types": [
           {
             "type": "_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "conditional_invocation_expression",
+    "named": true,
+    "fields": {
+      "arguments": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "argument_list",
             "named": true
           }
         ]
@@ -3585,6 +3602,45 @@
     }
   },
   {
+    "type": "null_conditional_element_access",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "argument",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "null_conditional_member_access",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "generic_name",
+            "named": true
+          },
+          {
+            "type": "global",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "nullable_type",
     "named": true,
     "fields": {},
@@ -5585,11 +5641,19 @@
     "named": false
   },
   {
+    "type": "?.",
+    "named": false
+  },
+  {
     "type": "??",
     "named": false
   },
   {
     "type": "??=",
+    "named": false
+  },
+  {
+    "type": "?[",
     "named": false
   },
   {

@@ -1949,12 +1949,17 @@ if ((p as Person[])?[0]._Age != 1) { }
   (global_statement
     (if_statement
       (binary_expression
-          (member_access_expression
-            (conditional_access_expression
-              (parenthesized_expression
-                (as_expression (identifier) (array_type (identifier) (array_rank_specifier))))
-              (null_conditional_element_access
-                (argument (integer_literal))))
-            (identifier))
-          (integer_literal))
+        (conditional_access_expression
+          (parenthesized_expression
+            (as_expression
+              (identifier)
+              (array_type
+                (identifier)
+                (array_rank_specifier))))
+          (null_conditional_element_access
+            (argument
+              (integer_literal)))
+          (member_binding_expression
+            (identifier)))
+        (integer_literal))
       (block))))

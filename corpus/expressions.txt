@@ -1963,3 +1963,89 @@ if ((p as Person[])?[0]._Age != 1) { }
             (identifier)))
         (integer_literal))
       (block))))
+
+=====================================
+Conditional access expression with multiple conditionals
+=====================================
+
+var a = b?.Something?.Something;
+
+---
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        (implicit_type)
+        (variable_declarator
+          (identifier)
+          (equals_value_clause
+            (conditional_access_expression
+              (identifier)
+              (null_conditional_member_access
+                (identifier))
+              (null_conditional_member_access
+                (identifier)))))))))
+
+=====================================
+Conditional access expression statement
+=====================================
+
+b?.Something();
+
+---
+
+(compilation_unit
+  (global_statement
+    (expression_statement
+      (conditional_access_expression
+        (identifier)
+        (null_conditional_member_access
+          (identifier))
+        (conditional_invocation_expression (argument_list))))))
+
+=====================================
+Conditional access expression in anonymous object creation expression
+=====================================
+
+class H
+{
+    private int b = 3;
+    
+    public void Main()
+    {
+        var a = new {this?.b};
+    }
+}
+
+---
+
+(compilation_unit
+  (class_declaration
+    (identifier)
+    (declaration_list
+      (field_declaration
+        (modifier)
+        (variable_declaration
+          (predefined_type)
+          (variable_declarator
+            (identifier)
+            (equals_value_clause
+              (integer_literal)))))
+      (method_declaration
+        (modifier)
+        (void_keyword)
+        (identifier)
+        (parameter_list)
+        (block
+          (local_declaration_statement
+            (variable_declaration
+              (implicit_type)
+              (variable_declarator
+                (identifier)
+                (equals_value_clause
+                  (anonymous_object_creation_expression
+                    (conditional_access_expression
+                      (this_expression)
+                      (null_conditional_member_access
+                        (identifier)))))))))))))

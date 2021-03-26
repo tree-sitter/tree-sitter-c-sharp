@@ -3606,11 +3606,11 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
-      "required": false,
+      "multiple": false,
+      "required": true,
       "types": [
         {
-          "type": "argument",
+          "type": "element_binding_expression",
           "named": true
         }
       ]
@@ -5641,19 +5641,11 @@
     "named": false
   },
   {
-    "type": "?.",
-    "named": false
-  },
-  {
     "type": "??",
     "named": false
   },
   {
     "type": "??=",
-    "named": false
-  },
-  {
-    "type": "?[",
     "named": false
   },
   {

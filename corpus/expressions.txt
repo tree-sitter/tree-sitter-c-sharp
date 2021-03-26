@@ -1919,7 +1919,9 @@ var x = dict?["a"];
             (conditional_access_expression
               (identifier)
               (null_conditional_element_access
-                (argument (string_literal))))))))))
+                (element_binding_expression
+                  (bracketed_argument_list
+                    (argument (string_literal))))))))))))
 
 =====================================
 Conditional access expression with member binding
@@ -1957,8 +1959,10 @@ if ((p as Person[])?[0]._Age != 1) { }
                 (identifier)
                 (array_rank_specifier))))
           (null_conditional_element_access
-            (argument
-              (integer_literal)))
+            (element_binding_expression
+              (bracketed_argument_list
+                (argument
+                  (integer_literal)))))
           (member_binding_expression
             (identifier)))
         (integer_literal))
@@ -1988,7 +1992,7 @@ var a = b?.Something?.Something;
                 (identifier)))))))))
 
 =====================================
-Conditional access expression statement
+Conditional access expression invocation statement
 =====================================
 
 b?.Something();

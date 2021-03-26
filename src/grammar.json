@@ -6088,8 +6088,17 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "?."
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "?"
+            },
+            {
+              "type": "STRING",
+              "value": "."
+            }
+          ]
         },
         {
           "type": "FIELD",
@@ -6106,44 +6115,11 @@
       "members": [
         {
           "type": "STRING",
-          "value": "?["
+          "value": "?"
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "argument"
-                },
-                {
-                  "type": "REPEAT",
-                  "content": {
-                    "type": "SEQ",
-                    "members": [
-                      {
-                        "type": "STRING",
-                        "value": ","
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "argument"
-                      }
-                    ]
-                  }
-                }
-              ]
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "STRING",
-          "value": "]"
+          "type": "SYMBOL",
+          "name": "element_binding_expression"
         }
       ]
     },
@@ -9291,6 +9267,30 @@
     [
       "array_creation_expression",
       "element_access_expression"
+    ],
+    [
+      "conditional_expression",
+      "conditional_access_expression",
+      "prefix_unary_expression"
+    ],
+    [
+      "conditional_expression",
+      "conditional_access_expression",
+      "await_expression"
+    ],
+    [
+      "conditional_expression",
+      "conditional_access_expression",
+      "binary_expression"
+    ],
+    [
+      "conditional_expression",
+      "conditional_access_expression",
+      "cast_expression"
+    ],
+    [
+      "null_conditional_element_access",
+      "_expression"
     ]
   ],
   "precedences": [],

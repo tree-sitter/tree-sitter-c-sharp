@@ -80,7 +80,13 @@ module.exports = grammar({
     [$.tuple_element, $.declaration_expression],
     [$.tuple_element, $.variable_declarator],
 
-    [$.array_creation_expression, $.element_access_expression]
+    [$.array_creation_expression, $.element_access_expression],
+
+    [$.conditional_expression, $.conditional_access_expression, $.prefix_unary_expression],
+    [$.conditional_expression, $.conditional_access_expression, $.await_expression],
+    [$.conditional_expression, $.conditional_access_expression, $.binary_expression],
+    [$.conditional_expression, $.conditional_access_expression, $.cast_expression],
+    [$.null_conditional_element_access, $._expression],
   ],
 
   inline: $ => [
@@ -1104,15 +1110,11 @@ module.exports = grammar({
     )),
 
     null_conditional_member_access: $ => seq(
-      '?.',
+      seq('?', '.'),
       field('name', $._simple_name),
     ),
 
-    null_conditional_element_access: $ => seq(
-      '?[',
-      commaSep($.argument),
-      ']'
-    ),
+    null_conditional_element_access: $ => seq('?', $.element_binding_expression),
 
     conditional_invocation_expression: $ => field('arguments', $.argument_list),
 

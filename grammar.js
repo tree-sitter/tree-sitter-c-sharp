@@ -1640,16 +1640,101 @@ module.exports = grammar({
     void_keyword: $ => 'void',
 
     preprocessor_call: $ => seq(
-      $.preprocessor_directive,
-      repeat(choice(
-        $.identifier,
-        $._literal,
-        token(prec(-1, /[^\s]+/))
-      )),
+      $._preproc_directive_start,
+      choice(
+          $.nullable_directive,
+          $.define_directive,
+          $.undef_directive,
+          $.if_directive,
+          $.else_directive,
+          $.elif_directive,
+          $.endif_directive,
+          $.region_directive,
+          $.endregion_directive,
+          $.error_directive,
+          $.warning_directive,
+          $.line_directive,
+          $.pragma_directive
+      ),
       $._preproc_directive_end
     ),
 
-    preprocessor_directive: $ => /#[ \t]*[a-z]\w*/,
+    _preproc_directive_start: $ => /#[ \t]*/,
+
+    nullable_directive: $ => seq(
+        'nullable',
+        choice('disable', 'enable', 'restore'),
+        optional(choice('annotations', 'warnings'))
+    ),
+
+    // Preprocessor
+
+    define_directive: $ => seq('define', $.identifier),
+    undef_directive: $ => seq('undef', $.identifier),
+    if_directive: $ => seq('if', $._preproc_expression),
+    else_directive: $ => 'else',
+    elif_directive: $ => seq('elif', $._preproc_expression),
+    endif_directive: $ => 'endif',
+    region_directive: $ => seq('region', optional($.preproc_message)),
+    endregion_directive: $ => seq('endregion', optional($.preproc_message)),
+    error_directive: $ => seq('error', $.preproc_message),
+    warning_directive: $ => seq('warning', $.preproc_message),
+    line_directive: $ => seq('line',
+        choice(
+            'default',
+            'hidden',
+            seq($.preproc_integer_literal, optional($.preproc_string_literal))
+        )
+    ),
+    pragma_directive: $ => seq('pragma',
+        choice(
+            seq('warning', choice('disable', 'restore'), commaSep($.preproc_warning_number)),
+            seq('checksum', $.preproc_string_literal, $.preproc_string_literal, $.preproc_string_literal)
+        )
+    ),
+
+    preproc_message: $ => /.+/,
+    preproc_integer_literal: $ => /[0-9]+/,
+    preproc_string_literal: $ => /"[^"]*"/,
+    preproc_warning_number: $ => /[A-Za-z]*[0-9]+/,
+
+    _preproc_expression: $ => choice(
+        $.identifier,
+        $.boolean_literal,
+        alias($.preproc_integer_literal, $.integer_literal),
+        alias($.preproc_string_literal, $.verbatim_string_literal),
+        alias($.preproc_unary_expression, $.prefix_unary_expression),
+        alias($.preproc_binary_expression, $.binary_expression),
+        alias($.preproc_parenthesized_expression, $.parenthesized_expression)
+    ),
+
+    preproc_parenthesized_expression: $ => seq(
+        '(',
+        $._preproc_expression,
+        ')'
+    ),
+
+    preproc_unary_expression: $ => prec.left(PREC.UNARY, seq(
+        field('operator', '!'),
+        field('argument', $._preproc_expression)
+    )),
+
+    preproc_binary_expression: $ => {
+        const table = [
+            ['||', PREC.LOGOR],
+            ['&&', PREC.LOGAND],
+            ['==', PREC.EQUAL],
+            ['!=', PREC.EQUAL],
+        ];
+
+        return choice(...table.map(([operator, precedence]) => {
+            return prec.left(precedence, seq(
+                field('left', $._preproc_expression),
+                field('operator', operator),
+                field('right', $._preproc_expression)
+            ))
+        }));
+    },
   }
 })
 

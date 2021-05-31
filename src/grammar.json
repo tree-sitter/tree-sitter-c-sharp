@@ -9299,8 +9299,22 @@
                       "type": "SEQ",
                       "members": [
                         {
-                          "type": "SYMBOL",
-                          "name": "preproc_warning_number"
+                          "type": "CHOICE",
+                          "members": [
+                            {
+                              "type": "SYMBOL",
+                              "name": "identifier"
+                            },
+                            {
+                              "type": "ALIAS",
+                              "content": {
+                                "type": "SYMBOL",
+                                "name": "preproc_integer_literal"
+                              },
+                              "named": true,
+                              "value": "integer_literal"
+                            }
+                          ]
                         },
                         {
                           "type": "REPEAT",
@@ -9312,8 +9326,22 @@
                                 "value": ","
                               },
                               {
-                                "type": "SYMBOL",
-                                "name": "preproc_warning_number"
+                                "type": "CHOICE",
+                                "members": [
+                                  {
+                                    "type": "SYMBOL",
+                                    "name": "identifier"
+                                  },
+                                  {
+                                    "type": "ALIAS",
+                                    "content": {
+                                      "type": "SYMBOL",
+                                      "name": "preproc_integer_literal"
+                                    },
+                                    "named": true,
+                                    "value": "integer_literal"
+                                  }
+                                ]
                               }
                             ]
                           }
@@ -9354,7 +9382,7 @@
     },
     "preproc_message": {
       "type": "PATTERN",
-      "value": ".+"
+      "value": "[^\\n\\r]*"
     },
     "preproc_integer_literal": {
       "type": "PATTERN",
@@ -9363,10 +9391,6 @@
     "preproc_string_literal": {
       "type": "PATTERN",
       "value": "\"[^\"]*\""
-    },
-    "preproc_warning_number": {
-      "type": "PATTERN",
-      "value": "[A-Za-z]*[0-9]+"
     },
     "_preproc_expression": {
       "type": "CHOICE",

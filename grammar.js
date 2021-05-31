@@ -1688,15 +1688,20 @@ module.exports = grammar({
     ),
     pragma_directive: $ => seq('pragma',
         choice(
-            seq('warning', choice('disable', 'restore'), commaSep($.preproc_warning_number)),
+            seq('warning',
+              choice('disable', 'restore'),
+              commaSep(
+                  choice(
+                    $.identifier,
+                    alias($.preproc_integer_literal, $.integer_literal),
+            ))),
             seq('checksum', $.preproc_string_literal, $.preproc_string_literal, $.preproc_string_literal)
         )
     ),
 
-    preproc_message: $ => /.+/,
+    preproc_message: $ => /[^\n\r]*/,
     preproc_integer_literal: $ => /[0-9]+/,
     preproc_string_literal: $ => /"[^"]*"/,
-    preproc_warning_number: $ => /[A-Za-z]*[0-9]+/,
 
     _preproc_expression: $ => choice(
         $.identifier,

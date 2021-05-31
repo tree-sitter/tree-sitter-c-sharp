@@ -171,12 +171,12 @@ class Of1879 {
 Pragmas
 ===================================
 
-#pragma warning disable 660,661
+#pragma warning disable 660,661,nullable
 
 ---
 
 (compilation_unit
-  (preprocessor_call (pragma_directive (preproc_warning_number) (preproc_warning_number))))
+  (preprocessor_call (pragma_directive (integer_literal) (integer_literal) (identifier))))
 
 ===================================
 Directives not in strings or comments

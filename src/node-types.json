@@ -4188,11 +4188,15 @@
       "required": false,
       "types": [
         {
-          "type": "preproc_string_literal",
+          "type": "identifier",
           "named": true
         },
         {
-          "type": "preproc_warning_number",
+          "type": "integer_literal",
+          "named": true
+        },
+        {
+          "type": "preproc_string_literal",
           "named": true
         }
       ]
@@ -6275,10 +6279,6 @@
   },
   {
     "type": "preproc_string_literal",
-    "named": true
-  },
-  {
-    "type": "preproc_warning_number",
     "named": true
   },
   {

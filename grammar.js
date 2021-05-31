@@ -33,7 +33,7 @@ module.exports = grammar({
   extras: $ => [
     $.comment,
     /[\s\u00A0\uFEFF\u3000]+/,
-    $.preprocessor_call
+    $._preprocessor_call
   ],
 
   supertypes: $ => [
@@ -1639,7 +1639,7 @@ module.exports = grammar({
     return_type: $ => choice($._type, $.void_keyword),
     void_keyword: $ => 'void',
 
-    preprocessor_call: $ => seq(
+    _preprocessor_call: $ => seq(
       $._preproc_directive_start,
       choice(
           $.nullable_directive,

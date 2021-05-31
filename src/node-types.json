@@ -4263,69 +4263,6 @@
     }
   },
   {
-    "type": "preprocessor_call",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "define_directive",
-          "named": true
-        },
-        {
-          "type": "elif_directive",
-          "named": true
-        },
-        {
-          "type": "else_directive",
-          "named": true
-        },
-        {
-          "type": "endif_directive",
-          "named": true
-        },
-        {
-          "type": "endregion_directive",
-          "named": true
-        },
-        {
-          "type": "error_directive",
-          "named": true
-        },
-        {
-          "type": "if_directive",
-          "named": true
-        },
-        {
-          "type": "line_directive",
-          "named": true
-        },
-        {
-          "type": "nullable_directive",
-          "named": true
-        },
-        {
-          "type": "pragma_directive",
-          "named": true
-        },
-        {
-          "type": "region_directive",
-          "named": true
-        },
-        {
-          "type": "undef_directive",
-          "named": true
-        },
-        {
-          "type": "warning_directive",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "primary_constructor_base_type",
     "named": true,
     "fields": {},

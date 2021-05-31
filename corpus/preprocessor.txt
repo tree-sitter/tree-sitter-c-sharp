@@ -13,25 +13,25 @@ If, elif and else directives
 ---
 
 (compilation_unit
-  (preprocessor_call (if_directive (identifier)))
+  (if_directive (identifier))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         (predefined_type)
         (variable_declarator (identifier) (equals_value_clause (string_literal))))))
-  (preprocessor_call (elif_directive (identifier)))
+  (elif_directive (identifier))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         (predefined_type)
         (variable_declarator (identifier) (equals_value_clause (string_literal))))))
-  (preprocessor_call (else_directive))
+  (else_directive)
   (global_statement
     (local_declaration_statement
       (variable_declaration
         (predefined_type)
         (variable_declarator (identifier) (equals_value_clause (string_literal))))))
-  (preprocessor_call (endif_directive)))
+  (endif_directive))
 
 ===========================
 Complex if conditions
@@ -46,27 +46,20 @@ Complex if conditions
 
 ---
 (compilation_unit
-  (preprocessor_call
-    (if_directive (prefix_unary_expression (identifier))))
-  (preprocessor_call
-    (if_directive      
-      (binary_expression (identifier) (boolean_literal))))
-  (preprocessor_call
-    (if_directive
-      (binary_expression (prefix_unary_expression (identifier)) (boolean_literal))))
-  (preprocessor_call
-    (if_directive
-      (binary_expression (binary_expression (identifier) (identifier)) (identifier))))
-  (preprocessor_call
-    (if_directive (parenthesized_expression (identifier))))
-  (preprocessor_call
-    (if_directive
-      (parenthesized_expression (binary_expression (identifier) (identifier)))))
-  (preprocessor_call
-    (if_directive
-      (binary_expression
-        (parenthesized_expression (binary_expression (identifier) (identifier)))
-        (identifier)))))
+  (if_directive (prefix_unary_expression (identifier)))
+  (if_directive      
+    (binary_expression (identifier) (boolean_literal)))
+  (if_directive
+    (binary_expression (prefix_unary_expression (identifier)) (boolean_literal)))
+  (if_directive
+    (binary_expression (binary_expression (identifier) (identifier)) (identifier)))
+  (if_directive (parenthesized_expression (identifier)))
+  (if_directive
+    (parenthesized_expression (binary_expression (identifier) (identifier))))
+  (if_directive
+    (binary_expression
+      (parenthesized_expression (binary_expression (identifier) (identifier)))
+      (identifier))))
 
 ===========================
 Region directives
@@ -81,10 +74,9 @@ Region directives
 ---
 
 (compilation_unit
-  (preprocessor_call
-    (region_directive (preproc_message)))
+  (region_directive (preproc_message))
   (comment)
-  (preprocessor_call (endregion_directive)))
+  (endregion_directive))
 
 ===================================
 Define and undefine directives
@@ -96,8 +88,8 @@ Define and undefine directives
 ---
 
 (compilation_unit
-  (preprocessor_call (define_directive (identifier)))
-  (preprocessor_call (undef_directive (identifier))))
+  (define_directive (identifier))
+  (undef_directive (identifier)))
 
 ===================================
 Warning and error directives
@@ -112,8 +104,8 @@ class Of1879 {
 
 (compilation_unit
   (class_declaration (identifier) (declaration_list
-    (preprocessor_call (warning_directive (preproc_message)))
-    (preprocessor_call (error_directive (preproc_message))))))
+    (warning_directive (preproc_message))
+    (error_directive (preproc_message)))))
 
 ===================================
 Line directives
@@ -137,9 +129,9 @@ class Of1879 {
       (identifier)
       (parameter_list)
       (block
-        (preprocessor_call (line_directive (preproc_integer_literal) (preproc_string_literal)) (comment))
-        (preprocessor_call (line_directive))
-        (preprocessor_call (line_directive)))))))
+        (line_directive (preproc_integer_literal) (preproc_string_literal)) (comment)
+        (line_directive)
+        (line_directive))))))
 
 ===================================
 Spaces in directives
@@ -163,9 +155,9 @@ class Of1879 {
       (identifier)
       (parameter_list)
       (block
-        (preprocessor_call (line_directive (preproc_integer_literal) (preproc_string_literal)))
-        (preprocessor_call (line_directive))
-        (preprocessor_call (line_directive)))))))
+        (line_directive (preproc_integer_literal) (preproc_string_literal))
+        (line_directive)
+        (line_directive))))))
 
 ===================================
 Pragmas
@@ -176,7 +168,7 @@ Pragmas
 ---
 
 (compilation_unit
-  (preprocessor_call (pragma_directive (integer_literal) (integer_literal) (identifier))))
+  (pragma_directive (integer_literal) (integer_literal) (identifier)))
 
 ===================================
 Directives not in strings or comments

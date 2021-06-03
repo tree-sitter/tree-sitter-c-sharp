@@ -205,7 +205,7 @@ module.exports = grammar({
     ),
 
     attribute_argument: $ => seq(
-      optional(choice($.name_equals,$.name_colon)),
+      optional(choice($.name_equals, $.name_colon)),
       $._expression
     ),
 
@@ -1642,19 +1642,19 @@ module.exports = grammar({
     _preprocessor_call: $ => seq(
       $._preproc_directive_start,
       choice(
-          $.nullable_directive,
-          $.define_directive,
-          $.undef_directive,
-          $.if_directive,
-          $.else_directive,
-          $.elif_directive,
-          $.endif_directive,
-          $.region_directive,
-          $.endregion_directive,
-          $.error_directive,
-          $.warning_directive,
-          $.line_directive,
-          $.pragma_directive
+        $.nullable_directive,
+        $.define_directive,
+        $.undef_directive,
+        $.if_directive,
+        $.else_directive,
+        $.elif_directive,
+        $.endif_directive,
+        $.region_directive,
+        $.endregion_directive,
+        $.error_directive,
+        $.warning_directive,
+        $.line_directive,
+        $.pragma_directive
       ),
       $._preproc_directive_end
     ),
@@ -1662,9 +1662,9 @@ module.exports = grammar({
     _preproc_directive_start: $ => /#[ \t]*/,
 
     nullable_directive: $ => seq(
-        'nullable',
-        choice('disable', 'enable', 'restore'),
-        optional(choice('annotations', 'warnings'))
+      'nullable',
+      choice('disable', 'enable', 'restore'),
+      optional(choice('annotations', 'warnings'))
     ),
 
     // Preprocessor
@@ -1680,65 +1680,65 @@ module.exports = grammar({
     error_directive: $ => seq('error', $.preproc_message),
     warning_directive: $ => seq('warning', $.preproc_message),
     line_directive: $ => seq('line',
-        choice(
-            'default',
-            'hidden',
-            seq($.preproc_integer_literal, optional($.preproc_string_literal))
-        )
+      choice(
+        'default',
+        'hidden',
+        seq($.preproc_integer_literal, optional($.preproc_string_literal))
+      )
     ),
     pragma_directive: $ => seq('pragma',
-        choice(
-            seq('warning',
-              choice('disable', 'restore'),
-              commaSep(
-                  choice(
-                    $.identifier,
-                    alias($.preproc_integer_literal, $.integer_literal),
+      choice(
+        seq('warning',
+          choice('disable', 'restore'),
+          commaSep(
+            choice(
+              $.identifier,
+              alias($.preproc_integer_literal, $.integer_literal),
             ))),
-            seq('checksum', $.preproc_string_literal, $.preproc_string_literal, $.preproc_string_literal)
-        )
+        seq('checksum', $.preproc_string_literal, $.preproc_string_literal, $.preproc_string_literal)
+      )
     ),
 
-    preproc_message: $ => /[^\n\r]*/,
+    preproc_message: $ => /[^\n\r]+/,
     preproc_integer_literal: $ => /[0-9]+/,
     preproc_string_literal: $ => /"[^"]*"/,
 
     _preproc_expression: $ => choice(
-        $.identifier,
-        $.boolean_literal,
-        alias($.preproc_integer_literal, $.integer_literal),
-        alias($.preproc_string_literal, $.verbatim_string_literal),
-        alias($.preproc_unary_expression, $.prefix_unary_expression),
-        alias($.preproc_binary_expression, $.binary_expression),
-        alias($.preproc_parenthesized_expression, $.parenthesized_expression)
+      $.identifier,
+      $.boolean_literal,
+      alias($.preproc_integer_literal, $.integer_literal),
+      alias($.preproc_string_literal, $.verbatim_string_literal),
+      alias($.preproc_unary_expression, $.prefix_unary_expression),
+      alias($.preproc_binary_expression, $.binary_expression),
+      alias($.preproc_parenthesized_expression, $.parenthesized_expression)
     ),
 
     preproc_parenthesized_expression: $ => seq(
-        '(',
-        $._preproc_expression,
-        ')'
+      '(',
+      $._preproc_expression,
+      ')'
     ),
 
     preproc_unary_expression: $ => prec.left(PREC.UNARY, seq(
-        field('operator', '!'),
-        field('argument', $._preproc_expression)
+      field('operator', '!'),
+      field('argument', $._preproc_expression)
     )),
 
     preproc_binary_expression: $ => {
-        const table = [
-            ['||', PREC.LOGOR],
-            ['&&', PREC.LOGAND],
-            ['==', PREC.EQUAL],
-            ['!=', PREC.EQUAL],
-        ];
+      const table = [
+        ['||', PREC.LOGOR],
+        ['&&', PREC.LOGAND],
+        ['==', PREC.EQUAL],
+        ['!=', PREC.EQUAL],
+      ];
 
-        return choice(...table.map(([operator, precedence]) => {
-            return prec.left(precedence, seq(
-                field('left', $._preproc_expression),
-                field('operator', operator),
-                field('right', $._preproc_expression)
-            ))
-        }));
+      return choice(...table.map(([operator, precedence]) => {
+        return prec.left(precedence, seq(
+          field('left', $._preproc_expression),
+          field('operator', operator),
+          field('right', $._preproc_expression)
+        ))
+      }));
     },
   }
 })

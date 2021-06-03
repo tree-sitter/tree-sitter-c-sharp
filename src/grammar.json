@@ -9382,7 +9382,7 @@
     },
     "preproc_message": {
       "type": "PATTERN",
-      "value": "[^\\n\\r]*"
+      "value": "[^\\n\\r]+"
     },
     "preproc_integer_literal": {
       "type": "PATTERN",

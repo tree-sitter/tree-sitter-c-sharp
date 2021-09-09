@@ -30,6 +30,7 @@ module.exports = grammar({
   name: 'c_sharp',
 
   extras: $ => [
+    $.doc_comment,
     $.comment,
     /[\s\u00A0\uFEFF\u3000]+/,
     $._preprocessor_call
@@ -1651,13 +1652,48 @@ module.exports = grammar({
     // Comments
 
     comment: $ => token(choice(
-      seq('//', /[^\n\r]*/),
+      seq('//', /[^/][^\n\r]*/),
       seq(
         '/*',
         /[^*]*\*+([^/*][^*]*\*+)*/,
         '/'
       )
     )),
+
+    // Doc comments
+
+    doc_comment: $ => seq('///', repeat($._doc_contents), /[\n\r]/),
+
+    _doc_contents: $ => choice(
+      $.xml_text,
+      $.xml_element,
+      $.xml_empty_element,
+    ),
+
+    xml_text: $ => choice(
+      /[^<\n\r]+/,         // To end of this line or start of next element
+      seq(/\n\r/, '///'),  // Continue with next line if xml doc
+    ),
+
+    xml_empty_element: $ => seq('<', $.xml_name, repeat($._xml_attributes), '/>'),
+    xml_element_start_tag: $ => seq('<', $.xml_name, repeat($._xml_attributes), '>'),
+    xml_element_end_tag: $ => seq('</', $.xml_name, '>'),
+    xml_name: $ => $.identifier,
+
+    xml_element: $ => seq(
+      $.xml_element_start_tag,
+      repeat($._doc_contents),
+      $.xml_element_end_tag,
+    ),
+
+    _xml_attributes: $ => choice(
+      $.xml_cref_attribute,
+      $.xml_text_attribute
+    ),
+
+    xml_text_literal_token: $ => /[^"]*/,
+    xml_cref_attribute: $ => seq('cref', '=', '"', $.identifier, '"'),
+    xml_text_attribute: $ => seq($.xml_name, '=', '"', $.xml_text_literal_token, '"'),
 
     // Custom non-Roslyn additions beyond this point that will not sync up with grammar.txt
 

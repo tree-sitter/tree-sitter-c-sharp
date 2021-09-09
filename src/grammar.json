@@ -9066,7 +9066,7 @@
               },
               {
                 "type": "PATTERN",
-                "value": "[^\\n\\r]*"
+                "value": "[^/][^\\n\\r]*"
               }
             ]
           },
@@ -9089,6 +9089,221 @@
           }
         ]
       }
+    },
+    "doc_comment": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "///"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_doc_contents"
+          }
+        },
+        {
+          "type": "PATTERN",
+          "value": "[\\n\\r]"
+        }
+      ]
+    },
+    "_doc_contents": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "xml_text"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "xml_element"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "xml_empty_element"
+        }
+      ]
+    },
+    "xml_text": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "[^<\\n\\r]+"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "\\n\\r"
+            },
+            {
+              "type": "STRING",
+              "value": "///"
+            }
+          ]
+        }
+      ]
+    },
+    "xml_empty_element": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "<"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "xml_name"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_xml_attributes"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "/>"
+        }
+      ]
+    },
+    "xml_element_start_tag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "<"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "xml_name"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_xml_attributes"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ">"
+        }
+      ]
+    },
+    "xml_element_end_tag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "</"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "xml_name"
+        },
+        {
+          "type": "STRING",
+          "value": ">"
+        }
+      ]
+    },
+    "xml_name": {
+      "type": "SYMBOL",
+      "name": "identifier"
+    },
+    "xml_element": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "xml_element_start_tag"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_doc_contents"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "xml_element_end_tag"
+        }
+      ]
+    },
+    "_xml_attributes": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "xml_cref_attribute"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "xml_text_attribute"
+        }
+      ]
+    },
+    "xml_text_literal_token": {
+      "type": "PATTERN",
+      "value": "[^\"]*"
+    },
+    "xml_cref_attribute": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "cref"
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "STRING",
+          "value": "\""
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "STRING",
+          "value": "\""
+        }
+      ]
+    },
+    "xml_text_attribute": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "xml_name"
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "STRING",
+          "value": "\""
+        },
+        {
+          "type": "SYMBOL",
+          "name": "xml_text_literal_token"
+        },
+        {
+          "type": "STRING",
+          "value": "\""
+        }
+      ]
     },
     "_contextual_keywords": {
       "type": "CHOICE",
@@ -9873,6 +10088,10 @@
     }
   },
   "extras": [
+    {
+      "type": "SYMBOL",
+      "name": "doc_comment"
+    },
     {
       "type": "SYMBOL",
       "name": "comment"

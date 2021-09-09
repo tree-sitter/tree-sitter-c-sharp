@@ -2071,6 +2071,29 @@
     }
   },
   {
+    "type": "doc_comment",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "xml_element",
+          "named": true
+        },
+        {
+          "type": "xml_empty_element",
+          "named": true
+        },
+        {
+          "type": "xml_text",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "element_access_expression",
     "named": true,
     "fields": {
@@ -5916,6 +5939,152 @@
     }
   },
   {
+    "type": "xml_cref_attribute",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "xml_element",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "xml_element",
+          "named": true
+        },
+        {
+          "type": "xml_element_end_tag",
+          "named": true
+        },
+        {
+          "type": "xml_element_start_tag",
+          "named": true
+        },
+        {
+          "type": "xml_empty_element",
+          "named": true
+        },
+        {
+          "type": "xml_text",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "xml_element_end_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xml_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "xml_element_start_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "xml_cref_attribute",
+          "named": true
+        },
+        {
+          "type": "xml_name",
+          "named": true
+        },
+        {
+          "type": "xml_text_attribute",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "xml_empty_element",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "xml_cref_attribute",
+          "named": true
+        },
+        {
+          "type": "xml_name",
+          "named": true
+        },
+        {
+          "type": "xml_text_attribute",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "xml_name",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "xml_text",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "xml_text_attribute",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "xml_name",
+          "named": true
+        },
+        {
+          "type": "xml_text_literal_token",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "yield_statement",
     "named": true,
     "fields": {},
@@ -6039,7 +6208,15 @@
     "named": false
   },
   {
+    "type": "///",
+    "named": false
+  },
+  {
     "type": "/=",
+    "named": false
+  },
+  {
+    "type": "/>",
     "named": false
   },
   {
@@ -6056,6 +6233,10 @@
   },
   {
     "type": "<",
+    "named": false
+  },
+  {
+    "type": "</",
     "named": false
   },
   {
@@ -6240,6 +6421,10 @@
   },
   {
     "type": "continue",
+    "named": false
+  },
+  {
+    "type": "cref",
     "named": false
   },
   {
@@ -6685,6 +6870,10 @@
   {
     "type": "with",
     "named": false
+  },
+  {
+    "type": "xml_text_literal_token",
+    "named": true
   },
   {
     "type": "yield",

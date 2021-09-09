@@ -124,8 +124,8 @@ class B {
 (compilation_unit
   (file_scoped_namespace_declaration
     (identifier)
-  (class_declaration
-    (identifier)
+    (class_declaration
+      (identifier)
       (declaration_list))))
 
 =====================================

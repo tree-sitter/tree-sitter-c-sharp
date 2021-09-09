@@ -3,6 +3,7 @@ Doc comment with xml element on single line
 =====================================
 
 /// <summary>Hello</summary>
+class A { }
 
 ---
 
@@ -12,13 +13,15 @@ Doc comment with xml element on single line
     (xml_element
       (xml_element_start_tag (xml_name (identifier))) 
       (xml_text)
-      (xml_element_end_tag (xml_name (identifier))))))
+      (xml_element_end_tag (xml_name (identifier)))))
+  (class_declaration (identifier) (declaration_list)))
 
 =====================================
 Doc comment with xml element on single line with attributes
 =====================================
 
 /// <summary cref="Program" href="#here">Hello</summary>
+class A { }
 
 ---
 
@@ -31,7 +34,8 @@ Doc comment with xml element on single line with attributes
         (xml_cref_attribute (identifier))
         (xml_text_attribute (xml_name (identifier)) (xml_text_literal_token)))
       (xml_text)
-      (xml_element_end_tag (xml_name (identifier))))))
+      (xml_element_end_tag (xml_name (identifier)))))
+  (class_declaration (identifier) (declaration_list)))
 
 =====================================
 Doc comment with xml empty element on single line
@@ -53,6 +57,7 @@ Doc comment with xml element over multiple lines
 /// <summary>
 /// Hello
 /// </summary>
+class A { }
 
 ---
 
@@ -63,7 +68,8 @@ Doc comment with xml element over multiple lines
       (xml_element_start_tag (xml_name (identifier))) 
       (xml_text)
       (xml_text)
-      (xml_element_end_tag (xml_name (identifier))))))
+      (xml_element_end_tag (xml_name (identifier)))))
+  (class_declaration (identifier) (declaration_list)))
 
 =====================================
 Doc comment with xml element over multiple lines with attributes
@@ -72,6 +78,7 @@ Doc comment with xml element over multiple lines with attributes
 /// <summary langword="bool">
 /// Hello
 /// </summary>
+class A { }
 
 ---
 
@@ -84,13 +91,15 @@ Doc comment with xml element over multiple lines with attributes
         (xml_text_attribute (xml_name (identifier)) (xml_text_literal_token)))
       (xml_text)
       (xml_text)
-      (xml_element_end_tag (xml_name (identifier))))))
+      (xml_element_end_tag (xml_name (identifier)))))
+  (class_declaration (identifier) (declaration_list)))
 
 =====================================
 Doc comment with xml nested elements
 =====================================
 
 /// <returns>This is <see cref="Program"/></returns>
+class A { }
 
 ---
 
@@ -103,4 +112,33 @@ Doc comment with xml nested elements
       (xml_empty_element
         (xml_name (identifier))
         (xml_cref_attribute (identifier)))
-      (xml_element_end_tag (xml_name (identifier))))))
+      (xml_element_end_tag (xml_name (identifier)))))
+  (class_declaration (identifier) (declaration_list)))
+
+=====================================
+Doc comment with cref qualified name
+=====================================
+
+/// <summary>
+/// The <see cref="global::System.DateTimeKind.Unspecified" />
+/// </summary>
+class A { }
+
+---
+
+(compilation_unit
+  (doc_comment
+    (xml_text)
+    (xml_element
+      (xml_element_start_tag (xml_name (identifier)))
+      (xml_text)
+      (xml_empty_element
+        (xml_name (identifier))
+        (xml_cref_attribute
+          (qualified_name
+            (qualified_name
+              (alias_qualified_name (identifier) (identifier)) (identifier)) (identifier))))
+      (xml_text)
+      (xml_element_end_tag (xml_name (identifier)))))
+  (class_declaration (identifier) (declaration_list)))
+

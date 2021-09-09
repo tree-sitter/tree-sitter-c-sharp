@@ -1692,7 +1692,7 @@ module.exports = grammar({
     ),
 
     xml_text_literal_token: $ => /[^"]*/,
-    xml_cref_attribute: $ => seq('cref', '=', '"', $.identifier, '"'),
+    xml_cref_attribute: $ => seq('cref', '=', '"', $._name, '"'),
     xml_text_attribute: $ => seq($.xml_name, '=', '"', $.xml_text_literal_token, '"'),
 
     // Custom non-Roslyn additions beyond this point that will not sync up with grammar.txt

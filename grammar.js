@@ -1,19 +1,17 @@
 const PREC = {
-  DOT: 20,
-  INVOCATION: 20,
-  POSTFIX: 20,
-  PREFIX: 19,
-  UNARY: 19,
-  CAST: 19,
-  RANGE: 18,
-  SWITCH: 17,
-  WITH: 16,
-  MULT: 15,
-  ADD: 14,
-  SHIFT: 13,
-  REL: 12,
-  IS: 11,
-  AS: 10,
+  DOT: 18,
+  INVOCATION: 18,
+  POSTFIX: 18,
+  PREFIX: 17,
+  UNARY: 17,
+  CAST: 17,
+  RANGE: 16,
+  SWITCH: 15,
+  WITH: 14,
+  MULT: 13,
+  ADD: 12,
+  SHIFT: 11,
+  REL: 10,
   EQUAL: 9,
   AND: 8,
   XOR: 7,
@@ -675,7 +673,7 @@ module.exports = grammar({
     // preserve the conflict, so that `?` can be used in both ways, depending
     // on what follows.
     nullable_type: $ => choice(
-      prec(PREC.IS + 1, seq($._type, '?')),
+      prec(PREC.REL + 1, seq($._type, '?')),
       prec(PREC.COND - 1, seq($._type, '?'))
     ),
 
@@ -955,7 +953,6 @@ module.exports = grammar({
     //We may need to expand this list if more things can be evaluated at compile time
     constant_pattern: $ => choice(
         $.binary_expression,
-        $.conditional_expression,
         $.default_expression,
         $.interpolated_string_expression,
         $.parenthesized_expression,
@@ -964,6 +961,7 @@ module.exports = grammar({
         $.size_of_expression,
         $.tuple_expression,
         $.type_of_expression,
+        $.member_access_expression,
   
         $._simple_name,
         $._literal
@@ -1249,7 +1247,7 @@ module.exports = grammar({
       field('arguments', $.argument_list)
     )),
 
-    is_pattern_expression: $ => prec.left(PREC.IS, seq(
+    is_pattern_expression: $ => prec.left(PREC.REL, seq(
       field('expression', $._expression),
       'is',
       field('pattern', $._pattern)
@@ -1533,13 +1531,13 @@ module.exports = grammar({
       ))
     ),
 
-    as_expression: $ => prec.left(PREC.AS, seq(
+    as_expression: $ => prec.left(PREC.REL, seq(
       field('left', $._expression),
       field('operator', 'as'),
       field('right', $._type)
     )),
 
-    is_expression: $ => prec.left(PREC.IS, seq(
+    is_expression: $ => prec.left(PREC.REL, seq(
       field('left', $._expression),
       field('operator', 'is'),
       field('right', $._type)

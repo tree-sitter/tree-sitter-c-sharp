@@ -1619,10 +1619,6 @@
           "named": true
         },
         {
-          "type": "conditional_expression",
-          "named": true
-        },
-        {
           "type": "default_expression",
           "named": true
         },
@@ -1644,6 +1640,10 @@
         },
         {
           "type": "interpolated_string_expression",
+          "named": true
+        },
+        {
+          "type": "member_access_expression",
           "named": true
         },
         {

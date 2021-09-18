@@ -962,6 +962,8 @@ module.exports = grammar({
         $.tuple_expression,
         $.type_of_expression,
         $.member_access_expression,
+        $.invocation_expression,
+        $.cast_expression,
   
         $._simple_name,
         $._literal

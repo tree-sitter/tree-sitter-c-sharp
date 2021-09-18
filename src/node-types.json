@@ -1615,6 +1615,10 @@
           "named": true
         },
         {
+          "type": "cast_expression",
+          "named": true
+        },
+        {
           "type": "character_literal",
           "named": true
         },
@@ -1640,6 +1644,10 @@
         },
         {
           "type": "interpolated_string_expression",
+          "named": true
+        },
+        {
+          "type": "invocation_expression",
           "named": true
         },
         {

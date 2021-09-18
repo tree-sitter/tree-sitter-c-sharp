@@ -5024,6 +5024,14 @@
         },
         {
           "type": "SYMBOL",
+          "name": "invocation_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cast_expression"
+        },
+        {
+          "type": "SYMBOL",
           "name": "_simple_name"
         },
         {

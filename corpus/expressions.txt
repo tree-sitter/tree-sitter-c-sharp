@@ -1593,6 +1593,8 @@ is pattern
 var b = s is string s2;
 var c = s is "test";
 var a = 1 is int.MaxValue;
+var d = a is nameof(a);
+var e = a is (int)b;
 
 ---
 
@@ -1631,6 +1633,33 @@ var a = 1 is int.MaxValue;
               (integer_literal)
               (constant_pattern
                 (member_access_expression
+                  (predefined_type)
+                  (identifier)))))))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        (implicit_type)
+        (variable_declarator
+          (identifier)
+          (equals_value_clause
+            (is_pattern_expression
+              (identifier)
+              (constant_pattern
+                (invocation_expression
+                  (identifier)
+                  (argument_list
+                    (argument (identifier)))))))))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        (implicit_type)
+        (variable_declarator
+          (identifier)
+          (equals_value_clause
+            (is_pattern_expression
+              (identifier)
+              (constant_pattern
+                (cast_expression
                   (predefined_type)
                   (identifier))))))))))
 

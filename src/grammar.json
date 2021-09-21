@@ -3450,41 +3450,44 @@
       ]
     },
     "nullable_type": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_nullable_base_type"
+        },
+        {
+          "type": "STRING",
+          "value": "?"
+        }
+      ]
+    },
+    "_nullable_base_type": {
       "type": "CHOICE",
       "members": [
         {
-          "type": "PREC",
-          "value": 11,
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "_type"
-              },
-              {
-                "type": "STRING",
-                "value": "?"
-              }
-            ]
-          }
+          "type": "SYMBOL",
+          "name": "array_type"
         },
         {
-          "type": "PREC",
-          "value": 1,
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "_type"
-              },
-              {
-                "type": "STRING",
-                "value": "?"
-              }
-            ]
-          }
+          "type": "SYMBOL",
+          "name": "_name"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "pointer_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "function_pointer_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "predefined_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "tuple_type"
         }
       ]
     },
@@ -9969,6 +9972,19 @@
     ],
     [
       "_type",
+      "stack_alloc_array_creation_expression"
+    ],
+    [
+      "_type",
+      "_nullable_base_type"
+    ],
+    [
+      "_type",
+      "_nullable_base_type",
+      "array_creation_expression"
+    ],
+    [
+      "_nullable_base_type",
       "stack_alloc_array_creation_expression"
     ],
     [

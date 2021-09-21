@@ -75,6 +75,9 @@ module.exports = grammar({
 
     [$._type, $.array_creation_expression],
     [$._type, $.stack_alloc_array_creation_expression],
+    [$._type, $._nullable_base_type],
+    [$._type, $._nullable_base_type, $.array_creation_expression],
+    [$._nullable_base_type, $.stack_alloc_array_creation_expression],
 
     [$.parameter_modifier, $.this_expression],
     [$.parameter, $._simple_name],
@@ -667,14 +670,15 @@ module.exports = grammar({
     // expression but we can't match empty rules.
     array_rank_specifier: $ => seq('[', commaSep(optional($._expression)), ']'),
 
-    // When used in a nullable type, the '?' operator binds tighter than the
-    // binary operators `as` and `is`. But in a conditional expression, the `?`
-    // binds *looser*. This weird double precedence is required in order to
-    // preserve the conflict, so that `?` can be used in both ways, depending
-    // on what follows.
-    nullable_type: $ => choice(
-      prec(PREC.REL + 1, seq($._type, '?')),
-      prec(PREC.COND - 1, seq($._type, '?'))
+    nullable_type: $ => seq($._nullable_base_type, '?'),
+
+    _nullable_base_type: $ => choice(
+      $.array_type,
+      $._name,
+      $.pointer_type,
+      $.function_pointer_type,
+      $.predefined_type,
+      $.tuple_type
     ),
 
     pointer_type: $ => prec(PREC.POSTFIX, seq($._type, '*')),

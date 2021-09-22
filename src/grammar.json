@@ -9061,12 +9061,12 @@
             "type": "SEQ",
             "members": [
               {
-                "type": "STRING",
-                "value": "//"
+                "type": "PATTERN",
+                "value": "(\\/\\/[^/]|\\/{4,})"
               },
               {
                 "type": "PATTERN",
-                "value": "[^/][^\\n\\r]*"
+                "value": "[^\\n\\r]*"
               }
             ]
           },
@@ -10090,11 +10090,11 @@
   "extras": [
     {
       "type": "SYMBOL",
-      "name": "doc_comment"
+      "name": "comment"
     },
     {
       "type": "SYMBOL",
-      "name": "comment"
+      "name": "doc_comment"
     },
     {
       "type": "PATTERN",

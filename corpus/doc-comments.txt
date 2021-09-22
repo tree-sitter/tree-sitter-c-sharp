@@ -16,6 +16,7 @@ class A { }
       (xml_element_end_tag (xml_name (identifier)))))
   (class_declaration (identifier) (declaration_list)))
 
+
 =====================================
 Doc comment with xml element on single line with attributes
 =====================================
@@ -37,6 +38,7 @@ class A { }
       (xml_element_end_tag (xml_name (identifier)))))
   (class_declaration (identifier) (declaration_list)))
 
+
 =====================================
 Doc comment with xml empty element on single line
 =====================================
@@ -49,6 +51,7 @@ Doc comment with xml empty element on single line
   (doc_comment
     (xml_text)
     (xml_empty_element (xml_name (identifier)))))
+
 
 =====================================
 Doc comment with xml element over multiple lines
@@ -70,6 +73,7 @@ class A { }
       (xml_text)
       (xml_element_end_tag (xml_name (identifier)))))
   (class_declaration (identifier) (declaration_list)))
+
 
 =====================================
 Doc comment with xml element over multiple lines with attributes
@@ -94,6 +98,7 @@ class A { }
       (xml_element_end_tag (xml_name (identifier)))))
   (class_declaration (identifier) (declaration_list)))
 
+
 =====================================
 Doc comment with xml nested elements
 =====================================
@@ -114,6 +119,7 @@ class A { }
         (xml_cref_attribute (identifier)))
       (xml_element_end_tag (xml_name (identifier)))))
   (class_declaration (identifier) (declaration_list)))
+
 
 =====================================
 Doc comment with cref qualified name
@@ -141,4 +147,20 @@ class A { }
       (xml_text)
       (xml_element_end_tag (xml_name (identifier)))))
   (class_declaration (identifier) (declaration_list)))
+
+
+=====================================
+Regular comment that looks a bit like a doc comment
+=====================================
+
+//// Just a regular comment.
+//////// Still just a regular comment.
+
+---
+
+(compilation_unit
+  (comment)
+  (comment))
+
+
 

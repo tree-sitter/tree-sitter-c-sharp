@@ -30,8 +30,8 @@ module.exports = grammar({
   name: 'c_sharp',
 
   extras: $ => [
-    $.doc_comment,
     $.comment,
+    $.doc_comment,
     /[\s\u00A0\uFEFF\u3000]+/,
     $._preprocessor_call
   ],
@@ -1652,7 +1652,8 @@ module.exports = grammar({
     // Comments
 
     comment: $ => token(choice(
-      seq('//', /[^/][^\n\r]*/),
+      // We want '//' and '////' onwards but not '///'
+      seq(/(\/\/[^/]|\/{4,})/, /[^\n\r]*/),
       seq(
         '/*',
         /[^*]*\*+([^/*][^*]*\*+)*/,

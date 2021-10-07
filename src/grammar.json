@@ -1225,25 +1225,30 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "ref"
-                },
-                {
-                  "type": "STRING",
-                  "value": "out"
-                },
-                {
-                  "type": "STRING",
-                  "value": "this"
-                },
-                {
-                  "type": "STRING",
-                  "value": "in"
-                }
-              ]
+              "type": "ALIAS",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "ref"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "out"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "this"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "in"
+                  }
+                ]
+              },
+              "named": true,
+              "value": "parameter_modifier"
             },
             {
               "type": "BLANK"
@@ -1285,6 +1290,27 @@
               "type": "BLANK"
             }
           ]
+        }
+      ]
+    },
+    "parameter_modifier": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "ref"
+        },
+        {
+          "type": "STRING",
+          "value": "out"
+        },
+        {
+          "type": "STRING",
+          "value": "this"
+        },
+        {
+          "type": "STRING",
+          "value": "in"
         }
       ]
     },

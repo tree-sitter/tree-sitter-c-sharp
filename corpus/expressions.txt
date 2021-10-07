@@ -665,6 +665,7 @@ MyIntDelegate a = (ref int i) => i + 1;
             (lambda_expression
               (parameter_list
                 (parameter
+                  (parameter_modifier)
                   (predefined_type)
                   (identifier)))
               (binary_expression

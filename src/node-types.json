@@ -4223,6 +4223,10 @@
         {
           "type": "equals_value_clause",
           "named": true
+        },
+        {
+          "type": "parameter_modifier",
+          "named": true
         }
       ]
     }
@@ -6480,6 +6484,10 @@
   {
     "type": "param",
     "named": false
+  },
+  {
+    "type": "parameter_modifier",
+    "named": true
   },
   {
     "type": "params",

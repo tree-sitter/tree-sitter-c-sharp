@@ -331,11 +331,13 @@ module.exports = grammar({
 
     parameter: $ => seq(
       repeat($.attribute_list),
-      optional(choice('ref', 'out', 'this', 'in')),
+      optional(alias(choice('ref', 'out', 'this', 'in'), $.parameter_modifier)),
       optional(field('type', $._type)),
       field('name', $.identifier),
       optional($.equals_value_clause)
     ),
+
+    parameter_modifier: $ => choice('ref', 'out', 'this', 'in'),
 
     _parameter_array: $ => seq(
       repeat($.attribute_list),

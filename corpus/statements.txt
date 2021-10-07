@@ -1516,8 +1516,8 @@ ref T Choice(bool condition, ref T a, ref T b)
     (local_function_statement (modifier) (identifier) (identifier)
       (parameter_list
         (parameter (predefined_type) (identifier))
-        (parameter (identifier) (identifier))
-        (parameter (identifier) (identifier)))
+        (parameter (parameter_modifier) (identifier) (identifier))
+        (parameter (parameter_modifier) (identifier) (identifier)))
       (block
         (local_declaration_statement (modifier)
           (variable_declaration (implicit_type)

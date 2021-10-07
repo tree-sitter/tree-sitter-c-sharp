@@ -4223,10 +4223,6 @@
         {
           "type": "equals_value_clause",
           "named": true
-        },
-        {
-          "type": "parameter_modifier",
-          "named": true
         }
       ]
     }
@@ -4261,11 +4257,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "parameter_modifier",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "parenthesized_expression",

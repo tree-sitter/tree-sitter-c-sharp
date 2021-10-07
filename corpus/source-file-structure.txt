@@ -179,7 +179,6 @@ class Z {
     (identifier)
     (parameter_list
       (parameter
-        (parameter_modifier)
         (predefined_type)
         (identifier)
         (equals_value_clause (character_literal (escape_sequence))))))

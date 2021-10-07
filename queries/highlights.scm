@@ -204,7 +204,6 @@
   type: (identifier) @type
   name: (identifier) @variable.parameter)
 (parameter (identifier) @variable.parameter)
-(parameter_modifier) @keyword
 
 ;; Typeof
 (type_of_expression (identifier) @type)

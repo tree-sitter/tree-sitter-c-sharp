@@ -830,14 +830,10 @@ module.exports = grammar({
       field('body', $._statement)
     ),
 
-    // grammar.txt one doesn't seem to make sense so we do this instead
     goto_statement: $ => seq(
       'goto',
-      choice(
-        alias($.identifier, $.label_name),
-        seq('case', $._expression),
-        'default'
-      ),
+      optional(choice('case', 'default')),
+      optional($._expression),
       ';'
     ),
 
@@ -854,7 +850,7 @@ module.exports = grammar({
     )),
 
     labeled_statement: $ => seq(
-      alias($.identifier, $.label_name),
+      $.identifier,
       ':',
       $._statement
     ),

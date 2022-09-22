@@ -250,6 +250,7 @@ module.exports = grammar({
       'async',
       'const',
       'extern',
+      'file',
       'fixed',
       'internal',
       'new',

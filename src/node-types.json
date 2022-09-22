@@ -6662,6 +6662,10 @@
     "named": false
   },
   {
+    "type": "file",
+    "named": false
+  },
+  {
     "type": "finally",
     "named": false
   },

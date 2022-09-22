@@ -58,6 +58,7 @@ Comprehensive supports C# 1 through 10.0 with the following exceptions:
 - [x] List patterns
 - [x] Slice pattern
 - [x] Required members
+- [x] File scoped classes
 - [ ] Raw string literals
 
 ### References

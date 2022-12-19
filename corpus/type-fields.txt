@@ -90,27 +90,31 @@ class A {
 ---
 
 (compilation_unit
-  (ERROR
+  (class_declaration
     (identifier)
-    (field_declaration
-      (modifier)
-      (modifier)
-      (variable_declaration
-        (pointer_type
-          (predefined_type))
-        (variable_declarator
-          (identifier))))
-    (field_declaration
-      (modifier)
-      (variable_declaration
-        (pointer_type
-          (identifier))
-        (variable_declarator
-          (identifier))))
-    (modifier)
-    (void_keyword)
-    (ERROR)
-    (identifier)))
+    (declaration_list
+      (field_declaration
+        (modifier)
+        (modifier)
+        (variable_declaration
+          (pointer_type
+            (predefined_type))
+          (variable_declarator
+            (identifier))))
+      (field_declaration
+        (modifier)
+        (variable_declaration
+          (pointer_type
+            (identifier))
+          (variable_declarator
+            (identifier))))
+      (field_declaration
+        (modifier)
+        (variable_declaration
+          (pointer_type
+            (predefined_type))
+          (variable_declarator
+            (identifier)))))))
 
 =======================================
 Function pointer type

@@ -722,7 +722,7 @@
         ]
       }
     },
-    "_modifier_no_ref": {
+    "modifier": {
       "type": "PREC_RIGHT",
       "value": 0,
       "content": {
@@ -803,27 +803,6 @@
           {
             "type": "STRING",
             "value": "volatile"
-          }
-        ]
-      }
-    },
-    "modifier": {
-      "type": "SYMBOL",
-      "name": "_modifier_no_ref"
-    },
-    "modifier_with_ref": {
-      "type": "PREC_RIGHT",
-      "value": 0,
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "_modifier_no_ref"
-          },
-          {
-            "type": "STRING",
-            "value": "ref"
           }
         ]
       }
@@ -2824,14 +2803,26 @@
         {
           "type": "REPEAT",
           "content": {
-            "type": "ALIAS",
-            "content": {
-              "type": "SYMBOL",
-              "name": "modifier_with_ref"
-            },
-            "named": true,
-            "value": "modifier"
+            "type": "SYMBOL",
+            "name": "modifier"
           }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "STRING",
+                "value": "ref"
+              },
+              "named": true,
+              "value": "modifier"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "STRING",
@@ -10555,10 +10546,6 @@
     [
       "constant_pattern",
       "_expression"
-    ],
-    [
-      "modifier",
-      "modifier_with_ref"
     ]
   ],
   "precedences": [],

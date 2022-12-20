@@ -103,8 +103,6 @@ module.exports = grammar({
     [$.constant_pattern, $._name],
     [$.constant_pattern, $._name, $._expression],
     [$.constant_pattern, $._expression],
-
-    [$.modifier, $.modifier_with_ref],
   ],
 
   inline: $ => [
@@ -253,7 +251,7 @@ module.exports = grammar({
       ';'
     )),
 
-    _modifier_no_ref: $ => prec.right(choice(
+    modifier: $ => prec.right(choice(
       'abstract',
       'async',
       'const',
@@ -274,13 +272,6 @@ module.exports = grammar({
       'unsafe',
       'virtual',
       'volatile'
-    )),
-
-    modifier: $ => $._modifier_no_ref,
-
-    modifier_with_ref: $ => prec.right(choice(
-      $._modifier_no_ref,
-      'ref'
     )),
 
     variable_declaration: $ => seq(
@@ -588,7 +579,8 @@ module.exports = grammar({
 
     struct_declaration: $ => seq(
       repeat($.attribute_list),
-      repeat(alias($.modifier_with_ref, $.modifier)),
+      repeat($.modifier),
+      optional(alias('ref', $.modifier)),
       'struct',
       field('name', $.identifier),
       field('type_parameters', optional($.type_parameter_list)),

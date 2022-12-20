@@ -66,6 +66,7 @@ module.exports = grammar({
     [$._simple_name, $.generic_name],
     [$._simple_name, $.constructor_declaration],
     [$._simple_name, $.name_colon],
+    [$._simple_name, $.tuple_pattern],
 
     [$.qualified_name, $.explicit_interface_specifier],
     [$.qualified_name, $.member_access_expression],
@@ -85,6 +86,7 @@ module.exports = grammar({
     [$.parameter, $.this_expression],
     [$.parameter, $._simple_name],
     [$.parameter, $.tuple_element],
+    [$.parameter, $.tuple_pattern],
     [$.parameter, $.tuple_element, $.declaration_expression],
     [$.parameter, $._pattern],
     [$.parameter, $.declaration_expression],
@@ -1114,6 +1116,7 @@ module.exports = grammar({
     lambda_expression: $ => prec(-1, seq(
       repeat($.attribute_list),
       optional(alias(choice('async', 'static', seq('async', 'static'), seq('static', 'async')), $.modifier)),
+      optional($._type),
       choice(field('parameters', $.parameter_list), $.identifier),
       '=>',
       field('body', choice($.block, $._expression))

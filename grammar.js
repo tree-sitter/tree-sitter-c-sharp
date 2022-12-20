@@ -711,7 +711,7 @@ module.exports = grammar({
       optional($.function_pointer_calling_convention),
       '<',
       repeat(seq($.function_pointer_parameter, ',')),
-      $.function_pointer_return_type,
+      alias($.function_pointer_return_type, $.function_pointer_parameter),
       '>'
     ),
 

@@ -3652,8 +3652,13 @@
           }
         },
         {
-          "type": "SYMBOL",
-          "name": "function_pointer_return_type"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "function_pointer_return_type"
+          },
+          "named": true,
+          "value": "function_pointer_parameter"
         },
         {
           "type": "STRING",

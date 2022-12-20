@@ -141,7 +141,7 @@ class A {
         (variable_declaration
           (function_pointer_type
             (function_pointer_parameter (predefined_type))
-            (function_pointer_return_type (predefined_type)))
+            (function_pointer_parameter (predefined_type)))
           (variable_declarator (identifier))))
       (field_declaration
         (variable_declaration
@@ -149,11 +149,11 @@ class A {
             (function_pointer_parameter
               (function_pointer_type
                 (function_pointer_parameter (parameter_modifier) (predefined_type))
-                (function_pointer_return_type (predefined_type))))
-            (function_pointer_return_type
+                (function_pointer_parameter (predefined_type))))
+            (function_pointer_parameter
               (function_pointer_type
                 (function_pointer_parameter (parameter_modifier) (predefined_type))
-                (function_pointer_return_type (ref_type (predefined_type))))))
+                (function_pointer_parameter (ref_type (predefined_type))))))
           (variable_declarator (identifier))))
       (comment)
       (field_declaration
@@ -161,7 +161,7 @@ class A {
           (function_pointer_type
             (function_pointer_calling_convention)
             (function_pointer_parameter (predefined_type))
-            (function_pointer_return_type (predefined_type)))
+            (function_pointer_parameter (predefined_type)))
           (variable_declarator (identifier))))
       (field_declaration
         (variable_declaration
@@ -173,11 +173,11 @@ class A {
                     (function_pointer_unmanaged_calling_convention (identifier))
                     (function_pointer_unmanaged_calling_convention (identifier))))
                 (function_pointer_parameter (predefined_type))
-                (function_pointer_return_type (predefined_type))))
-            (function_pointer_return_type
+                (function_pointer_parameter (predefined_type))))
+            (function_pointer_parameter
               (function_pointer_type
                 (function_pointer_parameter (predefined_type))
-                (function_pointer_return_type (predefined_type)))))
+                (function_pointer_parameter (predefined_type)))))
           (variable_declarator (identifier)))))))
 
 =======================================

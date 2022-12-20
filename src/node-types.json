@@ -2816,21 +2816,6 @@
     }
   },
   {
-    "type": "function_pointer_return_type",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "_type",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "function_pointer_type",
     "named": true,
     "fields": {},
@@ -2844,10 +2829,6 @@
         },
         {
           "type": "function_pointer_parameter",
-          "named": true
-        },
-        {
-          "type": "function_pointer_return_type",
           "named": true
         }
       ]

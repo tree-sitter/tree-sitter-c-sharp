@@ -3458,29 +3458,58 @@
       "value": "var"
     },
     "array_type": {
-      "type": "PREC",
-      "value": 18,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "FIELD",
-            "name": "type",
-            "content": {
-              "type": "SYMBOL",
-              "name": "_type"
-            }
-          },
-          {
-            "type": "FIELD",
-            "name": "rank",
-            "content": {
-              "type": "SYMBOL",
-              "name": "array_rank_specifier"
-            }
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "type",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_array_base_type"
           }
-        ]
-      }
+        },
+        {
+          "type": "FIELD",
+          "name": "rank",
+          "content": {
+            "type": "SYMBOL",
+            "name": "array_rank_specifier"
+          }
+        }
+      ]
+    },
+    "_array_base_type": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "array_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_name"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "nullable_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "pointer_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "function_pointer_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "predefined_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "tuple_type"
+        }
+      ]
     },
     "array_rank_specifier": {
       "type": "SEQ",
@@ -10468,11 +10497,24 @@
     ],
     [
       "_type",
+      "_array_base_type"
+    ],
+    [
+      "_type",
       "_nullable_base_type",
       "array_creation_expression"
     ],
     [
+      "_type",
+      "_array_base_type",
+      "array_creation_expression"
+    ],
+    [
       "_nullable_base_type",
+      "stack_alloc_array_creation_expression"
+    ],
+    [
+      "_array_base_type",
       "stack_alloc_array_creation_expression"
     ],
     [

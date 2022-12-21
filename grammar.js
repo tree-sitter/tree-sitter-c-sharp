@@ -76,8 +76,11 @@ module.exports = grammar({
     [$._type, $.attribute],
     [$._type, $.stack_alloc_array_creation_expression],
     [$._type, $._nullable_base_type],
+    [$._type, $._array_base_type],
     [$._type, $._nullable_base_type, $.array_creation_expression],
+    [$._type, $._array_base_type, $.array_creation_expression],
     [$._nullable_base_type, $.stack_alloc_array_creation_expression],
+    [$._array_base_type, $.stack_alloc_array_creation_expression],
 
     [$.parameter, $.this_expression],
     [$.parameter, $._simple_name],
@@ -669,10 +672,20 @@ module.exports = grammar({
 
     implicit_type: $ => 'var',
 
-    array_type: $ => prec(PREC.POSTFIX, seq(
-      field('type', $._type),
+    array_type: $ => seq(
+      field('type', $._array_base_type),
       field('rank', $.array_rank_specifier)
-    )),
+    ),
+
+    _array_base_type: $ => choice(
+      $.array_type,
+      $._name,
+      $.nullable_type,
+      $.pointer_type,
+      $.function_pointer_type,
+      $.predefined_type,
+      $.tuple_type,
+    ),
 
     // grammar.txt marks this non-optional and includes omitted_array_size_expression in
     // expression but we can't match empty rules.

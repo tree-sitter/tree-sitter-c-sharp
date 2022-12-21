@@ -77,10 +77,13 @@ module.exports = grammar({
     [$._type, $.stack_alloc_array_creation_expression],
     [$._type, $._nullable_base_type],
     [$._type, $._array_base_type],
+    [$._type, $._pointer_base_type],
     [$._type, $._nullable_base_type, $.array_creation_expression],
     [$._type, $._array_base_type, $.array_creation_expression],
+    [$._type, $._pointer_base_type, $.array_creation_expression],
     [$._nullable_base_type, $.stack_alloc_array_creation_expression],
     [$._array_base_type, $.stack_alloc_array_creation_expression],
+    [$._pointer_base_type, $.stack_alloc_array_creation_expression],
 
     [$.parameter, $.this_expression],
     [$.parameter, $._simple_name],
@@ -701,7 +704,17 @@ module.exports = grammar({
       $.tuple_type
     ),
 
-    pointer_type: $ => prec(PREC.POSTFIX, seq($._type, '*')),
+    pointer_type: $ => seq($._pointer_base_type, '*'),
+
+    _pointer_base_type: $ => choice(
+      $.array_type,
+      $._name,
+      $.nullable_type,
+      $.pointer_type,
+      $.function_pointer_type,
+      $.predefined_type,
+      $.tuple_type,
+    ),
 
     function_pointer_type: $ => seq(
       'delegate',

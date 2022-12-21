@@ -70,6 +70,7 @@ module.exports = grammar({
     [$._contextual_keywords, $.global],
     [$._contextual_keywords, $.accessor_declaration],
     [$._contextual_keywords, $.type_parameter_constraint],
+    [$._contextual_keywords, $.modifier],
 
     [$._type, $.array_creation_expression],
     [$._type, $.attribute],
@@ -1735,7 +1736,9 @@ module.exports = grammar({
       'notnull',
       'unmanaged',
       'when',
-      'yield'
+      'yield',
+
+      'file'
     ),
 
     // Preprocessor

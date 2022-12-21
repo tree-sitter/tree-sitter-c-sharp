@@ -3,11 +3,17 @@ Global empty class
 =====================================
 
 public class F {}
+file sealed class F {}
 
 ---
 
 (compilation_unit
   (class_declaration
+    (modifier)
+    name: (identifier)
+    body: (declaration_list))
+  (class_declaration
+    (modifier)
     (modifier)
     name: (identifier)
     body: (declaration_list)))

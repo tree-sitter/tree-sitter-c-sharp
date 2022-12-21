@@ -746,6 +746,10 @@
           },
           {
             "type": "STRING",
+            "value": "file"
+          },
+          {
+            "type": "STRING",
             "value": "fixed"
           },
           {

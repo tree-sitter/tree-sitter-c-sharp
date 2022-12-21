@@ -683,7 +683,6 @@ module.exports = grammar({
     _nullable_base_type: $ => choice(
       $.array_type,
       $._name,
-      $.pointer_type,
       $.function_pointer_type,
       $.predefined_type,
       $.tuple_type

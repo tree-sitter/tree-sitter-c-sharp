@@ -4134,10 +4134,6 @@
           "named": true
         },
         {
-          "type": "pointer_type",
-          "named": true
-        },
-        {
           "type": "predefined_type",
           "named": true
         },

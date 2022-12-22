@@ -14,7 +14,7 @@
 (destructor_declaration name: (identifier) @type)
 
 [
-  (implicit_type)
+  ;;(implicit_type)
   (nullable_type)
   (pointer_type)
   (function_pointer_type)

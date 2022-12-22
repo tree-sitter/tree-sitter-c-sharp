@@ -645,7 +645,7 @@ module.exports = grammar({
     ),
 
     primary_constructor_base_type: $ => seq(
-      $.identifier,
+      $._type,
       $.argument_list
     ),
 

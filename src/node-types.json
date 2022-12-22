@@ -434,10 +434,6 @@
         "named": true
       },
       {
-        "type": "implicit_type",
-        "named": true
-      },
-      {
         "type": "nullable_type",
         "named": true
       },
@@ -3118,11 +3114,6 @@
     }
   },
   {
-    "type": "implicit_type",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "indexer_declaration",
     "named": true,
     "fields": {
@@ -4590,10 +4581,6 @@
             "named": true
           },
           {
-            "type": "implicit_type",
-            "named": true
-          },
-          {
             "type": "nullable_type",
             "named": true
           },
@@ -5426,10 +5413,6 @@
         },
         {
           "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "implicit_type",
           "named": true
         },
         {

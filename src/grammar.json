@@ -3413,10 +3413,6 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "implicit_type"
-        },
-        {
-          "type": "SYMBOL",
           "name": "array_type"
         },
         {
@@ -3448,10 +3444,6 @@
           "name": "ref_type"
         }
       ]
-    },
-    "implicit_type": {
-      "type": "STRING",
-      "value": "var"
     },
     "array_type": {
       "type": "SEQ",
@@ -3955,10 +3947,6 @@
     "_ref_base_type": {
       "type": "CHOICE",
       "members": [
-        {
-          "type": "SYMBOL",
-          "name": "implicit_type"
-        },
         {
           "type": "SYMBOL",
           "name": "array_type"
@@ -9679,6 +9667,10 @@
         {
           "type": "STRING",
           "value": "set"
+        },
+        {
+          "type": "STRING",
+          "value": "var"
         },
         {
           "type": "STRING",

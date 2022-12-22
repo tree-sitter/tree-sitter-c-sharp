@@ -668,7 +668,7 @@ module.exports = grammar({
     ),
 
     _type: $ => choice(
-      $.implicit_type,
+      //$.implicit_type,
       $.array_type,
       $._name,
       $.nullable_type,
@@ -679,7 +679,7 @@ module.exports = grammar({
       $.ref_type,
     ),
 
-    implicit_type: $ => 'var',
+    //implicit_type: $ => 'var',
 
     array_type: $ => seq(
       field('type', $._array_base_type),
@@ -787,7 +787,7 @@ module.exports = grammar({
     ),
 
     _ref_base_type: $ => choice(
-      $.implicit_type,
+      //$.implicit_type,
       $.array_type,
       $._name,
       $.nullable_type,
@@ -1778,6 +1778,7 @@ module.exports = grammar({
       // Async - These need to be more contextual
       // 'async',
       // 'await',
+      'var',
 
       // Misc
       'global',

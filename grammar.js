@@ -640,7 +640,7 @@ module.exports = grammar({
     ),
 
     record_base: $ => choice(
-      seq(':', commaSep1($.identifier)),
+      seq(':', commaSep1($._type)),
       seq(':', $.primary_constructor_base_type, optional(seq(',', commaSep1($.identifier)))),
     ),
 

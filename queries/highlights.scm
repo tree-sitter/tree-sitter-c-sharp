@@ -21,6 +21,9 @@
   (predefined_type)
 ] @type.builtin
 
+(_
+  type: (identifier ("var")) @type.builtin)
+
 ;; Enum
 (enum_member_declaration (identifier) @property.definition)
 

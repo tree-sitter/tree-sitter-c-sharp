@@ -6,7 +6,7 @@ class X
         void M()
         {
             var var = new var();
-            // <- type
+            // <- type.builtin
             //   ^ variable
         }
     }
@@ -17,7 +17,9 @@ class Y
     void M()
     {
         var var = new Y();
-        // <- type
+        // <- type.builtin
         //   ^ variable
+        Y var = new Y();
+        // <- type
     }
 }

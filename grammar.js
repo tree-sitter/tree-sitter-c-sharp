@@ -1776,8 +1776,8 @@ module.exports = grammar({
       'set',
 
       // Async - These need to be more contextual
-      // 'async',
-      // 'await',
+      'async',
+      'await',
       'var',
 
       // Misc

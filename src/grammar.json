@@ -9670,6 +9670,14 @@
         },
         {
           "type": "STRING",
+          "value": "async"
+        },
+        {
+          "type": "STRING",
+          "value": "await"
+        },
+        {
+          "type": "STRING",
           "value": "var"
         },
         {

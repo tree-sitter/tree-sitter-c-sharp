@@ -757,7 +757,6 @@ module.exports = grammar({
     ),
 
     function_pointer_parameter: $ => seq(
-      alias(optional('scoped'), $.parameter_modifier),
       optional(alias(choice('ref', 'out', 'in'), $.parameter_modifier)),
       $._ref_base_type
     ),

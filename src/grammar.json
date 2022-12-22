@@ -3829,23 +3829,6 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "scoped"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          },
-          "named": true,
-          "value": "parameter_modifier"
-        },
-        {
           "type": "CHOICE",
           "members": [
             {

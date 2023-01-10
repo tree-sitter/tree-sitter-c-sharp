@@ -953,7 +953,7 @@ class yield {}
     (declaration_list)))
 
 ================================================================================
-Contextual keywords as argument names
+Contextual keywords as arguments
 ================================================================================
 
 void M(params int[] ps)
@@ -1106,3 +1106,377 @@ void M(params int[] ps)
                 (identifier))
               (argument
                 (identifier)))))))))
+
+================================================================================
+Contextual keywords as parameter names
+================================================================================
+
+void M(int add
+    , int alias
+    , int and
+    , int args
+    , int ascending
+    , int async
+    , int await
+    , int by
+    , int descending
+    , int dynamic
+    , int equals
+    , int file
+    , int from
+    , int get
+    , int global
+    , int group
+    , int init
+    , int into
+    , int join
+    , int let
+    , int managed
+    , int nameof
+    , int nint
+    , int not
+    , int notnull
+    , int nuint
+    , int on
+    , int or
+    , int orderby
+    , int partial
+    , int record
+    , int remove
+    , int required
+    , int scoped
+    , int select
+    , int set
+    , int unmanaged
+    , int value
+    , int var
+    , int when
+    , int where
+    , int with
+    , int yield)
+{ }
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_function_statement
+      (predefined_type)
+      (identifier)
+      (parameter_list
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier)))
+      (block))))
+
+================================================================================
+Contextual keywords as parameter types
+================================================================================
+
+void M(add x,
+    alias x,
+    and x,
+    args x,
+    ascending x,
+    async x,
+    await x,
+    by x,
+    descending x,
+    dynamic x,
+    equals x,
+    file x,
+    from x,
+    get x,
+    global x,
+    group x,
+    init x,
+    into x,
+    join x,
+    let x,
+    managed x,
+    nameof x,
+    nint x,
+    not x,
+    notnull x,
+    nuint x,
+    on x,
+    or x,
+    orderby x,
+    partial x,
+    record x,
+    remove x,
+    required x,
+    // scoped x, // TODO: this conflicts with the current parameter definition, where scoped is a modifier and the type is optional
+    select x,
+    set x,
+    unmanaged x,
+    value x,
+    var x,
+    when x,
+    where x,
+    with x,
+    yield x)
+{ }
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_function_statement
+      (predefined_type)
+      (identifier)
+      (parameter_list
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (predefined_type)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (comment)
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (implicit_type)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier))
+        (parameter
+          (identifier)
+          (identifier)))
+      (block))))

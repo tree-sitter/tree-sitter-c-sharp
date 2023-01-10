@@ -980,10 +980,10 @@ void M(params int[] ps)
     , let
     , managed
     , nameof
-    // , nint
+    , nint
     , not
     , notnull
-    // , nuint
+    , nuint
     , on
     , or
     , orderby
@@ -996,7 +996,7 @@ void M(params int[] ps)
     , set
     , unmanaged
     , value
-    // , var
+    , var
     , when
     , where
     , with
@@ -1063,12 +1063,6 @@ void M(params int[] ps)
                 (identifier))
               (argument
                 (identifier))
-              (comment)
-              (argument
-                (identifier))
-              (argument
-                (identifier))
-              (comment)
               (argument
                 (identifier))
               (argument
@@ -1093,7 +1087,16 @@ void M(params int[] ps)
                 (identifier))
               (argument
                 (identifier))
-              (comment)
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
               (argument
                 (identifier))
               (argument

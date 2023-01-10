@@ -71,12 +71,19 @@ module.exports = grammar({
     [$._contextual_keywords, $.scoped_type],
     [$._contextual_keywords, $.scoped_type, $.parameter],
     [$._contextual_keywords, $.parameter],
+    [$._contextual_keywords, $.predefined_type],
+    [$._contextual_keywords, $.implicit_type],
 
-    [$._type, $.attribute],
     [$._type, $._nullable_base_type],
     [$._type, $._array_base_type],
     [$._type, $._pointer_base_type],
     [$._type, $._ref_base_type],
+
+    [$._type_name, $.attribute],
+    [$._type_name, $._nullable_base_type],
+    [$._type_name, $._array_base_type],
+    [$._type_name, $._pointer_base_type],
+    [$._type_name, $._ref_base_type],
 
     [$._nullable_base_type, $.stack_alloc_array_creation_expression],
     [$._array_base_type, $.stack_alloc_array_creation_expression],
@@ -90,6 +97,7 @@ module.exports = grammar({
     [$._object_creation_type, $._array_base_type],
     [$._object_creation_type, $._nullable_base_type],
     [$._object_creation_type, $._pointer_base_type],
+    [$._object_creation_type, $._type_name],
 
     [$.array_creation_expression, $._array_base_type],
     [$.array_creation_expression, $._nullable_base_type],
@@ -681,7 +689,7 @@ module.exports = grammar({
     _type: $ => choice(
       $.implicit_type,
       $.array_type,
-      $._name,
+      $._type_name,
       $.nullable_type,
       $.pointer_type,
       $.function_pointer_type,
@@ -691,7 +699,12 @@ module.exports = grammar({
       $.scoped_type,
     ),
 
-    implicit_type: $ => 'var',
+    _type_name: $ => prec.dynamic(0, // `nint`, `nuint`, `var` could all be `_type_name`, but we prefer `predefined_type` and `implicit_type`
+      $._name
+    ),
+
+    implicit_type: $ => prec.dynamic(1, // Higher precedence than `_type_name`
+      'var'),
 
     array_type: $ => seq(
       field('type', $._array_base_type),
@@ -700,7 +713,7 @@ module.exports = grammar({
 
     _array_base_type: $ => choice(
       $.array_type,
-      $._name,
+      $._type_name,
       $.nullable_type,
       $.pointer_type,
       $.function_pointer_type,
@@ -716,7 +729,7 @@ module.exports = grammar({
 
     _nullable_base_type: $ => choice(
       $.array_type,
-      $._name,
+      $._type_name,
       $.function_pointer_type,
       $.predefined_type,
       $.tuple_type
@@ -726,7 +739,7 @@ module.exports = grammar({
 
     _pointer_base_type: $ => choice(
       $.array_type,
-      $._name,
+      $._type_name,
       $.nullable_type,
       $.pointer_type,
       $.function_pointer_type,
@@ -771,26 +784,27 @@ module.exports = grammar({
 
     function_pointer_return_type: $ => $._type,
 
-    predefined_type: $ => token(choice(
-      'bool',
-      'byte',
-      'char',
-      'decimal',
-      'double',
-      'float',
-      'int',
-      'long',
-      'object',
-      'sbyte',
-      'short',
-      'string',
-      'uint',
-      'ulong',
-      'ushort',
-      'nint',
-      'nuint',
-      'void'
-    )),
+    predefined_type: $ => prec.dynamic(1, // Higher precedence than `_type_name`
+      choice(
+        'bool',
+        'byte',
+        'char',
+        'decimal',
+        'double',
+        'float',
+        'int',
+        'long',
+        'object',
+        'sbyte',
+        'short',
+        'string',
+        'uint',
+        'ulong',
+        'ushort',
+        'nint',
+        'nuint',
+        'void'
+      )),
 
     ref_type: $ => seq(
       'ref',
@@ -1825,10 +1839,10 @@ module.exports = grammar({
       // 'let',
       // 'managed',
       // 'nameof',
-      // 'nint',
+      'nint',
       // 'not',
       // 'notnull',
-      // 'nuint',
+      'nuint',
       // 'on',
       // 'or',
       // 'orderby',
@@ -1841,7 +1855,7 @@ module.exports = grammar({
       // 'set',
       // 'unmanaged',
       // 'value',
-      // 'var',
+      'var',
       // 'when',
       // 'where',
       // 'with',

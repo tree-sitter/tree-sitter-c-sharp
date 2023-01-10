@@ -3442,7 +3442,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_name"
+          "name": "_type_name"
         },
         {
           "type": "SYMBOL",
@@ -3474,9 +3474,21 @@
         }
       ]
     },
+    "_type_name": {
+      "type": "PREC_DYNAMIC",
+      "value": 0,
+      "content": {
+        "type": "SYMBOL",
+        "name": "_name"
+      }
+    },
     "implicit_type": {
-      "type": "STRING",
-      "value": "var"
+      "type": "PREC_DYNAMIC",
+      "value": 1,
+      "content": {
+        "type": "STRING",
+        "value": "var"
+      }
     },
     "array_type": {
       "type": "SEQ",
@@ -3508,7 +3520,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_name"
+          "name": "_type_name"
         },
         {
           "type": "SYMBOL",
@@ -3616,7 +3628,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_name"
+          "name": "_type_name"
         },
         {
           "type": "SYMBOL",
@@ -3654,7 +3666,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_name"
+          "name": "_type_name"
         },
         {
           "type": "SYMBOL",
@@ -3873,7 +3885,8 @@
       "name": "_type"
     },
     "predefined_type": {
-      "type": "TOKEN",
+      "type": "PREC_DYNAMIC",
+      "value": 1,
       "content": {
         "type": "CHOICE",
         "members": [
@@ -9728,6 +9741,14 @@
         },
         {
           "type": "STRING",
+          "value": "nint"
+        },
+        {
+          "type": "STRING",
+          "value": "nuint"
+        },
+        {
+          "type": "STRING",
           "value": "partial"
         },
         {
@@ -9737,6 +9758,10 @@
         {
           "type": "STRING",
           "value": "scoped"
+        },
+        {
+          "type": "STRING",
+          "value": "var"
         },
         {
           "type": "STRING",
@@ -10614,8 +10639,12 @@
       "parameter"
     ],
     [
-      "_type",
-      "attribute"
+      "_contextual_keywords",
+      "predefined_type"
+    ],
+    [
+      "_contextual_keywords",
+      "implicit_type"
     ],
     [
       "_type",
@@ -10631,6 +10660,26 @@
     ],
     [
       "_type",
+      "_ref_base_type"
+    ],
+    [
+      "_type_name",
+      "attribute"
+    ],
+    [
+      "_type_name",
+      "_nullable_base_type"
+    ],
+    [
+      "_type_name",
+      "_array_base_type"
+    ],
+    [
+      "_type_name",
+      "_pointer_base_type"
+    ],
+    [
+      "_type_name",
       "_ref_base_type"
     ],
     [
@@ -10672,6 +10721,10 @@
     [
       "_object_creation_type",
       "_pointer_base_type"
+    ],
+    [
+      "_object_creation_type",
+      "_type_name"
     ],
     [
       "array_creation_expression",

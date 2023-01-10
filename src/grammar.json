@@ -9767,6 +9767,14 @@
         },
         {
           "type": "STRING",
+          "value": "partial"
+        },
+        {
+          "type": "STRING",
+          "value": "required"
+        },
+        {
+          "type": "STRING",
           "value": "scoped"
         },
         {

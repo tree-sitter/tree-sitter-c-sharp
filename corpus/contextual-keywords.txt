@@ -951,3 +951,154 @@ class yield {}
   (class_declaration
     (identifier)
     (declaration_list)))
+
+================================================================================
+Contextual keywords as argument names
+================================================================================
+
+void M(params int[] ps)
+{
+    M(add
+    , alias
+    , and
+    , args
+    , ascending
+    , async
+    // , await
+    , by
+    , descending
+    , dynamic
+    , equals
+    , file
+    , from
+    , get
+    , global
+    , group
+    , init
+    , into
+    , join
+    , let
+    , managed
+    , nameof
+    // , nint
+    , not
+    , notnull
+    // , nuint
+    , on
+    , or
+    , orderby
+    , partial
+    , record
+    , remove
+    , required
+    , scoped
+    , select
+    , set
+    , unmanaged
+    , value
+    // , var
+    , when
+    , where
+    , with
+    , yield);
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_function_statement
+      (predefined_type)
+      (identifier)
+      (parameter_list
+        (array_type
+          (predefined_type)
+          (array_rank_specifier))
+        (identifier))
+      (block
+        (expression_statement
+          (invocation_expression
+            (identifier)
+            (argument_list
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (comment)
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (comment)
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (comment)
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (comment)
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier))
+              (argument
+                (identifier)))))))))

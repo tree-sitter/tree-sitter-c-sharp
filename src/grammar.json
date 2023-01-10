@@ -10659,19 +10659,6 @@
       "variable_declarator"
     ],
     [
-      "type_pattern",
-      "declaration_pattern"
-    ],
-    [
-      "type_pattern",
-      "declaration_pattern",
-      "recursive_pattern"
-    ],
-    [
-      "type_pattern",
-      "tuple_element"
-    ],
-    [
       "_name",
       "_lvalue_expression"
     ],
@@ -10805,24 +10792,11 @@
     ],
     [
       "parameter",
-      "tuple_element"
-    ],
-    [
-      "parameter",
       "tuple_pattern"
     ],
     [
       "parameter",
-      "tuple_element",
-      "declaration_expression"
-    ],
-    [
-      "parameter",
-      "declaration_expression"
-    ],
-    [
-      "ref_type",
-      "parameter"
+      "ref_type"
     ],
     [
       "tuple_element",
@@ -10831,6 +10805,10 @@
     [
       "tuple_element",
       "variable_declarator"
+    ],
+    [
+      "tuple_element",
+      "type_pattern"
     ],
     [
       "constant_pattern",

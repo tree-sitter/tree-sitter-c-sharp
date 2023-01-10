@@ -51,10 +51,6 @@ module.exports = grammar({
 
     [$.event_declaration, $.variable_declarator],
 
-    [$.type_pattern, $.declaration_pattern],
-    [$.type_pattern, $.declaration_pattern, $.recursive_pattern],
-    [$.type_pattern, $.tuple_element],
-
     [$._name, $._lvalue_expression],
     [$._simple_name, $.type_parameter],
     [$._simple_name, $.generic_name],
@@ -96,22 +92,18 @@ module.exports = grammar({
 
     [$.parameter, $.this_expression],
     [$.parameter, $._simple_name],
-    [$.parameter, $.tuple_element],
     [$.parameter, $.tuple_pattern],
-    [$.parameter, $.tuple_element, $.declaration_expression],
-    [$.parameter, $.declaration_expression],
-
-    [$.ref_type, $.parameter],
+    [$.parameter, $.ref_type],
 
     [$.tuple_element, $.declaration_expression],
     [$.tuple_element, $.variable_declarator],
+    [$.tuple_element, $.type_pattern],
 
     [$.constant_pattern, $._name],
     [$.constant_pattern, $._name, $._lvalue_expression],
     [$.constant_pattern, $._non_lvalue_expression],
     [$.constant_pattern, $._lvalue_expression],
     [$.constant_pattern, $._expression_statement_expression],
-
   ],
 
   inline: $ => [

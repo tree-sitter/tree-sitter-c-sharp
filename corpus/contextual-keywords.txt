@@ -419,7 +419,7 @@ void M()
     args x = null;
     ascending x = null;
     async x = null;
-    await x = null;
+    await x = null;     // TODO fix this. Parsed as `await (x = null);`
     by x = null;
     descending x = null;
     dynamic x = null;
@@ -516,6 +516,7 @@ void M()
               (identifier)
               (assignment_operator)
               (null_literal))))
+        (comment)
         (local_declaration_statement
           (variable_declaration
             (identifier)

@@ -40,6 +40,10 @@ identifiers with contextual keyword names
 
 int nint = 0;
 int nuint = 0;
+var unmanaged = 0;
+var notnull = 0;
+var add = 0;
+var get = 0;
 
 --------------------------------------------------------------------------------
 
@@ -56,6 +60,38 @@ int nuint = 0;
     (local_declaration_statement
       (variable_declaration
         (predefined_type)
+        (variable_declarator
+          (identifier)
+          (equals_value_clause
+            (integer_literal))))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        (implicit_type)
+        (variable_declarator
+          (identifier)
+          (equals_value_clause
+            (integer_literal))))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        (implicit_type)
+        (variable_declarator
+          (identifier)
+          (equals_value_clause
+            (integer_literal))))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        (implicit_type)
+        (variable_declarator
+          (identifier)
+          (equals_value_clause
+            (integer_literal))))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause

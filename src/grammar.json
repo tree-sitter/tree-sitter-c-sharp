@@ -9755,34 +9755,6 @@
       "members": [
         {
           "type": "STRING",
-          "value": "add"
-        },
-        {
-          "type": "STRING",
-          "value": "alias"
-        },
-        {
-          "type": "STRING",
-          "value": "ascending"
-        },
-        {
-          "type": "STRING",
-          "value": "by"
-        },
-        {
-          "type": "STRING",
-          "value": "descending"
-        },
-        {
-          "type": "STRING",
-          "value": "dynamic"
-        },
-        {
-          "type": "STRING",
-          "value": "equals"
-        },
-        {
-          "type": "STRING",
           "value": "file"
         },
         {
@@ -9791,71 +9763,7 @@
         },
         {
           "type": "STRING",
-          "value": "get"
-        },
-        {
-          "type": "STRING",
           "value": "global"
-        },
-        {
-          "type": "STRING",
-          "value": "group"
-        },
-        {
-          "type": "STRING",
-          "value": "into"
-        },
-        {
-          "type": "STRING",
-          "value": "join"
-        },
-        {
-          "type": "STRING",
-          "value": "let"
-        },
-        {
-          "type": "STRING",
-          "value": "nameof"
-        },
-        {
-          "type": "STRING",
-          "value": "notnull"
-        },
-        {
-          "type": "STRING",
-          "value": "on"
-        },
-        {
-          "type": "STRING",
-          "value": "orderby"
-        },
-        {
-          "type": "STRING",
-          "value": "remove"
-        },
-        {
-          "type": "STRING",
-          "value": "select"
-        },
-        {
-          "type": "STRING",
-          "value": "set"
-        },
-        {
-          "type": "STRING",
-          "value": "unmanaged"
-        },
-        {
-          "type": "STRING",
-          "value": "when"
-        },
-        {
-          "type": "STRING",
-          "value": "where"
-        },
-        {
-          "type": "STRING",
-          "value": "yield"
         }
       ]
     },
@@ -10710,14 +10618,6 @@
     [
       "_contextual_keywords",
       "global"
-    ],
-    [
-      "_contextual_keywords",
-      "accessor_declaration"
-    ],
-    [
-      "_contextual_keywords",
-      "type_parameter_constraint"
     ],
     [
       "_contextual_keywords",

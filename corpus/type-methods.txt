@@ -236,7 +236,7 @@ Class method with contextually-reserved keyword named parameters
 ================================================================================
 
 class A {
-  void HasAnOut(int from, string partial) {
+  void HasAnOut(int from, string partial, int global, int notnull, int get) {
   }
 }
 
@@ -250,6 +250,15 @@ class A {
         (predefined_type)
         (identifier)
         (parameter_list
+          (parameter
+            (predefined_type)
+            (identifier))
+          (parameter
+            (predefined_type)
+            (identifier))
+          (parameter
+            (predefined_type)
+            (identifier))
           (parameter
             (predefined_type)
             (identifier))

@@ -769,12 +769,13 @@ void M()
               (identifier)
               (equals_value_clause
                 (null_literal)))))
-        (ERROR)
-        (expression_statement
-          (assignment_expression
+        (local_declaration_statement
+          (variable_declaration
             (identifier)
-            (assignment_operator)
-            (null_literal)))))))
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))))))
 
 ================================================================================
 Contextual keywords as class names

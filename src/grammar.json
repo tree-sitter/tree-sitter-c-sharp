@@ -9764,6 +9764,10 @@
         {
           "type": "STRING",
           "value": "global"
+        },
+        {
+          "type": "STRING",
+          "value": "yield"
         }
       ]
     },

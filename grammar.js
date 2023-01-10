@@ -1832,7 +1832,7 @@ module.exports = grammar({
       // 'when',
       // 'where',
       // 'with',
-      // 'yield'
+      'yield'
     ),
 
     // Preprocessor

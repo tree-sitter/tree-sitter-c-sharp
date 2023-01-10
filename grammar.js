@@ -108,11 +108,15 @@ module.exports = grammar({
     [$.tuple_element, $.variable_declarator],
 
     [$.constant_pattern, $._name],
+
     [$.constant_pattern, $._name, $._lvalue_expression],
     [$.constant_pattern, $._non_lvalue_expression],
     [$.constant_pattern, $._lvalue_expression],
     [$.constant_pattern, $._expression_statement_expression],
 
+    [$._async_static_modifier, $.modifier],
+    [$._async_static_modifier, $.modifier, $._contextual_keywords],
+    [$._async_static_modifier, $._contextual_keywords],
   ],
 
   inline: $ => [
@@ -1157,8 +1161,14 @@ module.exports = grammar({
       ';'
     ),
 
+    _async_static_modifier: $ => choice('async', 'static'),
+
+    _async_static_modifiers: $ => prec.right(
+      prec.dynamic(1,                           // prefer parsing `async` as the optional modifier instead of the optional return type
+        repeat1(alias($._async_static_modifier, $.modifier)))),
+
     anonymous_method_expression: $ => seq(
-      optional(alias(choice('async', 'static', seq('async', 'static'), seq('static', 'async')), $.modifier)),
+      optional($._async_static_modifiers),
       'delegate',
       optional(field('parameters', $.parameter_list)),
       $.block
@@ -1166,7 +1176,7 @@ module.exports = grammar({
 
     lambda_expression: $ => prec(-1, seq(
       repeat($.attribute_list),
-      optional(alias(choice('async', 'static', seq('async', 'static'), seq('static', 'async')), $.modifier)),
+      optional($._async_static_modifiers),
       optional($._type),
       choice(field('parameters', $.parameter_list), $.identifier),
       '=>',
@@ -1798,7 +1808,7 @@ module.exports = grammar({
       // 'and',
       // 'args',
       // 'ascending',
-      // 'async',
+      'async',
       // 'await',
       // 'by',
       // 'descending',

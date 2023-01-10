@@ -6030,6 +6030,39 @@
         }
       ]
     },
+    "_async_static_modifier": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "async"
+        },
+        {
+          "type": "STRING",
+          "value": "static"
+        }
+      ]
+    },
+    "_async_static_modifiers": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "PREC_DYNAMIC",
+        "value": 1,
+        "content": {
+          "type": "REPEAT1",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_async_static_modifier"
+            },
+            "named": true,
+            "value": "modifier"
+          }
+        }
+      }
+    },
     "anonymous_method_expression": {
       "type": "SEQ",
       "members": [
@@ -6037,48 +6070,8 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "ALIAS",
-              "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "async"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "static"
-                  },
-                  {
-                    "type": "SEQ",
-                    "members": [
-                      {
-                        "type": "STRING",
-                        "value": "async"
-                      },
-                      {
-                        "type": "STRING",
-                        "value": "static"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "SEQ",
-                    "members": [
-                      {
-                        "type": "STRING",
-                        "value": "static"
-                      },
-                      {
-                        "type": "STRING",
-                        "value": "async"
-                      }
-                    ]
-                  }
-                ]
-              },
-              "named": true,
-              "value": "modifier"
+              "type": "SYMBOL",
+              "name": "_async_static_modifiers"
             },
             {
               "type": "BLANK"
@@ -6128,48 +6121,8 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "ALIAS",
-                "content": {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "STRING",
-                      "value": "async"
-                    },
-                    {
-                      "type": "STRING",
-                      "value": "static"
-                    },
-                    {
-                      "type": "SEQ",
-                      "members": [
-                        {
-                          "type": "STRING",
-                          "value": "async"
-                        },
-                        {
-                          "type": "STRING",
-                          "value": "static"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "SEQ",
-                      "members": [
-                        {
-                          "type": "STRING",
-                          "value": "static"
-                        },
-                        {
-                          "type": "STRING",
-                          "value": "async"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                "named": true,
-                "value": "modifier"
+                "type": "SYMBOL",
+                "name": "_async_static_modifiers"
               },
               {
                 "type": "BLANK"
@@ -9755,6 +9708,10 @@
       "members": [
         {
           "type": "STRING",
+          "value": "async"
+        },
+        {
+          "type": "STRING",
           "value": "file"
         },
         {
@@ -10781,6 +10738,19 @@
     [
       "constant_pattern",
       "_expression_statement_expression"
+    ],
+    [
+      "_async_static_modifier",
+      "modifier"
+    ],
+    [
+      "_async_static_modifier",
+      "modifier",
+      "_contextual_keywords"
+    ],
+    [
+      "_async_static_modifier",
+      "_contextual_keywords"
     ]
   ],
   "precedences": [],

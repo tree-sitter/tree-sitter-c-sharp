@@ -504,12 +504,10 @@ void M()
               (equals_value_clause
                 (null_literal)))))
         (local_declaration_statement
-          (modifier)
           (variable_declaration
             (identifier)
             (variable_declarator
-              (identifier
-                (MISSING _identifier_token))
+              (identifier)
               (equals_value_clause
                 (null_literal)))))
         (expression_statement

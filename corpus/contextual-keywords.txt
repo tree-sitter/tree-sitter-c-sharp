@@ -44,3 +44,916 @@ file.Method(1, 2);
             (integer_literal))
           (argument
             (integer_literal)))))))
+
+================================================================================
+Contextual keywords as local variables names
+================================================================================
+
+void M()
+{
+    int add = 0;
+    int alias = 0;
+    int and = 0;
+    int args = 0;
+    int ascending = 0;
+    int async = 0;
+    int await = 0;
+    int by = 0;
+    int descending = 0;
+    int dynamic = 0;
+    int equals = 0;
+    int file = 0;
+    int from = 0;
+    int get = 0;
+    int global = 0;
+    int group = 0;
+    int init = 0;
+    int into = 0;
+    int join = 0;
+    int let = 0;
+    int managed = 0;
+    int nameof = 0;
+    int nint = 0;
+    int not = 0;
+    int notnull = 0;
+    int nuint = 0;
+    int on = 0;
+    int or = 0;
+    int orderby = 0;
+    int partial = 0;
+    int record = 0;
+    int remove = 0;
+    int required = 0;
+    int scoped = 0;
+    int select = 0;
+    int set = 0;
+    int unmanaged = 0;
+    int value = 0;
+    int var = 0;
+    int when = 0;
+    int where = 0;
+    int with = 0;
+    int yield = 0;
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_function_statement
+      (predefined_type)
+      (identifier)
+      (parameter_list)
+      (block
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (integer_literal)))))))))
+
+================================================================================
+Contextual keywords as local variable type names
+================================================================================
+
+void M()
+{
+    add x = null;
+    alias x = null;
+    and x = null;
+    args x = null;
+    ascending x = null;
+    async x = null;
+    await x = null;
+    by x = null;
+    descending x = null;
+    dynamic x = null;
+    equals x = null;
+    file x = null;
+    from x = null;
+    get x = null;
+    global x = null;
+    group x = null;
+    init x = null;
+    into x = null;
+    join x = null;
+    let x = null;
+    managed x = null;
+    nameof x = null;
+    nint x = null;
+    not x = null;
+    notnull x = null;
+    nuint x = null;
+    on x = null;
+    or x = null;
+    orderby x = null;
+    partial x = null;
+    record x = null;
+    remove x = null;
+    required x = null;
+    scoped x = null;
+    select x = null;
+    set x = null;
+    unmanaged x = null;
+    value x = null;
+    var x = null;
+    when x = null;
+    where x = null;
+    with x = null;
+    yield x = null;
+}
+
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_function_statement
+      (predefined_type)
+      (identifier)
+      (parameter_list)
+      (block
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (modifier)
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier
+                (MISSING _identifier_token))
+              (equals_value_clause
+                (null_literal)))))
+        (expression_statement
+          (await_expression
+            (assignment_expression
+              (identifier)
+              (assignment_operator)
+              (null_literal))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (predefined_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (modifier)
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier
+                (MISSING _identifier_token))
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (modifier)
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier
+                (MISSING _identifier_token))
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (scoped_type
+              (identifier))
+            (variable_declarator
+              (identifier
+                (MISSING _identifier_token))
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (implicit_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (local_declaration_statement
+          (variable_declaration
+            (identifier)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (null_literal)))))
+        (ERROR)
+        (expression_statement
+          (assignment_expression
+            (identifier)
+            (assignment_operator)
+            (null_literal)))))))
+
+================================================================================
+Contextual keywords as class names
+================================================================================
+
+class add {}
+class alias {}
+class and {}
+class args {}
+class ascending {}
+class async {}
+class await {}
+class by {}
+class descending {}
+class dynamic {}
+class equals {}
+class file {}
+class from {}
+class get {}
+class global {}
+class group {}
+class init {}
+class into {}
+class join {}
+class let {}
+class managed {}
+class nameof {}
+class nint {}
+class not {}
+class notnull {}
+class nuint {}
+class on {}
+class or {}
+class orderby {}
+class partial {}
+class record {}
+class remove {}
+class required {}
+class scoped {}
+class select {}
+class set {}
+class unmanaged {}
+class value {}
+class var {}
+class when {}
+class where {}
+class with {}
+class yield {}
+
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list))
+  (class_declaration
+    (identifier)
+    (declaration_list)))

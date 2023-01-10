@@ -706,11 +706,9 @@ void M()
                 (null_literal)))))
         (local_declaration_statement
           (variable_declaration
-            (scoped_type
-              (identifier))
+            (identifier)
             (variable_declarator
-              (identifier
-                (MISSING _identifier_token))
+              (identifier)
               (equals_value_clause
                 (null_literal)))))
         (local_declaration_statement

@@ -964,7 +964,7 @@ void M(params int[] ps)
     , args
     , ascending
     , async
-    // , await
+    , await
     , by
     , descending
     , dynamic
@@ -1032,7 +1032,8 @@ void M(params int[] ps)
                 (identifier))
               (argument
                 (identifier))
-              (comment)
+              (argument
+                (identifier))
               (argument
                 (identifier))
               (argument

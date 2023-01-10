@@ -1823,7 +1823,7 @@ module.exports = grammar({
       // 'args',
       // 'ascending',
       'async',
-      // 'await',
+      'await',
       // 'by',
       // 'descending',
       // 'dynamic',

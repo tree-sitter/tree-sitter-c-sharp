@@ -9729,6 +9729,10 @@
         },
         {
           "type": "STRING",
+          "value": "await"
+        },
+        {
+          "type": "STRING",
           "value": "file"
         },
         {

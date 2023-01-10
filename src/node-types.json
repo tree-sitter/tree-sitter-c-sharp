@@ -3640,6 +3640,16 @@
             "named": true
           }
         ]
+      },
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "_type",
+            "named": true
+          }
+        ]
       }
     },
     "children": {
@@ -3647,11 +3657,11 @@
       "required": false,
       "types": [
         {
-          "type": "_type",
+          "type": "attribute_list",
           "named": true
         },
         {
-          "type": "attribute_list",
+          "type": "identifier",
           "named": true
         },
         {

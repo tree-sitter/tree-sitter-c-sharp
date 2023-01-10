@@ -1317,6 +1317,8 @@ void a() {
   var bda = async x => x + 1;
   var syn = async static x => x + 1;
   var txt = static async x => x + 1;
+  var ret = static async Type x => x + 1;
+  var typ = async Type x => x + 1;
 }
 
 --------------------------------------------------------------------------------
@@ -1374,6 +1376,33 @@ void a() {
                 (lambda_expression
                   (modifier)
                   (modifier)
+                  (identifier)
+                  (binary_expression
+                    (identifier)
+                    (integer_literal)))))))
+        (local_declaration_statement
+          (variable_declaration
+            (implicit_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (lambda_expression
+                  (modifier)
+                  (modifier)
+                  (identifier)
+                  (identifier)
+                  (binary_expression
+                    (identifier)
+                    (integer_literal)))))))
+        (local_declaration_statement
+          (variable_declaration
+            (implicit_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (lambda_expression
+                  (modifier)
+                  (identifier)
                   (identifier)
                   (binary_expression
                     (identifier)

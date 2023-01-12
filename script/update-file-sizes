@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ wc -l -m src/*.* | awk '{printf("%s\t%0.1fMB\t%d\n", $3, $2/1048576, $1)}' | column --table --table-right 2,3 --table-columns File,Size,Lines > script/file_sizes.txt

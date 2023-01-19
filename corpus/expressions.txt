@@ -3535,8 +3535,7 @@ var a = b < c >> d;
           (identifier)
           (equals_value_clause
             (binary_expression
-              (generic_name
+              (identifier)
+              (binary_expression
                 (identifier)
-                (type_argument_list
-                  (identifier)))
-              (identifier))))))))
+                (identifier)))))))))

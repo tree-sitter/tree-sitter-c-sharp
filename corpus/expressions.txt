@@ -3321,3 +3321,222 @@ var allowedValuesList = someObj is null
               (object_creation_expression
                 (predefined_type)
                 (argument_list)))))))))
+
+================================================================================
+Nameof expressions
+================================================================================
+
+var x = nameof(A);
+var x = nameof(A<B>);
+var x = nameof(A.B);
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        (implicit_type)
+        (variable_declarator
+          (identifier)
+          (equals_value_clause
+            (invocation_expression
+              (identifier)
+              (argument_list
+                (argument
+                  (identifier)))))))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        (implicit_type)
+        (variable_declarator
+          (identifier)
+          (equals_value_clause
+            (invocation_expression
+              (identifier)
+              (argument_list
+                (argument
+                  (generic_name
+                    (identifier)
+                    (type_argument_list
+                      (identifier)))))))))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        (implicit_type)
+        (variable_declarator
+          (identifier)
+          (equals_value_clause
+            (invocation_expression
+              (identifier)
+              (argument_list
+                (argument
+                  (member_access_expression
+                    (identifier)
+                    (identifier)))))))))))
+
+================================================================================
+Invocation expressions
+================================================================================
+
+nameof(A).ToString();
+sizeof(int).ToString();
+default(A<int>).ToString();
+"aaa".ToString();
+this.ToString();
+
+new int[0].ToString();
+stackalloc []{1}.ToString();
+a.b.ToString();
+a?.b?.ToString();
+a?.b[0].ToString();
+a?.b[0]?.ToString();
+a!.ToString();
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        (member_access_expression
+          (invocation_expression
+            (identifier)
+            (argument_list
+              (argument
+                (identifier))))
+          (identifier))
+        (argument_list))))
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        (member_access_expression
+          (size_of_expression
+            (predefined_type))
+          (identifier))
+        (argument_list))))
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        (member_access_expression
+          (default_expression
+            (generic_name
+              (identifier)
+              (type_argument_list
+                (predefined_type))))
+          (identifier))
+        (argument_list))))
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        (member_access_expression
+          (string_literal)
+          (identifier))
+        (argument_list))))
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        (member_access_expression
+          (this_expression)
+          (identifier))
+        (argument_list))))
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        (member_access_expression
+          (array_creation_expression
+            (array_type
+              (predefined_type)
+              (array_rank_specifier
+                (integer_literal))))
+          (identifier))
+        (argument_list))))
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        (member_access_expression
+          (implicit_stack_alloc_array_creation_expression
+            (initializer_expression
+              (integer_literal)))
+          (identifier))
+        (argument_list))))
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        (member_access_expression
+          (member_access_expression
+            (identifier)
+            (identifier))
+          (identifier))
+        (argument_list))))
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        (conditional_access_expression
+          (conditional_access_expression
+            (identifier)
+            (member_binding_expression
+              (identifier)))
+          (member_binding_expression
+            (identifier)))
+        (argument_list))))
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        (member_access_expression
+          (element_access_expression
+            (conditional_access_expression
+              (identifier)
+              (member_binding_expression
+                (identifier)))
+            (bracketed_argument_list
+              (argument
+                (integer_literal))))
+          (identifier))
+        (argument_list))))
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        (conditional_access_expression
+          (element_access_expression
+            (conditional_access_expression
+              (identifier)
+              (member_binding_expression
+                (identifier)))
+            (bracketed_argument_list
+              (argument
+                (integer_literal))))
+          (member_binding_expression
+            (identifier)))
+        (argument_list))))
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        (member_access_expression
+          (postfix_unary_expression
+            (identifier))
+          (identifier))
+        (argument_list)))))
+
+================================================================================
+Shift right not confused with generic name
+================================================================================
+
+var a = b < c >> d;
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        (implicit_type)
+        (variable_declarator
+          (identifier)
+          (equals_value_clause
+            (binary_expression
+              (generic_name
+                (identifier)
+                (type_argument_list
+                  (identifier)))
+              (identifier))))))))

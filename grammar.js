@@ -1,7 +1,5 @@
 const PREC = {
-  DOT: 18,
-  INVOCATION: 18,
-  POSTFIX: 18,
+  PRIMARY: 18,
   PREFIX: 17,
   UNARY: 17,
   CAST: 17,
@@ -55,7 +53,13 @@ module.exports = grammar({
     [$.type_pattern, $.declaration_pattern, $.recursive_pattern],
     [$.type_pattern, $.tuple_element],
 
-    [$._name, $._lvalue_expression],
+    [$._lvalue_expression, $.generic_name],
+    [$._lvalue_expression, $._simple_name],
+    [$._lvalue_expression, $.parameter],
+    [$._lvalue_expression, $._simple_name, $.parameter],
+    [$._lvalue_expression, $._simple_name, $.generic_name],
+    [$._lvalue_expression, $.name_colon],
+
     [$._simple_name, $.type_parameter],
     [$._simple_name, $.generic_name],
     [$._simple_name, $.constructor_declaration],
@@ -67,6 +71,7 @@ module.exports = grammar({
 
     [$._contextual_keywords, $.from_clause],
     [$._contextual_keywords, $.global],
+    [$._contextual_keywords, $.nameof],
     [$._contextual_keywords, $.type_parameter_constraint],
     [$._contextual_keywords, $.modifier],
     [$._contextual_keywords, $.scoped_type],
@@ -113,6 +118,8 @@ module.exports = grammar({
     [$.constant_pattern, $._expression_statement_expression],
 
     [$.assignment_expression, $._expression],
+
+    [$._invocation_function, $._type_name],
 
   ],
 
@@ -213,7 +220,7 @@ module.exports = grammar({
       '>'
     ),
 
-    qualified_name: $ => prec(PREC.DOT, seq($._name, '.', $._simple_name)),
+    qualified_name: $ => prec(PREC.PRIMARY, seq($._name, '.', $._simple_name)),
 
     attribute_list: $ => seq(
       '[',
@@ -424,7 +431,7 @@ module.exports = grammar({
       $._function_body,
     ),
 
-    explicit_interface_specifier: $ => prec(PREC.DOT, seq($._name, '.')),
+    explicit_interface_specifier: $ => prec(PREC.PRIMARY, seq($._name, '.')),
 
     type_parameter_list: $ => seq('<', commaSep1($.type_parameter), '>'),
 
@@ -1263,7 +1270,7 @@ module.exports = grammar({
       ))
     )),
 
-    element_access_expression: $ => prec.right(PREC.POSTFIX, seq(
+    element_access_expression: $ => prec.right(PREC.PRIMARY, seq(
       field('expression', $._expression),
       field('subscript', $.bracketed_argument_list)
     )),
@@ -1345,10 +1352,63 @@ module.exports = grammar({
 
     interpolation_format_clause: $ => seq(':', /[^}"]+/),
 
-    invocation_expression: $ => prec(PREC.INVOCATION, seq(
-      field('function', $._expression),
-      field('arguments', $.argument_list)
-    )),
+    nameof: $ => 'nameof',
+    _nameof_argument_list: $ => seq('(', alias($._nameof_argument, $.argument), ')'),
+    _nameof_argument: $ => $.generic_name,
+
+    invocation_expression: $ => prec(PREC.PRIMARY,
+      choice(
+        seq(
+          field('function', $._invocation_function),
+          field('arguments', $.argument_list)
+        ),
+        // special case of `nameof(A<B>)`, where `A<B>` is not an expression so it wouldn't be parsed by the above.
+        seq(
+          field('function', alias($.nameof, $.identifier)),
+          field('arguments', alias($._nameof_argument_list, $.argument_list))
+        )
+      )),
+
+    _primary_expression: $ => choice(
+      $.postfix_unary_expression,
+      $.member_access_expression,
+      $.conditional_access_expression,
+      $.element_access_expression,
+      $.invocation_expression,
+      $.checked_expression,
+
+      // object creations:
+      $.object_creation_expression,
+      $.anonymous_object_creation_expression,
+      $.implicit_object_creation_expression,
+      $.array_creation_expression,
+      $.implicit_array_creation_expression,
+
+      // stackalloc:
+      $.stack_alloc_array_creation_expression,
+      $.implicit_stack_alloc_array_creation_expression,
+
+      $.default_expression,
+      $.size_of_expression,
+      // delegate
+      $.anonymous_method_expression,
+
+      // undocumented:
+      $.make_ref_expression,
+      $.ref_type_expression,
+      $.ref_value_expression,
+    ),
+
+    _invocation_function: $ => choice(
+      $.this_expression,
+      $.base_expression,
+      $._name,
+      $._literal,
+      $.interpolated_string_expression,
+      $.parenthesized_expression,
+
+      $._primary_expression
+    ),
 
     is_pattern_expression: $ => prec.left(PREC.REL, seq(
       field('expression', $._expression),
@@ -1363,7 +1423,7 @@ module.exports = grammar({
       ')'
     ),
 
-    member_access_expression: $ => prec(PREC.DOT, seq(
+    member_access_expression: $ => prec(PREC.PRIMARY, seq(
       field('expression', choice($._expression, $.predefined_type, $._name)),
       choice('.', '->'),
       field('name', $._simple_name)
@@ -1391,7 +1451,7 @@ module.exports = grammar({
 
     _parenthesized_lvalue_expression: $ => seq('(', $._lvalue_expression, ')'),
 
-    postfix_unary_expression: $ => prec.left(PREC.POSTFIX, choice(
+    postfix_unary_expression: $ => prec.left(PREC.PRIMARY, choice(
       seq($._expression, '++'),
       seq($._expression, '--'),
       seq($._expression, '!')
@@ -1513,7 +1573,7 @@ module.exports = grammar({
     size_of_expression: $ => seq(
       'sizeof',
       '(',
-      $._type,
+      field('type', $._type),
       ')'
     ),
 
@@ -1608,7 +1668,7 @@ module.exports = grammar({
       $.this_expression,
       $.member_access_expression,
       $.tuple_expression,
-      $._simple_name,
+      $._identifier_or_global,
       $.element_access_expression,
       $.element_binding_expression,
       alias($._pointer_indirection_expression, $.prefix_unary_expression),
@@ -1822,7 +1882,7 @@ module.exports = grammar({
       'join',
       'let',
       // 'managed',
-      // 'nameof',
+      'nameof',
       // 'nint',
       // 'not',
       'notnull',

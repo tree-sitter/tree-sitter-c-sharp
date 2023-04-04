@@ -3258,7 +3258,7 @@
               "members": [
                 {
                   "type": "SYMBOL",
-                  "name": "_type"
+                  "name": "_type_name"
                 },
                 {
                   "type": "REPEAT",
@@ -3271,7 +3271,7 @@
                       },
                       {
                         "type": "SYMBOL",
-                        "name": "_type"
+                        "name": "_type_name"
                       }
                     ]
                   }
@@ -3306,7 +3306,7 @@
                       "members": [
                         {
                           "type": "SYMBOL",
-                          "name": "identifier"
+                          "name": "_type_name"
                         },
                         {
                           "type": "REPEAT",
@@ -3319,7 +3319,7 @@
                               },
                               {
                                 "type": "SYMBOL",
-                                "name": "identifier"
+                                "name": "_type_name"
                               }
                             ]
                           }
@@ -3342,7 +3342,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_type"
+          "name": "_type_name"
         },
         {
           "type": "SYMBOL",

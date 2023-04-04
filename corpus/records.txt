@@ -229,7 +229,7 @@ record Teacher(string FirstName, string LastName, string Subject) : Person(First
 Record inheritance with constructor overload and interfaces
 ================================================================================
 
-record Teacher(string FirstName, string LastName, string Subject) : Person(FirstName, LastName), I1, I2;
+record Teacher(string FirstName, string LastName, string Subject) : Person(FirstName, LastName), Ns.I1, I2;
 
 --------------------------------------------------------------------------------
 
@@ -255,6 +255,7 @@ record Teacher(string FirstName, string LastName, string Subject) : Person(First
           (argument
             (identifier))))
       (identifier)
+      (ERROR)
       (identifier))))
 
 ================================================================================

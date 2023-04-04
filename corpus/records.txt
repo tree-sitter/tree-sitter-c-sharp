@@ -254,8 +254,9 @@ record Teacher(string FirstName, string LastName, string Subject) : Person(First
             (identifier))
           (argument
             (identifier))))
-      (identifier)
-      (ERROR)
+      (qualified_name
+        (identifier)
+        (identifier))
       (identifier))))
 
 ================================================================================

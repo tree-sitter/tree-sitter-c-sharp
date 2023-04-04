@@ -652,12 +652,12 @@ module.exports = grammar({
     ),
 
     record_base: $ => choice(
-      seq(':', commaSep1($._type)),
-      seq(':', $.primary_constructor_base_type, optional(seq(',', commaSep1($.identifier)))),
+      seq(':', commaSep1($._type_name)),
+      seq(':', $.primary_constructor_base_type, optional(seq(',', commaSep1($._type_name)))),
     ),
 
     primary_constructor_base_type: $ => seq(
-      $._type,
+      $._type_name,
       $.argument_list
     ),
 

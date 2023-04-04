@@ -5222,11 +5222,27 @@
       "required": true,
       "types": [
         {
-          "type": "_type",
+          "type": "alias_qualified_name",
           "named": true
         },
         {
           "type": "argument_list",
+          "named": true
+        },
+        {
+          "type": "generic_name",
+          "named": true
+        },
+        {
+          "type": "global",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "qualified_name",
           "named": true
         }
       ]

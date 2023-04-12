@@ -703,38 +703,38 @@ public class C : I
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (ERROR
-    (interface_declaration
-      (identifier)
-      (declaration_list
-        (operator_declaration
-          (modifier)
-          (modifier)
-          (predefined_type)
-          (parameter_list
-            (parameter
-              (identifier)
-              (identifier))
-            (parameter
-              (identifier)
-              (identifier))))))
+  (interface_declaration
+    (identifier)
+    (declaration_list
+      (operator_declaration
+        (modifier)
+        (modifier)
+        (predefined_type)
+        (parameter_list
+          (parameter
+            (identifier)
+            (identifier))
+          (parameter
+            (identifier)
+            (identifier))))))
+  (class_declaration
     (modifier)
     (identifier)
     (base_list
       (identifier))
-    (modifier)
-    (predefined_type)
-    (qualified_name
-      (identifier)
-      (identifier))
-    (parameter_list
-      (parameter
-        (identifier)
-        (identifier))
-      (parameter
-        (identifier)
-        (identifier))))
-  (global_statement
-    (return_statement
-      (integer_literal)))
-  (ERROR))
+    (declaration_list
+      (operator_declaration
+        (modifier)
+        (predefined_type)
+        (explicit_interface_specifier
+          (identifier))
+        (parameter_list
+          (parameter
+            (identifier)
+            (identifier))
+          (parameter
+            (identifier)
+            (identifier)))
+        (block
+          (return_statement
+            (integer_literal)))))))

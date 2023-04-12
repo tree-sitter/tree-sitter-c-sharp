@@ -395,6 +395,7 @@ module.exports = grammar({
         'explicit'
       ),
       'operator',
+      optional('checked'),
       field('type', $._type),
       field('parameters', $.parameter_list),
       $._function_body,
@@ -463,6 +464,7 @@ module.exports = grammar({
       field('type', $._type),
       optional($.explicit_interface_specifier),
       'operator',
+      optional('checked'),
       field('operator', $._overloadable_operator),
       field('parameters', $.parameter_list),
       $._function_body,

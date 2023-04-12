@@ -763,7 +763,6 @@ public class C
         (modifier)
         (modifier)
         (predefined_type)
-        (ERROR)
         (parameter_list
           (parameter
             (identifier)
@@ -791,8 +790,7 @@ public class C
       (conversion_operator_declaration
         (modifier)
         (modifier)
-        (identifier)
-        (ERROR)
+        (predefined_type)
         (parameter_list
           (parameter
             (identifier)

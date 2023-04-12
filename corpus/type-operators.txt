@@ -809,3 +809,98 @@ public class C
         (arrow_expression_clause
           (throw_expression
             (null_literal)))))))
+
+================================================================================
+Explicit conversion operator overloads
+================================================================================
+
+public interface I<T> where T : I<T>
+{
+  static abstract explicit operator T(C c);
+  static abstract explicit operator checked T(C c);
+}
+
+public class C : I<C>
+{
+  static explicit I<C>.operator C(C c) => throw null;
+  static explicit I<C>.operator checked C(C c) => throw null;
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (interface_declaration
+    (modifier)
+    (identifier)
+    (type_parameter_list
+      (type_parameter
+        (identifier)))
+    (type_parameter_constraints_clause
+      (identifier)
+      (type_parameter_constraint
+        (type_constraint
+          (generic_name
+            (identifier)
+            (type_argument_list
+              (identifier))))))
+    (declaration_list
+      (conversion_operator_declaration
+        (modifier)
+        (modifier)
+        (identifier)
+        (parameter_list
+          (parameter
+            (identifier)
+            (identifier))))
+      (conversion_operator_declaration
+        (modifier)
+        (modifier)
+        (identifier)
+        (parameter_list
+          (parameter
+            (identifier)
+            (identifier))))))
+  (class_declaration
+    (modifier)
+    (identifier)
+    (base_list
+      (generic_name
+        (identifier)
+        (type_argument_list
+          (identifier))))
+    (declaration_list
+      (method_declaration
+        (modifier)
+        (ERROR)
+        (qualified_name
+          (generic_name
+            (identifier)
+            (type_argument_list
+              (identifier)))
+          (identifier))
+        (identifier)
+        (parameter_list
+          (parameter
+            (identifier)
+            (identifier)))
+        (arrow_expression_clause
+          (throw_expression
+            (null_literal))))
+      (method_declaration
+        (modifier)
+        (ERROR)
+        (qualified_name
+          (generic_name
+            (identifier)
+            (type_argument_list
+              (identifier)))
+          (identifier))
+        (identifier)
+        (ERROR)
+        (parameter_list
+          (parameter
+            (identifier)
+            (identifier)))
+        (arrow_expression_clause
+          (throw_expression
+            (null_literal)))))))

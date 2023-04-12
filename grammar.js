@@ -461,6 +461,7 @@ module.exports = grammar({
       repeat($.attribute_list),
       repeat($.modifier),
       field('type', $._type),
+      optional($.explicit_interface_specifier),
       'operator',
       field('operator', $._overloadable_operator),
       field('parameters', $.parameter_list),

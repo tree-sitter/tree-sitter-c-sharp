@@ -4462,6 +4462,10 @@
           "named": true
         },
         {
+          "type": "explicit_interface_specifier",
+          "named": true
+        },
+        {
           "type": "modifier",
           "named": true
         }

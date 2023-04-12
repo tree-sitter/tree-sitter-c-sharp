@@ -869,15 +869,13 @@ public class C : I<C>
         (type_argument_list
           (identifier))))
     (declaration_list
-      (method_declaration
+      (conversion_operator_declaration
         (modifier)
-        (ERROR)
-        (qualified_name
+        (explicit_interface_specifier
           (generic_name
             (identifier)
             (type_argument_list
-              (identifier)))
-          (identifier))
+              (identifier))))
         (identifier)
         (parameter_list
           (parameter
@@ -886,17 +884,14 @@ public class C : I<C>
         (arrow_expression_clause
           (throw_expression
             (null_literal))))
-      (method_declaration
+      (conversion_operator_declaration
         (modifier)
-        (ERROR)
-        (qualified_name
+        (explicit_interface_specifier
           (generic_name
             (identifier)
             (type_argument_list
-              (identifier)))
-          (identifier))
+              (identifier))))
         (identifier)
-        (ERROR)
         (parameter_list
           (parameter
             (identifier)

@@ -394,6 +394,7 @@ module.exports = grammar({
         'implicit',
         'explicit'
       ),
+      optional($.explicit_interface_specifier),
       'operator',
       optional('checked'),
       field('type', $._type),

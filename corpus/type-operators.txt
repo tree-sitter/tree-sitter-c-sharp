@@ -685,3 +685,56 @@ class A
             (binary_expression
               (identifier)
               (identifier))))))))
+
+================================================================================
+Explicit operator overloads
+================================================================================
+
+interface I
+{
+  static abstract int operator +(I i, I j);
+}
+
+public class C : I
+{
+  static int I.operator +(I i, I j) { return 1; }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (ERROR
+    (interface_declaration
+      (identifier)
+      (declaration_list
+        (operator_declaration
+          (modifier)
+          (modifier)
+          (predefined_type)
+          (parameter_list
+            (parameter
+              (identifier)
+              (identifier))
+            (parameter
+              (identifier)
+              (identifier))))))
+    (modifier)
+    (identifier)
+    (base_list
+      (identifier))
+    (modifier)
+    (predefined_type)
+    (qualified_name
+      (identifier)
+      (identifier))
+    (parameter_list
+      (parameter
+        (identifier)
+        (identifier))
+      (parameter
+        (identifier)
+        (identifier))))
+  (global_statement
+    (return_statement
+      (integer_literal)))
+  (ERROR))

@@ -103,6 +103,7 @@
 
 [
   "add"
+  "alias"
   "as"
   "base"
   "break"
@@ -118,6 +119,7 @@
   "enum"
   "event"
   "explicit"
+  "extern"
   "finally"
   "for"
   "foreach"
@@ -136,6 +138,7 @@
   "remove"
   "sizeof"
   "stackalloc"
+  "static"
   "struct"
   "switch"
   "throw"

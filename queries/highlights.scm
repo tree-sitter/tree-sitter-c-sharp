@@ -1,5 +1,5 @@
 ;; Methods
-(method_declaration (identifier) @type (identifier) @function)
+(method_declaration name: (identifier) @function)
 
 ;; Types
 (interface_declaration name: (identifier) @type)
@@ -8,10 +8,10 @@
 (struct_declaration (identifier) @type)
 (record_declaration (identifier) @type)
 (record_struct_declaration (identifier) @type)
-(namespace_declaration name: (identifier) @type)
+(namespace_declaration name: (identifier) @module)
 
-(constructor_declaration name: (identifier) @type)
-(destructor_declaration name: (identifier) @type)
+(constructor_declaration name: (identifier) @constructor)
+(destructor_declaration name: (identifier) @constructor)
 
 [
   (implicit_type)
@@ -102,6 +102,7 @@
 (escape_sequence) @keyword
 
 [
+  "add"
   "as"
   "base"
   "break"
@@ -120,6 +121,7 @@
   "finally"
   "for"
   "foreach"
+  "global"
   "goto"
   "if"
   "implicit"
@@ -127,9 +129,11 @@
   "is"
   "lock"
   "namespace"
+  "notnull"
   "operator"
   "params"
   "return"
+  "remove"
   "sizeof"
   "stackalloc"
   "struct"
@@ -198,7 +202,7 @@
 (lambda_expression) @variable
 
 ;; Attribute
-(attribute) @type
+(attribute) @attribute
 
 ;; Parameter
 (parameter

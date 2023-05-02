@@ -19,16 +19,18 @@ using X = System.Console;
 //              ^ punctuation.delimiter
 //                      ^ punctuation.delimiter
 global using A;
+// <- keyword
 //     ^ keyword
 //            ^ punctuation.delimiter
 global using static A.B;
+// <- keyword
 //     ^ keyword
 //                   ^ punctuation.delimiter
 //                     ^ punctuation.delimiter
 
 namespace Namespace
 // <- keyword
-//        ^ type
+//        ^ module
 {
 // <- punctuation.bracket
     using A;
@@ -78,7 +80,7 @@ namespace Namespace
 
     [Nice]
     // <- punctuation.bracket
-     // <- type
+     // <- attribute
     //   ^ punctuation.bracket
     private record F<T1, T2> where T1 : I1, I2, new() where T2 : I2 { }
     // <- keyword
@@ -163,6 +165,7 @@ namespace Namespace
     //                                                 ^ operator
     //                                                   ^ keyword
     //                                                        ^ operator
+    //                                                           ^ keyword
     //                                                                  ^ punctuation.delimiter
     //                                                                    ^ type.builtin
     //                                                                     ^ operator
@@ -176,8 +179,10 @@ namespace Namespace
         //                        ^ type
         //                         ^ operator
         //                                     ^ punctuation.bracket
+        //                                       ^ keyword
         //                                           ^ punctuation.bracket
         //                                             ^ punctuation.bracket
+        //                                               ^ keyword
         //                                                      ^ punctuation.bracket
         //                                                        ^ punctuation.bracket
         //                                                          ^ punctuation.bracket
@@ -212,7 +217,7 @@ namespace Namespace
 
         [SomeAttribute]
         // <- punctuation.bracket
-         // <- type
+         // <- attribute
         //            ^ punctuation.bracket
         public static int operator +(A a) { return 0; }
         // <- keyword
@@ -242,14 +247,14 @@ namespace Namespace
         static extern Foo() { }
         // <- keyword
         //     ^ keyword
-        //            ^ type
+        //            ^ constructor
         //               ^ punctuation.bracket
         //                  ^ punctuation.bracket
         //                    ^ punctuation.bracket
 
         extern ~Class() { }
         //     ^ operator
-        //      ^ type
+        //      ^ constructor
         //           ^ punctuation.bracket
         //              ^ punctuation.bracket
         //                ^ punctuation.bracket
@@ -257,6 +262,7 @@ namespace Namespace
         public void Method()
         // <- keyword
         //     ^ type.builtin
+        //          ^ function
         //                ^ punctuation.bracket
         {
         // <- punctuation.bracket

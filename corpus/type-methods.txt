@@ -232,6 +232,42 @@ class A {
         (block)))))
 
 ================================================================================
+Class method with extension ref parameter
+================================================================================
+
+class A {
+  void M(this ref int a) { }
+  void M(this scoped ref int a) { }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    (identifier)
+    (declaration_list
+      (method_declaration
+        (predefined_type)
+        (identifier)
+        (parameter_list
+          (parameter
+            (parameter_modifier)
+            (identifier)
+            (identifier))
+          (ERROR))
+        (block))
+      (method_declaration
+        (predefined_type)
+        (identifier)
+        (parameter_list
+          (parameter
+            (parameter_modifier)
+            (identifier)
+            (identifier))
+          (ERROR))
+        (block)))))
+
+================================================================================
 Class method with contextually-reserved keyword named parameters
 ================================================================================
 

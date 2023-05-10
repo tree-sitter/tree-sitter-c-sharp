@@ -354,8 +354,9 @@ module.exports = grammar({
     )),
 
     _parameter_type_with_modifiers: $ => seq(
+      alias(optional('this'), $.parameter_modifier),
       alias(optional('scoped'), $.parameter_modifier),
-      optional(alias(choice('ref', 'out', 'this', 'in'), $.parameter_modifier)),
+      alias(optional(choice('ref', 'out', 'in')), $.parameter_modifier),
       field('type', $._ref_base_type),
     ),
 
@@ -366,7 +367,7 @@ module.exports = grammar({
       optional($.equals_value_clause)
     ),
 
-    parameter_modifier: $ => choice('ref', 'out', 'this', 'in'),
+    parameter_modifier: $ => choice('ref', 'out', 'this', 'in', 'scoped'),
 
     _parameter_array: $ => seq(
       repeat($.attribute_list),

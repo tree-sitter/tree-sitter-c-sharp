@@ -252,9 +252,9 @@ class A {
         (parameter_list
           (parameter
             (parameter_modifier)
-            (identifier)
-            (identifier))
-          (ERROR))
+            (parameter_modifier)
+            (predefined_type)
+            (identifier)))
         (block))
       (method_declaration
         (predefined_type)
@@ -262,9 +262,10 @@ class A {
         (parameter_list
           (parameter
             (parameter_modifier)
-            (identifier)
-            (identifier))
-          (ERROR))
+            (parameter_modifier)
+            (parameter_modifier)
+            (predefined_type)
+            (identifier)))
         (block)))))
 
 ================================================================================

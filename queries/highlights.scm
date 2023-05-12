@@ -244,3 +244,6 @@
 
 ;; Lock statement
 (lock_statement (identifier) @variable)
+
+;; Method calls
+(invocation_expression (member_access_expression name: (identifier) @function))

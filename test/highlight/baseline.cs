@@ -690,7 +690,7 @@ namespace Namespace
             //                      ^ keyword
             //                             ^ variable
             //                              ^ punctuation.delimiter
-            //                               ^ variable
+            //                               ^ function
             //                                ^ punctuation.bracket
             //                                 ^ variable
             //                                  ^ punctuation.bracket

@@ -696,6 +696,16 @@ namespace Namespace
             //                                  ^ punctuation.bracket
             //                                     ^ punctuation.bracket
 
+            int Add(int left, int right) => a + b;
+            // <- type.builtin
+            //  ^ function
+            //      ^ type.builtin
+            //          ^ variable.parameter
+            //                 ^ type.builtin
+            //                     ^ variable.parameter
+            //                            ^ operator
+            //                                ^ operator
+
             Do(async () => { });
             //^ punctuation.bracket
             // ^ keyword

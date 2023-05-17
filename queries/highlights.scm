@@ -1,5 +1,6 @@
 ;; Methods
 (method_declaration name: (identifier) @function)
+(local_function_statement name: (identifier) @function)
 
 ;; Types
 (interface_declaration name: (identifier) @type)

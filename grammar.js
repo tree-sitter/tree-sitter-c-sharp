@@ -47,6 +47,7 @@ module.exports = grammar({
 
   externals: $ => [
     $._preproc_directive_end,
+    $._opt_semi,
   ],
 
   conflicts: $ => [
@@ -555,7 +556,7 @@ module.exports = grammar({
       field('name', $.identifier),
       field('bases', optional($.base_list)),
       field('body', $.enum_member_declaration_list),
-      optional(';')
+      $._opt_semi,
     ),
 
     base_list: $ => seq(':', commaSep1($._type)),
@@ -582,7 +583,7 @@ module.exports = grammar({
       field('bases', optional($.base_list)),
       repeat($.type_parameter_constraints_clause),
       field('body', $.declaration_list),
-      optional(';')
+      $._opt_semi,
     ),
 
     declaration_list: $ => seq(
@@ -600,7 +601,7 @@ module.exports = grammar({
       field('bases', optional($.base_list)),
       repeat($.type_parameter_constraints_clause),
       field('body', $.declaration_list),
-      optional(';')
+      $._opt_semi,
     ),
 
     struct_declaration: $ => seq(
@@ -613,7 +614,7 @@ module.exports = grammar({
       field('bases', optional($.base_list)),
       repeat($.type_parameter_constraints_clause),
       field('body', $.declaration_list),
-      optional(';')
+      $._opt_semi,
     ),
 
     delegate_declaration: $ => seq(
@@ -639,7 +640,7 @@ module.exports = grammar({
       field('bases', optional(alias($.record_base, $.base_list))),
       repeat($.type_parameter_constraints_clause),
       field('body', $._record_body),
-      optional(';')
+      $._opt_semi,
     ),
 
     record_struct_declaration: $ => seq(
@@ -653,7 +654,7 @@ module.exports = grammar({
       field('bases', optional(alias($.record_base, $.base_list))),
       repeat($.type_parameter_constraints_clause),
       field('body', $._record_body),
-      optional(';')
+      $._opt_semi,
     ),
 
     record_base: $ => choice(
@@ -675,7 +676,7 @@ module.exports = grammar({
       'namespace',
       field('name', $._name),
       field('body', $.declaration_list),
-      optional(';')
+      $._opt_semi,
     ),
 
     file_scoped_namespace_declaration: $ => seq(

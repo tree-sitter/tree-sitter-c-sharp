@@ -3,6 +3,7 @@
 
 enum TokenType {
   PREPROC_DIRECTIVE_END,
+  OPT_SEMI,
 };
 
 void *tree_sitter_c_sharp_external_scanner_create() { return NULL; }
@@ -16,6 +17,13 @@ bool tree_sitter_c_sharp_external_scanner_scan(
   TSLexer *lexer,
   const bool *valid_symbols
 ) {
+  if (valid_symbols[OPT_SEMI]) {
+    lexer->result_symbol = OPT_SEMI;
+    if (lexer->lookahead == ';') {
+      lexer->advance(lexer, true);
+    }
+    return true;
+  }   
   // Detect either a newline or EOF. Currently, external scanners
   // are the only way to match against EOF.
   if (!valid_symbols[PREPROC_DIRECTIVE_END]) return false;

@@ -55,8 +55,6 @@ module.exports = grammar({
 
     [$.event_declaration, $.variable_declarator],
 
-    [$.type_pattern, $.declaration_pattern],
-    [$.type_pattern, $.declaration_pattern, $.recursive_pattern],
     [$.type_pattern, $.tuple_element],
 
     [$._name, $._lvalue_expression],
@@ -102,10 +100,7 @@ module.exports = grammar({
     [$._parameter_type_with_modifiers, $.this_expression],
     [$._parameter_type_with_modifiers, $.ref_type],
     [$.parameter, $._simple_name],
-    [$.parameter, $.tuple_element],
     [$.parameter, $.tuple_pattern],
-    [$.parameter, $.tuple_element, $.declaration_expression],
-    [$.parameter, $.declaration_expression],
 
     [$.tuple_element, $.declaration_expression],
     [$.tuple_element, $.variable_declarator],

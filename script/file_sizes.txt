@@ -1,5 +1,5 @@
-src/grammar.json    	0.2MB	     10952
+src/grammar.json    	0.2MB	     10954
 src/node-types.json 	0.1MB	      7580
-src/parser.c        	48.4MB	   1517403
+src/parser.c        	47.9MB	   1505318
 src/scanner.c       	0.0MB	        37
-total               	48.8MB	   1535972
+total               	48.3MB	   1523889

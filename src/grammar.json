@@ -6220,21 +6220,21 @@
             ]
           },
           {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "FIELD",
-                "name": "parameters",
-                "content": {
+            "type": "FIELD",
+            "name": "parameters",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
                   "type": "SYMBOL",
                   "name": "parameter_list"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "identifier"
                 }
-              },
-              {
-                "type": "SYMBOL",
-                "name": "identifier"
-              }
-            ]
+              ]
+            }
           },
           {
             "type": "STRING",

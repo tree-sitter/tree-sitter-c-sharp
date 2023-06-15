@@ -12,25 +12,25 @@ class A {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (field_declaration
         (modifier)
         (modifier)
         (variable_declaration
-          (predefined_type)
+          type: (predefined_type)
           (variable_declarator
             (identifier))))
       (field_declaration
         (variable_declaration
-          (identifier)
+          type: (identifier)
           (variable_declarator
             (identifier))
           (variable_declarator
             (identifier))))
       (field_declaration
         (variable_declaration
-          (generic_name
+          type: (generic_name
             (identifier)
             (type_argument_list
               (predefined_type)
@@ -53,13 +53,13 @@ struct A {
 
 (compilation_unit
   (struct_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (field_declaration
         (modifier)
         (modifier)
         (variable_declaration
-          (predefined_type)
+          type: (predefined_type)
           (variable_declarator
             (identifier)))))))
 
@@ -76,20 +76,20 @@ class A {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (field_declaration
         (modifier)
         (modifier)
         (variable_declaration
-          (nullable_type
+          type: (nullable_type
             (predefined_type))
           (variable_declarator
             (identifier))))
       (field_declaration
         (modifier)
         (variable_declaration
-          (nullable_type
+          type: (nullable_type
             (identifier))
           (variable_declarator
             (identifier)))))))
@@ -108,27 +108,27 @@ class A {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (field_declaration
         (modifier)
         (modifier)
         (variable_declaration
-          (pointer_type
+          type: (pointer_type
             (predefined_type))
           (variable_declarator
             (identifier))))
       (field_declaration
         (modifier)
         (variable_declaration
-          (pointer_type
+          type: (pointer_type
             (identifier))
           (variable_declarator
             (identifier))))
       (field_declaration
         (modifier)
         (variable_declaration
-          (pointer_type
+          type: (pointer_type
             (predefined_type))
           (variable_declarator
             (identifier)))))))
@@ -151,12 +151,12 @@ class A {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (comment)
       (field_declaration
         (variable_declaration
-          (function_pointer_type
+          type: (function_pointer_type
             (function_pointer_parameter
               (predefined_type))
             (function_pointer_parameter
@@ -165,7 +165,7 @@ class A {
             (identifier))))
       (field_declaration
         (variable_declaration
-          (function_pointer_type
+          type: (function_pointer_type
             (function_pointer_parameter
               (function_pointer_type
                 (function_pointer_parameter
@@ -186,7 +186,7 @@ class A {
       (comment)
       (field_declaration
         (variable_declaration
-          (function_pointer_type
+          type: (function_pointer_type
             (function_pointer_calling_convention)
             (function_pointer_parameter
               (predefined_type))
@@ -196,7 +196,7 @@ class A {
             (identifier))))
       (field_declaration
         (variable_declaration
-          (function_pointer_type
+          type: (function_pointer_type
             (function_pointer_parameter
               (function_pointer_type
                 (function_pointer_calling_convention
@@ -233,33 +233,33 @@ class A {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (property_declaration
-        (ref_type
+        type: (ref_type
           (identifier))
-        (identifier)
-        (arrow_expression_clause
+        name: (identifier)
+        value: (arrow_expression_clause
           (ref_expression
             (identifier))))
       (field_declaration
         (variable_declaration
-          (ref_type
+          type: (ref_type
             (pointer_type
               (identifier)))
           (variable_declarator
             (identifier))))
       (field_declaration
         (variable_declaration
-          (ref_type
+          type: (ref_type
             (array_type
-              (identifier)
-              (array_rank_specifier)))
+              type: (identifier)
+              rank: (array_rank_specifier)))
           (variable_declarator
             (identifier))))
       (field_declaration
         (variable_declaration
-          (ref_type
+          type: (ref_type
             (nullable_type
               (identifier)))
           (variable_declarator
@@ -278,17 +278,17 @@ class A {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (field_declaration
         (variable_declaration
-          (nullable_type
+          type: (nullable_type
             (predefined_type))
           (variable_declarator
             (identifier))))
       (field_declaration
         (variable_declaration
-          (nullable_type
+          type: (nullable_type
             (identifier))
           (variable_declarator
             (identifier)))))))
@@ -306,30 +306,30 @@ class A {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (field_declaration
         (variable_declaration
-          (tuple_type
+          type: (tuple_type
             (tuple_element
-              (predefined_type))
+              type: (predefined_type))
             (tuple_element
-              (predefined_type)
-              (identifier)))
+              type: (predefined_type)
+              name: (identifier)))
           (variable_declarator
             (identifier))))
       (field_declaration
         (variable_declaration
-          (tuple_type
+          type: (tuple_type
             (tuple_element
-              (identifier)
-              (identifier))
+              type: (identifier)
+              name: (identifier))
             (tuple_element
-              (identifier)
-              (identifier))
+              type: (identifier)
+              name: (identifier))
             (tuple_element
-              (identifier)
-              (identifier)))
+              type: (identifier)
+              name: (identifier)))
           (variable_declarator
             (identifier)))))))
 
@@ -346,16 +346,16 @@ class A {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (field_declaration
         (variable_declaration
-          (predefined_type)
+          type: (predefined_type)
           (variable_declarator
             (identifier))))
       (field_declaration
         (variable_declaration
-          (predefined_type)
+          type: (predefined_type)
           (variable_declarator
             (identifier)))))))
 
@@ -371,12 +371,12 @@ class A {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (field_declaration
         (modifier)
         (modifier)
         (variable_declaration
-          (predefined_type)
+          type: (predefined_type)
           (variable_declarator
             (identifier)))))))

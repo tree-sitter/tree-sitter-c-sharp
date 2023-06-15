@@ -13,28 +13,28 @@ class Foo {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (property_declaration
-        (predefined_type)
-        (identifier)
-        (accessor_list
+        type: (predefined_type)
+        name: (identifier)
+        accessors: (accessor_list
           (accessor_declaration)))
       (property_declaration
-        (predefined_type)
-        (identifier)
-        (accessor_list
+        type: (predefined_type)
+        name: (identifier)
+        accessors: (accessor_list
           (accessor_declaration)))
       (property_declaration
-        (predefined_type)
-        (identifier)
-        (accessor_list
+        type: (predefined_type)
+        name: (identifier)
+        accessors: (accessor_list
           (accessor_declaration)
           (accessor_declaration)))
       (property_declaration
-        (predefined_type)
-        (identifier)
-        (accessor_list
+        type: (predefined_type)
+        name: (identifier)
+        accessors: (accessor_list
           (accessor_declaration)
           (accessor_declaration))))))
 
@@ -51,13 +51,13 @@ class Person
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (property_declaration
         (modifier)
-        (predefined_type)
-        (identifier)
-        (accessor_list
+        type: (predefined_type)
+        name: (identifier)
+        accessors: (accessor_list
           (accessor_declaration)
           (accessor_declaration))))))
 
@@ -74,27 +74,27 @@ class Foo {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (property_declaration
-        (predefined_type)
-        (identifier)
-        (accessor_list
+        type: (predefined_type)
+        name: (identifier)
+        accessors: (accessor_list
           (accessor_declaration
-            (block
+            body: (block
               (return_statement
                 (integer_literal))))))
       (property_declaration
-        (predefined_type)
-        (identifier)
-        (accessor_list
+        type: (predefined_type)
+        name: (identifier)
+        accessors: (accessor_list
           (accessor_declaration
-            (block
+            body: (block
               (expression_statement
                 (assignment_expression
-                  (identifier)
+                  left: (identifier)
                   (assignment_operator)
-                  (identifier))))))))))
+                  right: (identifier))))))))))
 
 ================================================================================
 Class with double-accessor property bodies
@@ -115,36 +115,36 @@ class Foo {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (property_declaration
-        (predefined_type)
-        (identifier)
-        (accessor_list
+        type: (predefined_type)
+        name: (identifier)
+        accessors: (accessor_list
           (accessor_declaration
-            (block
+            body: (block
               (return_statement
                 (identifier))))
           (accessor_declaration
-            (block
+            body: (block
               (expression_statement
                 (assignment_expression
-                  (identifier)
+                  left: (identifier)
                   (assignment_operator)
-                  (identifier)))))))
+                  right: (identifier)))))))
       (property_declaration
-        (predefined_type)
-        (identifier)
-        (accessor_list
+        type: (predefined_type)
+        name: (identifier)
+        accessors: (accessor_list
           (accessor_declaration
-            (block
+            body: (block
               (expression_statement
                 (assignment_expression
-                  (identifier)
+                  left: (identifier)
                   (assignment_operator)
-                  (identifier)))))
+                  right: (identifier)))))
           (accessor_declaration
-            (block
+            body: (block
               (return_statement
                 (identifier)))))))))
 
@@ -162,28 +162,28 @@ class Foo {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (property_declaration
-        (predefined_type)
-        (identifier)
-        (accessor_list
+        type: (predefined_type)
+        name: (identifier)
+        accessors: (accessor_list
           (accessor_declaration))
-        (integer_literal))
+        value: (integer_literal))
       (property_declaration
-        (predefined_type)
-        (identifier)
-        (accessor_list
+        type: (predefined_type)
+        name: (identifier)
+        accessors: (accessor_list
           (accessor_declaration)
           (accessor_declaration))
-        (integer_literal))
+        value: (integer_literal))
       (property_declaration
-        (predefined_type)
-        (identifier)
-        (accessor_list
+        type: (predefined_type)
+        name: (identifier)
+        accessors: (accessor_list
           (accessor_declaration)
           (accessor_declaration))
-        (integer_literal)))))
+        value: (integer_literal)))))
 
 ================================================================================
 Class with explicit interface properties
@@ -197,16 +197,16 @@ class Foo: IFoo {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (base_list
+    name: (identifier)
+    bases: (base_list
       (identifier))
-    (declaration_list
+    body: (declaration_list
       (property_declaration
-        (predefined_type)
+        type: (predefined_type)
         (explicit_interface_specifier
           (identifier))
-        (identifier)
-        (accessor_list
+        name: (identifier)
+        accessors: (accessor_list
           (accessor_declaration))))))
 
 ================================================================================
@@ -221,13 +221,13 @@ class A {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (property_declaration
         (modifier)
         (modifier)
-        (predefined_type)
-        (identifier)
-        (accessor_list
+        type: (predefined_type)
+        name: (identifier)
+        accessors: (accessor_list
           (accessor_declaration)
           (accessor_declaration))))))

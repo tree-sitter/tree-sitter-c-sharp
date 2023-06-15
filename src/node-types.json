@@ -158,10 +158,6 @@
         "named": true
       },
       {
-        "type": "global",
-        "named": true
-      },
-      {
         "type": "identifier",
         "named": true
       },
@@ -426,10 +422,6 @@
         "named": true
       },
       {
-        "type": "global",
-        "named": true
-      },
-      {
         "type": "identifier",
         "named": true
       },
@@ -530,10 +522,6 @@
       "types": [
         {
           "type": "generic_name",
-          "named": true
-        },
-        {
-          "type": "global",
           "named": true
         },
         {
@@ -823,10 +811,6 @@
             "named": true
           },
           {
-            "type": "global",
-            "named": true
-          },
-          {
             "type": "identifier",
             "named": true
           },
@@ -926,10 +910,6 @@
             "named": true
           },
           {
-            "type": "global",
-            "named": true
-          },
-          {
             "type": "identifier",
             "named": true
           },
@@ -996,10 +976,6 @@
           },
           {
             "type": "generic_name",
-            "named": true
-          },
-          {
-            "type": "global",
             "named": true
           },
           {
@@ -1762,10 +1738,6 @@
         },
         {
           "type": "generic_name",
-          "named": true
-        },
-        {
-          "type": "global",
           "named": true
         },
         {
@@ -2556,10 +2528,6 @@
           "named": true
         },
         {
-          "type": "global",
-          "named": true
-        },
-        {
           "type": "identifier",
           "named": true
         },
@@ -2676,10 +2644,6 @@
           },
           {
             "type": "generic_name",
-            "named": true
-          },
-          {
-            "type": "global",
             "named": true
           },
           {
@@ -2998,11 +2962,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "global",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "global_attribute_list",
@@ -3951,10 +3910,6 @@
             "named": true
           },
           {
-            "type": "global",
-            "named": true
-          },
-          {
             "type": "identifier",
             "named": true
           }
@@ -3972,10 +3927,6 @@
         "types": [
           {
             "type": "generic_name",
-            "named": true
-          },
-          {
-            "type": "global",
             "named": true
           },
           {
@@ -4082,10 +4033,6 @@
       "required": true,
       "types": [
         {
-          "type": "global",
-          "named": true
-        },
-        {
           "type": "identifier",
           "named": true
         }
@@ -4100,10 +4047,6 @@
       "multiple": false,
       "required": true,
       "types": [
-        {
-          "type": "global",
-          "named": true
-        },
         {
           "type": "identifier",
           "named": true
@@ -4135,10 +4078,6 @@
           },
           {
             "type": "generic_name",
-            "named": true
-          },
-          {
-            "type": "global",
             "named": true
           },
           {
@@ -4238,10 +4177,6 @@
           "named": true
         },
         {
-          "type": "global",
-          "named": true
-        },
-        {
           "type": "identifier",
           "named": true
         },
@@ -4294,10 +4229,6 @@
           },
           {
             "type": "generic_name",
-            "named": true
-          },
-          {
-            "type": "global",
             "named": true
           },
           {
@@ -4650,10 +4581,6 @@
             "named": true
           },
           {
-            "type": "global",
-            "named": true
-          },
-          {
             "type": "identifier",
             "named": true
           },
@@ -4819,10 +4746,6 @@
         },
         {
           "type": "generic_name",
-          "named": true
-        },
-        {
-          "type": "global",
           "named": true
         },
         {
@@ -5078,10 +5001,6 @@
           "named": true
         },
         {
-          "type": "global",
-          "named": true
-        },
-        {
           "type": "identifier",
           "named": true
         },
@@ -5242,10 +5161,6 @@
           "named": true
         },
         {
-          "type": "global",
-          "named": true
-        },
-        {
           "type": "identifier",
           "named": true
         },
@@ -5353,10 +5268,6 @@
         },
         {
           "type": "generic_name",
-          "named": true
-        },
-        {
-          "type": "global",
           "named": true
         },
         {
@@ -5713,10 +5624,6 @@
           "named": true
         },
         {
-          "type": "global",
-          "named": true
-        },
-        {
           "type": "identifier",
           "named": true
         },
@@ -5862,10 +5769,6 @@
         },
         {
           "type": "generic_name",
-          "named": true
-        },
-        {
-          "type": "global",
           "named": true
         },
         {
@@ -6519,10 +6422,6 @@
         "required": true,
         "types": [
           {
-            "type": "global",
-            "named": true
-          },
-          {
             "type": "identifier",
             "named": true
           }
@@ -6604,10 +6503,6 @@
         },
         {
           "type": "generic_name",
-          "named": true
-        },
-        {
-          "type": "global",
           "named": true
         },
         {

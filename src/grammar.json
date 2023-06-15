@@ -266,7 +266,7 @@
         "members": [
           {
             "type": "SYMBOL",
-            "name": "_identifier_or_global"
+            "name": "identifier"
           },
           {
             "type": "STRING",
@@ -297,7 +297,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_identifier_or_global"
+          "name": "identifier"
         },
         {
           "type": "STRING",
@@ -318,7 +318,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_identifier_or_global"
+          "name": "identifier"
         }
       ]
     },
@@ -683,7 +683,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_identifier_or_global"
+          "name": "identifier"
         },
         {
           "type": "STRING",
@@ -1855,7 +1855,7 @@
           "name": "target",
           "content": {
             "type": "SYMBOL",
-            "name": "_identifier_or_global"
+            "name": "identifier"
           }
         },
         {
@@ -9406,23 +9406,6 @@
         }
       ]
     },
-    "global": {
-      "type": "STRING",
-      "value": "global"
-    },
-    "_identifier_or_global": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "global"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "identifier"
-        }
-      ]
-    },
     "_literal": {
       "type": "CHOICE",
       "members": [
@@ -10810,10 +10793,6 @@
     ],
     [
       "_contextual_keywords",
-      "global"
-    ],
-    [
-      "_contextual_keywords",
       "type_parameter_constraint"
     ],
     [
@@ -10962,9 +10941,7 @@
       "name": "_opt_semi"
     }
   ],
-  "inline": [
-    "_identifier_or_global"
-  ],
+  "inline": [],
   "supertypes": [
     "_declaration",
     "_expression",

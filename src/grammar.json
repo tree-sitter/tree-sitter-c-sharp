@@ -10788,32 +10788,32 @@
       "member_access_expression"
     ],
     [
-      "_contextual_keywords",
+      "identifier",
       "from_clause"
     ],
     [
-      "_contextual_keywords",
+      "identifier",
       "type_parameter_constraint"
     ],
     [
-      "_contextual_keywords",
+      "identifier",
       "modifier"
     ],
     [
-      "_contextual_keywords",
+      "identifier",
       "scoped_type"
     ],
     [
-      "_contextual_keywords",
+      "identifier",
       "scoped_type",
       "_parameter_type_with_modifiers"
     ],
     [
-      "_contextual_keywords",
+      "identifier",
       "_parameter_type_with_modifiers"
     ],
     [
-      "_contextual_keywords",
+      "identifier",
       "implicit_type"
     ],
     [
@@ -10941,7 +10941,9 @@
       "name": "_opt_semi"
     }
   ],
-  "inline": [],
+  "inline": [
+    "_contextual_keywords"
+  ],
   "supertypes": [
     "_declaration",
     "_expression",

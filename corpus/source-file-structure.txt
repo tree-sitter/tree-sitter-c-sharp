@@ -46,8 +46,8 @@ namespace Foo {
 
 (compilation_unit
   (namespace_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (using_directive
         (identifier)))))
 
@@ -111,20 +111,20 @@ namespace A {
 
 (compilation_unit
   (namespace_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (namespace_declaration
-        (qualified_name
+        name: (qualified_name
           (qualified_name
             (identifier)
             (identifier))
           (identifier))
-        (declaration_list))
+        body: (declaration_list))
       (namespace_declaration
-        (qualified_name
+        name: (qualified_name
           (identifier)
           (identifier))
-        (declaration_list)))))
+        body: (declaration_list)))))
 
 ================================================================================
 File scoped namespaces
@@ -139,10 +139,10 @@ class B {
 
 (compilation_unit
   (file_scoped_namespace_declaration
-    (identifier)
+    name: (identifier)
     (class_declaration
-      (identifier)
-      (declaration_list))))
+      name: (identifier)
+      body: (declaration_list))))
 
 ================================================================================
 Interfaces
@@ -156,8 +156,8 @@ public interface IFoo {
 (compilation_unit
   (interface_declaration
     (modifier)
-    (identifier)
-    (declaration_list)))
+    name: (identifier)
+    body: (declaration_list)))
 
 ================================================================================
 Externs
@@ -192,67 +192,67 @@ class Z {
 (compilation_unit
   (delegate_declaration
     (modifier)
-    (predefined_type)
-    (identifier)
-    (parameter_list
+    type: (predefined_type)
+    name: (identifier)
+    parameters: (parameter_list
       (parameter
         (parameter_modifier)
-        (predefined_type)
-        (identifier)
+        type: (predefined_type)
+        name: (identifier)
         (equals_value_clause
           (character_literal
             (escape_sequence))))))
   (delegate_declaration
     (modifier)
-    (ref_type
+    type: (ref_type
       (predefined_type))
-    (identifier)
-    (parameter_list
+    name: (identifier)
+    parameters: (parameter_list
       (parameter
         (parameter_modifier)
-        (predefined_type)
-        (identifier)
+        type: (predefined_type)
+        name: (identifier)
         (equals_value_clause
           (character_literal
             (escape_sequence))))))
   (delegate_declaration
     (modifier)
-    (ref_type
+    type: (ref_type
       (predefined_type))
-    (identifier)
-    (parameter_list
+    name: (identifier)
+    parameters: (parameter_list
       (parameter
         (parameter_modifier)
-        (predefined_type)
-        (identifier)
+        type: (predefined_type)
+        name: (identifier)
         (equals_value_clause
           (character_literal
             (escape_sequence))))))
   (delegate_declaration
-    (predefined_type)
-    (identifier)
-    (type_parameter_list
+    type: (predefined_type)
+    name: (identifier)
+    type_parameters: (type_parameter_list
       (type_parameter
-        (identifier)))
-    (parameter_list)
+        name: (identifier)))
+    parameters: (parameter_list)
     (type_parameter_constraints_clause
-      (identifier)
-      (type_parameter_constraint)))
+      target: (identifier)
+      constraints: (type_parameter_constraint)))
   (delegate_declaration
-    (predefined_type)
-    (identifier)
-    (parameter_list
+    type: (predefined_type)
+    name: (identifier)
+    parameters: (parameter_list
       (array_type
-        (predefined_type)
-        (array_rank_specifier))
-      (identifier)))
+        type: (predefined_type)
+        rank: (array_rank_specifier))
+      name: (identifier)))
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (delegate_declaration
-        (predefined_type)
-        (identifier)
-        (parameter_list)))))
+        type: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list)))))
 
 ================================================================================
 Var declared equal to integer literal
@@ -266,7 +266,7 @@ var a = 1;
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause

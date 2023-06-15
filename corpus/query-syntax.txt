@@ -10,7 +10,7 @@ var x = from a in source select a.B;
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -20,8 +20,8 @@ var x = from a in source select a.B;
                 (identifier))
               (select_clause
                 (member_access_expression
-                  (identifier)
-                  (identifier))))))))))
+                  expression: (identifier)
+                  name: (identifier))))))))))
 
 ================================================================================
 Query from select with operator
@@ -35,7 +35,7 @@ var x = from a in source select a * 2;
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -45,8 +45,8 @@ var x = from a in source select a * 2;
                 (identifier))
               (select_clause
                 (binary_expression
-                  (identifier)
-                  (integer_literal))))))))))
+                  left: (identifier)
+                  right: (integer_literal))))))))))
 
 ================================================================================
 Query from select with method call
@@ -60,7 +60,7 @@ var x = from a in source select a.B();
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -70,10 +70,10 @@ var x = from a in source select a.B();
                 (identifier))
               (select_clause
                 (invocation_expression
-                  (member_access_expression
-                    (identifier)
-                    (identifier))
-                  (argument_list))))))))))
+                  function: (member_access_expression
+                    expression: (identifier)
+                    name: (identifier))
+                  arguments: (argument_list))))))))))
 
 ================================================================================
 Query from select with conditional operator
@@ -87,7 +87,7 @@ var x = from a in source select a ? 0 : 1;
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -97,9 +97,9 @@ var x = from a in source select a ? 0 : 1;
                 (identifier))
               (select_clause
                 (conditional_expression
-                  (identifier)
-                  (integer_literal)
-                  (integer_literal))))))))))
+                  condition: (identifier)
+                  consequence: (integer_literal)
+                  alternative: (integer_literal))))))))))
 
 ================================================================================
 Query from select with assignment
@@ -113,7 +113,7 @@ var x = from a in source select somevar = a;
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -123,9 +123,9 @@ var x = from a in source select somevar = a;
                 (identifier))
               (select_clause
                 (assignment_expression
-                  (identifier)
+                  left: (identifier)
                   (assignment_operator)
-                  (identifier))))))))))
+                  right: (identifier))))))))))
 
 ================================================================================
 Query from select projection
@@ -139,7 +139,7 @@ var x = from a in source select new { Name = a.B };
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -152,8 +152,8 @@ var x = from a in source select new { Name = a.B };
                   (name_equals
                     (identifier))
                   (member_access_expression
-                    (identifier)
-                    (identifier)))))))))))
+                    expression: (identifier)
+                    name: (identifier)))))))))))
 
 ================================================================================
 Query from select with where
@@ -169,7 +169,7 @@ var x = from a in source
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -179,10 +179,10 @@ var x = from a in source
                 (identifier))
               (where_clause
                 (binary_expression
-                  (member_access_expression
-                    (identifier)
-                    (identifier))
-                  (string_literal
+                  left: (member_access_expression
+                    expression: (identifier)
+                    name: (identifier))
+                  right: (string_literal
                     (string_literal_fragment))))
               (select_clause
                 (identifier)))))))))
@@ -201,7 +201,7 @@ var x = from a in source
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -211,25 +211,25 @@ var x = from a in source
                 (identifier))
               (where_clause
                 (binary_expression
-                  (binary_expression
-                    (member_access_expression
-                      (identifier)
-                      (identifier))
-                    (string_literal
+                  left: (binary_expression
+                    left: (member_access_expression
+                      expression: (identifier)
+                      name: (identifier))
+                    right: (string_literal
                       (string_literal_fragment)))
-                  (binary_expression
-                    (member_access_expression
-                      (identifier)
-                      (identifier))
-                    (string_literal
+                  right: (binary_expression
+                    left: (member_access_expression
+                      expression: (identifier)
+                      name: (identifier))
+                    right: (string_literal
                       (string_literal_fragment)))))
               (select_clause
                 (anonymous_object_creation_expression
                   (name_equals
                     (identifier))
                   (member_access_expression
-                    (identifier)
-                    (identifier)))))))))))
+                    expression: (identifier)
+                    name: (identifier)))))))))))
 
 ================================================================================
 Query from select with orderby
@@ -247,7 +247,7 @@ var x = from a in source
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -257,12 +257,12 @@ var x = from a in source
                 (identifier))
               (order_by_clause
                 (member_access_expression
-                  (identifier)
-                  (identifier)))
+                  expression: (identifier)
+                  name: (identifier)))
               (order_by_clause
                 (member_access_expression
-                  (identifier)
-                  (identifier)))
+                  expression: (identifier)
+                  name: (identifier)))
               (order_by_clause
                 (integer_literal))
               (select_clause
@@ -282,7 +282,7 @@ var x = from a in source
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -294,11 +294,11 @@ var x = from a in source
                 (identifier)
                 (anonymous_object_creation_expression
                   (member_access_expression
-                    (identifier)
-                    (identifier))
+                    expression: (identifier)
+                    name: (identifier))
                   (member_access_expression
-                    (identifier)
-                    (identifier))))
+                    expression: (identifier)
+                    name: (identifier))))
               (select_clause
                 (identifier)))))))))
 
@@ -316,7 +316,7 @@ var x = from a in sourceA
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -328,19 +328,19 @@ var x = from a in sourceA
                 (identifier)
                 (identifier)
                 (member_access_expression
-                  (identifier)
-                  (identifier))
+                  expression: (identifier)
+                  name: (identifier))
                 (member_access_expression
-                  (identifier)
-                  (identifier)))
+                  expression: (identifier)
+                  name: (identifier)))
               (select_clause
                 (anonymous_object_creation_expression
                   (member_access_expression
-                    (identifier)
-                    (identifier))
+                    expression: (identifier)
+                    name: (identifier))
                   (member_access_expression
-                    (identifier)
-                    (identifier)))))))))))
+                    expression: (identifier)
+                    name: (identifier)))))))))))
 
 ================================================================================
 Query from select with multiple from
@@ -357,7 +357,7 @@ var x = from a in sourceA
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -370,20 +370,20 @@ var x = from a in sourceA
                 (identifier))
               (where_clause
                 (binary_expression
-                  (member_access_expression
-                    (identifier)
-                    (identifier))
-                  (member_access_expression
-                    (identifier)
-                    (identifier))))
+                  left: (member_access_expression
+                    expression: (identifier)
+                    name: (identifier))
+                  right: (member_access_expression
+                    expression: (identifier)
+                    name: (identifier))))
               (select_clause
                 (anonymous_object_creation_expression
                   (member_access_expression
-                    (identifier)
-                    (identifier))
+                    expression: (identifier)
+                    name: (identifier))
                   (member_access_expression
-                    (identifier)
-                    (identifier)))))))))))
+                    expression: (identifier)
+                    name: (identifier)))))))))))
 
 ================================================================================
 Query from select with group by & continuation
@@ -399,7 +399,7 @@ var x = from a in sourceA
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -410,8 +410,8 @@ var x = from a in sourceA
               (group_clause
                 (identifier)
                 (member_access_expression
-                  (identifier)
-                  (identifier)))
+                  expression: (identifier)
+                  name: (identifier)))
               (query_continuation
                 (identifier)
                 (select_clause
@@ -419,18 +419,18 @@ var x = from a in sourceA
                     (name_equals
                       (identifier))
                     (member_access_expression
-                      (identifier)
-                      (identifier))
+                      expression: (identifier)
+                      name: (identifier))
                     (name_equals
                       (identifier))
                     (invocation_expression
-                      (member_access_expression
-                        (identifier)
-                        (identifier))
-                      (argument_list
+                      function: (member_access_expression
+                        expression: (identifier)
+                        name: (identifier))
+                      arguments: (argument_list
                         (argument
                           (lambda_expression
                             (identifier)
-                            (member_access_expression
-                              (identifier)
-                              (identifier))))))))))))))))
+                            body: (member_access_expression
+                              expression: (identifier)
+                              name: (identifier))))))))))))))))

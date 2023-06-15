@@ -17,7 +17,7 @@ const long bin3 = 0b_0_10;
     (local_declaration_statement
       (modifier)
       (variable_declaration
-        (predefined_type)
+        type: (predefined_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -26,7 +26,7 @@ const long bin3 = 0b_0_10;
     (local_declaration_statement
       (modifier)
       (variable_declaration
-        (predefined_type)
+        type: (predefined_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -35,7 +35,7 @@ const long bin3 = 0b_0_10;
     (local_declaration_statement
       (modifier)
       (variable_declaration
-        (predefined_type)
+        type: (predefined_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -44,7 +44,7 @@ const long bin3 = 0b_0_10;
     (local_declaration_statement
       (modifier)
       (variable_declaration
-        (predefined_type)
+        type: (predefined_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -53,7 +53,7 @@ const long bin3 = 0b_0_10;
     (local_declaration_statement
       (modifier)
       (variable_declaration
-        (identifier)
+        type: (identifier)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -62,7 +62,7 @@ const long bin3 = 0b_0_10;
     (local_declaration_statement
       (modifier)
       (variable_declaration
-        (identifier)
+        type: (identifier)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -71,7 +71,7 @@ const long bin3 = 0b_0_10;
     (local_declaration_statement
       (modifier)
       (variable_declaration
-        (identifier)
+        type: (identifier)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -80,7 +80,7 @@ const long bin3 = 0b_0_10;
     (local_declaration_statement
       (modifier)
       (variable_declaration
-        (predefined_type)
+        type: (predefined_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -99,7 +99,7 @@ const bool t = true, u = false;
     (local_declaration_statement
       (modifier)
       (variable_declaration
-        (predefined_type)
+        type: (predefined_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -126,7 +126,7 @@ const char uni32 = '\UA0BFf9ca';
     (local_declaration_statement
       (modifier)
       (variable_declaration
-        (predefined_type)
+        type: (predefined_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -136,7 +136,7 @@ const char uni32 = '\UA0BFf9ca';
     (local_declaration_statement
       (modifier)
       (variable_declaration
-        (predefined_type)
+        type: (predefined_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -146,7 +146,7 @@ const char uni32 = '\UA0BFf9ca';
     (local_declaration_statement
       (modifier)
       (variable_declaration
-        (predefined_type)
+        type: (predefined_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -156,7 +156,7 @@ const char uni32 = '\UA0BFf9ca';
     (local_declaration_statement
       (modifier)
       (variable_declaration
-        (predefined_type)
+        type: (predefined_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -166,7 +166,7 @@ const char uni32 = '\UA0BFf9ca';
     (local_declaration_statement
       (modifier)
       (variable_declaration
-        (predefined_type)
+        type: (predefined_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -193,7 +193,7 @@ const Decimal m2 = 102.349M;
     (local_declaration_statement
       (modifier)
       (variable_declaration
-        (predefined_type)
+        type: (predefined_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -202,7 +202,7 @@ const Decimal m2 = 102.349M;
     (local_declaration_statement
       (modifier)
       (variable_declaration
-        (predefined_type)
+        type: (predefined_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -211,7 +211,7 @@ const Decimal m2 = 102.349M;
     (local_declaration_statement
       (modifier)
       (variable_declaration
-        (identifier)
+        type: (identifier)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -220,7 +220,7 @@ const Decimal m2 = 102.349M;
     (local_declaration_statement
       (modifier)
       (variable_declaration
-        (identifier)
+        type: (identifier)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -229,7 +229,7 @@ const Decimal m2 = 102.349M;
     (local_declaration_statement
       (modifier)
       (variable_declaration
-        (predefined_type)
+        type: (predefined_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -238,7 +238,7 @@ const Decimal m2 = 102.349M;
     (local_declaration_statement
       (modifier)
       (variable_declaration
-        (predefined_type)
+        type: (predefined_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -247,7 +247,7 @@ const Decimal m2 = 102.349M;
     (local_declaration_statement
       (modifier)
       (variable_declaration
-        (predefined_type)
+        type: (predefined_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -256,7 +256,7 @@ const Decimal m2 = 102.349M;
     (local_declaration_statement
       (modifier)
       (variable_declaration
-        (identifier)
+        type: (identifier)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -275,7 +275,7 @@ const string x = null;
     (local_declaration_statement
       (modifier)
       (variable_declaration
-        (predefined_type)
+        type: (predefined_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -303,18 +303,18 @@ class A {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (field_declaration
         (variable_declaration
-          (identifier)
+          type: (identifier)
           (variable_declarator
             (identifier)
             (equals_value_clause
               (string_literal)))))
       (field_declaration
         (variable_declaration
-          (predefined_type)
+          type: (predefined_type)
           (variable_declarator
             (identifier)
             (equals_value_clause
@@ -322,7 +322,7 @@ class A {
                 (string_literal_fragment))))))
       (field_declaration
         (variable_declaration
-          (predefined_type)
+          type: (predefined_type)
           (variable_declarator
             (identifier)
             (equals_value_clause
@@ -330,7 +330,7 @@ class A {
                 (string_literal_fragment))))))
       (field_declaration
         (variable_declaration
-          (predefined_type)
+          type: (predefined_type)
           (variable_declarator
             (identifier)
             (equals_value_clause
@@ -340,7 +340,7 @@ class A {
                 (escape_sequence))))))
       (field_declaration
         (variable_declaration
-          (predefined_type)
+          type: (predefined_type)
           (variable_declarator
             (identifier)
             (equals_value_clause
@@ -350,7 +350,7 @@ class A {
                 (string_literal_fragment))))))
       (field_declaration
         (variable_declaration
-          (predefined_type)
+          type: (predefined_type)
           (variable_declarator
             (identifier)
             (equals_value_clause
@@ -360,7 +360,7 @@ class A {
                 (escape_sequence))))))
       (field_declaration
         (variable_declaration
-          (predefined_type)
+          type: (predefined_type)
           (variable_declarator
             (identifier)
             (equals_value_clause
@@ -369,7 +369,7 @@ class A {
                 (string_literal_fragment))))))
       (field_declaration
         (variable_declaration
-          (predefined_type)
+          type: (predefined_type)
           (variable_declarator
             (identifier)
             (equals_value_clause
@@ -378,21 +378,21 @@ class A {
                 (string_literal_fragment))))))
       (field_declaration
         (variable_declaration
-          (predefined_type)
+          type: (predefined_type)
           (variable_declarator
             (identifier)
             (equals_value_clause
               (verbatim_string_literal)))))
       (field_declaration
         (variable_declaration
-          (predefined_type)
+          type: (predefined_type)
           (variable_declarator
             (identifier)
             (equals_value_clause
               (verbatim_string_literal)))))
       (field_declaration
         (variable_declaration
-          (predefined_type)
+          type: (predefined_type)
           (variable_declarator
             (identifier)
             (equals_value_clause
@@ -413,7 +413,7 @@ multi-line";
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -431,11 +431,11 @@ class A {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (field_declaration
         (variable_declaration
-          (predefined_type)
+          type: (predefined_type)
           (variable_declarator
             (identifier)
             (equals_value_clause
@@ -458,7 +458,7 @@ var d = @"upper"U8;
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -468,7 +468,7 @@ var d = @"upper"U8;
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -478,7 +478,7 @@ var d = @"upper"U8;
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -486,7 +486,7 @@ var d = @"upper"U8;
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -506,11 +506,11 @@ class A {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (field_declaration
         (variable_declaration
-          (predefined_type)
+          type: (predefined_type)
           (variable_declarator
             (identifier)
             (equals_value_clause
@@ -531,7 +531,7 @@ string s = "\u0065/* \u0065 */\u0065";
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (predefined_type)
+        type: (predefined_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -554,7 +554,7 @@ string s = @"/* comment */";
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (predefined_type)
+        type: (predefined_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -574,11 +574,11 @@ class A {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (field_declaration
         (variable_declaration
-          (predefined_type)
+          type: (predefined_type)
           (variable_declarator
             (identifier)
             (equals_value_clause
@@ -586,7 +586,7 @@ class A {
                 (interpolated_string_text))))))
       (field_declaration
         (variable_declaration
-          (predefined_type)
+          type: (predefined_type)
           (variable_declarator
             (identifier)
             (equals_value_clause
@@ -598,7 +598,7 @@ class A {
                   (escape_sequence)))))))
       (field_declaration
         (variable_declaration
-          (predefined_type)
+          type: (predefined_type)
           (variable_declarator
             (identifier)
             (equals_value_clause
@@ -618,11 +618,11 @@ class A {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (field_declaration
         (variable_declaration
-          (predefined_type)
+          type: (predefined_type)
           (variable_declarator
             (identifier)
             (equals_value_clause
@@ -644,11 +644,11 @@ class A {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (field_declaration
         (variable_declaration
-          (predefined_type)
+          type: (predefined_type)
           (variable_declarator
             (identifier)
             (equals_value_clause
@@ -671,11 +671,11 @@ class A {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (field_declaration
         (variable_declaration
-          (predefined_type)
+          type: (predefined_type)
           (variable_declarator
             (identifier)
             (equals_value_clause
@@ -699,7 +699,7 @@ string s = $"\u0065/* \u0065 */\u0065";
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (predefined_type)
+        type: (predefined_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -726,11 +726,11 @@ class A {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (field_declaration
         (variable_declaration
-          (predefined_type)
+          type: (predefined_type)
           (variable_declarator
             (identifier)
             (equals_value_clause
@@ -738,7 +738,7 @@ class A {
                 (interpolated_verbatim_string_text))))))
       (field_declaration
         (variable_declaration
-          (predefined_type)
+          type: (predefined_type)
           (variable_declarator
             (identifier)
             (equals_value_clause
@@ -757,11 +757,11 @@ class A {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (field_declaration
         (variable_declaration
-          (predefined_type)
+          type: (predefined_type)
           (variable_declarator
             (identifier)
             (equals_value_clause
@@ -783,11 +783,11 @@ class A {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (field_declaration
         (variable_declaration
-          (predefined_type)
+          type: (predefined_type)
           (variable_declarator
             (identifier)
             (equals_value_clause
@@ -810,11 +810,11 @@ class A {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (field_declaration
         (variable_declaration
-          (predefined_type)
+          type: (predefined_type)
           (variable_declarator
             (identifier)
             (equals_value_clause
@@ -841,7 +841,7 @@ line";
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -868,7 +868,7 @@ class A
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (predefined_type)
+        type: (predefined_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -897,7 +897,7 @@ string s = $@"{a}/* comment */{a}";
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (predefined_type)
+        type: (predefined_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -920,7 +920,7 @@ var x = $@"/* {world} */";
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -942,7 +942,7 @@ var x = """Hello""";
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -962,7 +962,7 @@ var x = """
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -982,7 +982,7 @@ var x = """
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -1002,7 +1002,7 @@ var x = """
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -1022,7 +1022,7 @@ var x = """
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -1040,7 +1040,7 @@ var x = $"""The point {X}, {Y} is {Math.Sqrt(X * X + Y * Y)} from the origin""";
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -1054,18 +1054,18 @@ var x = $"""The point {X}, {Y} is {Math.Sqrt(X * X + Y * Y)} from the origin""";
               (interpolated_raw_string_text)
               (interpolation
                 (invocation_expression
-                  (member_access_expression
-                    (identifier)
-                    (identifier))
-                  (argument_list
+                  function: (member_access_expression
+                    expression: (identifier)
+                    name: (identifier))
+                  arguments: (argument_list
                     (argument
                       (binary_expression
-                        (binary_expression
-                          (identifier)
-                          (identifier))
-                        (binary_expression
-                          (identifier)
-                          (identifier)))))))
+                        left: (binary_expression
+                          left: (identifier)
+                          right: (identifier))
+                        right: (binary_expression
+                          left: (identifier)
+                          right: (identifier)))))))
               (interpolated_raw_string_text))))))))
 
 ================================================================================
@@ -1080,7 +1080,7 @@ var x = $"""The point "{X}, {Y}" is {Math.Sqrt(X * X + Y * Y)} from the origin""
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -1096,18 +1096,18 @@ var x = $"""The point "{X}, {Y}" is {Math.Sqrt(X * X + Y * Y)} from the origin""
               (interpolated_raw_string_text)
               (interpolation
                 (invocation_expression
-                  (member_access_expression
-                    (identifier)
-                    (identifier))
-                  (argument_list
+                  function: (member_access_expression
+                    expression: (identifier)
+                    name: (identifier))
+                  arguments: (argument_list
                     (argument
                       (binary_expression
-                        (binary_expression
-                          (identifier)
-                          (identifier))
-                        (binary_expression
-                          (identifier)
-                          (identifier)))))))
+                        left: (binary_expression
+                          left: (identifier)
+                          right: (identifier))
+                        right: (binary_expression
+                          left: (identifier)
+                          right: (identifier)))))))
               (interpolated_raw_string_text))))))))
 
 ================================================================================
@@ -1122,7 +1122,7 @@ var x = $"""The point ""{X}, {Y}"" is {Math.Sqrt(X * X + Y * Y)} from the origin
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -1138,18 +1138,18 @@ var x = $"""The point ""{X}, {Y}"" is {Math.Sqrt(X * X + Y * Y)} from the origin
               (interpolated_raw_string_text)
               (interpolation
                 (invocation_expression
-                  (member_access_expression
-                    (identifier)
-                    (identifier))
-                  (argument_list
+                  function: (member_access_expression
+                    expression: (identifier)
+                    name: (identifier))
+                  arguments: (argument_list
                     (argument
                       (binary_expression
-                        (binary_expression
-                          (identifier)
-                          (identifier))
-                        (binary_expression
-                          (identifier)
-                          (identifier)))))))
+                        left: (binary_expression
+                          left: (identifier)
+                          right: (identifier))
+                        right: (binary_expression
+                          left: (identifier)
+                          right: (identifier)))))))
               (interpolated_raw_string_text))))))))
 
 ================================================================================
@@ -1167,7 +1167,7 @@ var x = $"""The point
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -1183,18 +1183,18 @@ var x = $"""The point
               (interpolated_raw_string_text)
               (interpolation
                 (invocation_expression
-                  (member_access_expression
-                    (identifier)
-                    (identifier))
-                  (argument_list
+                  function: (member_access_expression
+                    expression: (identifier)
+                    name: (identifier))
+                  arguments: (argument_list
                     (argument
                       (binary_expression
-                        (binary_expression
-                          (identifier)
-                          (identifier))
-                        (binary_expression
-                          (identifier)
-                          (identifier)))))))
+                        left: (binary_expression
+                          left: (identifier)
+                          right: (identifier))
+                        right: (binary_expression
+                          left: (identifier)
+                          right: (identifier)))))))
               (interpolated_raw_string_text))))))))
 
 ================================================================================

@@ -10,20 +10,20 @@ class A {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (event_declaration
         (modifier)
-        (generic_name
+        type: (generic_name
           (identifier)
           (type_argument_list
             (identifier)))
-        (identifier)
-        (accessor_list
+        name: (identifier)
+        accessors: (accessor_list
           (accessor_declaration
-            (block))
+            body: (block))
           (accessor_declaration
-            (block)))))))
+            body: (block)))))))
 
 ================================================================================
 Struct event declarations
@@ -37,20 +37,20 @@ struct A {
 
 (compilation_unit
   (struct_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (event_declaration
         (modifier)
-        (generic_name
+        type: (generic_name
           (identifier)
           (type_argument_list
             (identifier)))
-        (identifier)
-        (accessor_list
+        name: (identifier)
+        accessors: (accessor_list
           (accessor_declaration
-            (block))
+            body: (block))
           (accessor_declaration
-            (block)))))))
+            body: (block)))))))
 
 ================================================================================
 Class event declarations with expression bodies
@@ -64,20 +64,20 @@ class A {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (event_declaration
         (modifier)
-        (identifier)
-        (identifier)
-        (accessor_list
+        type: (identifier)
+        name: (identifier)
+        accessors: (accessor_list
           (accessor_declaration
-            (arrow_expression_clause
+            body: (arrow_expression_clause
               (invocation_expression
-                (identifier)
-                (argument_list))))
+                function: (identifier)
+                arguments: (argument_list))))
           (accessor_declaration
-            (arrow_expression_clause
+            body: (arrow_expression_clause
               (invocation_expression
-                (identifier)
-                (argument_list)))))))))
+                function: (identifier)
+                arguments: (argument_list)))))))))

@@ -10,12 +10,12 @@ record F {
 
 (compilation_unit
   (record_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (property_declaration
-        (predefined_type)
-        (identifier)
-        (accessor_list
+        type: (predefined_type)
+        name: (identifier)
+        accessors: (accessor_list
           (accessor_declaration)
           (accessor_declaration))))))
 
@@ -31,12 +31,12 @@ record struct F {
 
 (compilation_unit
   (record_struct_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (property_declaration
-        (predefined_type)
-        (identifier)
-        (accessor_list
+        type: (predefined_type)
+        name: (identifier)
+        accessors: (accessor_list
           (accessor_declaration)
           (accessor_declaration))))))
 
@@ -52,12 +52,12 @@ record class F {
 
 (compilation_unit
   (record_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (property_declaration
-        (predefined_type)
-        (identifier)
-        (accessor_list
+        type: (predefined_type)
+        name: (identifier)
+        accessors: (accessor_list
           (accessor_declaration)
           (accessor_declaration))))))
 
@@ -72,14 +72,14 @@ public record F<T> where T:struct {}
 (compilation_unit
   (record_declaration
     (modifier)
-    (identifier)
-    (type_parameter_list
+    name: (identifier)
+    type_parameters: (type_parameter_list
       (type_parameter
-        (identifier)))
+        name: (identifier)))
     (type_parameter_constraints_clause
-      (identifier)
-      (type_parameter_constraint))
-    (declaration_list)))
+      target: (identifier)
+      constraints: (type_parameter_constraint))
+    body: (declaration_list)))
 
 ================================================================================
 Record with a type parameter class constraint
@@ -92,14 +92,14 @@ public record F<T> where T:class {}
 (compilation_unit
   (record_declaration
     (modifier)
-    (identifier)
-    (type_parameter_list
+    name: (identifier)
+    type_parameters: (type_parameter_list
       (type_parameter
-        (identifier)))
+        name: (identifier)))
     (type_parameter_constraints_clause
-      (identifier)
-      (type_parameter_constraint))
-    (declaration_list)))
+      target: (identifier)
+      constraints: (type_parameter_constraint))
+    body: (declaration_list)))
 
 ================================================================================
 Record with type parameter new constraint
@@ -112,15 +112,15 @@ public record F<T> where T: new() {}
 (compilation_unit
   (record_declaration
     (modifier)
-    (identifier)
-    (type_parameter_list
+    name: (identifier)
+    type_parameters: (type_parameter_list
       (type_parameter
-        (identifier)))
+        name: (identifier)))
     (type_parameter_constraints_clause
-      (identifier)
-      (type_parameter_constraint
+      target: (identifier)
+      constraints: (type_parameter_constraint
         (constructor_constraint)))
-    (declaration_list)))
+    body: (declaration_list)))
 
 ================================================================================
 Record with interface
@@ -133,10 +133,10 @@ public record A : ISomething { }
 (compilation_unit
   (record_declaration
     (modifier)
-    (identifier)
-    (base_list
+    name: (identifier)
+    bases: (base_list
       (identifier))
-    (declaration_list)))
+    body: (declaration_list)))
 
 ================================================================================
 Record with multiple type parameter constraints
@@ -151,30 +151,30 @@ private record F<T1,T2> where T1 : I1, I2, new() where T2 : I2 { }
   (record_declaration
     (attribute_list
       (attribute
-        (identifier)))
+        name: (identifier)))
     (modifier)
-    (identifier)
-    (type_parameter_list
+    name: (identifier)
+    type_parameters: (type_parameter_list
       (type_parameter
-        (identifier))
+        name: (identifier))
       (type_parameter
-        (identifier)))
+        name: (identifier)))
     (type_parameter_constraints_clause
-      (identifier)
-      (type_parameter_constraint
+      target: (identifier)
+      constraints: (type_parameter_constraint
         (type_constraint
-          (identifier)))
-      (type_parameter_constraint
+          type: (identifier)))
+      constraints: (type_parameter_constraint
         (type_constraint
-          (identifier)))
-      (type_parameter_constraint
+          type: (identifier)))
+      constraints: (type_parameter_constraint
         (constructor_constraint)))
     (type_parameter_constraints_clause
-      (identifier)
-      (type_parameter_constraint
+      target: (identifier)
+      constraints: (type_parameter_constraint
         (type_constraint
-          (identifier))))
-    (declaration_list)))
+          type: (identifier))))
+    body: (declaration_list)))
 
 ================================================================================
 Record with constructor
@@ -186,14 +186,14 @@ record Person(string FirstName, string LastName);
 
 (compilation_unit
   (record_declaration
-    (identifier)
-    (parameter_list
+    name: (identifier)
+    parameters: (parameter_list
       (parameter
-        (predefined_type)
-        (identifier))
+        type: (predefined_type)
+        name: (identifier))
       (parameter
-        (predefined_type)
-        (identifier)))))
+        type: (predefined_type)
+        name: (identifier)))))
 
 ================================================================================
 Record inheritance with constructor overload
@@ -205,18 +205,18 @@ record Teacher(string FirstName, string LastName, string Subject) : Person(First
 
 (compilation_unit
   (record_declaration
-    (identifier)
-    (parameter_list
+    name: (identifier)
+    parameters: (parameter_list
       (parameter
-        (predefined_type)
-        (identifier))
+        type: (predefined_type)
+        name: (identifier))
       (parameter
-        (predefined_type)
-        (identifier))
+        type: (predefined_type)
+        name: (identifier))
       (parameter
-        (predefined_type)
-        (identifier)))
-    (base_list
+        type: (predefined_type)
+        name: (identifier)))
+    bases: (base_list
       (primary_constructor_base_type
         (identifier)
         (argument_list
@@ -235,18 +235,18 @@ record Teacher(string FirstName, string LastName, string Subject) : Person(First
 
 (compilation_unit
   (record_declaration
-    (identifier)
-    (parameter_list
+    name: (identifier)
+    parameters: (parameter_list
       (parameter
-        (predefined_type)
-        (identifier))
+        type: (predefined_type)
+        name: (identifier))
       (parameter
-        (predefined_type)
-        (identifier))
+        type: (predefined_type)
+        name: (identifier))
       (parameter
-        (predefined_type)
-        (identifier)))
-    (base_list
+        type: (predefined_type)
+        name: (identifier)))
+    bases: (base_list
       (primary_constructor_base_type
         (identifier)
         (argument_list
@@ -271,9 +271,9 @@ record A : System.IEquatable<A>;
 
 (compilation_unit
   (record_declaration
-    (identifier)
-    (parameter_list)
-    (base_list
+    name: (identifier)
+    parameters: (parameter_list)
+    bases: (base_list
       (primary_constructor_base_type
         (generic_name
           (identifier)
@@ -282,8 +282,8 @@ record A : System.IEquatable<A>;
         (argument_list))
       (identifier)))
   (record_declaration
-    (identifier)
-    (base_list
+    name: (identifier)
+    bases: (base_list
       (qualified_name
         (identifier)
         (generic_name
@@ -304,12 +304,12 @@ public record struct Person2 { };
 (compilation_unit
   (record_declaration
     (modifier)
-    (identifier)
-    (declaration_list))
+    name: (identifier)
+    body: (declaration_list))
   (record_struct_declaration
     (modifier)
-    (identifier)
-    (declaration_list)))
+    name: (identifier)
+    body: (declaration_list)))
 
 ================================================================================
 Record types can seal ToString()
@@ -325,16 +325,16 @@ record A {
 
 (compilation_unit
   (record_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (method_declaration
         (modifier)
         (modifier)
         (modifier)
-        (predefined_type)
-        (identifier)
-        (parameter_list)
-        (block
+        type: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (block
           (return_statement
             (string_literal)))))))
 
@@ -351,13 +351,13 @@ void A() {
 (compilation_unit
   (global_statement
     (local_function_statement
-      (predefined_type)
-      (identifier)
-      (parameter_list)
-      (block
+      type: (predefined_type)
+      name: (identifier)
+      parameters: (parameter_list)
+      body: (block
         (local_declaration_statement
           (variable_declaration
-            (implicit_type)
+            type: (implicit_type)
             (variable_declarator
               (identifier)
               (equals_value_clause
@@ -385,31 +385,31 @@ void A() {
 (compilation_unit
   (global_statement
     (local_function_statement
-      (predefined_type)
-      (identifier)
-      (parameter_list)
-      (block
+      type: (predefined_type)
+      name: (identifier)
+      parameters: (parameter_list)
+      body: (block
         (local_declaration_statement
           (variable_declaration
-            (implicit_type)
+            type: (implicit_type)
             (variable_declarator
               (identifier)
               (equals_value_clause
                 (with_expression
                   (invocation_expression
-                    (identifier)
-                    (argument_list))
+                    function: (identifier)
+                    arguments: (argument_list))
                   (with_initializer_expression
                     (simple_assignment_expression
                       (identifier)
                       (invocation_expression
-                        (identifier)
-                        (argument_list)))
+                        function: (identifier)
+                        arguments: (argument_list)))
                     (simple_assignment_expression
                       (identifier)
                       (invocation_expression
-                        (identifier)
-                        (argument_list)))))))))))))
+                        function: (identifier)
+                        arguments: (argument_list)))))))))))))
 
 ================================================================================
 Precedence between with and cast
@@ -423,14 +423,14 @@ var x = (Point) p1 with {X = 3};
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
             (with_expression
               (cast_expression
-                (identifier)
-                (identifier))
+                type: (identifier)
+                value: (identifier))
               (with_initializer_expression
                 (simple_assignment_expression
                   (identifier)
@@ -448,7 +448,7 @@ var x = p1 with {X = 3} switch { _ => 3 };
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -475,18 +475,18 @@ var x = p1 with {X = 3} == p1 with {X = 4};
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
             (binary_expression
-              (with_expression
+              left: (with_expression
                 (identifier)
                 (with_initializer_expression
                   (simple_assignment_expression
                     (identifier)
                     (integer_literal))))
-              (with_expression
+              right: (with_expression
                 (identifier)
                 (with_initializer_expression
                   (simple_assignment_expression
@@ -505,7 +505,7 @@ var x = p1 with {X = 3} with {X = 4} with {X = 5};
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (implicit_type)
+        type: (implicit_type)
         (variable_declarator
           (identifier)
           (equals_value_clause

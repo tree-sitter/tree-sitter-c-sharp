@@ -18,7 +18,7 @@ If, elif and else directives
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (predefined_type)
+        type: (predefined_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -29,7 +29,7 @@ If, elif and else directives
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (predefined_type)
+        type: (predefined_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -39,7 +39,7 @@ If, elif and else directives
   (global_statement
     (local_declaration_statement
       (variable_declaration
-        (predefined_type)
+        type: (predefined_type)
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -63,37 +63,37 @@ Complex if conditions
 (compilation_unit
   (if_directive
     (prefix_unary_expression
-      (identifier)))
+      argument: (identifier)))
   (if_directive
     (binary_expression
-      (identifier)
-      (boolean_literal)))
+      left: (identifier)
+      right: (boolean_literal)))
   (if_directive
     (binary_expression
-      (prefix_unary_expression
-        (identifier))
-      (boolean_literal)))
+      left: (prefix_unary_expression
+        argument: (identifier))
+      right: (boolean_literal)))
   (if_directive
     (binary_expression
-      (binary_expression
-        (identifier)
-        (identifier))
-      (identifier)))
+      left: (binary_expression
+        left: (identifier)
+        right: (identifier))
+      right: (identifier)))
   (if_directive
     (parenthesized_expression
       (identifier)))
   (if_directive
     (parenthesized_expression
       (binary_expression
-        (identifier)
-        (identifier))))
+        left: (identifier)
+        right: (identifier))))
   (if_directive
     (binary_expression
-      (parenthesized_expression
+      left: (parenthesized_expression
         (binary_expression
-          (identifier)
-          (identifier)))
-      (identifier))))
+          left: (identifier)
+          right: (identifier)))
+      right: (identifier))))
 
 ================================================================================
 Region directives
@@ -141,8 +141,8 @@ class Of1879 {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (warning_directive
         (preproc_message))
       (error_directive
@@ -166,13 +166,13 @@ class Of1879 {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (method_declaration
-        (predefined_type)
-        (identifier)
-        (parameter_list)
-        (block
+        type: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (block
           (line_directive
             (preproc_integer_literal)
             (preproc_string_literal))
@@ -209,13 +209,13 @@ class Of1879 {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (method_declaration
-        (predefined_type)
-        (identifier)
-        (parameter_list)
-        (block
+        type: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (block
           (line_directive
             (preproc_integer_literal)
             (preproc_string_literal))
@@ -255,16 +255,16 @@ class Of1879 {
 
 (compilation_unit
   (class_declaration
-    (identifier)
-    (declaration_list
+    name: (identifier)
+    body: (declaration_list
       (method_declaration
-        (predefined_type)
-        (identifier)
-        (parameter_list)
-        (block
+        type: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (block
           (local_declaration_statement
             (variable_declaration
-              (implicit_type)
+              type: (implicit_type)
               (variable_declarator
                 (identifier)
                 (equals_value_clause

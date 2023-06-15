@@ -67,13 +67,13 @@ module.exports = grammar({
     [$.qualified_name, $.explicit_interface_specifier],
     [$.qualified_name, $.member_access_expression],
 
-    [$._contextual_keywords, $.from_clause],
-    [$._contextual_keywords, $.type_parameter_constraint],
-    [$._contextual_keywords, $.modifier],
-    [$._contextual_keywords, $.scoped_type],
-    [$._contextual_keywords, $.scoped_type, $._parameter_type_with_modifiers],
-    [$._contextual_keywords, $._parameter_type_with_modifiers],
-    [$._contextual_keywords, $.implicit_type],
+    [$.identifier, $.from_clause],
+    [$.identifier, $.type_parameter_constraint],
+    [$.identifier, $.modifier],
+    [$.identifier, $.scoped_type],
+    [$.identifier, $.scoped_type, $._parameter_type_with_modifiers],
+    [$.identifier, $._parameter_type_with_modifiers],
+    [$.identifier, $.implicit_type],
 
     [$._type, $.attribute],
     [$._type, $._nullable_base_type],
@@ -115,6 +115,7 @@ module.exports = grammar({
   ],
 
   inline: $ => [
+    $._contextual_keywords
   ],
 
   word: $ => $._identifier_token,

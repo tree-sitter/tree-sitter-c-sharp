@@ -464,7 +464,9 @@ var result = list.Select(c => (c.f1, c.f2)).Where(t => t.f2 == 1);
                   arguments: (argument_list
                     (argument
                       (lambda_expression
-                        parameters: (identifier)
+                        parameters: (implicit_parameter_list
+                          (parameter
+                            name: (identifier)))
                         body: (tuple_expression
                           (argument
                             (member_access_expression
@@ -478,7 +480,9 @@ var result = list.Select(c => (c.f1, c.f2)).Where(t => t.f2 == 1);
               arguments: (argument_list
                 (argument
                   (lambda_expression
-                    parameters: (identifier)
+                    parameters: (implicit_parameter_list
+                      (parameter
+                        name: (identifier)))
                     body: (binary_expression
                       left: (member_access_expression
                         expression: (identifier)
@@ -1910,7 +1914,9 @@ var a = global => global.Single();
           (identifier)
           (equals_value_clause
             (lambda_expression
-              parameters: (identifier)
+              parameters: (implicit_parameter_list
+                (parameter
+                  name: (identifier)))
               body: (invocation_expression
                 function: (member_access_expression
                   expression: (identifier)

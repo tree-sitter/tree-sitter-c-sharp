@@ -1250,7 +1250,9 @@ void a() {
               (identifier)
               (equals_value_clause
                 (lambda_expression
-                  parameters: (identifier)
+                  parameters: (implicit_parameter_list
+                    (parameter
+                      name: (identifier)))
                   body: (binary_expression
                     left: (identifier)
                     right: (integer_literal)))))))
@@ -1352,7 +1354,9 @@ void a() {
               (equals_value_clause
                 (lambda_expression
                   (modifier)
-                  parameters: (identifier)
+                  parameters: (implicit_parameter_list
+                    (parameter
+                      name: (identifier)))
                   body: (binary_expression
                     left: (identifier)
                     right: (integer_literal)))))))
@@ -1364,7 +1368,9 @@ void a() {
               (equals_value_clause
                 (lambda_expression
                   (modifier)
-                  parameters: (identifier)
+                  parameters: (implicit_parameter_list
+                    (parameter
+                      name: (identifier)))
                   body: (binary_expression
                     left: (identifier)
                     right: (integer_literal)))))))
@@ -1377,7 +1383,9 @@ void a() {
                 (lambda_expression
                   (modifier)
                   (modifier)
-                  parameters: (identifier)
+                  parameters: (implicit_parameter_list
+                    (parameter
+                      name: (identifier)))
                   body: (binary_expression
                     left: (identifier)
                     right: (integer_literal)))))))
@@ -1390,7 +1398,9 @@ void a() {
                 (lambda_expression
                   (modifier)
                   (modifier)
-                  parameters: (identifier)
+                  parameters: (implicit_parameter_list
+                    (parameter
+                      name: (identifier)))
                   body: (binary_expression
                     left: (identifier)
                     right: (integer_literal)))))))))))

@@ -277,7 +277,9 @@ class scoped { }
               (identifier)
               (equals_value_clause
                 (lambda_expression
-                  parameters: (identifier)
+                  parameters: (implicit_parameter_list
+                    (parameter
+                      name: (identifier)))
                   body: (null_literal))))))
         (local_declaration_statement
           (variable_declaration

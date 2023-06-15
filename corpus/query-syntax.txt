@@ -430,7 +430,7 @@ var x = from a in sourceA
                       arguments: (argument_list
                         (argument
                           (lambda_expression
-                            (identifier)
+                            parameters: (identifier)
                             body: (member_access_expression
                               expression: (identifier)
                               name: (identifier))))))))))))))))

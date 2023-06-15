@@ -1178,7 +1178,7 @@ module.exports = grammar({
       repeat($.attribute_list),
       optional(alias(choice('async', 'static', seq('async', 'static'), seq('static', 'async')), $.modifier)),
       optional($._type),
-      choice(field('parameters', $.parameter_list), $.identifier),
+      field('parameters', choice($.parameter_list, $.identifier)),
       '=>',
       field('body', choice($.block, $._expression))
     )),

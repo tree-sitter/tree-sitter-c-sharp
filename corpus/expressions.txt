@@ -1250,7 +1250,7 @@ void a() {
               (identifier)
               (equals_value_clause
                 (lambda_expression
-                  (identifier)
+                  parameters: (identifier)
                   body: (binary_expression
                     left: (identifier)
                     right: (integer_literal)))))))
@@ -1352,7 +1352,7 @@ void a() {
               (equals_value_clause
                 (lambda_expression
                   (modifier)
-                  (identifier)
+                  parameters: (identifier)
                   body: (binary_expression
                     left: (identifier)
                     right: (integer_literal)))))))
@@ -1364,20 +1364,7 @@ void a() {
               (equals_value_clause
                 (lambda_expression
                   (modifier)
-                  (identifier)
-                  body: (binary_expression
-                    left: (identifier)
-                    right: (integer_literal)))))))
-        (local_declaration_statement
-          (variable_declaration
-            type: (implicit_type)
-            (variable_declarator
-              (identifier)
-              (equals_value_clause
-                (lambda_expression
-                  (modifier)
-                  (modifier)
-                  (identifier)
+                  parameters: (identifier)
                   body: (binary_expression
                     left: (identifier)
                     right: (integer_literal)))))))
@@ -1390,7 +1377,20 @@ void a() {
                 (lambda_expression
                   (modifier)
                   (modifier)
-                  (identifier)
+                  parameters: (identifier)
+                  body: (binary_expression
+                    left: (identifier)
+                    right: (integer_literal)))))))
+        (local_declaration_statement
+          (variable_declaration
+            type: (implicit_type)
+            (variable_declarator
+              (identifier)
+              (equals_value_clause
+                (lambda_expression
+                  (modifier)
+                  (modifier)
+                  parameters: (identifier)
                   body: (binary_expression
                     left: (identifier)
                     right: (integer_literal)))))))))))

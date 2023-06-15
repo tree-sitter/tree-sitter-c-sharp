@@ -68,7 +68,6 @@ module.exports = grammar({
     [$.qualified_name, $.member_access_expression],
 
     [$._contextual_keywords, $.from_clause],
-    [$._contextual_keywords, $.global],
     [$._contextual_keywords, $.type_parameter_constraint],
     [$._contextual_keywords, $.modifier],
     [$._contextual_keywords, $.scoped_type],
@@ -116,7 +115,6 @@ module.exports = grammar({
   ],
 
   inline: $ => [
-    $._identifier_or_global,
   ],
 
   word: $ => $._identifier_token,
@@ -184,7 +182,7 @@ module.exports = grammar({
       ';'
     ),
 
-    name_equals: $ => prec(1, seq($._identifier_or_global, '=')),
+    name_equals: $ => prec(1, seq($.identifier, '=')),
 
     _name: $ => choice(
       $.alias_qualified_name,
@@ -192,11 +190,11 @@ module.exports = grammar({
       $._simple_name
     ),
 
-    alias_qualified_name: $ => seq($._identifier_or_global, '::', $._simple_name),
+    alias_qualified_name: $ => seq($.identifier, '::', $._simple_name),
 
     _simple_name: $ => choice(
       $.generic_name,
-      $._identifier_or_global
+      $.identifier
     ),
 
     generic_name: $ => seq($.identifier, $.type_argument_list),
@@ -251,7 +249,7 @@ module.exports = grammar({
       ']'
     ),
 
-    name_colon: $ => seq($._identifier_or_global, ':'),
+    name_colon: $ => seq($.identifier, ':'),
 
     event_field_declaration: $ => prec.dynamic(1, seq(
       repeat($.attribute_list),
@@ -438,7 +436,7 @@ module.exports = grammar({
 
     type_parameter_constraints_clause: $ => seq(
       'where',
-      field('target', $._identifier_or_global),
+      field('target', $.identifier),
       ':',
       field('constraints', commaSep1($.type_parameter_constraint)),
     ),
@@ -1674,9 +1672,6 @@ module.exports = grammar({
     // Unicode categories: L = Letter, Nl Letter_Number, = Nd = Decimal_Number, Pc = Connector_Punctuation, Cf = Format, Mn = Nonspacing_Mark, Mc = Spacing_Mark
     _identifier_token: $ => token(seq(optional('@'), /[\p{L}\p{Nl}_][\p{L}\p{Nl}\p{Nd}\p{Pc}\p{Cf}\p{Mn}\p{Mc}]*/)),
     identifier: $ => choice($._identifier_token, $._contextual_keywords),
-
-    global: $ => 'global',
-    _identifier_or_global: $ => choice($.global, $.identifier),
 
     // Literals - grammar.txt is useless here as it just refs to lexical specification
 

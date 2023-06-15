@@ -3179,6 +3179,21 @@
     }
   },
   {
+    "type": "implicit_parameter_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "implicit_stack_alloc_array_creation_expression",
     "named": true,
     "fields": {},
@@ -3648,7 +3663,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "implicit_parameter_list",
             "named": true
           },
           {

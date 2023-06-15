@@ -63,6 +63,7 @@ module.exports = grammar({
     [$._simple_name, $.constructor_declaration],
     [$._simple_name, $.name_colon],
     [$._simple_name, $.tuple_pattern],
+    [$._simple_name, $.implicit_parameter],
 
     [$.qualified_name, $.explicit_interface_specifier],
     [$.qualified_name, $.member_access_expression],
@@ -343,6 +344,10 @@ module.exports = grammar({
       optional($._formal_parameter_list),
       ')'
     ),
+
+    implicit_parameter_list: $ => alias($.implicit_parameter, $.parameter),
+
+    implicit_parameter: $ => field('name', $.identifier),
 
     _formal_parameter_list: $ => commaSep1(choice(
       $.parameter,
@@ -1178,7 +1183,7 @@ module.exports = grammar({
       repeat($.attribute_list),
       optional(alias(choice('async', 'static', seq('async', 'static'), seq('static', 'async')), $.modifier)),
       optional($._type),
-      field('parameters', choice($.parameter_list, $.identifier)),
+      field('parameters', choice($.parameter_list, $.implicit_parameter_list)),
       '=>',
       field('body', choice($.block, $._expression))
     )),

@@ -50,7 +50,7 @@ class C
         a = a << a;
         //    ^ operator
         a = a >>> a;
-        //    ^
+        //    ^ operator
 
         a = a == b;
         //    ^ operator
@@ -59,11 +59,11 @@ class C
         a = a < b;
         //    ^ operator
         a = a <= b;
-        //    ^
+        //    ^ operator
         a = a > b;
         //    ^ operator
         a = a >= b;
-        //    ^
+        //    ^ operator
 
         // assignment binary
         a += a;
@@ -71,17 +71,17 @@ class C
         a -= a;
         //^ operator
         a *= a;
-        //^
+        //^ operator
         a /= a;
-        //^
+        //^ operator
         a %= a;
-        //^
+        //^ operator
         a <<= a;
-        //^
+        //^ operator
         a >>= a;
-        //^
+        //^ operator
         a >>>= a;
-        //^
+        //^ operator
 
         // ternary
         string y = x ? "foo" : "bar";

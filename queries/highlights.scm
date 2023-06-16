@@ -22,6 +22,8 @@
   (predefined_type)
 ] @type.builtin
 
+(_ type: (identifier) @type)
+
 ;; Enum
 (enum_member_declaration (identifier) @property.definition)
 
@@ -187,10 +189,9 @@
 (prefix_unary_expression (identifier) @variable)
 (postfix_unary_expression (identifier)* @variable)
 (assignment_expression (identifier) @variable)
-(cast_expression (identifier) @type (identifier) @variable)
+(cast_expression value: (identifier) @variable)
 
 ;; Class
-(base_list (identifier) @type)
 (property_declaration (generic_name))
 (property_declaration
   type: (nullable_type) @type
@@ -199,7 +200,6 @@
   type: (predefined_type) @type
   name: (identifier) @variable)
 (property_declaration
-  type: (identifier) @type
   name: (identifier) @variable)
 
 ;; Lambda
@@ -210,16 +210,10 @@
 
 ;; Parameter
 (parameter
-  type: (identifier) @type
   name: (identifier) @variable.parameter)
-(parameter (identifier) @variable.parameter)
 (parameter_modifier) @keyword
 
-;; Typeof
-(type_of_expression (identifier) @type)
-
 ;; Variable
-(variable_declaration (identifier) @type)
 (variable_declarator (identifier) @variable)
 
 ;; Return
@@ -229,15 +223,12 @@
 ;; Type
 (generic_name (identifier) @type)
 (type_parameter (identifier) @property.definition)
-(type_argument_list (identifier) @type)
 
 ;; Type constraints
 (type_parameter_constraints_clause (identifier) @property.definition)
-(type_constraint (identifier) @type)
 
 ;; Exception
-(catch_declaration (identifier) @type (identifier) @variable)
-(catch_declaration (identifier) @type)
+(catch_declaration name: (identifier) @variable)
 
 ;; Switch
 (switch_statement (identifier) @variable)

@@ -7,14 +7,14 @@ int x = y;
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (local_declaration_statement
-      (variable_declaration
+      declaration: (variable_declaration
         type: (predefined_type)
-        (variable_declarator
-          (identifier)
-          (equals_value_clause
-            (identifier)))))))
+        variable_declarator: (variable_declarator
+          name: (identifier)
+          initializer: (equals_value_clause
+            value: (identifier)))))))
 
 ================================================================================
 indentifiers with keyword names
@@ -25,14 +25,14 @@ int @var = @const;
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (local_declaration_statement
-      (variable_declaration
+      declaration: (variable_declaration
         type: (predefined_type)
-        (variable_declarator
-          (identifier)
-          (equals_value_clause
-            (identifier)))))))
+        variable_declarator: (variable_declarator
+          name: (identifier)
+          initializer: (equals_value_clause
+            value: (identifier)))))))
 
 ================================================================================
 identifiers with contextual keyword names
@@ -44,22 +44,22 @@ int nuint = 0;
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (local_declaration_statement
-      (variable_declaration
+      declaration: (variable_declaration
         type: (predefined_type)
-        (variable_declarator
-          (identifier)
-          (equals_value_clause
-            (integer_literal))))))
-  (global_statement
+        variable_declarator: (variable_declarator
+          name: (identifier)
+          initializer: (equals_value_clause
+            value: (integer_literal))))))
+  statement: (global_statement
     (local_declaration_statement
-      (variable_declaration
+      declaration: (variable_declaration
         type: (predefined_type)
-        (variable_declarator
-          (identifier)
-          (equals_value_clause
-            (integer_literal)))))))
+        variable_declarator: (variable_declarator
+          name: (identifier)
+          initializer: (equals_value_clause
+            value: (integer_literal)))))))
 
 ================================================================================
 unicode identifiers
@@ -76,59 +76,59 @@ var _كوكبxxx = 0;
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (local_declaration_statement
-      (variable_declaration
+      declaration: (variable_declaration
         type: (implicit_type)
-        (variable_declarator
-          (identifier)
-          (equals_value_clause
-            (integer_literal))))))
-  (global_statement
+        variable_declarator: (variable_declarator
+          name: (identifier)
+          initializer: (equals_value_clause
+            value: (integer_literal))))))
+  statement: (global_statement
     (local_declaration_statement
-      (variable_declaration
+      declaration: (variable_declaration
         type: (implicit_type)
-        (variable_declarator
-          (identifier)
-          (equals_value_clause
-            (integer_literal))))))
-  (global_statement
+        variable_declarator: (variable_declarator
+          name: (identifier)
+          initializer: (equals_value_clause
+            value: (integer_literal))))))
+  statement: (global_statement
     (local_declaration_statement
-      (variable_declaration
+      declaration: (variable_declaration
         type: (implicit_type)
-        (variable_declarator
-          (identifier)
-          (equals_value_clause
-            (integer_literal))))))
-  (global_statement
+        variable_declarator: (variable_declarator
+          name: (identifier)
+          initializer: (equals_value_clause
+            value: (integer_literal))))))
+  statement: (global_statement
     (local_declaration_statement
-      (variable_declaration
+      declaration: (variable_declaration
         type: (implicit_type)
-        (variable_declarator
-          (identifier)
-          (equals_value_clause
-            (integer_literal))))))
-  (global_statement
+        variable_declarator: (variable_declarator
+          name: (identifier)
+          initializer: (equals_value_clause
+            value: (integer_literal))))))
+  statement: (global_statement
     (local_declaration_statement
-      (variable_declaration
+      declaration: (variable_declaration
         type: (implicit_type)
-        (variable_declarator
-          (identifier)
-          (equals_value_clause
-            (integer_literal))))))
-  (global_statement
+        variable_declarator: (variable_declarator
+          name: (identifier)
+          initializer: (equals_value_clause
+            value: (integer_literal))))))
+  statement: (global_statement
     (local_declaration_statement
-      (variable_declaration
+      declaration: (variable_declaration
         type: (implicit_type)
-        (variable_declarator
-          (identifier)
-          (equals_value_clause
-            (integer_literal))))))
-  (global_statement
+        variable_declarator: (variable_declarator
+          name: (identifier)
+          initializer: (equals_value_clause
+            value: (integer_literal))))))
+  statement: (global_statement
     (local_declaration_statement
-      (variable_declaration
+      declaration: (variable_declaration
         type: (implicit_type)
-        (variable_declarator
-          (identifier)
-          (equals_value_clause
-            (integer_literal)))))))
+        variable_declarator: (variable_declarator
+          name: (identifier)
+          initializer: (equals_value_clause
+            value: (integer_literal)))))))

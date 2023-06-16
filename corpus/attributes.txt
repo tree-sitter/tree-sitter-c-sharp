@@ -8,15 +8,15 @@ Global attributes
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_attribute_list
-    (attribute
+  attributes: (global_attribute_list
+    attribute: (attribute
       name: (identifier)))
-  (global_attribute_list
-    (attribute
+  attributes: (global_attribute_list
+    attribute: (attribute
       name: (identifier))
-    (attribute
+    attribute: (attribute
       name: (identifier)
-      (attribute_argument_list))))
+      arguments: (attribute_argument_list))))
 
 ================================================================================
 Attributes with arguments
@@ -28,13 +28,13 @@ class D {}
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     (attribute_list
-      (attribute
+      attribute: (attribute
         name: (identifier)
-        (attribute_argument_list
-          (attribute_argument
-            (member_access_expression
+        arguments: (attribute_argument_list
+          argument: (attribute_argument
+            expression: (member_access_expression
               expression: (identifier)
               name: (identifier))))))
     name: (identifier)
@@ -50,15 +50,15 @@ class D {}
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     (attribute_list
-      (attribute
+      attribute: (attribute
         name: (qualified_name
-          (identifier)
-          (identifier))
-        (attribute_argument_list
-          (attribute_argument
-            (member_access_expression
+          left: (identifier)
+          right: (identifier))
+        arguments: (attribute_argument_list
+          argument: (attribute_argument
+            expression: (member_access_expression
               expression: (identifier)
               name: (identifier))))))
     name: (identifier)
@@ -82,34 +82,34 @@ class A { }
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     (attribute_list
-      (attribute
+      attribute: (attribute
         name: (identifier)))
     name: (identifier)
     body: (declaration_list))
-  (class_declaration
+  declaration: (class_declaration
     (attribute_list
-      (attribute
+      attribute: (attribute
         name: (identifier)))
     (attribute_list
-      (attribute
+      attribute: (attribute
         name: (identifier)))
     (attribute_list
-      (attribute
+      attribute: (attribute
         name: (identifier)))
     name: (identifier)
     body: (declaration_list))
-  (class_declaration
+  declaration: (class_declaration
     (attribute_list
-      (attribute
+      attribute: (attribute
         name: (identifier)))
     (attribute_list
-      (attribute
+      attribute: (attribute
         name: (identifier))
-      (attribute
+      attribute: (attribute
         name: (identifier)
-        (attribute_argument_list)))
+        arguments: (attribute_argument_list)))
     name: (identifier)
     body: (declaration_list)))
 
@@ -123,15 +123,15 @@ struct A { }
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (struct_declaration
+  declaration: (struct_declaration
     (attribute_list
-      (attribute
+      attribute: (attribute
         name: (identifier))
-      (attribute
+      attribute: (attribute
         name: (identifier)
-        (attribute_argument_list)))
+        arguments: (attribute_argument_list)))
     (attribute_list
-      (attribute
+      attribute: (attribute
         name: (identifier)))
     name: (identifier)
     body: (declaration_list)))
@@ -148,24 +148,24 @@ class Zzz {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (field_declaration
+      declaration: (field_declaration
         (attribute_list
-          (attribute
+          attribute: (attribute
             name: (identifier))
-          (attribute
+          attribute: (attribute
             name: (identifier)
-            (attribute_argument_list)))
+            arguments: (attribute_argument_list)))
         (attribute_list
-          (attribute
+          attribute: (attribute
             name: (identifier)))
-        (modifier)
-        (variable_declaration
+        modifier: (modifier)
+        declaration: (variable_declaration
           type: (predefined_type)
-          (variable_declarator
-            (identifier)))))))
+          variable_declarator: (variable_declarator
+            name: (identifier)))))))
 
 ================================================================================
 Attributes on methods
@@ -185,41 +185,41 @@ class Methods {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         (attribute_list
-          (attribute
+          attribute: (attribute
             name: (identifier)))
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (return_statement
-            (integer_literal))))
-      (method_declaration
-        (attribute_list
-          (attribute_target_specifier)
-          (attribute
-            name: (identifier)))
-        type: (predefined_type)
-        name: (identifier)
-        parameters: (parameter_list)
-        body: (block
-          (return_statement
-            (integer_literal))))
-      (method_declaration
+          statement: (return_statement
+            expression: (integer_literal))))
+      declaration: (method_declaration
         (attribute_list
           (attribute_target_specifier)
-          (attribute
+          attribute: (attribute
             name: (identifier)))
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (return_statement
-            (integer_literal)))))))
+          statement: (return_statement
+            expression: (integer_literal))))
+      declaration: (method_declaration
+        (attribute_list
+          (attribute_target_specifier)
+          attribute: (attribute
+            name: (identifier)))
+        type: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (block
+          statement: (return_statement
+            expression: (integer_literal)))))))
 
 ================================================================================
 Attributes on enums
@@ -239,9 +239,9 @@ enum A { B, C }
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (enum_declaration
+  declaration: (enum_declaration
     (attribute_list
-      (attribute
+      attribute: (attribute
         name: (identifier)))
     name: (identifier)
     body: (enum_member_declaration_list
@@ -249,15 +249,15 @@ enum A { B, C }
         name: (identifier))
       (enum_member_declaration
         name: (identifier))))
-  (enum_declaration
+  declaration: (enum_declaration
     (attribute_list
-      (attribute
+      attribute: (attribute
         name: (identifier)))
     (attribute_list
-      (attribute
+      attribute: (attribute
         name: (identifier)))
     (attribute_list
-      (attribute
+      attribute: (attribute
         name: (identifier)))
     name: (identifier)
     body: (enum_member_declaration_list
@@ -265,16 +265,16 @@ enum A { B, C }
         name: (identifier))
       (enum_member_declaration
         name: (identifier))))
-  (enum_declaration
+  declaration: (enum_declaration
     (attribute_list
-      (attribute
+      attribute: (attribute
         name: (identifier)))
     (attribute_list
-      (attribute
+      attribute: (attribute
         name: (identifier))
-      (attribute
+      attribute: (attribute
         name: (identifier)
-        (attribute_argument_list)))
+        arguments: (attribute_argument_list)))
     name: (identifier)
     body: (enum_member_declaration_list
       (enum_member_declaration
@@ -294,26 +294,26 @@ class Zzz {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (event_declaration
+      declaration: (event_declaration
         (attribute_list
-          (attribute
+          attribute: (attribute
             name: (identifier))
-          (attribute
+          attribute: (attribute
             name: (identifier)
-            (attribute_argument_list)))
+            arguments: (attribute_argument_list)))
         (attribute_list
-          (attribute
+          attribute: (attribute
             name: (identifier)))
-        (modifier)
+        modifier: (modifier)
         type: (identifier)
         name: (identifier)
         accessors: (accessor_list
-          (accessor_declaration
+          accessor: (accessor_declaration
             body: (block))
-          (accessor_declaration
+          accessor: (accessor_declaration
             body: (block)))))))
 
 ================================================================================
@@ -328,37 +328,37 @@ class Class<[A, B][C()]T1> {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     type_parameters: (type_parameter_list
-      (type_parameter
+      type_parameter: (type_parameter
         (attribute_list
-          (attribute
+          attribute: (attribute
             name: (identifier))
-          (attribute
+          attribute: (attribute
             name: (identifier)))
         (attribute_list
-          (attribute
+          attribute: (attribute
             name: (identifier)
-            (attribute_argument_list)))
+            arguments: (attribute_argument_list)))
         name: (identifier)))
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         type_parameters: (type_parameter_list
-          (type_parameter
+          type_parameter: (type_parameter
             (attribute_list
-              (attribute
+              attribute: (attribute
                 name: (identifier)))
             (attribute_list
-              (attribute
+              attribute: (attribute
                 name: (identifier))
-              (attribute
+              attribute: (attribute
                 name: (identifier)
-                (attribute_argument_list
-                  (attribute_argument
-                    (integer_literal)))))
+                arguments: (attribute_argument_list
+                  argument: (attribute_argument
+                    expression: (integer_literal)))))
             name: (identifier)))
         parameters: (parameter_list)
         body: (block)))))
@@ -377,34 +377,34 @@ class Zzz {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (event_declaration
-        (modifier)
+      declaration: (event_declaration
+        modifier: (modifier)
         type: (identifier)
         name: (identifier)
         accessors: (accessor_list
-          (accessor_declaration
+          accessor: (accessor_declaration
             (attribute_list
-              (attribute
+              attribute: (attribute
                 name: (identifier))
-              (attribute
+              attribute: (attribute
                 name: (identifier)
-                (attribute_argument_list)))
+                arguments: (attribute_argument_list)))
             (attribute_list
-              (attribute
+              attribute: (attribute
                 name: (identifier)))
             body: (block))
-          (accessor_declaration
+          accessor: (accessor_declaration
             (attribute_list
-              (attribute
+              attribute: (attribute
                 name: (identifier))
-              (attribute
+              attribute: (attribute
                 name: (identifier)
-                (attribute_argument_list)))
+                arguments: (attribute_argument_list)))
             (attribute_list
-              (attribute
+              attribute: (attribute
                 name: (identifier)))
             body: (block)))))))
 
@@ -417,10 +417,10 @@ void A() { }
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (local_function_statement
       (attribute_list
-        (attribute
+        attribute: (attribute
           name: (identifier)))
       type: (predefined_type)
       name: (identifier)
@@ -436,15 +436,15 @@ void A() { }
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (local_function_statement
       (attribute_list
-        (attribute
+        attribute: (attribute
           name: (generic_name
-            (identifier)
-            (type_argument_list
-              (identifier)
-              (identifier)))))
+            name: (identifier)
+            type_arguments: (type_argument_list
+              type: (identifier)
+              type: (identifier)))))
       type: (predefined_type)
       name: (identifier)
       parameters: (parameter_list)
@@ -459,16 +459,16 @@ var greeting = [Hello] () => Console.WriteLine("hello");
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (local_declaration_statement
-      (variable_declaration
+      declaration: (variable_declaration
         type: (implicit_type)
-        (variable_declarator
-          (identifier)
-          (equals_value_clause
-            (lambda_expression
+        variable_declarator: (variable_declarator
+          name: (identifier)
+          initializer: (equals_value_clause
+            value: (lambda_expression
               (attribute_list
-                (attribute
+                attribute: (attribute
                   name: (identifier)))
               parameters: (parameter_list)
               body: (invocation_expression
@@ -476,6 +476,6 @@ var greeting = [Hello] () => Console.WriteLine("hello");
                   expression: (identifier)
                   name: (identifier))
                 arguments: (argument_list
-                  (argument
-                    (string_literal
+                  argument: (argument
+                    expression: (string_literal
                       (string_literal_fragment))))))))))))

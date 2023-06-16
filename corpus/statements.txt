@@ -11,16 +11,16 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (return_statement
-            (integer_literal)))))))
+          statement: (return_statement
+            expression: (integer_literal)))))))
 
 ================================================================================
 Return nothing
@@ -35,15 +35,15 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (return_statement))))))
+          statement: (return_statement))))))
 
 ================================================================================
 Break statement
@@ -58,17 +58,17 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (while_statement
-            (boolean_literal)
-            (break_statement)))))))
+          statement: (while_statement
+            condition: (boolean_literal)
+            statement: (break_statement)))))))
 
 ================================================================================
 Continue statement
@@ -83,17 +83,17 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (while_statement
-            (boolean_literal)
-            (continue_statement)))))))
+          statement: (while_statement
+            condition: (boolean_literal)
+            statement: (continue_statement)))))))
 
 ================================================================================
 Throw nothing
@@ -108,15 +108,15 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (throw_statement))))))
+          statement: (throw_statement))))))
 
 ================================================================================
 Throw exception
@@ -131,16 +131,16 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (throw_statement
-            (identifier)))))))
+          statement: (throw_statement
+            expression: (identifier)))))))
 
 ================================================================================
 Do while
@@ -155,20 +155,20 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list
-          (parameter
+          parameter: (parameter
             type: (predefined_type)
             name: (identifier)))
         body: (block
-          (do_statement
-            (block)
-            (identifier)))))))
+          statement: (do_statement
+            statement: (block)
+            condition: (identifier)))))))
 
 ================================================================================
 Goto statement and label
@@ -185,17 +185,17 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (goto_statement
-            (identifier))
-          (labeled_statement
+          statement: (goto_statement
+            expression: (identifier))
+          statement: (labeled_statement
             (identifier)
             (return_statement)))))))
 
@@ -212,18 +212,18 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (if_statement
+          statement: (if_statement
             condition: (boolean_literal)
             consequence: (return_statement
-              (integer_literal))))))))
+              expression: (integer_literal))))))))
 
 ================================================================================
 If Else statement
@@ -239,20 +239,20 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (if_statement
+          statement: (if_statement
             condition: (boolean_literal)
             consequence: (return_statement
-              (integer_literal))
+              expression: (integer_literal))
             alternative: (return_statement
-              (integer_literal))))))))
+              expression: (integer_literal))))))))
 
 ================================================================================
 Switch statement
@@ -274,32 +274,32 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list
-          (parameter
+          parameter: (parameter
             type: (predefined_type)
             name: (identifier)))
         body: (block
-          (switch_statement
+          statement: (switch_statement
             value: (identifier)
             body: (switch_body
               (switch_section
                 (case_switch_label
-                  (integer_literal))
+                  expression: (integer_literal))
                 (case_switch_label
-                  (integer_literal))
+                  expression: (integer_literal))
                 (return_statement
-                  (integer_literal)))
+                  expression: (integer_literal)))
               (switch_section
                 (default_switch_label)
                 (block
-                  (return_statement
-                    (integer_literal)))))))))))
+                  statement: (return_statement
+                    expression: (integer_literal)))))))))))
 
 ================================================================================
 Declared tuple type with default
@@ -310,20 +310,20 @@ Declared tuple type with default
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (local_declaration_statement
-      (variable_declaration
+      declaration: (variable_declaration
         type: (tuple_type
-          (tuple_element
+          element: (tuple_element
             type: (predefined_type)
             name: (identifier))
-          (tuple_element
+          element: (tuple_element
             type: (predefined_type)
             name: (identifier)))
-        (variable_declarator
-          (identifier)
-          (equals_value_clause
-            (default_expression)))))))
+        variable_declarator: (variable_declarator
+          name: (identifier)
+          initializer: (equals_value_clause
+            value: (default_expression)))))))
 
 ================================================================================
 Declaration with generic type
@@ -334,17 +334,17 @@ A<B> a = null;
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (local_declaration_statement
-      (variable_declaration
+      declaration: (variable_declaration
         type: (generic_name
-          (identifier)
-          (type_argument_list
-            (identifier)))
-        (variable_declarator
-          (identifier)
-          (equals_value_clause
-            (null_literal)))))))
+          name: (identifier)
+          type_arguments: (type_argument_list
+            type: (identifier)))
+        variable_declarator: (variable_declarator
+          name: (identifier)
+          initializer: (equals_value_clause
+            value: (null_literal)))))))
 
 ================================================================================
 Assignment and declaration in same deconstruction
@@ -356,25 +356,25 @@ int x = 0;
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (local_declaration_statement
-      (variable_declaration
+      declaration: (variable_declaration
         type: (predefined_type)
-        (variable_declarator
-          (identifier)
-          (equals_value_clause
-            (integer_literal))))))
-  (global_statement
+        variable_declarator: (variable_declarator
+          name: (identifier)
+          initializer: (equals_value_clause
+            value: (integer_literal))))))
+  statement: (global_statement
     (expression_statement
       (assignment_expression
         left: (tuple_expression
           (argument
-            (identifier))
+            expression: (identifier))
           (argument
-            (declaration_expression
+            expression: (declaration_expression
               type: (predefined_type)
               name: (identifier))))
-        (assignment_operator)
+        operator: (assignment_operator)
         right: (identifier)))))
 
 ================================================================================
@@ -386,18 +386,18 @@ M(out (int a, int b) c);
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (expression_statement
       (invocation_expression
         function: (identifier)
         arguments: (argument_list
-          (argument
-            (declaration_expression
+          argument: (argument
+            expression: (declaration_expression
               type: (tuple_type
-                (tuple_element
+                element: (tuple_element
                   type: (predefined_type)
                   name: (identifier))
-                (tuple_element
+                element: (tuple_element
                   type: (predefined_type)
                   name: (identifier)))
               name: (identifier))))))))
@@ -415,29 +415,29 @@ void M() {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (local_function_statement
       type: (predefined_type)
       name: (identifier)
       parameters: (parameter_list)
       body: (block
-        (local_function_statement
+        statement: (local_function_statement
           type: (tuple_type
-            (tuple_element
+            element: (tuple_element
               type: (predefined_type)
               name: (identifier))
-            (tuple_element
+            element: (tuple_element
               type: (predefined_type)
               name: (identifier)))
           name: (identifier)
           parameters: (parameter_list)
           body: (block
-            (return_statement
-              (tuple_expression
+            statement: (return_statement
+              expression: (tuple_expression
                 (argument
-                  (boolean_literal))
+                  expression: (boolean_literal))
                 (argument
-                  (boolean_literal))))))))))
+                  expression: (boolean_literal))))))))))
 
 ================================================================================
 Inferred tuples
@@ -448,38 +448,38 @@ var result = list.Select(c => (c.f1, c.f2)).Where(t => t.f2 == 1);
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (local_declaration_statement
-      (variable_declaration
+      declaration: (variable_declaration
         type: (implicit_type)
-        (variable_declarator
-          (identifier)
-          (equals_value_clause
-            (invocation_expression
+        variable_declarator: (variable_declarator
+          name: (identifier)
+          initializer: (equals_value_clause
+            value: (invocation_expression
               function: (member_access_expression
                 expression: (invocation_expression
                   function: (member_access_expression
                     expression: (identifier)
                     name: (identifier))
                   arguments: (argument_list
-                    (argument
-                      (lambda_expression
+                    argument: (argument
+                      expression: (lambda_expression
                         parameters: (implicit_parameter_list
                           (parameter
                             name: (identifier)))
                         body: (tuple_expression
                           (argument
-                            (member_access_expression
+                            expression: (member_access_expression
                               expression: (identifier)
                               name: (identifier)))
                           (argument
-                            (member_access_expression
+                            expression: (member_access_expression
                               expression: (identifier)
                               name: (identifier))))))))
                 name: (identifier))
               arguments: (argument_list
-                (argument
-                  (lambda_expression
+                argument: (argument
+                  expression: (lambda_expression
                     parameters: (implicit_parameter_list
                       (parameter
                         name: (identifier)))
@@ -507,37 +507,37 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list
-          (parameter
+          parameter: (parameter
             type: (predefined_type)
             name: (identifier)))
         body: (block
-          (switch_statement
+          statement: (switch_statement
             value: (tuple_expression
               (argument
-                (identifier))
+                expression: (identifier))
               (argument
-                (identifier)))
+                expression: (identifier)))
             body: (switch_body
               (switch_section
                 (case_switch_label
-                  (tuple_expression
+                  expression: (tuple_expression
                     (argument
-                      (integer_literal))
+                      expression: (integer_literal))
                     (argument
-                      (integer_literal))))
+                      expression: (integer_literal))))
                 (return_statement
-                  (integer_literal)))
+                  expression: (integer_literal)))
               (switch_section
                 (default_switch_label)
                 (return_statement
-                  (integer_literal))))))))))
+                  expression: (integer_literal))))))))))
 
 ================================================================================
 switch on positional pattern with when clause
@@ -552,13 +552,13 @@ switch (A, B)
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (switch_statement
       value: (tuple_expression
         (argument
-          (identifier))
+          expression: (identifier))
         (argument
-          (identifier)))
+          expression: (identifier)))
       body: (switch_body
         (switch_section
           (case_pattern_switch_label
@@ -569,8 +569,8 @@ switch (A, B)
                 (subpattern
                   (discard))))
             (when_clause
-              (prefix_unary_expression
-                (identifier))))
+              expression: (prefix_unary_expression
+                expression: (identifier))))
           (break_statement))))))
 
 ================================================================================
@@ -586,7 +586,7 @@ switch (A)
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (switch_statement
       value: (identifier)
       body: (switch_body
@@ -596,12 +596,12 @@ switch (A)
               (property_pattern_clause
                 (subpattern
                   (expression_colon
-                    (identifier))
+                    expression: (identifier))
                   (constant_pattern
                     (integer_literal)))))
             (when_clause
-              (prefix_unary_expression
-                (identifier))))
+              expression: (prefix_unary_expression
+                expression: (identifier))))
           (break_statement))))))
 
 ================================================================================
@@ -618,24 +618,24 @@ switch (i)
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (local_declaration_statement
-      (variable_declaration
+      declaration: (variable_declaration
         type: (predefined_type)
-        (variable_declarator
-          (identifier)
-          (equals_value_clause
-            (integer_literal))))))
-  (global_statement
+        variable_declarator: (variable_declarator
+          name: (identifier)
+          initializer: (equals_value_clause
+            value: (integer_literal))))))
+  statement: (global_statement
     (switch_statement
       value: (identifier)
       body: (switch_body
         (switch_section
           (case_pattern_switch_label
             (type_pattern
-              (predefined_type))
+              type: (predefined_type))
             (when_clause
-              (binary_expression
+              expression: (binary_expression
                 left: (identifier)
                 right: (integer_literal))))
           (break_statement))))))
@@ -655,15 +655,15 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (try_statement
+          statement: (try_statement
             body: (block)
             (finally_clause
               (block))))))))
@@ -683,18 +683,18 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (try_statement
+          statement: (try_statement
             body: (block)
             (catch_clause
-              (catch_declaration
+              declaration: (catch_declaration
                 type: (identifier)
                 name: (identifier))
               body: (block))))))))
@@ -715,18 +715,18 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (try_statement
+          statement: (try_statement
             body: (block)
             (catch_clause
-              (catch_declaration
+              declaration: (catch_declaration
                 type: (identifier)
                 name: (identifier))
               body: (block))
@@ -749,23 +749,23 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (try_statement
+          statement: (try_statement
             body: (block)
             (catch_clause
-              (catch_declaration
+              declaration: (catch_declaration
                 type: (identifier)
                 name: (identifier))
               body: (block))
             (catch_clause
-              (catch_declaration
+              declaration: (catch_declaration
                 type: (identifier)
                 name: (identifier))
               body: (block))))))))
@@ -785,18 +785,18 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (try_statement
+          statement: (try_statement
             body: (block)
             (catch_clause
-              (catch_declaration
+              declaration: (catch_declaration
                 type: (identifier)
                 name: (identifier))
               (catch_filter_clause
@@ -820,17 +820,17 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (checked_statement
+          statement: (checked_statement
             (block
-              (return_statement))))))))
+              statement: (return_statement))))))))
 
 ================================================================================
 Unchecked statement
@@ -847,17 +847,17 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (checked_statement
+          statement: (checked_statement
             (block
-              (return_statement))))))))
+              statement: (return_statement))))))))
 
 ================================================================================
 Lock statement
@@ -874,18 +874,18 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (lock_statement
-            (this_expression)
+          statement: (lock_statement
+            expression: (this_expression)
             (block
-              (return_statement))))))))
+              statement: (return_statement))))))))
 
 ================================================================================
 Yield statement
@@ -901,20 +901,20 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (generic_name
-          (identifier)
-          (type_argument_list
-            (predefined_type)))
+          name: (identifier)
+          type_arguments: (type_argument_list
+            type: (predefined_type)))
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (yield_statement
-            (integer_literal))
-          (yield_statement))))))
+          statement: (yield_statement
+            expression: (integer_literal))
+          statement: (yield_statement))))))
 
 ================================================================================
 Implicit local variable with literal initializer
@@ -929,21 +929,21 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (local_declaration_statement
-            (variable_declaration
+          statement: (local_declaration_statement
+            declaration: (variable_declaration
               type: (implicit_type)
-              (variable_declarator
-                (identifier)
-                (equals_value_clause
-                  (integer_literal))))))))))
+              variable_declarator: (variable_declarator
+                name: (identifier)
+                initializer: (equals_value_clause
+                  value: (integer_literal))))))))))
 
 ================================================================================
 Method with static local function block
@@ -965,28 +965,28 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (local_function_statement
-            (modifier)
+          statement: (local_function_statement
+            modifier: (modifier)
             type: (predefined_type)
             name: (identifier)
             type_parameters: (type_parameter_list
-              (type_parameter
+              type_parameter: (type_parameter
                 name: (identifier))
-              (type_parameter
+              type_parameter: (type_parameter
                 name: (identifier)))
             parameters: (parameter_list
-              (parameter
+              parameter: (parameter
                 type: (identifier)
                 name: (identifier))
-              (parameter
+              parameter: (parameter
                 type: (identifier)
                 name: (identifier)))
             (type_parameter_constraints_clause
@@ -995,22 +995,22 @@ class A {
                 (type_constraint
                   type: (identifier))))
             body: (block
-              (return_statement
-                (binary_expression
+              statement: (return_statement
+                expression: (binary_expression
                   left: (identifier)
                   right: (identifier)))))
-          (local_function_statement
+          statement: (local_function_statement
             (attribute_list
-              (attribute
+              attribute: (attribute
                 name: (identifier)))
-            (modifier)
-            (modifier)
+            modifier: (modifier)
+            modifier: (modifier)
             type: (predefined_type)
             name: (identifier)
             parameters: (parameter_list)
             body: (block
-              (return_statement
-                (integer_literal)))))))))
+              statement: (return_statement
+                expression: (integer_literal)))))))))
 
 ================================================================================
 Method with local expression bodied function
@@ -1025,37 +1025,37 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (local_function_statement
+          statement: (local_function_statement
             type: (predefined_type)
             name: (identifier)
             type_parameters: (type_parameter_list
-              (type_parameter
+              type_parameter: (type_parameter
                 name: (identifier))
-              (type_parameter
+              type_parameter: (type_parameter
                 name: (identifier)))
             parameters: (parameter_list
-              (parameter
+              parameter: (parameter
                 type: (identifier)
                 name: (identifier))
-              (parameter
+              parameter: (parameter
                 type: (identifier)
                 name: (identifier)))
             body: (arrow_expression_clause
-              (invocation_expression
+              expression: (invocation_expression
                 function: (identifier)
                 arguments: (argument_list
-                  (argument
-                    (identifier))
-                  (argument
-                    (identifier)))))))))))
+                  argument: (argument
+                    expression: (identifier))
+                  argument: (argument
+                    expression: (identifier)))))))))))
 
 ================================================================================
 Explicit local variable with no initializer
@@ -1070,19 +1070,19 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (local_declaration_statement
-            (variable_declaration
+          statement: (local_declaration_statement
+            declaration: (variable_declaration
               type: (predefined_type)
-              (variable_declarator
-                (identifier)))))))))
+              variable_declarator: (variable_declarator
+                name: (identifier)))))))))
 
 ================================================================================
 Explicit local variables with multiple literal initializers
@@ -1097,25 +1097,25 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (local_declaration_statement
-            (variable_declaration
+          statement: (local_declaration_statement
+            declaration: (variable_declaration
               type: (predefined_type)
-              (variable_declarator
-                (identifier)
-                (equals_value_clause
-                  (integer_literal)))
-              (variable_declarator
-                (identifier)
-                (equals_value_clause
-                  (integer_literal))))))))))
+              variable_declarator: (variable_declarator
+                name: (identifier)
+                initializer: (equals_value_clause
+                  value: (integer_literal)))
+              variable_declarator: (variable_declarator
+                name: (identifier)
+                initializer: (equals_value_clause
+                  value: (integer_literal))))))))))
 
 ================================================================================
 Explicit local constant with literal initializer
@@ -1130,22 +1130,22 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (local_declaration_statement
-            (modifier)
-            (variable_declaration
+          statement: (local_declaration_statement
+            modifier: (modifier)
+            declaration: (variable_declaration
               type: (predefined_type)
-              (variable_declarator
-                (identifier)
-                (equals_value_clause
-                  (integer_literal))))))))))
+              variable_declarator: (variable_declarator
+                name: (identifier)
+                initializer: (equals_value_clause
+                  value: (integer_literal))))))))))
 
 ================================================================================
 Explicit local constant with multiple literal initializers
@@ -1160,26 +1160,26 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (local_declaration_statement
-            (modifier)
-            (variable_declaration
+          statement: (local_declaration_statement
+            modifier: (modifier)
+            declaration: (variable_declaration
               type: (predefined_type)
-              (variable_declarator
-                (identifier)
-                (equals_value_clause
-                  (integer_literal)))
-              (variable_declarator
-                (identifier)
-                (equals_value_clause
-                  (integer_literal))))))))))
+              variable_declarator: (variable_declarator
+                name: (identifier)
+                initializer: (equals_value_clause
+                  value: (integer_literal)))
+              variable_declarator: (variable_declarator
+                name: (identifier)
+                initializer: (equals_value_clause
+                  value: (integer_literal))))))))))
 
 ================================================================================
 Implicit local ref variable
@@ -1194,27 +1194,27 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (local_declaration_statement
-            (variable_declaration
+          statement: (local_declaration_statement
+            declaration: (variable_declaration
               type: (ref_type
-                (implicit_type))
-              (variable_declarator
-                (identifier)
-                (equals_value_clause
-                  (ref_expression
-                    (element_access_expression
+                type: (implicit_type))
+              variable_declarator: (variable_declarator
+                name: (identifier)
+                initializer: (equals_value_clause
+                  value: (ref_expression
+                    expression: (element_access_expression
                       expression: (identifier)
                       subscript: (bracketed_argument_list
-                        (argument
-                          (identifier))))))))))))))
+                        argument: (argument
+                          expression: (identifier))))))))))))))
 
 ================================================================================
 Member access of an array element
@@ -1225,19 +1225,19 @@ var g = args[0].Length;
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (local_declaration_statement
-      (variable_declaration
+      declaration: (variable_declaration
         type: (implicit_type)
-        (variable_declarator
-          (identifier)
-          (equals_value_clause
-            (member_access_expression
+        variable_declarator: (variable_declarator
+          name: (identifier)
+          initializer: (equals_value_clause
+            value: (member_access_expression
               expression: (element_access_expression
                 expression: (identifier)
                 subscript: (bracketed_argument_list
-                  (argument
-                    (integer_literal))))
+                  argument: (argument
+                    expression: (integer_literal))))
               name: (identifier))))))))
 
 ================================================================================
@@ -1255,23 +1255,23 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (using_statement
-            (variable_declaration
+          statement: (using_statement
+            declaration: (variable_declaration
               type: (implicit_type)
-              (variable_declarator
-                (identifier)
-                (equals_value_clause
-                  (identifier))))
+              variable_declarator: (variable_declarator
+                name: (identifier)
+                initializer: (equals_value_clause
+                  value: (identifier))))
             body: (block
-              (return_statement))))))))
+              statement: (return_statement))))))))
 
 ================================================================================
 Using statement with compound variable declaration
@@ -1288,38 +1288,38 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (using_statement
-            (variable_declaration
+          statement: (using_statement
+            declaration: (variable_declaration
               type: (identifier)
-              (variable_declarator
-                (identifier)
-                (equals_value_clause
-                  (invocation_expression
+              variable_declarator: (variable_declarator
+                name: (identifier)
+                initializer: (equals_value_clause
+                  value: (invocation_expression
                     function: (member_access_expression
                       expression: (identifier)
                       name: (identifier))
                     arguments: (argument_list
-                      (argument
-                        (string_literal
+                      argument: (argument
+                        expression: (string_literal
                           (string_literal_fragment)))))))
-              (variable_declarator
-                (identifier)
-                (equals_value_clause
-                  (object_creation_expression
+              variable_declarator: (variable_declarator
+                name: (identifier)
+                initializer: (equals_value_clause
+                  value: (object_creation_expression
                     type: (identifier)
                     arguments: (argument_list
-                      (argument
-                        (identifier)))))))
+                      argument: (argument
+                        expression: (identifier)))))))
             body: (block
-              (return_statement))))))))
+              statement: (return_statement))))))))
 
 ================================================================================
 Using statement without brackets
@@ -1334,21 +1334,21 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (local_declaration_statement
-            (variable_declaration
+          statement: (local_declaration_statement
+            declaration: (variable_declaration
               type: (implicit_type)
-              (variable_declarator
-                (identifier)
-                (equals_value_clause
-                  (object_creation_expression
+              variable_declarator: (variable_declarator
+                name: (identifier)
+                initializer: (equals_value_clause
+                  value: (object_creation_expression
                     type: (identifier)
                     arguments: (argument_list)))))))))))
 
@@ -1367,23 +1367,23 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (using_statement
-            (variable_declaration
+          statement: (using_statement
+            declaration: (variable_declaration
               type: (identifier)
-              (variable_declarator
-                (identifier)
-                (equals_value_clause
-                  (identifier))))
+              variable_declarator: (variable_declarator
+                name: (identifier)
+                initializer: (equals_value_clause
+                  value: (identifier))))
             body: (block
-              (return_statement))))))))
+              statement: (return_statement))))))))
 
 ================================================================================
 Using statement with expression
@@ -1400,18 +1400,18 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (using_statement
-            (this_expression)
+          statement: (using_statement
+            expression: (this_expression)
             body: (block
-              (return_statement))))))))
+              statement: (return_statement))))))))
 
 ================================================================================
 Foreach inline declaration
@@ -1427,22 +1427,22 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (for_each_statement
+          statement: (for_each_statement
             type: (predefined_type)
             left: (identifier)
             right: (identifier)
             body: (expression_statement
               (assignment_expression
                 left: (identifier)
-                (assignment_operator)
+                operator: (assignment_operator)
                 right: (identifier)))))))))
 
 ================================================================================
@@ -1459,21 +1459,21 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (for_each_statement
+          statement: (for_each_statement
             left: (identifier)
             right: (identifier)
             body: (expression_statement
               (assignment_expression
                 left: (identifier)
-                (assignment_operator)
+                operator: (assignment_operator)
                 right: (identifier)))))))))
 
 ================================================================================
@@ -1490,24 +1490,24 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (for_each_statement
+          statement: (for_each_statement
             type: (implicit_type)
             left: (tuple_pattern
-              (identifier)
-              (identifier))
+              name: (identifier)
+              name: (identifier))
             right: (identifier)
             body: (expression_statement
               (assignment_expression
                 left: (identifier)
-                (assignment_operator)
+                operator: (assignment_operator)
                 right: (identifier)))))))))
 
 ================================================================================
@@ -1523,20 +1523,20 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (unsafe_statement
+          statement: (unsafe_statement
             (block
-              (expression_statement
+              statement: (expression_statement
                 (assignment_expression
                   left: (identifier)
-                  (assignment_operator)
+                  operator: (assignment_operator)
                   right: (identifier))))))))))
 
 ================================================================================
@@ -1552,21 +1552,21 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (fixed_statement
-            (variable_declaration
+          statement: (fixed_statement
+            declaration: (variable_declaration
               type: (predefined_type)
-              (variable_declarator
-                (identifier)
-                (equals_value_clause
-                  (identifier))))
+              variable_declarator: (variable_declarator
+                name: (identifier)
+                initializer: (equals_value_clause
+                  value: (identifier))))
             (block)))))))
 
 ================================================================================
@@ -1584,31 +1584,31 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (for_statement
-            initializer: (variable_declaration
+          statement: (for_statement
+            declaration: (variable_declaration
               type: (predefined_type)
-              (variable_declarator
-                (identifier)
-                (equals_value_clause
-                  (integer_literal))))
+              variable_declarator: (variable_declarator
+                name: (identifier)
+                initializer: (equals_value_clause
+                  value: (integer_literal))))
             condition: (binary_expression
               left: (identifier)
               right: (integer_literal))
             update: (postfix_unary_expression
-              (identifier))
+              expression: (identifier))
             body: (block
-              (expression_statement
+              statement: (expression_statement
                 (assignment_expression
                   left: (identifier)
-                  (assignment_operator)
+                  operator: (assignment_operator)
                   right: (identifier))))))))))
 
 ================================================================================
@@ -1625,15 +1625,15 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (for_statement
+          statement: (for_statement
             body: (block)))))))
 
 ================================================================================
@@ -1654,76 +1654,76 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (expression_statement
+          statement: (expression_statement
             (assignment_expression
               left: (tuple_expression
                 (argument
-                  (declaration_expression
+                  expression: (declaration_expression
                     type: (implicit_type)
                     name: (identifier)))
                 (argument
-                  (declaration_expression
+                  expression: (declaration_expression
                     type: (implicit_type)
                     name: (identifier))))
-              (assignment_operator)
+              operator: (assignment_operator)
               right: (identifier)))
-          (local_declaration_statement
-            (variable_declaration
+          statement: (local_declaration_statement
+            declaration: (variable_declaration
               type: (implicit_type)
-              (variable_declarator
+              variable_declarator: (variable_declarator
                 (tuple_pattern
-                  (identifier)
-                  (identifier))
-                (equals_value_clause
-                  (identifier)))))
-          (expression_statement
+                  name: (identifier)
+                  name: (identifier))
+                initializer: (equals_value_clause
+                  value: (identifier)))))
+          statement: (expression_statement
             (assignment_expression
               left: (tuple_expression
                 (argument
-                  (identifier))
+                  expression: (identifier))
                 (argument
-                  (identifier))
+                  expression: (identifier))
                 (argument
-                  (identifier)))
-              (assignment_operator)
+                  expression: (identifier)))
+              operator: (assignment_operator)
               right: (identifier)))
-          (expression_statement
+          statement: (expression_statement
             (assignment_expression
               left: (tuple_expression
                 (argument
-                  (identifier))
+                  expression: (identifier))
                 (argument
-                  (identifier)))
-              (assignment_operator)
+                  expression: (identifier)))
+              operator: (assignment_operator)
               right: (identifier)))
-          (local_declaration_statement
-            (variable_declaration
+          statement: (local_declaration_statement
+            declaration: (variable_declaration
               type: (implicit_type)
-              (variable_declarator
+              variable_declarator: (variable_declarator
                 (tuple_pattern
-                  (identifier)
+                  name: (identifier)
                   (discard))
-                (equals_value_clause
-                  (identifier)))))
-          (local_declaration_statement
-            (variable_declaration
+                initializer: (equals_value_clause
+                  value: (identifier)))))
+          statement: (local_declaration_statement
+            declaration: (variable_declaration
               type: (implicit_type)
-              (variable_declarator
+              variable_declarator: (variable_declarator
                 (tuple_pattern
-                  (identifier)
+                  name: (identifier)
                   (tuple_pattern
-                    (identifier)
+                    name: (identifier)
                     (discard)))
-                (equals_value_clause
-                  (identifier))))))))))
+                initializer: (equals_value_clause
+                  value: (identifier))))))))))
 
 ================================================================================
 Function with dynamic local variable
@@ -1736,19 +1736,19 @@ void A() {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (local_function_statement
       type: (predefined_type)
       name: (identifier)
       parameters: (parameter_list)
       body: (block
-        (local_declaration_statement
-          (variable_declaration
+        statement: (local_declaration_statement
+          declaration: (variable_declaration
             type: (identifier)
-            (variable_declarator
-              (identifier)
-              (equals_value_clause
-                (string_literal)))))))))
+            variable_declarator: (variable_declarator
+              name: (identifier)
+              initializer: (equals_value_clause
+                value: (string_literal)))))))))
 
 ================================================================================
 Function with contextually reserved identifiers
@@ -1765,48 +1765,48 @@ async void Sample() {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (local_function_statement
-      (modifier)
+      modifier: (modifier)
       type: (predefined_type)
       name: (identifier)
       parameters: (parameter_list)
       body: (block
-        (local_declaration_statement
-          (variable_declaration
+        statement: (local_declaration_statement
+          declaration: (variable_declaration
             type: (implicit_type)
-            (variable_declarator
-              (identifier)
-              (equals_value_clause
-                (string_literal)))))
-        (local_declaration_statement
-          (variable_declaration
+            variable_declarator: (variable_declarator
+              name: (identifier)
+              initializer: (equals_value_clause
+                value: (string_literal)))))
+        statement: (local_declaration_statement
+          declaration: (variable_declaration
             type: (predefined_type)
-            (variable_declarator
-              (identifier)
-              (equals_value_clause
-                (identifier)))))
-        (local_declaration_statement
-          (variable_declaration
+            variable_declarator: (variable_declarator
+              name: (identifier)
+              initializer: (equals_value_clause
+                value: (identifier)))))
+        statement: (local_declaration_statement
+          declaration: (variable_declaration
             type: (identifier)
-            (variable_declarator
-              (identifier)
-              (equals_value_clause
-                (identifier)))))
-        (local_declaration_statement
-          (variable_declaration
+            variable_declarator: (variable_declarator
+              name: (identifier)
+              initializer: (equals_value_clause
+                value: (identifier)))))
+        statement: (local_declaration_statement
+          declaration: (variable_declaration
             type: (identifier)
-            (variable_declarator
-              (identifier)
-              (equals_value_clause
-                (identifier)))))
-        (local_declaration_statement
-          (variable_declaration
+            variable_declarator: (variable_declarator
+              name: (identifier)
+              initializer: (equals_value_clause
+                value: (identifier)))))
+        statement: (local_declaration_statement
+          declaration: (variable_declaration
             type: (identifier)
-            (variable_declarator
-              (identifier)
-              (equals_value_clause
-                (binary_expression
+            variable_declarator: (variable_declarator
+              name: (identifier)
+              initializer: (equals_value_clause
+                value: (binary_expression
                   left: (binary_expression
                     left: (binary_expression
                       left: (binary_expression
@@ -1836,39 +1836,39 @@ ref T Choice(bool condition, ref T a, ref T b)
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (local_function_statement
       type: (ref_type
-        (identifier))
+        type: (identifier))
       name: (identifier)
       parameters: (parameter_list
-        (parameter
+        parameter: (parameter
           type: (predefined_type)
           name: (identifier))
-        (parameter
+        parameter: (parameter
           (parameter_modifier)
           type: (identifier)
           name: (identifier))
-        (parameter
+        parameter: (parameter
           (parameter_modifier)
           type: (identifier)
           name: (identifier)))
       body: (block
-        (local_declaration_statement
-          (variable_declaration
+        statement: (local_declaration_statement
+          declaration: (variable_declaration
             type: (ref_type
-              (implicit_type))
-            (variable_declarator
-              (identifier)
-              (equals_value_clause
-                (ref_expression
-                  (parenthesized_expression
+              type: (implicit_type))
+            variable_declarator: (variable_declarator
+              name: (identifier)
+              initializer: (equals_value_clause
+                value: (ref_expression
+                  expression: (parenthesized_expression
                     (conditional_expression
                       condition: (identifier)
                       consequence: (ref_expression
-                        (identifier))
+                        expression: (identifier))
                       alternative: (ref_expression
-                        (identifier)))))))))))))
+                        expression: (identifier)))))))))))))
 
 ================================================================================
 Implicit object creation with initializer
@@ -1881,21 +1881,21 @@ List<int> a = new(1)
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (local_declaration_statement
-      (variable_declaration
+      declaration: (variable_declaration
         type: (generic_name
-          (identifier)
-          (type_argument_list
-            (predefined_type)))
-        (variable_declarator
-          (identifier)
-          (equals_value_clause
-            (implicit_object_creation_expression
-              (argument_list
-                (argument
-                  (integer_literal)))
-              (initializer_expression))))))))
+          name: (identifier)
+          type_arguments: (type_argument_list
+            type: (predefined_type)))
+        variable_declarator: (variable_declarator
+          name: (identifier)
+          initializer: (equals_value_clause
+            value: (implicit_object_creation_expression
+              arguments: (argument_list
+                argument: (argument
+                  expression: (integer_literal)))
+              initializer: (initializer_expression))))))))
 
 ================================================================================
 Lambda parameter named global
@@ -1906,14 +1906,14 @@ var a = global => global.Single();
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (local_declaration_statement
-      (variable_declaration
+      declaration: (variable_declaration
         type: (implicit_type)
-        (variable_declarator
-          (identifier)
-          (equals_value_clause
-            (lambda_expression
+        variable_declarator: (variable_declarator
+          name: (identifier)
+          initializer: (equals_value_clause
+            value: (lambda_expression
               parameters: (implicit_parameter_list
                 (parameter
                   name: (identifier)))
@@ -1932,16 +1932,16 @@ numbers ??= new List<int>();
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (expression_statement
       (assignment_expression
         left: (identifier)
-        (assignment_operator)
+        operator: (assignment_operator)
         right: (object_creation_expression
           type: (generic_name
-            (identifier)
-            (type_argument_list
-              (predefined_type)))
+            name: (identifier)
+            type_arguments: (type_argument_list
+              type: (predefined_type)))
           arguments: (argument_list))))))
 
 ================================================================================
@@ -1953,11 +1953,11 @@ b = obj ?? a == 0;
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (expression_statement
       (assignment_expression
         left: (identifier)
-        (assignment_operator)
+        operator: (assignment_operator)
         right: (binary_expression
           left: (identifier)
           right: (binary_expression
@@ -1973,20 +1973,20 @@ person = new Person(null!, null!);
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (expression_statement
       (assignment_expression
         left: (identifier)
-        (assignment_operator)
+        operator: (assignment_operator)
         right: (object_creation_expression
           type: (identifier)
           arguments: (argument_list
-            (argument
-              (postfix_unary_expression
-                (null_literal)))
-            (argument
-              (postfix_unary_expression
-                (null_literal)))))))))
+            argument: (argument
+              expression: (postfix_unary_expression
+                expression: (null_literal)))
+            argument: (argument
+              expression: (postfix_unary_expression
+                expression: (null_literal)))))))))
 
 ================================================================================
 Variable declaration
@@ -1997,20 +1997,20 @@ person = new Person(null!, null!);
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (expression_statement
       (assignment_expression
         left: (identifier)
-        (assignment_operator)
+        operator: (assignment_operator)
         right: (object_creation_expression
           type: (identifier)
           arguments: (argument_list
-            (argument
-              (postfix_unary_expression
-                (null_literal)))
-            (argument
-              (postfix_unary_expression
-                (null_literal)))))))))
+            argument: (argument
+              expression: (postfix_unary_expression
+                expression: (null_literal)))
+            argument: (argument
+              expression: (postfix_unary_expression
+                expression: (null_literal)))))))))
 
 ================================================================================
 Variable declaration with generic invocation
@@ -2021,19 +2021,19 @@ MyClass myVar = MyFunction<MyOtherClass>("MyArg");
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (local_declaration_statement
-      (variable_declaration
+      declaration: (variable_declaration
         type: (identifier)
-        (variable_declarator
-          (identifier)
-          (equals_value_clause
-            (invocation_expression
+        variable_declarator: (variable_declarator
+          name: (identifier)
+          initializer: (equals_value_clause
+            value: (invocation_expression
               function: (generic_name
-                (identifier)
-                (type_argument_list
-                  (identifier)))
+                name: (identifier)
+                type_arguments: (type_argument_list
+                  type: (identifier)))
               arguments: (argument_list
-                (argument
-                  (string_literal
+                argument: (argument
+                  expression: (string_literal
                     (string_literal_fragment)))))))))))

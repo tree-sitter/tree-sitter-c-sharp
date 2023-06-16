@@ -9,20 +9,20 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (event_declaration
-        (modifier)
+      declaration: (event_declaration
+        modifier: (modifier)
         type: (generic_name
-          (identifier)
-          (type_argument_list
-            (identifier)))
+          name: (identifier)
+          type_arguments: (type_argument_list
+            type: (identifier)))
         name: (identifier)
         accessors: (accessor_list
-          (accessor_declaration
+          accessor: (accessor_declaration
             body: (block))
-          (accessor_declaration
+          accessor: (accessor_declaration
             body: (block)))))))
 
 ================================================================================
@@ -36,20 +36,20 @@ struct A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (struct_declaration
+  declaration: (struct_declaration
     name: (identifier)
     body: (declaration_list
-      (event_declaration
-        (modifier)
+      declaration: (event_declaration
+        modifier: (modifier)
         type: (generic_name
-          (identifier)
-          (type_argument_list
-            (identifier)))
+          name: (identifier)
+          type_arguments: (type_argument_list
+            type: (identifier)))
         name: (identifier)
         accessors: (accessor_list
-          (accessor_declaration
+          accessor: (accessor_declaration
             body: (block))
-          (accessor_declaration
+          accessor: (accessor_declaration
             body: (block)))))))
 
 ================================================================================
@@ -63,21 +63,21 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (event_declaration
-        (modifier)
+      declaration: (event_declaration
+        modifier: (modifier)
         type: (identifier)
         name: (identifier)
         accessors: (accessor_list
-          (accessor_declaration
+          accessor: (accessor_declaration
             body: (arrow_expression_clause
-              (invocation_expression
+              expression: (invocation_expression
                 function: (identifier)
                 arguments: (argument_list))))
-          (accessor_declaration
+          accessor: (accessor_declaration
             body: (arrow_expression_clause
-              (invocation_expression
+              expression: (invocation_expression
                 function: (identifier)
                 arguments: (argument_list)))))))))

@@ -7,11 +7,11 @@ public struct F<T> where T:struct {}
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (struct_declaration
-    (modifier)
+  declaration: (struct_declaration
+    modifier: (modifier)
     name: (identifier)
     type_parameters: (type_parameter_list
-      (type_parameter
+      type_parameter: (type_parameter
         name: (identifier)))
     (type_parameter_constraints_clause
       target: (identifier)
@@ -27,11 +27,11 @@ public struct F<T> where T:class {}
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (struct_declaration
-    (modifier)
+  declaration: (struct_declaration
+    modifier: (modifier)
     name: (identifier)
     type_parameters: (type_parameter_list
-      (type_parameter
+      type_parameter: (type_parameter
         name: (identifier)))
     (type_parameter_constraints_clause
       target: (identifier)
@@ -47,11 +47,11 @@ public struct F<T> where T: new() {}
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (struct_declaration
-    (modifier)
+  declaration: (struct_declaration
+    modifier: (modifier)
     name: (identifier)
     type_parameters: (type_parameter_list
-      (type_parameter
+      type_parameter: (type_parameter
         name: (identifier)))
     (type_parameter_constraints_clause
       target: (identifier)
@@ -68,11 +68,11 @@ public struct A : ISomething { }
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (struct_declaration
-    (modifier)
+  declaration: (struct_declaration
+    modifier: (modifier)
     name: (identifier)
     bases: (base_list
-      (identifier))
+      type: (identifier))
     body: (declaration_list)))
 
 ================================================================================
@@ -84,13 +84,13 @@ private struct F<T1,T2> where T1 : I1, I2, new() where T2 : I2 { }
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (struct_declaration
-    (modifier)
+  declaration: (struct_declaration
+    modifier: (modifier)
     name: (identifier)
     type_parameters: (type_parameter_list
-      (type_parameter
+      type_parameter: (type_parameter
         name: (identifier))
-      (type_parameter
+      type_parameter: (type_parameter
         name: (identifier)))
     (type_parameter_constraints_clause
       target: (identifier)
@@ -119,8 +119,8 @@ readonly struct Test {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (struct_declaration
-    (modifier)
+  declaration: (struct_declaration
+    modifier: (modifier)
     name: (identifier)
     body: (declaration_list)))
 
@@ -134,7 +134,7 @@ ref struct Test {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (struct_declaration
-    (modifier)
+  declaration: (struct_declaration
+    modifier: (modifier)
     name: (identifier)
     body: (declaration_list)))

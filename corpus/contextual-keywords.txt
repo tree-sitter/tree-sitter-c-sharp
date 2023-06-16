@@ -7,22 +7,22 @@ var a = Assert.Range(from, to);
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (local_declaration_statement
-      (variable_declaration
+      declaration: (variable_declaration
         type: (implicit_type)
-        (variable_declarator
-          (identifier)
-          (equals_value_clause
-            (invocation_expression
+        variable_declarator: (variable_declarator
+          name: (identifier)
+          initializer: (equals_value_clause
+            value: (invocation_expression
               function: (member_access_expression
                 expression: (identifier)
                 name: (identifier))
               arguments: (argument_list
-                (argument
-                  (identifier))
-                (argument
-                  (identifier))))))))))
+                argument: (argument
+                  expression: (identifier))
+                argument: (argument
+                  expression: (identifier))))))))))
 
 ================================================================================
 File keyword in invocation
@@ -33,17 +33,17 @@ file.Method(1, 2);
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (expression_statement
       (invocation_expression
         function: (member_access_expression
           expression: (identifier)
           name: (identifier))
         arguments: (argument_list
-          (argument
-            (integer_literal))
-          (argument
-            (integer_literal)))))))
+          argument: (argument
+            expression: (integer_literal))
+          argument: (argument
+            expression: (integer_literal)))))))
 
 ================================================================================
 File contextual keyword
@@ -68,71 +68,71 @@ file class file { }
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (local_function_statement
       type: (predefined_type)
       name: (identifier)
       parameters: (parameter_list)
       body: (block)))
-  (global_statement
+  statement: (global_statement
     (local_function_statement
       type: (predefined_type)
       name: (identifier)
       parameters: (parameter_list
-        (parameter
+        parameter: (parameter
           type: (identifier)
           name: (identifier)))
       body: (block)))
-  (global_statement
+  statement: (global_statement
     (local_function_statement
       type: (predefined_type)
       name: (identifier)
       parameters: (parameter_list
-        (parameter
+        parameter: (parameter
           type: (predefined_type)
           name: (identifier)))
       body: (block)))
-  (global_statement
+  statement: (global_statement
     (local_function_statement
       type: (predefined_type)
       name: (identifier)
       parameters: (parameter_list)
       body: (block
-        (local_declaration_statement
-          (variable_declaration
+        statement: (local_declaration_statement
+          declaration: (variable_declaration
             type: (identifier)
-            (variable_declarator
-              (identifier)
-              (equals_value_clause
-                (null_literal)))))
-        (local_declaration_statement
-          (variable_declaration
+            variable_declarator: (variable_declarator
+              name: (identifier)
+              initializer: (equals_value_clause
+                value: (null_literal)))))
+        statement: (local_declaration_statement
+          declaration: (variable_declaration
             type: (predefined_type)
-            (variable_declarator
-              (identifier)
-              (equals_value_clause
-                (identifier)))))
-        (expression_statement
+            variable_declarator: (variable_declarator
+              name: (identifier)
+              initializer: (equals_value_clause
+                value: (identifier)))))
+        statement: (expression_statement
           (invocation_expression
             function: (identifier)
             arguments: (argument_list)))
-        (expression_statement
+        statement: (expression_statement
           (invocation_expression
             function: (identifier)
             arguments: (argument_list
-              (argument
-                (identifier)))))
-        (local_declaration_statement
-          (variable_declaration
+              argument: (argument
+                expression: (identifier)))))
+        statement: (local_declaration_statement
+          declaration: (variable_declaration
             type: (implicit_type)
-            (variable_declarator
-              (identifier)
-              (equals_value_clause
-                (binary_expression
+            variable_declarator: (variable_declarator
+              name: (identifier)
+              initializer: (equals_value_clause
+                value: (binary_expression
                   left: (identifier)
                   right: (integer_literal)))))))))
-  (class_declaration
-    (modifier)
+  declaration: (class_declaration
+    modifier: (modifier)
     name: (identifier)
     body: (declaration_list)))
 
@@ -167,162 +167,162 @@ class scoped { }
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (local_function_statement
       type: (predefined_type)
       name: (identifier)
       parameters: (parameter_list)
       body: (block)))
-  (global_statement
+  statement: (global_statement
     (local_function_statement
       type: (predefined_type)
       name: (identifier)
       parameters: (parameter_list
-        (parameter
+        parameter: (parameter
           type: (identifier)
           name: (identifier)))
       body: (block)))
-  (global_statement
+  statement: (global_statement
     (local_function_statement
       type: (predefined_type)
       name: (identifier)
       parameters: (parameter_list
-        (parameter
+        parameter: (parameter
           (parameter_modifier)
           (parameter_modifier)
           type: (predefined_type)
           name: (identifier)))
       body: (block)))
-  (global_statement
+  statement: (global_statement
     (local_function_statement
       type: (predefined_type)
       name: (identifier)
       parameters: (parameter_list
-        (parameter
+        parameter: (parameter
           (parameter_modifier)
           (parameter_modifier)
           type: (identifier)
           name: (identifier)))
       body: (block)))
-  (global_statement
+  statement: (global_statement
     (local_function_statement
       type: (predefined_type)
       name: (identifier)
       parameters: (parameter_list
-        (parameter
+        parameter: (parameter
           type: (predefined_type)
           name: (identifier)))
       body: (block)))
-  (global_statement
+  statement: (global_statement
     (local_function_statement
       type: (predefined_type)
       name: (identifier)
       parameters: (parameter_list)
       body: (block
-        (local_declaration_statement
-          (variable_declaration
+        statement: (local_declaration_statement
+          declaration: (variable_declaration
             type: (identifier)
-            (variable_declarator
-              (identifier)
-              (equals_value_clause
-                (null_literal)))))
-        (local_declaration_statement
-          (variable_declaration
+            variable_declarator: (variable_declarator
+              name: (identifier)
+              initializer: (equals_value_clause
+                value: (null_literal)))))
+        statement: (local_declaration_statement
+          declaration: (variable_declaration
             type: (scoped_type
-              (ref_type
-                (predefined_type)))
-            (variable_declarator
-              (identifier)
-              (equals_value_clause
-                (null_literal)))))
-        (local_declaration_statement
-          (variable_declaration
+              type: (ref_type
+                type: (predefined_type)))
+            variable_declarator: (variable_declarator
+              name: (identifier)
+              initializer: (equals_value_clause
+                value: (null_literal)))))
+        statement: (local_declaration_statement
+          declaration: (variable_declaration
             type: (scoped_type
-              (ref_type
-                (identifier)))
-            (variable_declarator
-              (identifier)
-              (equals_value_clause
-                (null_literal)))))
-        (local_declaration_statement
-          (variable_declaration
+              type: (ref_type
+                type: (identifier)))
+            variable_declarator: (variable_declarator
+              name: (identifier)
+              initializer: (equals_value_clause
+                value: (null_literal)))))
+        statement: (local_declaration_statement
+          declaration: (variable_declaration
             type: (predefined_type)
-            (variable_declarator
-              (identifier)
-              (equals_value_clause
-                (null_literal)))))
-        (expression_statement
+            variable_declarator: (variable_declarator
+              name: (identifier)
+              initializer: (equals_value_clause
+                value: (null_literal)))))
+        statement: (expression_statement
           (invocation_expression
             function: (identifier)
             arguments: (argument_list)))
-        (expression_statement
+        statement: (expression_statement
           (invocation_expression
             function: (identifier)
             arguments: (argument_list
-              (argument
-                (identifier)))))
-        (local_declaration_statement
-          (variable_declaration
+              argument: (argument
+                expression: (identifier)))))
+        statement: (local_declaration_statement
+          declaration: (variable_declaration
             type: (implicit_type)
-            (variable_declarator
-              (identifier)
-              (equals_value_clause
-                (binary_expression
+            variable_declarator: (variable_declarator
+              name: (identifier)
+              initializer: (equals_value_clause
+                value: (binary_expression
                   left: (identifier)
                   right: (integer_literal))))))
-        (local_declaration_statement
-          (variable_declaration
+        statement: (local_declaration_statement
+          declaration: (variable_declaration
             type: (implicit_type)
-            (variable_declarator
-              (identifier)
-              (equals_value_clause
-                (lambda_expression
+            variable_declarator: (variable_declarator
+              name: (identifier)
+              initializer: (equals_value_clause
+                value: (lambda_expression
                   parameters: (implicit_parameter_list
                     (parameter
                       name: (identifier)))
                   body: (null_literal))))))
-        (local_declaration_statement
-          (variable_declaration
+        statement: (local_declaration_statement
+          declaration: (variable_declaration
             type: (implicit_type)
-            (variable_declarator
-              (identifier)
-              (equals_value_clause
-                (lambda_expression
+            variable_declarator: (variable_declarator
+              name: (identifier)
+              initializer: (equals_value_clause
+                value: (lambda_expression
                   parameters: (parameter_list
-                    (parameter
+                    parameter: (parameter
                       type: (identifier)
                       name: (identifier)))
                   body: (null_literal))))))
-        (local_declaration_statement
-          (variable_declaration
+        statement: (local_declaration_statement
+          declaration: (variable_declaration
             type: (implicit_type)
-            (variable_declarator
-              (identifier)
-              (equals_value_clause
-                (lambda_expression
+            variable_declarator: (variable_declarator
+              name: (identifier)
+              initializer: (equals_value_clause
+                value: (lambda_expression
                   parameters: (parameter_list
-                    (parameter
+                    parameter: (parameter
                       name: (identifier))
-                    (parameter
+                    parameter: (parameter
                       name: (identifier)))
                   body: (null_literal))))))
-        (local_declaration_statement
-          (variable_declaration
+        statement: (local_declaration_statement
+          declaration: (variable_declaration
             type: (implicit_type)
-            (variable_declarator
-              (identifier)
-              (equals_value_clause
-                (lambda_expression
+            variable_declarator: (variable_declarator
+              name: (identifier)
+              initializer: (equals_value_clause
+                value: (lambda_expression
                   (identifier)
                   parameters: (parameter_list
-                    (parameter
+                    parameter: (parameter
                       type: (predefined_type)
                       name: (identifier))
-                    (parameter
+                    parameter: (parameter
                       type: (predefined_type)
                       name: (identifier)))
                   body: (null_literal)))))))))
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list)))
 
@@ -349,70 +349,70 @@ class set { }
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (local_function_statement
       type: (predefined_type)
       name: (identifier)
       parameters: (parameter_list)
       body: (block)))
-  (global_statement
+  statement: (global_statement
     (local_function_statement
       type: (predefined_type)
       name: (identifier)
       parameters: (parameter_list
-        (parameter
+        parameter: (parameter
           type: (identifier)
           name: (identifier)))
       body: (block)))
-  (global_statement
+  statement: (global_statement
     (local_function_statement
       type: (predefined_type)
       name: (identifier)
       parameters: (parameter_list
-        (parameter
+        parameter: (parameter
           type: (predefined_type)
           name: (identifier)))
       body: (block)))
-  (global_statement
+  statement: (global_statement
     (local_function_statement
       type: (predefined_type)
       name: (identifier)
       parameters: (parameter_list)
       body: (block
-        (local_declaration_statement
-          (variable_declaration
+        statement: (local_declaration_statement
+          declaration: (variable_declaration
             type: (identifier)
-            (variable_declarator
-              (identifier)
-              (equals_value_clause
-                (null_literal)))))
-        (local_declaration_statement
-          (variable_declaration
+            variable_declarator: (variable_declarator
+              name: (identifier)
+              initializer: (equals_value_clause
+                value: (null_literal)))))
+        statement: (local_declaration_statement
+          declaration: (variable_declaration
             type: (predefined_type)
-            (variable_declarator
-              (identifier)
-              (equals_value_clause
-                (identifier)))))
-        (expression_statement
+            variable_declarator: (variable_declarator
+              name: (identifier)
+              initializer: (equals_value_clause
+                value: (identifier)))))
+        statement: (expression_statement
           (invocation_expression
             function: (identifier)
             arguments: (argument_list)))
-        (expression_statement
+        statement: (expression_statement
           (invocation_expression
             function: (identifier)
             arguments: (argument_list
-              (argument
-                (identifier)))))
-        (local_declaration_statement
-          (variable_declaration
+              argument: (argument
+                expression: (identifier)))))
+        statement: (local_declaration_statement
+          declaration: (variable_declaration
             type: (implicit_type)
-            (variable_declarator
-              (identifier)
-              (equals_value_clause
-                (binary_expression
+            variable_declarator: (variable_declarator
+              name: (identifier)
+              initializer: (equals_value_clause
+                value: (binary_expression
                   left: (identifier)
                   right: (integer_literal)))))))))
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list)))
 
@@ -440,77 +440,77 @@ class var { }
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (local_function_statement
       type: (predefined_type)
       name: (identifier)
       parameters: (parameter_list)
       body: (block)))
-  (global_statement
+  statement: (global_statement
     (local_function_statement
       type: (predefined_type)
       name: (identifier)
       parameters: (parameter_list
-        (parameter
+        parameter: (parameter
           type: (implicit_type)
           name: (identifier)))
       body: (block)))
-  (global_statement
+  statement: (global_statement
     (local_function_statement
       type: (predefined_type)
       name: (identifier)
       parameters: (parameter_list
-        (parameter
+        parameter: (parameter
           type: (predefined_type)
           name: (identifier)))
       body: (block)))
-  (global_statement
+  statement: (global_statement
     (local_function_statement
       type: (predefined_type)
       name: (identifier)
       parameters: (parameter_list)
       body: (block
-        (local_declaration_statement
-          (variable_declaration
+        statement: (local_declaration_statement
+          declaration: (variable_declaration
             type: (implicit_type)
-            (variable_declarator
-              (identifier)
-              (equals_value_clause
-                (null_literal)))))
-        (local_declaration_statement
-          (variable_declaration
+            variable_declarator: (variable_declarator
+              name: (identifier)
+              initializer: (equals_value_clause
+                value: (null_literal)))))
+        statement: (local_declaration_statement
+          declaration: (variable_declaration
             type: (predefined_type)
-            (variable_declarator
-              (identifier)
-              (equals_value_clause
-                (identifier)))))
-        (local_declaration_statement
-          (variable_declaration
+            variable_declarator: (variable_declarator
+              name: (identifier)
+              initializer: (equals_value_clause
+                value: (identifier)))))
+        statement: (local_declaration_statement
+          declaration: (variable_declaration
             type: (implicit_type)
-            (variable_declarator
-              (identifier)
-              (equals_value_clause
-                (integer_literal)))))
-        (expression_statement
+            variable_declarator: (variable_declarator
+              name: (identifier)
+              initializer: (equals_value_clause
+                value: (integer_literal)))))
+        statement: (expression_statement
           (invocation_expression
             function: (identifier)
             arguments: (argument_list)))
-        (expression_statement
+        statement: (expression_statement
           (invocation_expression
             function: (identifier)
             arguments: (argument_list
-              (argument
-                (identifier)))))
-        (local_declaration_statement
-          (variable_declaration
+              argument: (argument
+                expression: (identifier)))))
+        statement: (local_declaration_statement
+          declaration: (variable_declaration
             type: (implicit_type)
-            (variable_declarator
-              (identifier)
-              (equals_value_clause
-                (binary_expression
+            variable_declarator: (variable_declarator
+              name: (identifier)
+              initializer: (equals_value_clause
+                value: (binary_expression
                   left: (identifier)
                   right: (integer_literal)))))))))
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list)))
 
@@ -538,77 +538,77 @@ class nameof { }
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (local_function_statement
       type: (predefined_type)
       name: (identifier)
       parameters: (parameter_list)
       body: (block)))
-  (global_statement
+  statement: (global_statement
     (local_function_statement
       type: (predefined_type)
       name: (identifier)
       parameters: (parameter_list
-        (parameter
+        parameter: (parameter
           type: (identifier)
           name: (identifier)))
       body: (block)))
-  (global_statement
+  statement: (global_statement
     (local_function_statement
       type: (predefined_type)
       name: (identifier)
       parameters: (parameter_list
-        (parameter
+        parameter: (parameter
           type: (predefined_type)
           name: (identifier)))
       body: (block)))
-  (global_statement
+  statement: (global_statement
     (local_function_statement
       type: (predefined_type)
       name: (identifier)
       parameters: (parameter_list)
       body: (block
-        (local_declaration_statement
-          (variable_declaration
+        statement: (local_declaration_statement
+          declaration: (variable_declaration
             type: (identifier)
-            (variable_declarator
-              (identifier)
-              (equals_value_clause
-                (null_literal)))))
-        (local_declaration_statement
-          (variable_declaration
+            variable_declarator: (variable_declarator
+              name: (identifier)
+              initializer: (equals_value_clause
+                value: (null_literal)))))
+        statement: (local_declaration_statement
+          declaration: (variable_declaration
             type: (predefined_type)
-            (variable_declarator
-              (identifier)
-              (equals_value_clause
-                (identifier)))))
-        (expression_statement
+            variable_declarator: (variable_declarator
+              name: (identifier)
+              initializer: (equals_value_clause
+                value: (identifier)))))
+        statement: (expression_statement
           (invocation_expression
             function: (identifier)
             arguments: (argument_list)))
-        (expression_statement
+        statement: (expression_statement
           (invocation_expression
             function: (identifier)
             arguments: (argument_list
-              (argument
-                (identifier))
-              (argument
-                (identifier)))))
-        (expression_statement
+              argument: (argument
+                expression: (identifier))
+              argument: (argument
+                expression: (identifier)))))
+        statement: (expression_statement
           (invocation_expression
             function: (identifier)
             arguments: (argument_list
-              (argument
-                (identifier)))))
-        (local_declaration_statement
-          (variable_declaration
+              argument: (argument
+                expression: (identifier)))))
+        statement: (local_declaration_statement
+          declaration: (variable_declaration
             type: (implicit_type)
-            (variable_declarator
-              (identifier)
-              (equals_value_clause
-                (binary_expression
+            variable_declarator: (variable_declarator
+              name: (identifier)
+              initializer: (equals_value_clause
+                value: (binary_expression
                   left: (identifier)
                   right: (integer_literal)))))))))
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list)))

@@ -15,35 +15,35 @@ If, elif and else directives
 (compilation_unit
   (if_directive
     (identifier))
-  (global_statement
+  statement: (global_statement
     (local_declaration_statement
-      (variable_declaration
+      declaration: (variable_declaration
         type: (predefined_type)
-        (variable_declarator
-          (identifier)
-          (equals_value_clause
-            (string_literal
+        variable_declarator: (variable_declarator
+          name: (identifier)
+          initializer: (equals_value_clause
+            value: (string_literal
               (string_literal_fragment)))))))
   (elif_directive
     (identifier))
-  (global_statement
+  statement: (global_statement
     (local_declaration_statement
-      (variable_declaration
+      declaration: (variable_declaration
         type: (predefined_type)
-        (variable_declarator
-          (identifier)
-          (equals_value_clause
-            (string_literal
+        variable_declarator: (variable_declarator
+          name: (identifier)
+          initializer: (equals_value_clause
+            value: (string_literal
               (string_literal_fragment)))))))
   (else_directive)
-  (global_statement
+  statement: (global_statement
     (local_declaration_statement
-      (variable_declaration
+      declaration: (variable_declaration
         type: (predefined_type)
-        (variable_declarator
-          (identifier)
-          (equals_value_clause
-            (string_literal
+        variable_declarator: (variable_declarator
+          name: (identifier)
+          initializer: (equals_value_clause
+            value: (string_literal
               (string_literal_fragment)))))))
   (endif_directive))
 
@@ -140,7 +140,7 @@ class Of1879 {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
       (warning_directive
@@ -165,10 +165,10 @@ class Of1879 {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
@@ -208,10 +208,10 @@ class Of1879 {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
@@ -254,21 +254,21 @@ class Of1879 {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (local_declaration_statement
-            (variable_declaration
+          statement: (local_declaration_statement
+            declaration: (variable_declaration
               type: (implicit_type)
-              (variable_declarator
-                (identifier)
-                (equals_value_clause
-                  (verbatim_string_literal)))))
+              variable_declarator: (variable_declarator
+                name: (identifier)
+                initializer: (equals_value_clause
+                  value: (verbatim_string_literal)))))
           (comment))))))
 
 ================================================================================

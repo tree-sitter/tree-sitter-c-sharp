@@ -7,7 +7,7 @@ enum A { One }
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (enum_declaration
+  declaration: (enum_declaration
     name: (identifier)
     body: (enum_member_declaration_list
       (enum_member_declaration
@@ -22,7 +22,7 @@ enum B { Ten = 10, Twenty = 20 }
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (enum_declaration
+  declaration: (enum_declaration
     name: (identifier)
     body: (enum_member_declaration_list
       (enum_member_declaration
@@ -43,13 +43,13 @@ namespace A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (namespace_declaration
+  declaration: (namespace_declaration
     name: (identifier)
     body: (declaration_list
-      (enum_declaration
+      declaration: (enum_declaration
         name: (identifier)
         bases: (base_list
-          (predefined_type))
+          type: (predefined_type))
         body: (enum_member_declaration_list
           (enum_member_declaration
             name: (identifier)

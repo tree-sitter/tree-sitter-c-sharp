@@ -11,35 +11,35 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (field_declaration
-        (modifier)
-        (modifier)
-        (variable_declaration
+      declaration: (field_declaration
+        modifier: (modifier)
+        modifier: (modifier)
+        declaration: (variable_declaration
           type: (predefined_type)
-          (variable_declarator
-            (identifier))))
-      (field_declaration
-        (variable_declaration
+          variable_declarator: (variable_declarator
+            name: (identifier))))
+      declaration: (field_declaration
+        declaration: (variable_declaration
           type: (identifier)
-          (variable_declarator
-            (identifier))
-          (variable_declarator
-            (identifier))))
-      (field_declaration
-        (variable_declaration
+          variable_declarator: (variable_declarator
+            name: (identifier))
+          variable_declarator: (variable_declarator
+            name: (identifier))))
+      declaration: (field_declaration
+        declaration: (variable_declaration
           type: (generic_name
-            (identifier)
-            (type_argument_list
-              (predefined_type)
-              (generic_name
-                (identifier)
-                (type_argument_list
-                  (predefined_type)))))
-          (variable_declarator
-            (identifier)))))))
+            name: (identifier)
+            type_arguments: (type_argument_list
+              type: (predefined_type)
+              type: (generic_name
+                name: (identifier)
+                type_arguments: (type_argument_list
+                  type: (predefined_type)))))
+          variable_declarator: (variable_declarator
+            name: (identifier)))))))
 
 ================================================================================
 Struct field declarations
@@ -52,16 +52,16 @@ struct A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (struct_declaration
+  declaration: (struct_declaration
     name: (identifier)
     body: (declaration_list
-      (field_declaration
-        (modifier)
-        (modifier)
-        (variable_declaration
+      declaration: (field_declaration
+        modifier: (modifier)
+        modifier: (modifier)
+        declaration: (variable_declaration
           type: (predefined_type)
-          (variable_declarator
-            (identifier)))))))
+          variable_declarator: (variable_declarator
+            name: (identifier)))))))
 
 ================================================================================
 Class field nullable type
@@ -75,24 +75,24 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (field_declaration
-        (modifier)
-        (modifier)
-        (variable_declaration
+      declaration: (field_declaration
+        modifier: (modifier)
+        modifier: (modifier)
+        declaration: (variable_declaration
           type: (nullable_type
-            (predefined_type))
-          (variable_declarator
-            (identifier))))
-      (field_declaration
-        (modifier)
-        (variable_declaration
+            element_type: (predefined_type))
+          variable_declarator: (variable_declarator
+            name: (identifier))))
+      declaration: (field_declaration
+        modifier: (modifier)
+        declaration: (variable_declaration
           type: (nullable_type
-            (identifier))
-          (variable_declarator
-            (identifier)))))))
+            element_type: (identifier))
+          variable_declarator: (variable_declarator
+            name: (identifier)))))))
 
 ================================================================================
 Class field pointer type
@@ -107,31 +107,31 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (field_declaration
-        (modifier)
-        (modifier)
-        (variable_declaration
+      declaration: (field_declaration
+        modifier: (modifier)
+        modifier: (modifier)
+        declaration: (variable_declaration
           type: (pointer_type
-            (predefined_type))
-          (variable_declarator
-            (identifier))))
-      (field_declaration
-        (modifier)
-        (variable_declaration
+            element_type: (predefined_type))
+          variable_declarator: (variable_declarator
+            name: (identifier))))
+      declaration: (field_declaration
+        modifier: (modifier)
+        declaration: (variable_declaration
           type: (pointer_type
-            (identifier))
-          (variable_declarator
-            (identifier))))
-      (field_declaration
-        (modifier)
-        (variable_declaration
+            element_type: (identifier))
+          variable_declarator: (variable_declarator
+            name: (identifier))))
+      declaration: (field_declaration
+        modifier: (modifier)
+        declaration: (variable_declaration
           type: (pointer_type
-            (predefined_type))
-          (variable_declarator
-            (identifier)))))))
+            element_type: (predefined_type))
+          variable_declarator: (variable_declarator
+            name: (identifier)))))))
 
 ================================================================================
 Function pointer type
@@ -150,55 +150,55 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
       (comment)
-      (field_declaration
-        (variable_declaration
+      declaration: (field_declaration
+        declaration: (variable_declaration
           type: (function_pointer_type
             (function_pointer_parameter
-              (predefined_type))
+              type: (predefined_type))
             (function_pointer_parameter
-              (predefined_type)))
-          (variable_declarator
-            (identifier))))
-      (field_declaration
-        (variable_declaration
+              type: (predefined_type)))
+          variable_declarator: (variable_declarator
+            name: (identifier))))
+      declaration: (field_declaration
+        declaration: (variable_declaration
           type: (function_pointer_type
             (function_pointer_parameter
-              (function_pointer_type
+              type: (function_pointer_type
                 (function_pointer_parameter
                   (parameter_modifier)
-                  (predefined_type))
+                  type: (predefined_type))
                 (function_pointer_parameter
-                  (predefined_type))))
+                  type: (predefined_type))))
             (function_pointer_parameter
-              (function_pointer_type
+              type: (function_pointer_type
                 (function_pointer_parameter
                   (parameter_modifier)
-                  (predefined_type))
+                  type: (predefined_type))
                 (function_pointer_parameter
-                  (ref_type
-                    (predefined_type))))))
-          (variable_declarator
-            (identifier))))
+                  type: (ref_type
+                    type: (predefined_type))))))
+          variable_declarator: (variable_declarator
+            name: (identifier))))
       (comment)
-      (field_declaration
-        (variable_declaration
+      declaration: (field_declaration
+        declaration: (variable_declaration
           type: (function_pointer_type
             (function_pointer_calling_convention)
             (function_pointer_parameter
-              (predefined_type))
+              type: (predefined_type))
             (function_pointer_parameter
-              (predefined_type)))
-          (variable_declarator
-            (identifier))))
-      (field_declaration
-        (variable_declaration
+              type: (predefined_type)))
+          variable_declarator: (variable_declarator
+            name: (identifier))))
+      declaration: (field_declaration
+        declaration: (variable_declaration
           type: (function_pointer_type
             (function_pointer_parameter
-              (function_pointer_type
+              type: (function_pointer_type
                 (function_pointer_calling_convention
                   (function_pointer_unmanaged_calling_convention_list
                     (function_pointer_unmanaged_calling_convention
@@ -206,17 +206,17 @@ class A {
                     (function_pointer_unmanaged_calling_convention
                       (identifier))))
                 (function_pointer_parameter
-                  (predefined_type))
+                  type: (predefined_type))
                 (function_pointer_parameter
-                  (predefined_type))))
+                  type: (predefined_type))))
             (function_pointer_parameter
-              (function_pointer_type
+              type: (function_pointer_type
                 (function_pointer_parameter
-                  (predefined_type))
+                  type: (predefined_type))
                 (function_pointer_parameter
-                  (predefined_type)))))
-          (variable_declarator
-            (identifier)))))))
+                  type: (predefined_type)))))
+          variable_declarator: (variable_declarator
+            name: (identifier)))))))
 
 ================================================================================
 Ref readonly
@@ -232,38 +232,38 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (property_declaration
+      declaration: (property_declaration
         type: (ref_type
-          (identifier))
+          type: (identifier))
         name: (identifier)
         value: (arrow_expression_clause
-          (ref_expression
-            (identifier))))
-      (field_declaration
-        (variable_declaration
+          expression: (ref_expression
+            expression: (identifier))))
+      declaration: (field_declaration
+        declaration: (variable_declaration
           type: (ref_type
-            (pointer_type
-              (identifier)))
-          (variable_declarator
-            (identifier))))
-      (field_declaration
-        (variable_declaration
+            type: (pointer_type
+              element_type: (identifier)))
+          variable_declarator: (variable_declarator
+            name: (identifier))))
+      declaration: (field_declaration
+        declaration: (variable_declaration
           type: (ref_type
-            (array_type
-              type: (identifier)
+            type: (array_type
+              element_type: (identifier)
               rank: (array_rank_specifier)))
-          (variable_declarator
-            (identifier))))
-      (field_declaration
-        (variable_declaration
+          variable_declarator: (variable_declarator
+            name: (identifier))))
+      declaration: (field_declaration
+        declaration: (variable_declaration
           type: (ref_type
-            (nullable_type
-              (identifier)))
-          (variable_declarator
-            (identifier)))))))
+            type: (nullable_type
+              element_type: (identifier)))
+          variable_declarator: (variable_declarator
+            name: (identifier)))))))
 
 ================================================================================
 Nullable reference types
@@ -277,21 +277,21 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (field_declaration
-        (variable_declaration
+      declaration: (field_declaration
+        declaration: (variable_declaration
           type: (nullable_type
-            (predefined_type))
-          (variable_declarator
-            (identifier))))
-      (field_declaration
-        (variable_declaration
+            element_type: (predefined_type))
+          variable_declarator: (variable_declarator
+            name: (identifier))))
+      declaration: (field_declaration
+        declaration: (variable_declaration
           type: (nullable_type
-            (identifier))
-          (variable_declarator
-            (identifier)))))))
+            element_type: (identifier))
+          variable_declarator: (variable_declarator
+            name: (identifier)))))))
 
 ================================================================================
 Tuple types
@@ -305,33 +305,33 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (field_declaration
-        (variable_declaration
+      declaration: (field_declaration
+        declaration: (variable_declaration
           type: (tuple_type
-            (tuple_element
+            element: (tuple_element
               type: (predefined_type))
-            (tuple_element
+            element: (tuple_element
               type: (predefined_type)
               name: (identifier)))
-          (variable_declarator
-            (identifier))))
-      (field_declaration
-        (variable_declaration
+          variable_declarator: (variable_declarator
+            name: (identifier))))
+      declaration: (field_declaration
+        declaration: (variable_declaration
           type: (tuple_type
-            (tuple_element
+            element: (tuple_element
               type: (identifier)
               name: (identifier))
-            (tuple_element
+            element: (tuple_element
               type: (identifier)
               name: (identifier))
-            (tuple_element
+            element: (tuple_element
               type: (identifier)
               name: (identifier)))
-          (variable_declarator
-            (identifier)))))))
+          variable_declarator: (variable_declarator
+            name: (identifier)))))))
 
 ================================================================================
 Native integer types
@@ -345,19 +345,19 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (field_declaration
-        (variable_declaration
+      declaration: (field_declaration
+        declaration: (variable_declaration
           type: (predefined_type)
-          (variable_declarator
-            (identifier))))
-      (field_declaration
-        (variable_declaration
+          variable_declarator: (variable_declarator
+            name: (identifier))))
+      declaration: (field_declaration
+        declaration: (variable_declaration
           type: (predefined_type)
-          (variable_declarator
-            (identifier)))))))
+          variable_declarator: (variable_declarator
+            name: (identifier)))))))
 
 ================================================================================
 Required fields
@@ -370,13 +370,13 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (field_declaration
-        (modifier)
-        (modifier)
-        (variable_declaration
+      declaration: (field_declaration
+        modifier: (modifier)
+        modifier: (modifier)
+        declaration: (variable_declaration
           type: (predefined_type)
-          (variable_declarator
-            (identifier)))))))
+          variable_declarator: (variable_declarator
+            name: (identifier)))))))

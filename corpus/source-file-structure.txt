@@ -11,28 +11,28 @@ using static J.K;
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (using_directive
-    (identifier))
-  (using_directive
-    (qualified_name
-      (identifier)
-      (identifier)))
-  (using_directive
-    (qualified_name
-      (alias_qualified_name
-        (identifier)
-        (identifier))
-      (identifier)))
-  (using_directive
-    (name_equals
-      (identifier))
-    (qualified_name
-      (identifier)
-      (identifier)))
-  (using_directive
-    (qualified_name
-      (identifier)
-      (identifier))))
+  using: (using_directive
+    name: (identifier))
+  using: (using_directive
+    name: (qualified_name
+      left: (identifier)
+      right: (identifier)))
+  using: (using_directive
+    name: (qualified_name
+      left: (alias_qualified_name
+        alias: (identifier)
+        name: (identifier))
+      right: (identifier)))
+  using: (using_directive
+    alias: (name_equals
+      name: (identifier))
+    name: (qualified_name
+      left: (identifier)
+      right: (identifier)))
+  using: (using_directive
+    name: (qualified_name
+      left: (identifier)
+      right: (identifier))))
 
 ================================================================================
 Nested using directives
@@ -45,11 +45,11 @@ namespace Foo {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (namespace_declaration
+  declaration: (namespace_declaration
     name: (identifier)
     body: (declaration_list
-      (using_directive
-        (identifier)))))
+      declaration: (using_directive
+        name: (identifier)))))
 
 ================================================================================
 Global using directives
@@ -61,12 +61,12 @@ global using static A.B;
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (using_directive
-    (identifier))
-  (using_directive
-    (qualified_name
-      (identifier)
-      (identifier))))
+  using: (using_directive
+    name: (identifier))
+  using: (using_directive
+    name: (qualified_name
+      left: (identifier)
+      right: (identifier))))
 
 ================================================================================
 Comments
@@ -110,20 +110,20 @@ namespace A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (namespace_declaration
+  declaration: (namespace_declaration
     name: (identifier)
     body: (declaration_list
-      (namespace_declaration
+      declaration: (namespace_declaration
         name: (qualified_name
-          (qualified_name
-            (identifier)
-            (identifier))
-          (identifier))
+          left: (qualified_name
+            left: (identifier)
+            right: (identifier))
+          right: (identifier))
         body: (declaration_list))
-      (namespace_declaration
+      declaration: (namespace_declaration
         name: (qualified_name
-          (identifier)
-          (identifier))
+          left: (identifier)
+          right: (identifier))
         body: (declaration_list)))))
 
 ================================================================================
@@ -138,9 +138,9 @@ class B {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (file_scoped_namespace_declaration
+  declaration: (file_scoped_namespace_declaration
     name: (identifier)
-    (class_declaration
+    declaration: (class_declaration
       name: (identifier)
       body: (declaration_list))))
 
@@ -154,8 +154,8 @@ public interface IFoo {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (interface_declaration
-    (modifier)
+  declaration: (interface_declaration
+    modifier: (modifier)
     name: (identifier)
     body: (declaration_list)))
 
@@ -168,8 +168,8 @@ extern alias A;
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (extern_alias_directive
-    (identifier)))
+  extern_alias: (extern_alias_directive
+    name: (identifier)))
 
 ================================================================================
 Delegates
@@ -190,66 +190,66 @@ class Z {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (delegate_declaration
-    (modifier)
+  declaration: (delegate_declaration
+    modifier: (modifier)
     type: (predefined_type)
     name: (identifier)
     parameters: (parameter_list
-      (parameter
+      parameter: (parameter
         (parameter_modifier)
         type: (predefined_type)
         name: (identifier)
-        (equals_value_clause
-          (character_literal
+        default: (equals_value_clause
+          value: (character_literal
             (escape_sequence))))))
-  (delegate_declaration
-    (modifier)
+  declaration: (delegate_declaration
+    modifier: (modifier)
     type: (ref_type
-      (predefined_type))
+      type: (predefined_type))
     name: (identifier)
     parameters: (parameter_list
-      (parameter
+      parameter: (parameter
         (parameter_modifier)
         type: (predefined_type)
         name: (identifier)
-        (equals_value_clause
-          (character_literal
+        default: (equals_value_clause
+          value: (character_literal
             (escape_sequence))))))
-  (delegate_declaration
-    (modifier)
+  declaration: (delegate_declaration
+    modifier: (modifier)
     type: (ref_type
-      (predefined_type))
+      type: (predefined_type))
     name: (identifier)
     parameters: (parameter_list
-      (parameter
+      parameter: (parameter
         (parameter_modifier)
         type: (predefined_type)
         name: (identifier)
-        (equals_value_clause
-          (character_literal
+        default: (equals_value_clause
+          value: (character_literal
             (escape_sequence))))))
-  (delegate_declaration
+  declaration: (delegate_declaration
     type: (predefined_type)
     name: (identifier)
     type_parameters: (type_parameter_list
-      (type_parameter
+      type_parameter: (type_parameter
         name: (identifier)))
     parameters: (parameter_list)
     (type_parameter_constraints_clause
       target: (identifier)
       constraints: (type_parameter_constraint)))
-  (delegate_declaration
+  declaration: (delegate_declaration
     type: (predefined_type)
     name: (identifier)
     parameters: (parameter_list
-      (array_type
-        type: (predefined_type)
+      type: (array_type
+        element_type: (predefined_type)
         rank: (array_rank_specifier))
       name: (identifier)))
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (delegate_declaration
+      declaration: (delegate_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)))))
@@ -263,11 +263,11 @@ var a = 1;
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
+  statement: (global_statement
     (local_declaration_statement
-      (variable_declaration
+      declaration: (variable_declaration
         type: (implicit_type)
-        (variable_declarator
-          (identifier)
-          (equals_value_clause
-            (integer_literal)))))))
+        variable_declarator: (variable_declarator
+          name: (identifier)
+          initializer: (equals_value_clause
+            value: (integer_literal)))))))

@@ -7,8 +7,8 @@ public interface IOne {};
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (interface_declaration
-    (modifier)
+  declaration: (interface_declaration
+    modifier: (modifier)
     name: (identifier)
     body: (declaration_list)))
 
@@ -26,31 +26,31 @@ interface IOne {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (interface_declaration
+  declaration: (interface_declaration
     name: (identifier)
     body: (declaration_list
-      (property_declaration
+      declaration: (property_declaration
         type: (predefined_type)
         name: (identifier)
         accessors: (accessor_list
-          (accessor_declaration)))
-      (property_declaration
+          accessor: (accessor_declaration)))
+      declaration: (property_declaration
         type: (predefined_type)
         name: (identifier)
         accessors: (accessor_list
-          (accessor_declaration)))
-      (property_declaration
+          accessor: (accessor_declaration)))
+      declaration: (property_declaration
         type: (predefined_type)
         name: (identifier)
         accessors: (accessor_list
-          (accessor_declaration)
-          (accessor_declaration)))
-      (property_declaration
+          accessor: (accessor_declaration)
+          accessor: (accessor_declaration)))
+      declaration: (property_declaration
         type: (predefined_type)
         name: (identifier)
         accessors: (accessor_list
-          (accessor_declaration)
-          (accessor_declaration))))))
+          accessor: (accessor_declaration)
+          accessor: (accessor_declaration))))))
 
 ================================================================================
 Interface with methods
@@ -66,29 +66,29 @@ interface IOne {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (interface_declaration
+  declaration: (interface_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list))
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list))
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list
-          (parameter
+          parameter: (parameter
             type: (predefined_type)
             name: (identifier))))
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list
-          (parameter
+          parameter: (parameter
             type: (predefined_type)
             name: (identifier)))))))
 
@@ -101,11 +101,11 @@ private interface IOne : ITwo { }
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (interface_declaration
-    (modifier)
+  declaration: (interface_declaration
+    modifier: (modifier)
     name: (identifier)
     bases: (base_list
-      (identifier))
+      type: (identifier))
     body: (declaration_list)))
 
 ================================================================================
@@ -117,12 +117,12 @@ private interface IOne : ITwo, IThree { }
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (interface_declaration
-    (modifier)
+  declaration: (interface_declaration
+    modifier: (modifier)
     name: (identifier)
     bases: (base_list
-      (identifier)
-      (identifier))
+      type: (identifier)
+      type: (identifier))
     body: (declaration_list)))
 
 ================================================================================
@@ -134,14 +134,14 @@ private interface IOne<T1> : ITwo { }
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (interface_declaration
-    (modifier)
+  declaration: (interface_declaration
+    modifier: (modifier)
     name: (identifier)
     type_parameters: (type_parameter_list
-      (type_parameter
+      type_parameter: (type_parameter
         name: (identifier)))
     bases: (base_list
-      (identifier))
+      type: (identifier))
     body: (declaration_list)))
 
 ================================================================================
@@ -153,14 +153,14 @@ private interface IOne<T1> : ITwo where T1:T2 { }
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (interface_declaration
-    (modifier)
+  declaration: (interface_declaration
+    modifier: (modifier)
     name: (identifier)
     type_parameters: (type_parameter_list
-      (type_parameter
+      type_parameter: (type_parameter
         name: (identifier)))
     bases: (base_list
-      (identifier))
+      type: (identifier))
     (type_parameter_constraints_clause
       target: (identifier)
       constraints: (type_parameter_constraint
@@ -177,16 +177,16 @@ private interface IOne<T1, T3> : ITwo where T1:T2 where T3:new() { }
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (interface_declaration
-    (modifier)
+  declaration: (interface_declaration
+    modifier: (modifier)
     name: (identifier)
     type_parameters: (type_parameter_list
-      (type_parameter
+      type_parameter: (type_parameter
         name: (identifier))
-      (type_parameter
+      type_parameter: (type_parameter
         name: (identifier)))
     bases: (base_list
-      (identifier))
+      type: (identifier))
     (type_parameter_constraints_clause
       target: (identifier)
       constraints: (type_parameter_constraint
@@ -209,13 +209,13 @@ namespace A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (namespace_declaration
+  declaration: (namespace_declaration
     name: (identifier)
     body: (declaration_list
-      (interface_declaration
+      declaration: (interface_declaration
         name: (identifier)
         bases: (base_list
-          (identifier))
+          type: (identifier))
         body: (declaration_list)))))
 
 ================================================================================
@@ -229,17 +229,17 @@ interface A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (interface_declaration
+  declaration: (interface_declaration
     name: (identifier)
     body: (declaration_list
-      (event_field_declaration
-        (variable_declaration
+      declaration: (event_field_declaration
+        declaration: (variable_declaration
           type: (generic_name
-            (identifier)
-            (type_argument_list
-              (identifier)))
-          (variable_declarator
-            (identifier)))))))
+            name: (identifier)
+            type_arguments: (type_argument_list
+              type: (identifier)))
+          variable_declarator: (variable_declarator
+            name: (identifier)))))))
 
 ================================================================================
 Interface with indexer
@@ -252,18 +252,18 @@ interface A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (interface_declaration
+  declaration: (interface_declaration
     name: (identifier)
     body: (declaration_list
-      (indexer_declaration
+      declaration: (indexer_declaration
         type: (predefined_type)
         parameters: (bracketed_parameter_list
-          (parameter
+          parameter: (parameter
             type: (predefined_type)
             name: (identifier)))
         accessors: (accessor_list
-          (accessor_declaration)
-          (accessor_declaration))))))
+          accessor: (accessor_declaration)
+          accessor: (accessor_declaration))))))
 
 ================================================================================
 Interface with default method
@@ -278,25 +278,25 @@ interface MyDefault {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (interface_declaration
+  declaration: (interface_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list
-          (parameter
+          parameter: (parameter
             type: (predefined_type)
             name: (identifier)))
         body: (block
-          (expression_statement
+          statement: (expression_statement
             (invocation_expression
               function: (member_access_expression
                 expression: (identifier)
                 name: (identifier))
               arguments: (argument_list
-                (argument
-                  (identifier))))))))))
+                argument: (argument
+                  expression: (identifier))))))))))
 
 ================================================================================
 Static abstract members
@@ -310,26 +310,26 @@ public interface IGetNext<T> where T : IGetNext<T>
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (interface_declaration
-    (modifier)
+  declaration: (interface_declaration
+    modifier: (modifier)
     name: (identifier)
     type_parameters: (type_parameter_list
-      (type_parameter
+      type_parameter: (type_parameter
         name: (identifier)))
     (type_parameter_constraints_clause
       target: (identifier)
       constraints: (type_parameter_constraint
         (type_constraint
           type: (generic_name
-            (identifier)
-            (type_argument_list
-              (identifier))))))
+            name: (identifier)
+            type_arguments: (type_argument_list
+              type: (identifier))))))
     body: (declaration_list
-      (operator_declaration
-        (modifier)
-        (modifier)
+      declaration: (operator_declaration
+        modifier: (modifier)
+        modifier: (modifier)
         type: (identifier)
         parameters: (parameter_list
-          (parameter
+          parameter: (parameter
             type: (identifier)
             name: (identifier)))))))

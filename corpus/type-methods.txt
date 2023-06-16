@@ -11,20 +11,20 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
-        (modifier)
+      declaration: (method_declaration
+        modifier: (modifier)
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list
-          (parameter
+          parameter: (parameter
             type: (predefined_type)
             name: (identifier)))
         body: (block
-          (return_statement
-            (identifier)))))))
+          statement: (return_statement
+            expression: (identifier)))))))
 
 ================================================================================
 Class method with multiple parameters
@@ -38,17 +38,17 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list
-          (parameter
+          parameter: (parameter
             type: (identifier)
             name: (identifier))
-          (parameter
+          parameter: (parameter
             type: (identifier)
             name: (identifier)))
         body: (block)))))
@@ -65,17 +65,17 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         type_parameters: (type_parameter_list
-          (type_parameter
+          type_parameter: (type_parameter
             name: (identifier)))
         parameters: (parameter_list
-          (parameter
+          parameter: (parameter
             type: (identifier)
             name: (identifier)))
         body: (block)))))
@@ -92,17 +92,17 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         type_parameters: (type_parameter_list
-          (type_parameter
+          type_parameter: (type_parameter
             name: (identifier)))
         parameters: (parameter_list
-          (parameter
+          parameter: (parameter
             type: (identifier)
             name: (identifier)))
         (type_parameter_constraints_clause
@@ -125,22 +125,22 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         type_parameters: (type_parameter_list
-          (type_parameter
+          type_parameter: (type_parameter
             name: (identifier))
-          (type_parameter
+          type_parameter: (type_parameter
             name: (identifier)))
         parameters: (parameter_list
-          (parameter
+          parameter: (parameter
             type: (identifier)
             name: (identifier))
-          (parameter
+          parameter: (parameter
             type: (identifier)
             name: (identifier)))
         (type_parameter_constraints_clause
@@ -168,14 +168,14 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list
-          (parameter
+          parameter: (parameter
             (parameter_modifier)
             type: (predefined_type)
             name: (identifier)))
@@ -193,14 +193,14 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list
-          (parameter
+          parameter: (parameter
             (parameter_modifier)
             type: (predefined_type)
             name: (identifier)))
@@ -218,14 +218,14 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list
-          (parameter
+          parameter: (parameter
             (parameter_modifier)
             type: (predefined_type)
             name: (identifier)))
@@ -243,24 +243,24 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list
-          (parameter
+          parameter: (parameter
             (parameter_modifier)
             (parameter_modifier)
             type: (predefined_type)
             name: (identifier)))
         body: (block))
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list
-          (parameter
+          parameter: (parameter
             (parameter_modifier)
             (parameter_modifier)
             (parameter_modifier)
@@ -280,17 +280,17 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list
-          (parameter
+          parameter: (parameter
             type: (predefined_type)
             name: (identifier))
-          (parameter
+          parameter: (parameter
             type: (predefined_type)
             name: (identifier)))
         body: (block)))))
@@ -307,18 +307,18 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list
-          (parameter
+          parameter: (parameter
             type: (predefined_type)
             name: (identifier)
-            (equals_value_clause
-              (integer_literal))))
+            default: (equals_value_clause
+              value: (integer_literal))))
         body: (block)))))
 
 ================================================================================
@@ -334,20 +334,20 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
-        (modifier)
+      declaration: (method_declaration
+        modifier: (modifier)
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list
-          (parameter
+          parameter: (parameter
             type: (predefined_type)
             name: (identifier)))
         body: (block
-          (return_statement
-            (identifier)))))))
+          statement: (return_statement
+            expression: (identifier)))))))
 
 ================================================================================
 Class method with explicit interface specifier
@@ -362,23 +362,23 @@ class A : ISomething {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     bases: (base_list
-      (identifier))
+      type: (identifier))
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         (explicit_interface_specifier
           (identifier))
         name: (identifier)
         parameters: (parameter_list
-          (parameter
+          parameter: (parameter
             type: (predefined_type)
             name: (identifier)))
         body: (block
-          (return_statement
-            (identifier)))))))
+          statement: (return_statement
+            expression: (identifier)))))))
 
 ================================================================================
 Class method with readonly method
@@ -391,16 +391,16 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (property_declaration
-        (modifier)
-        (modifier)
+      declaration: (property_declaration
+        modifier: (modifier)
+        modifier: (modifier)
         type: (predefined_type)
         name: (identifier)
         value: (arrow_expression_clause
-          (binary_expression
+          expression: (binary_expression
             left: (identifier)
             right: (identifier)))))))
 
@@ -415,21 +415,21 @@ class A {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (class_declaration
+  declaration: (class_declaration
     name: (identifier)
     body: (declaration_list
-      (method_declaration
-        (modifier)
+      declaration: (method_declaration
+        modifier: (modifier)
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list
-          (nullable_type
-            (array_type
-              type: (predefined_type)
+          type: (nullable_type
+            element_type: (array_type
+              element_type: (predefined_type)
               rank: (array_rank_specifier)))
           name: (identifier))
         body: (arrow_expression_clause
-          (integer_literal))))))
+          expression: (integer_literal))))))
 
 ================================================================================
 Method with scoped parameter and scoped local variable
@@ -445,50 +445,50 @@ ref struct S {
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (struct_declaration
-    (modifier)
+  declaration: (struct_declaration
+    modifier: (modifier)
     name: (identifier)
     body: (declaration_list
-      (method_declaration
+      declaration: (method_declaration
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list
-          (parameter
+          parameter: (parameter
             (parameter_modifier)
             (parameter_modifier)
             type: (qualified_name
-              (identifier)
-              (generic_name
-                (identifier)
-                (type_argument_list
-                  (predefined_type))))
+              left: (identifier)
+              right: (generic_name
+                name: (identifier)
+                type_arguments: (type_argument_list
+                  type: (predefined_type))))
             name: (identifier)))
         body: (block
-          (local_declaration_statement
-            (variable_declaration
+          statement: (local_declaration_statement
+            declaration: (variable_declaration
               type: (scoped_type
-                (ref_type
-                  (qualified_name
-                    (identifier)
-                    (generic_name
-                      (identifier)
-                      (type_argument_list
-                        (predefined_type))))))
-              (variable_declarator
-                (identifier)
-                (equals_value_clause
-                  (ref_expression
-                    (identifier))))))
-          (local_declaration_statement
-            (variable_declaration
+                type: (ref_type
+                  type: (qualified_name
+                    left: (identifier)
+                    right: (generic_name
+                      name: (identifier)
+                      type_arguments: (type_argument_list
+                        type: (predefined_type))))))
+              variable_declarator: (variable_declarator
+                name: (identifier)
+                initializer: (equals_value_clause
+                  value: (ref_expression
+                    expression: (identifier))))))
+          statement: (local_declaration_statement
+            declaration: (variable_declaration
               type: (scoped_type
-                (qualified_name
-                  (identifier)
-                  (generic_name
-                    (identifier)
-                    (type_argument_list
-                      (predefined_type)))))
-              (variable_declarator
-                (identifier)
-                (equals_value_clause
-                  (identifier))))))))))
+                type: (qualified_name
+                  left: (identifier)
+                  right: (generic_name
+                    name: (identifier)
+                    type_arguments: (type_argument_list
+                      type: (predefined_type)))))
+              variable_declarator: (variable_declarator
+                name: (identifier)
+                initializer: (equals_value_clause
+                  value: (identifier))))))))))

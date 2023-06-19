@@ -33,11 +33,11 @@ class A {
           type: (generic_name
             (identifier)
             (type_argument_list
-              (predefined_type)
-              (generic_name
+              type: (predefined_type)
+              type: (generic_name
                 (identifier)
                 (type_argument_list
-                  (predefined_type)))))
+                  type: (predefined_type)))))
           (variable_declarator
             (identifier)))))))
 
@@ -83,14 +83,14 @@ class A {
         (modifier)
         (variable_declaration
           type: (nullable_type
-            (predefined_type))
+            type: (predefined_type))
           (variable_declarator
             (identifier))))
       (field_declaration
         (modifier)
         (variable_declaration
           type: (nullable_type
-            (identifier))
+            type: (identifier))
           (variable_declarator
             (identifier)))))))
 
@@ -115,21 +115,21 @@ class A {
         (modifier)
         (variable_declaration
           type: (pointer_type
-            (predefined_type))
+            type: (predefined_type))
           (variable_declarator
             (identifier))))
       (field_declaration
         (modifier)
         (variable_declaration
           type: (pointer_type
-            (identifier))
+            type: (identifier))
           (variable_declarator
             (identifier))))
       (field_declaration
         (modifier)
         (variable_declaration
           type: (pointer_type
-            (predefined_type))
+            type: (predefined_type))
           (variable_declarator
             (identifier)))))))
 
@@ -158,29 +158,29 @@ class A {
         (variable_declaration
           type: (function_pointer_type
             (function_pointer_parameter
-              (predefined_type))
+              type: (predefined_type))
             (function_pointer_parameter
-              (predefined_type)))
+              type: (predefined_type)))
           (variable_declarator
             (identifier))))
       (field_declaration
         (variable_declaration
           type: (function_pointer_type
             (function_pointer_parameter
-              (function_pointer_type
+              type: (function_pointer_type
                 (function_pointer_parameter
                   (parameter_modifier)
-                  (predefined_type))
+                  type: (predefined_type))
                 (function_pointer_parameter
-                  (predefined_type))))
+                  type: (predefined_type))))
             (function_pointer_parameter
-              (function_pointer_type
+              type: (function_pointer_type
                 (function_pointer_parameter
                   (parameter_modifier)
-                  (predefined_type))
+                  type: (predefined_type))
                 (function_pointer_parameter
-                  (ref_type
-                    (predefined_type))))))
+                  type: (ref_type
+                    type: (predefined_type))))))
           (variable_declarator
             (identifier))))
       (comment)
@@ -189,16 +189,16 @@ class A {
           type: (function_pointer_type
             (function_pointer_calling_convention)
             (function_pointer_parameter
-              (predefined_type))
+              type: (predefined_type))
             (function_pointer_parameter
-              (predefined_type)))
+              type: (predefined_type)))
           (variable_declarator
             (identifier))))
       (field_declaration
         (variable_declaration
           type: (function_pointer_type
             (function_pointer_parameter
-              (function_pointer_type
+              type: (function_pointer_type
                 (function_pointer_calling_convention
                   (function_pointer_unmanaged_calling_convention_list
                     (function_pointer_unmanaged_calling_convention
@@ -206,15 +206,15 @@ class A {
                     (function_pointer_unmanaged_calling_convention
                       (identifier))))
                 (function_pointer_parameter
-                  (predefined_type))
+                  type: (predefined_type))
                 (function_pointer_parameter
-                  (predefined_type))))
+                  type: (predefined_type))))
             (function_pointer_parameter
-              (function_pointer_type
+              type: (function_pointer_type
                 (function_pointer_parameter
-                  (predefined_type))
+                  type: (predefined_type))
                 (function_pointer_parameter
-                  (predefined_type)))))
+                  type: (predefined_type)))))
           (variable_declarator
             (identifier)))))))
 
@@ -237,7 +237,7 @@ class A {
     body: (declaration_list
       (property_declaration
         type: (ref_type
-          (identifier))
+          type: (identifier))
         name: (identifier)
         value: (arrow_expression_clause
           (ref_expression
@@ -245,14 +245,14 @@ class A {
       (field_declaration
         (variable_declaration
           type: (ref_type
-            (pointer_type
-              (identifier)))
+            type: (pointer_type
+              type: (identifier)))
           (variable_declarator
             (identifier))))
       (field_declaration
         (variable_declaration
           type: (ref_type
-            (array_type
+            type: (array_type
               type: (identifier)
               rank: (array_rank_specifier)))
           (variable_declarator
@@ -260,8 +260,8 @@ class A {
       (field_declaration
         (variable_declaration
           type: (ref_type
-            (nullable_type
-              (identifier)))
+            type: (nullable_type
+              type: (identifier)))
           (variable_declarator
             (identifier)))))))
 
@@ -283,13 +283,13 @@ class A {
       (field_declaration
         (variable_declaration
           type: (nullable_type
-            (predefined_type))
+            type: (predefined_type))
           (variable_declarator
             (identifier))))
       (field_declaration
         (variable_declaration
           type: (nullable_type
-            (identifier))
+            type: (identifier))
           (variable_declarator
             (identifier)))))))
 

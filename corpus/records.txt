@@ -135,7 +135,7 @@ public record A : ISomething { }
     (modifier)
     name: (identifier)
     bases: (base_list
-      (identifier))
+      type: (identifier))
     body: (declaration_list)))
 
 ================================================================================
@@ -218,7 +218,7 @@ record Teacher(string FirstName, string LastName, string Subject) : Person(First
         name: (identifier)))
     bases: (base_list
       (primary_constructor_base_type
-        (identifier)
+        type: (identifier)
         (argument_list
           (argument
             (identifier))
@@ -248,16 +248,16 @@ record Teacher(string FirstName, string LastName, string Subject) : Person(First
         name: (identifier)))
     bases: (base_list
       (primary_constructor_base_type
-        (identifier)
+        type: (identifier)
         (argument_list
           (argument
             (identifier))
           (argument
             (identifier))))
-      (qualified_name
+      type: (qualified_name
         (identifier)
         (identifier))
-      (identifier))))
+      type: (identifier))))
 
 ================================================================================
 Record inheritance with generic base
@@ -275,21 +275,21 @@ record A : System.IEquatable<A>;
     parameters: (parameter_list)
     bases: (base_list
       (primary_constructor_base_type
-        (generic_name
+        type: (generic_name
           (identifier)
           (type_argument_list
-            (identifier)))
+            type: (identifier)))
         (argument_list))
-      (identifier)))
+      type: (identifier)))
   (record_declaration
     name: (identifier)
     bases: (base_list
-      (qualified_name
+      type: (qualified_name
         (identifier)
         (generic_name
           (identifier)
           (type_argument_list
-            (identifier)))))))
+            type: (identifier)))))))
 
 ================================================================================
 Record types can end with a semicolon

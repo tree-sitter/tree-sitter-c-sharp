@@ -556,7 +556,7 @@ var u = x is int?
               condition: (is_expression
                 left: (identifier)
                 right: (nullable_type
-                  (predefined_type)))
+                  type: (predefined_type)))
               consequence: (identifier)
               alternative: (identifier))))))))
 
@@ -1286,7 +1286,7 @@ void a() {
               (identifier)
               (equals_value_clause
                 (lambda_expression
-                  (identifier)
+                  type: (identifier)
                   parameters: (parameter_list
                     (parameter
                       type: (identifier)
@@ -1659,7 +1659,7 @@ void b() {
               (identifier)
               (equals_value_clause
                 (stack_alloc_array_creation_expression
-                  (array_type
+                  type: (array_type
                     type: (predefined_type)
                     rank: (array_rank_specifier))
                   (initializer_expression
@@ -1692,7 +1692,7 @@ void b() {
               (identifier)
               (equals_value_clause
                 (array_creation_expression
-                  (array_type
+                  type: (array_type
                     type: (predefined_type)
                     rank: (array_rank_specifier
                       (integer_literal)))
@@ -1707,7 +1707,7 @@ void b() {
               (identifier)
               (equals_value_clause
                 (array_creation_expression
-                  (array_type
+                  type: (array_type
                     type: (predefined_type)
                     rank: (array_rank_specifier))
                   (initializer_expression
@@ -1742,7 +1742,7 @@ void b() {
               (identifier)
               (equals_value_clause
                 (array_creation_expression
-                  (array_type
+                  type: (array_type
                     type: (predefined_type)
                     rank: (array_rank_specifier
                       (integer_literal)
@@ -1782,7 +1782,7 @@ void a() {
               (identifier)
               (equals_value_clause
                 (array_creation_expression
-                  (array_type
+                  type: (array_type
                     type: (tuple_type
                       (tuple_element
                         type: (predefined_type)
@@ -1930,7 +1930,7 @@ void b() {
               (identifier)
               (equals_value_clause
                 (size_of_expression
-                  (predefined_type))))))))))
+                  type: (predefined_type))))))))))
 
 ================================================================================
 typeof
@@ -1957,7 +1957,7 @@ void b() {
               (identifier)
               (equals_value_clause
                 (type_of_expression
-                  (predefined_type))))))
+                  type: (predefined_type))))))
         (local_declaration_statement
           (variable_declaration
             type: (implicit_type)
@@ -1965,11 +1965,11 @@ void b() {
               (identifier)
               (equals_value_clause
                 (type_of_expression
-                  (qualified_name
+                  type: (qualified_name
                     (generic_name
                       (identifier)
                       (type_argument_list
-                        (predefined_type)))
+                        type: (predefined_type)))
                     (identifier)))))))))))
 
 ================================================================================
@@ -2150,7 +2150,7 @@ string b(Object operation) =>
               (string_literal_fragment)))
           (switch_expression_arm
             (type_pattern
-              (predefined_type))
+              type: (predefined_type))
             (string_literal
               (string_literal_fragment))))))))
 
@@ -2378,7 +2378,7 @@ var t = typeof(Tuple<,,,>);
           (identifier)
           (equals_value_clause
             (type_of_expression
-              (generic_name
+              type: (generic_name
                 (identifier)
                 (type_argument_list))))))))
   (global_statement
@@ -2389,7 +2389,7 @@ var t = typeof(Tuple<,,,>);
           (identifier)
           (equals_value_clause
             (type_of_expression
-              (generic_name
+              type: (generic_name
                 (identifier)
                 (type_argument_list)))))))))
 
@@ -2435,7 +2435,7 @@ ref var elementRef = ref arr[0];
     (local_declaration_statement
       (variable_declaration
         type: (ref_type
-          (identifier))
+          type: (identifier))
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -2445,7 +2445,7 @@ ref var elementRef = ref arr[0];
     (local_declaration_statement
       (variable_declaration
         type: (ref_type
-          (implicit_type))
+          type: (implicit_type))
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -2476,8 +2476,8 @@ var x = new Dictionary<string,int> { ["a"] = 65 };
               type: (generic_name
                 (identifier)
                 (type_argument_list
-                  (predefined_type)
-                  (predefined_type)))
+                  type: (predefined_type)
+                  type: (predefined_type)))
               initializer: (initializer_expression
                 (assignment_expression
                   left: (element_binding_expression
@@ -2564,7 +2564,7 @@ void Test(int value) {
                   expression: (generic_name
                     (identifier)
                     (type_argument_list
-                      (predefined_type)))
+                      type: (predefined_type)))
                   name: (identifier))))))))))
 
 ================================================================================
@@ -2730,7 +2730,7 @@ var b = true == 1 as int? is int;
                 left: (as_expression
                   left: (integer_literal)
                   right: (nullable_type
-                    (predefined_type)))
+                    type: (predefined_type)))
                 right: (predefined_type)))))))))
 
 ================================================================================
@@ -2899,7 +2899,7 @@ var x = operand is ILiteralOperation { ConstantValue.HasValue: true, ConstantVal
             (is_pattern_expression
               expression: (identifier)
               pattern: (recursive_pattern
-                (identifier)
+                type: (identifier)
                 (property_pattern_clause
                   (subpattern
                     (expression_colon
@@ -2926,7 +2926,7 @@ var x = operand is ILiteralOperation { ConstantValue.HasValue: true, ConstantVal
             (is_pattern_expression
               expression: (identifier)
               pattern: (recursive_pattern
-                (identifier)
+                type: (identifier)
                 (property_pattern_clause
                   (subpattern
                     (expression_colon
@@ -3011,9 +3011,9 @@ var c = o is int; //is_expression with type
               expression: (identifier)
               pattern: (or_pattern
                 left: (type_pattern
-                  (predefined_type))
+                  type: (predefined_type))
                 right: (type_pattern
-                  (predefined_type)))))))))
+                  type: (predefined_type)))))))))
   (comment)
   (global_statement
     (local_declaration_statement
@@ -3398,7 +3398,7 @@ var x = nameof(A.B);
                   (generic_name
                     (identifier)
                     (type_argument_list
-                      (identifier)))))))))))
+                      type: (identifier)))))))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
@@ -3429,8 +3429,8 @@ MyFunction<A,B>(1);
         function: (generic_name
           (identifier)
           (type_argument_list
-            (identifier)
-            (identifier)))
+            type: (identifier)
+            type: (identifier)))
         arguments: (argument_list
           (argument
             (integer_literal)))))))

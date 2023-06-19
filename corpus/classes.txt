@@ -25,7 +25,7 @@ public class F : dynamic { }
     (modifier)
     name: (identifier)
     bases: (base_list
-      (identifier))
+      type: (identifier))
     body: (declaration_list)))
 
 ================================================================================
@@ -41,9 +41,9 @@ public class F : object, IAlpha, IOmega { }
     (modifier)
     name: (identifier)
     bases: (base_list
-      (predefined_type)
-      (identifier)
-      (identifier))
+      type: (predefined_type)
+      type: (identifier)
+      type: (identifier))
     body: (declaration_list)))
 
 ================================================================================
@@ -197,7 +197,7 @@ public class F<T> where T:class?, notnull, Mine? {}
       constraints: (type_parameter_constraint
         (type_constraint
           type: (nullable_type
-            (identifier)))))
+            type: (identifier)))))
     body: (declaration_list)))
 
 ================================================================================
@@ -586,7 +586,7 @@ class A {
         (modifier)
         type: (predefined_type)
         parameters: (bracketed_parameter_list
-          (array_type
+          type: (array_type
             type: (predefined_type)
             rank: (array_rank_specifier))
           name: (identifier))

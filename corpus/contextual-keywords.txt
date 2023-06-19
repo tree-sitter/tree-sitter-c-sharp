@@ -229,8 +229,8 @@ class scoped { }
         (local_declaration_statement
           (variable_declaration
             type: (scoped_type
-              (ref_type
-                (predefined_type)))
+              type: (ref_type
+                type: (predefined_type)))
             (variable_declarator
               (identifier)
               (equals_value_clause
@@ -238,8 +238,8 @@ class scoped { }
         (local_declaration_statement
           (variable_declaration
             type: (scoped_type
-              (ref_type
-                (identifier)))
+              type: (ref_type
+                type: (identifier)))
             (variable_declarator
               (identifier)
               (equals_value_clause
@@ -313,7 +313,7 @@ class scoped { }
               (identifier)
               (equals_value_clause
                 (lambda_expression
-                  (identifier)
+                  type: (identifier)
                   parameters: (parameter_list
                     (parameter
                       type: (predefined_type)

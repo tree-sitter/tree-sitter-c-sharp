@@ -340,7 +340,7 @@ A<B> a = null;
         type: (generic_name
           (identifier)
           (type_argument_list
-            (identifier)))
+            type: (identifier)))
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -633,7 +633,7 @@ switch (i)
         (switch_section
           (case_pattern_switch_label
             (type_pattern
-              (predefined_type))
+              type: (predefined_type))
             (when_clause
               (binary_expression
                 left: (identifier)
@@ -908,7 +908,7 @@ class A {
         type: (generic_name
           (identifier)
           (type_argument_list
-            (predefined_type)))
+            type: (predefined_type)))
         name: (identifier)
         parameters: (parameter_list)
         body: (block
@@ -1205,7 +1205,7 @@ class A {
           (local_declaration_statement
             (variable_declaration
               type: (ref_type
-                (implicit_type))
+                type: (implicit_type))
               (variable_declarator
                 (identifier)
                 (equals_value_clause
@@ -1839,7 +1839,7 @@ ref T Choice(bool condition, ref T a, ref T b)
   (global_statement
     (local_function_statement
       type: (ref_type
-        (identifier))
+        type: (identifier))
       name: (identifier)
       parameters: (parameter_list
         (parameter
@@ -1857,7 +1857,7 @@ ref T Choice(bool condition, ref T a, ref T b)
         (local_declaration_statement
           (variable_declaration
             type: (ref_type
-              (implicit_type))
+              type: (implicit_type))
             (variable_declarator
               (identifier)
               (equals_value_clause
@@ -1887,7 +1887,7 @@ List<int> a = new(1)
         type: (generic_name
           (identifier)
           (type_argument_list
-            (predefined_type)))
+            type: (predefined_type)))
         (variable_declarator
           (identifier)
           (equals_value_clause
@@ -1941,7 +1941,7 @@ numbers ??= new List<int>();
           type: (generic_name
             (identifier)
             (type_argument_list
-              (predefined_type)))
+              type: (predefined_type)))
           arguments: (argument_list))))))
 
 ================================================================================
@@ -2032,7 +2032,7 @@ MyClass myVar = MyFunction<MyOtherClass>("MyArg");
               function: (generic_name
                 (identifier)
                 (type_argument_list
-                  (identifier)))
+                  type: (identifier)))
               arguments: (argument_list
                 (argument
                   (string_literal

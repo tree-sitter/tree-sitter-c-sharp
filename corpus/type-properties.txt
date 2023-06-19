@@ -199,7 +199,7 @@ class Foo: IFoo {
   (class_declaration
     name: (identifier)
     bases: (base_list
-      (identifier))
+      type: (identifier))
     body: (declaration_list
       (property_declaration
         type: (predefined_type)

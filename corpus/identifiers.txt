@@ -12,7 +12,7 @@ int x = y;
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (identifier)))))))
 
@@ -30,7 +30,7 @@ int @var = @const;
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (identifier)))))))
 
@@ -49,7 +49,7 @@ int nuint = 0;
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (integer_literal))))))
   (global_statement
@@ -57,7 +57,7 @@ int nuint = 0;
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (integer_literal)))))))
 
@@ -81,7 +81,7 @@ var _كوكبxxx = 0;
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (integer_literal))))))
   (global_statement
@@ -89,7 +89,7 @@ var _كوكبxxx = 0;
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (integer_literal))))))
   (global_statement
@@ -97,7 +97,7 @@ var _كوكبxxx = 0;
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (integer_literal))))))
   (global_statement
@@ -105,7 +105,7 @@ var _كوكبxxx = 0;
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (integer_literal))))))
   (global_statement
@@ -113,7 +113,7 @@ var _كوكبxxx = 0;
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (integer_literal))))))
   (global_statement
@@ -121,7 +121,7 @@ var _كوكبxxx = 0;
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (integer_literal))))))
   (global_statement
@@ -129,6 +129,6 @@ var _كوكبxxx = 0;
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (integer_literal)))))))

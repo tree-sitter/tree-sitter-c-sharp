@@ -15,8 +15,8 @@ class A {
       (event_declaration
         (modifier)
         type: (generic_name
-          (identifier)
-          (type_argument_list
+          name: (identifier)
+          type_arguments: (type_argument_list
             (identifier)))
         name: (identifier)
         accessors: (accessor_list
@@ -42,8 +42,8 @@ struct A {
       (event_declaration
         (modifier)
         type: (generic_name
-          (identifier)
-          (type_argument_list
+          name: (identifier)
+          type_arguments: (type_argument_list
             (identifier)))
         name: (identifier)
         accessors: (accessor_list

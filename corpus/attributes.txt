@@ -54,8 +54,8 @@ class D {}
     (attribute_list
       (attribute
         name: (qualified_name
-          (identifier)
-          (identifier))
+          qualifier: (identifier)
+          name: (identifier))
         (attribute_argument_list
           (attribute_argument
             (member_access_expression
@@ -165,7 +165,7 @@ class Zzz {
         (variable_declaration
           type: (predefined_type)
           (variable_declarator
-            (identifier)))))))
+            name: (identifier)))))))
 
 ================================================================================
 Attributes on methods
@@ -441,8 +441,8 @@ void A() { }
       (attribute_list
         (attribute
           name: (generic_name
-            (identifier)
-            (type_argument_list
+            name: (identifier)
+            type_arguments: (type_argument_list
               (identifier)
               (identifier)))))
       type: (predefined_type)
@@ -464,7 +464,7 @@ var greeting = [Hello] () => Console.WriteLine("hello");
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (lambda_expression
               (attribute_list

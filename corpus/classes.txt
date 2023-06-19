@@ -444,7 +444,7 @@ class Foo {
         (variable_declaration
           type: (predefined_type)
           (variable_declarator
-            (identifier)
+            name: (identifier)
             (equals_value_clause
               (integer_literal)))))
       (field_declaration
@@ -452,7 +452,7 @@ class Foo {
         (variable_declaration
           type: (predefined_type)
           (variable_declarator
-            (identifier)
+            name: (identifier)
             (equals_value_clause
               (interpolated_string_expression
                 (interpolated_string_text)))))))))
@@ -614,8 +614,8 @@ class A {
     body: (declaration_list
       (method_declaration
         type: (qualified_name
-          (identifier)
-          (identifier))
+          qualifier: (identifier)
+          name: (identifier))
         name: (identifier)
         parameters: (parameter_list)
         body: (block
@@ -640,8 +640,8 @@ class Ωµ {
     body: (declaration_list
       (method_declaration
         type: (qualified_name
-          (identifier)
-          (identifier))
+          qualifier: (identifier)
+          name: (identifier))
         name: (identifier)
         parameters: (parameter_list)
         body: (block

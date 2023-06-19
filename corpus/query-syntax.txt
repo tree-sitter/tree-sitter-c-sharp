@@ -12,11 +12,11 @@ var x = from a in source select a.B;
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (query_expression
               (from_clause
-                (identifier)
+                name: (identifier)
                 (identifier))
               (select_clause
                 (member_access_expression
@@ -37,11 +37,11 @@ var x = from a in source select a * 2;
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (query_expression
               (from_clause
-                (identifier)
+                name: (identifier)
                 (identifier))
               (select_clause
                 (binary_expression
@@ -62,11 +62,11 @@ var x = from a in source select a.B();
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (query_expression
               (from_clause
-                (identifier)
+                name: (identifier)
                 (identifier))
               (select_clause
                 (invocation_expression
@@ -89,11 +89,11 @@ var x = from a in source select a ? 0 : 1;
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (query_expression
               (from_clause
-                (identifier)
+                name: (identifier)
                 (identifier))
               (select_clause
                 (conditional_expression
@@ -115,11 +115,11 @@ var x = from a in source select somevar = a;
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (query_expression
               (from_clause
-                (identifier)
+                name: (identifier)
                 (identifier))
               (select_clause
                 (assignment_expression
@@ -141,11 +141,11 @@ var x = from a in source select new { Name = a.B };
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (query_expression
               (from_clause
-                (identifier)
+                name: (identifier)
                 (identifier))
               (select_clause
                 (anonymous_object_creation_expression
@@ -171,11 +171,11 @@ var x = from a in source
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (query_expression
               (from_clause
-                (identifier)
+                name: (identifier)
                 (identifier))
               (where_clause
                 (binary_expression
@@ -203,11 +203,11 @@ var x = from a in source
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (query_expression
               (from_clause
-                (identifier)
+                name: (identifier)
                 (identifier))
               (where_clause
                 (binary_expression
@@ -249,11 +249,11 @@ var x = from a in source
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (query_expression
               (from_clause
-                (identifier)
+                name: (identifier)
                 (identifier))
               (order_by_clause
                 (member_access_expression
@@ -284,11 +284,11 @@ var x = from a in source
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (query_expression
               (from_clause
-                (identifier)
+                name: (identifier)
                 (identifier))
               (let_clause
                 (identifier)
@@ -318,14 +318,14 @@ var x = from a in sourceA
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (query_expression
               (from_clause
-                (identifier)
+                name: (identifier)
                 (identifier))
               (join_clause
-                (identifier)
+                name: (identifier)
                 (identifier)
                 (member_access_expression
                   expression: (identifier)
@@ -359,14 +359,14 @@ var x = from a in sourceA
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (query_expression
               (from_clause
-                (identifier)
+                name: (identifier)
                 (identifier))
               (from_clause
-                (identifier)
+                name: (identifier)
                 (identifier))
               (where_clause
                 (binary_expression
@@ -401,11 +401,11 @@ var x = from a in sourceA
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (query_expression
               (from_clause
-                (identifier)
+                name: (identifier)
                 (identifier))
               (group_clause
                 (identifier)
@@ -413,7 +413,7 @@ var x = from a in sourceA
                   expression: (identifier)
                   name: (identifier)))
               (query_continuation
-                (identifier)
+                name: (identifier)
                 (select_clause
                   (anonymous_object_creation_expression
                     (name_equals

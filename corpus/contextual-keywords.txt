@@ -12,7 +12,7 @@ var a = Assert.Range(from, to);
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (invocation_expression
               function: (member_access_expression
@@ -102,14 +102,14 @@ file class file { }
           (variable_declaration
             type: (identifier)
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (null_literal)))))
         (local_declaration_statement
           (variable_declaration
             type: (predefined_type)
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (identifier)))))
         (expression_statement
@@ -126,7 +126,7 @@ file class file { }
           (variable_declaration
             type: (implicit_type)
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (binary_expression
                   left: (identifier)
@@ -223,7 +223,7 @@ class scoped { }
           (variable_declaration
             type: (identifier)
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (null_literal)))))
         (local_declaration_statement
@@ -232,7 +232,7 @@ class scoped { }
               type: (ref_type
                 type: (predefined_type)))
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (null_literal)))))
         (local_declaration_statement
@@ -241,14 +241,14 @@ class scoped { }
               type: (ref_type
                 type: (identifier)))
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (null_literal)))))
         (local_declaration_statement
           (variable_declaration
             type: (predefined_type)
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (null_literal)))))
         (expression_statement
@@ -265,7 +265,7 @@ class scoped { }
           (variable_declaration
             type: (implicit_type)
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (binary_expression
                   left: (identifier)
@@ -274,7 +274,7 @@ class scoped { }
           (variable_declaration
             type: (implicit_type)
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (lambda_expression
                   parameters: (implicit_parameter_list
@@ -285,7 +285,7 @@ class scoped { }
           (variable_declaration
             type: (implicit_type)
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (lambda_expression
                   parameters: (parameter_list
@@ -297,7 +297,7 @@ class scoped { }
           (variable_declaration
             type: (implicit_type)
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (lambda_expression
                   parameters: (parameter_list
@@ -310,7 +310,7 @@ class scoped { }
           (variable_declaration
             type: (implicit_type)
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (lambda_expression
                   type: (identifier)
@@ -383,14 +383,14 @@ class set { }
           (variable_declaration
             type: (identifier)
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (null_literal)))))
         (local_declaration_statement
           (variable_declaration
             type: (predefined_type)
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (identifier)))))
         (expression_statement
@@ -407,7 +407,7 @@ class set { }
           (variable_declaration
             type: (implicit_type)
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (binary_expression
                   left: (identifier)
@@ -474,21 +474,21 @@ class var { }
           (variable_declaration
             type: (implicit_type)
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (null_literal)))))
         (local_declaration_statement
           (variable_declaration
             type: (predefined_type)
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (identifier)))))
         (local_declaration_statement
           (variable_declaration
             type: (implicit_type)
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (integer_literal)))))
         (expression_statement
@@ -505,7 +505,7 @@ class var { }
           (variable_declaration
             type: (implicit_type)
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (binary_expression
                   left: (identifier)
@@ -572,14 +572,14 @@ class nameof { }
           (variable_declaration
             type: (identifier)
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (null_literal)))))
         (local_declaration_statement
           (variable_declaration
             type: (predefined_type)
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (identifier)))))
         (expression_statement
@@ -604,7 +604,7 @@ class nameof { }
           (variable_declaration
             type: (implicit_type)
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (binary_expression
                   left: (identifier)

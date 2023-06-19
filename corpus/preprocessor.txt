@@ -20,7 +20,7 @@ If, elif and else directives
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (string_literal
               (string_literal_fragment)))))))
@@ -31,7 +31,7 @@ If, elif and else directives
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (string_literal
               (string_literal_fragment)))))))
@@ -41,7 +41,7 @@ If, elif and else directives
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (string_literal
               (string_literal_fragment)))))))
@@ -266,7 +266,7 @@ class Of1879 {
             (variable_declaration
               type: (implicit_type)
               (variable_declarator
-                (identifier)
+                name: (identifier)
                 (equals_value_clause
                   (verbatim_string_literal)))))
           (comment))))))

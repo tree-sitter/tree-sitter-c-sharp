@@ -167,7 +167,7 @@ namespace Namespace
     //                                                        ^ operator
     //                                                           ^ keyword
     //                                                                  ^ punctuation.delimiter
-    //                                                                    ^ type.builtin
+    //                                                                    ^ type
     //                                                                     ^ operator
     {
     // <- punctuation.bracket

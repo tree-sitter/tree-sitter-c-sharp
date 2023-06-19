@@ -181,8 +181,9 @@
 
 ;; Linq
 (from_clause (identifier) @variable)
-(group_clause)
-(order_by_clause)
+(group_clause (identifier) @variable)
+(order_by_clause (identifier) @variable)
+(join_clause (identifier) @variable)
 (select_clause (identifier) @variable)
 (query_continuation (identifier) @variable) @keyword
 
@@ -223,8 +224,10 @@
 (parameter (identifier) @variable.parameter)
 (parameter_modifier) @keyword
 
-;; Variable
+;; Variable declarations
 (variable_declarator (identifier) @variable)
+(for_each_statement left: (identifier) @variable)
+(catch_declaration (_) (identifier) @variable)
 
 ;; Return
 (return_statement (identifier) @variable)
@@ -239,9 +242,6 @@
 
 ;; Type constraints
 (type_parameter_constraints_clause (identifier) @property.definition)
-
-;; Exception
-(catch_declaration (_) (identifier) @variable)
 
 ;; Switch
 (switch_statement (identifier) @variable)

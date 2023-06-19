@@ -20,26 +20,26 @@ class A {
         (variable_declaration
           type: (predefined_type)
           (variable_declarator
-            (identifier))))
+            name: (identifier))))
       (field_declaration
         (variable_declaration
           type: (identifier)
           (variable_declarator
-            (identifier))
+            name: (identifier))
           (variable_declarator
-            (identifier))))
+            name: (identifier))))
       (field_declaration
         (variable_declaration
           type: (generic_name
-            (identifier)
-            (type_argument_list
+            name: (identifier)
+            type_arguments: (type_argument_list
               (predefined_type)
               (generic_name
-                (identifier)
-                (type_argument_list
+                name: (identifier)
+                type_arguments: (type_argument_list
                   (predefined_type)))))
           (variable_declarator
-            (identifier)))))))
+            name: (identifier)))))))
 
 ================================================================================
 Struct field declarations
@@ -61,7 +61,7 @@ struct A {
         (variable_declaration
           type: (predefined_type)
           (variable_declarator
-            (identifier)))))))
+            name: (identifier)))))))
 
 ================================================================================
 Class field nullable type
@@ -85,14 +85,14 @@ class A {
           type: (nullable_type
             type: (predefined_type))
           (variable_declarator
-            (identifier))))
+            name: (identifier))))
       (field_declaration
         (modifier)
         (variable_declaration
           type: (nullable_type
             type: (identifier))
           (variable_declarator
-            (identifier)))))))
+            name: (identifier)))))))
 
 ================================================================================
 Class field pointer type
@@ -117,21 +117,21 @@ class A {
           type: (pointer_type
             type: (predefined_type))
           (variable_declarator
-            (identifier))))
+            name: (identifier))))
       (field_declaration
         (modifier)
         (variable_declaration
           type: (pointer_type
             type: (identifier))
           (variable_declarator
-            (identifier))))
+            name: (identifier))))
       (field_declaration
         (modifier)
         (variable_declaration
           type: (pointer_type
             type: (predefined_type))
           (variable_declarator
-            (identifier)))))))
+            name: (identifier)))))))
 
 ================================================================================
 Function pointer type
@@ -162,7 +162,7 @@ class A {
             (function_pointer_parameter
               type: (predefined_type)))
           (variable_declarator
-            (identifier))))
+            name: (identifier))))
       (field_declaration
         (variable_declaration
           type: (function_pointer_type
@@ -182,7 +182,7 @@ class A {
                   type: (ref_type
                     type: (predefined_type))))))
           (variable_declarator
-            (identifier))))
+            name: (identifier))))
       (comment)
       (field_declaration
         (variable_declaration
@@ -193,7 +193,7 @@ class A {
             (function_pointer_parameter
               type: (predefined_type)))
           (variable_declarator
-            (identifier))))
+            name: (identifier))))
       (field_declaration
         (variable_declaration
           type: (function_pointer_type
@@ -216,7 +216,7 @@ class A {
                 (function_pointer_parameter
                   type: (predefined_type)))))
           (variable_declarator
-            (identifier)))))))
+            name: (identifier)))))))
 
 ================================================================================
 Ref readonly
@@ -248,7 +248,7 @@ class A {
             type: (pointer_type
               type: (identifier)))
           (variable_declarator
-            (identifier))))
+            name: (identifier))))
       (field_declaration
         (variable_declaration
           type: (ref_type
@@ -256,14 +256,14 @@ class A {
               type: (identifier)
               rank: (array_rank_specifier)))
           (variable_declarator
-            (identifier))))
+            name: (identifier))))
       (field_declaration
         (variable_declaration
           type: (ref_type
             type: (nullable_type
               type: (identifier)))
           (variable_declarator
-            (identifier)))))))
+            name: (identifier)))))))
 
 ================================================================================
 Nullable reference types
@@ -285,13 +285,13 @@ class A {
           type: (nullable_type
             type: (predefined_type))
           (variable_declarator
-            (identifier))))
+            name: (identifier))))
       (field_declaration
         (variable_declaration
           type: (nullable_type
             type: (identifier))
           (variable_declarator
-            (identifier)))))))
+            name: (identifier)))))))
 
 ================================================================================
 Tuple types
@@ -317,7 +317,7 @@ class A {
               type: (predefined_type)
               name: (identifier)))
           (variable_declarator
-            (identifier))))
+            name: (identifier))))
       (field_declaration
         (variable_declaration
           type: (tuple_type
@@ -331,7 +331,7 @@ class A {
               type: (identifier)
               name: (identifier)))
           (variable_declarator
-            (identifier)))))))
+            name: (identifier)))))))
 
 ================================================================================
 Native integer types
@@ -352,12 +352,12 @@ class A {
         (variable_declaration
           type: (predefined_type)
           (variable_declarator
-            (identifier))))
+            name: (identifier))))
       (field_declaration
         (variable_declaration
           type: (predefined_type)
           (variable_declarator
-            (identifier)))))))
+            name: (identifier)))))))
 
 ================================================================================
 Required fields
@@ -379,4 +379,4 @@ class A {
         (variable_declaration
           type: (predefined_type)
           (variable_declarator
-            (identifier)))))))
+            name: (identifier)))))))

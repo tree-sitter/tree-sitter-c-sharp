@@ -727,7 +727,7 @@ public class C : I
         (modifier)
         type: (predefined_type)
         (explicit_interface_specifier
-          (identifier))
+          name: (identifier))
         parameters: (parameter_list
           (parameter
             type: (identifier)
@@ -840,8 +840,8 @@ public class C : I<C>
       constraints: (type_parameter_constraint
         (type_constraint
           type: (generic_name
-            (identifier)
-            (type_argument_list
+            name: (identifier)
+            type_arguments: (type_argument_list
               (identifier))))))
     body: (declaration_list
       (conversion_operator_declaration
@@ -865,16 +865,16 @@ public class C : I<C>
     name: (identifier)
     bases: (base_list
       (generic_name
-        (identifier)
-        (type_argument_list
+        name: (identifier)
+        type_arguments: (type_argument_list
           (identifier))))
     body: (declaration_list
       (conversion_operator_declaration
         (modifier)
         (explicit_interface_specifier
-          (generic_name
-            (identifier)
-            (type_argument_list
+          name: (generic_name
+            name: (identifier)
+            type_arguments: (type_argument_list
               (identifier))))
         type: (identifier)
         parameters: (parameter_list
@@ -887,9 +887,9 @@ public class C : I<C>
       (conversion_operator_declaration
         (modifier)
         (explicit_interface_specifier
-          (generic_name
-            (identifier)
-            (type_argument_list
+          name: (generic_name
+            name: (identifier)
+            type_arguments: (type_argument_list
               (identifier))))
         type: (identifier)
         parameters: (parameter_list

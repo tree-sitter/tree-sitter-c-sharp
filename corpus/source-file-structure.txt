@@ -49,7 +49,7 @@ namespace Foo {
     name: (identifier)
     body: (declaration_list
       (using_directive
-        (identifier)))))
+        name: (identifier)))))
 
 ================================================================================
 Global using directives
@@ -115,15 +115,15 @@ namespace A {
     body: (declaration_list
       (namespace_declaration
         name: (qualified_name
-          (qualified_name
-            (identifier)
-            (identifier))
-          (identifier))
+          qualifier: (qualified_name
+            qualifier: (identifier)
+            name: (identifier))
+          name: (identifier))
         body: (declaration_list))
       (namespace_declaration
         name: (qualified_name
-          (identifier)
-          (identifier))
+          qualifier: (identifier)
+          name: (identifier))
         body: (declaration_list)))))
 
 ================================================================================
@@ -268,6 +268,6 @@ var a = 1;
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (integer_literal)))))))

@@ -370,7 +370,7 @@ class A : ISomething {
       (method_declaration
         type: (predefined_type)
         (explicit_interface_specifier
-          (identifier))
+          name: (identifier))
         name: (identifier)
         parameters: (parameter_list
           (parameter
@@ -457,10 +457,10 @@ ref struct S {
             (parameter_modifier)
             (parameter_modifier)
             type: (qualified_name
-              (identifier)
-              (generic_name
-                (identifier)
-                (type_argument_list
+              qualifier: (identifier)
+              name: (generic_name
+                name: (identifier)
+                type_arguments: (type_argument_list
                   (predefined_type))))
             name: (identifier)))
         body: (block
@@ -469,13 +469,13 @@ ref struct S {
               type: (scoped_type
                 type: (ref_type
                   type: (qualified_name
-                    (identifier)
-                    (generic_name
-                      (identifier)
-                      (type_argument_list
+                    qualifier: (identifier)
+                    name: (generic_name
+                      name: (identifier)
+                      type_arguments: (type_argument_list
                         (predefined_type))))))
               (variable_declarator
-                (identifier)
+                name: (identifier)
                 (equals_value_clause
                   (ref_expression
                     (identifier))))))
@@ -483,12 +483,12 @@ ref struct S {
             (variable_declaration
               type: (scoped_type
                 type: (qualified_name
-                  (identifier)
-                  (generic_name
-                    (identifier)
-                    (type_argument_list
+                  qualifier: (identifier)
+                  name: (generic_name
+                    name: (identifier)
+                    type_arguments: (type_argument_list
                       (predefined_type)))))
               (variable_declarator
-                (identifier)
+                name: (identifier)
                 (equals_value_clause
                   (identifier))))))))))

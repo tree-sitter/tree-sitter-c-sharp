@@ -172,16 +172,16 @@ module.exports = grammar({
       $.record_struct_declaration
     ),
 
-    extern_alias_directive: $ => seq('extern', 'alias', $.identifier, ';'),
+    extern_alias_directive: $ => seq('extern', 'alias', field('name', $.identifier), ';'),
 
     using_directive: $ => seq(
       optional('global'),
       'using',
       optional(choice(
         'static',
-        $.name_equals
+        field('alias', $.name_equals)
       )),
-      $._name,
+      field('name', $._name),
       ';'
     ),
 
@@ -193,14 +193,14 @@ module.exports = grammar({
       $._simple_name
     ),
 
-    alias_qualified_name: $ => seq($._identifier_or_global, '::', $._simple_name),
+    alias_qualified_name: $ => seq(field('alias', $._identifier_or_global), '::', field('name', $._simple_name)),
 
     _simple_name: $ => choice(
       $.generic_name,
       $._identifier_or_global
     ),
 
-    generic_name: $ => seq($.identifier, $.type_argument_list),
+    generic_name: $ => seq(field('name', $.identifier), field('type_arguments', $.type_argument_list)),
 
     // Intentionally different from Roslyn to avoid non-matching
     // omitted_type_argument in a lot of unnecessary places.
@@ -213,7 +213,7 @@ module.exports = grammar({
       '>'
     )),
 
-    qualified_name: $ => prec(PREC.DOT, seq($._name, '.', $._simple_name)),
+    qualified_name: $ => prec(PREC.DOT, seq(field('qualifier', $._name), '.', field('name', $._simple_name))),
 
     attribute_list: $ => seq(
       '[',
@@ -252,7 +252,7 @@ module.exports = grammar({
       ']'
     ),
 
-    name_colon: $ => seq($._identifier_or_global, ':'),
+    name_colon: $ => seq(field('name', $._identifier_or_global), ':'),
 
     event_field_declaration: $ => prec.dynamic(1, seq(
       repeat($.attribute_list),
@@ -293,7 +293,7 @@ module.exports = grammar({
     ),
 
     variable_declarator: $ => seq(
-      choice($.identifier, $.tuple_pattern),
+      choice(field('name', $.identifier), $.tuple_pattern),
       optional($.bracketed_argument_list),
       optional($.equals_value_clause)
     ),
@@ -306,12 +306,12 @@ module.exports = grammar({
 
     tuple_pattern: $ => seq(
       '(',
-      commaSep1(choice($.identifier, $.discard, $.tuple_pattern)),
+      commaSep1(choice(field('name', $.identifier), $.discard, $.tuple_pattern)),
       ')'
     ),
 
     argument: $ => prec(1, seq(
-      optional($.name_colon),
+      optional(field('name', $.name_colon)),
       optional(choice('ref', 'out', 'in')),
       choice(
         $._expression,
@@ -431,7 +431,7 @@ module.exports = grammar({
       $._function_body,
     ),
 
-    explicit_interface_specifier: $ => prec(PREC.DOT, seq($._name, '.')),
+    explicit_interface_specifier: $ => prec(PREC.DOT, seq(field('name', $._name), '.')),
 
     type_parameter_list: $ => seq('<', commaSep1($.type_parameter), '>'),
 
@@ -512,7 +512,7 @@ module.exports = grammar({
     accessor_declaration: $ => seq(
       repeat($.attribute_list),
       repeat($.modifier),
-      choice('get', 'set', 'add', 'remove', 'init', $.identifier),
+      field('name', choice('get', 'set', 'add', 'remove', 'init', $.identifier)),
       $._function_body
     ),
 
@@ -1424,7 +1424,7 @@ module.exports = grammar({
     from_clause: $ => seq(
       'from',
       optional(field('type', $._type)),
-      $.identifier,
+      field('name', $.identifier),
       'in',
       $._expression
     ),
@@ -1446,7 +1446,7 @@ module.exports = grammar({
     join_clause: $ => seq(
       'join',
       optional(field('type', $._type)),
-      $.identifier,
+      field('name', $.identifier),
       'in',
       $._expression,
       'on',
@@ -1491,7 +1491,7 @@ module.exports = grammar({
 
     select_clause: $ => prec.right(PREC.SELECT, seq('select', $._expression)),
 
-    query_continuation: $ => seq('into', $.identifier, $._query_body),
+    query_continuation: $ => seq('into', field('name', $.identifier), $._query_body),
 
     range_expression: $ => prec.right(PREC.RANGE, seq(
       optional($._expression),

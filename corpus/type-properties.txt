@@ -204,7 +204,7 @@ class Foo: IFoo {
       (property_declaration
         type: (predefined_type)
         (explicit_interface_specifier
-          (identifier))
+          name: (identifier))
         name: (identifier)
         accessors: (accessor_list
           (accessor_declaration))))))

@@ -321,7 +321,7 @@ Declared tuple type with default
             type: (predefined_type)
             name: (identifier)))
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (default_expression)))))))
 
@@ -338,11 +338,11 @@ A<B> a = null;
     (local_declaration_statement
       (variable_declaration
         type: (generic_name
-          (identifier)
-          (type_argument_list
+          name: (identifier)
+          type_arguments: (type_argument_list
             (identifier)))
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (null_literal)))))))
 
@@ -361,7 +361,7 @@ int x = 0;
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (integer_literal))))))
   (global_statement
@@ -453,7 +453,7 @@ var result = list.Select(c => (c.f1, c.f2)).Where(t => t.f2 == 1);
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (invocation_expression
               function: (member_access_expression
@@ -623,7 +623,7 @@ switch (i)
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (integer_literal))))))
   (global_statement
@@ -906,8 +906,8 @@ class A {
     body: (declaration_list
       (method_declaration
         type: (generic_name
-          (identifier)
-          (type_argument_list
+          name: (identifier)
+          type_arguments: (type_argument_list
             (predefined_type)))
         name: (identifier)
         parameters: (parameter_list)
@@ -941,7 +941,7 @@ class A {
             (variable_declaration
               type: (implicit_type)
               (variable_declarator
-                (identifier)
+                name: (identifier)
                 (equals_value_clause
                   (integer_literal))))))))))
 
@@ -1082,7 +1082,7 @@ class A {
             (variable_declaration
               type: (predefined_type)
               (variable_declarator
-                (identifier)))))))))
+                name: (identifier)))))))))
 
 ================================================================================
 Explicit local variables with multiple literal initializers
@@ -1109,11 +1109,11 @@ class A {
             (variable_declaration
               type: (predefined_type)
               (variable_declarator
-                (identifier)
+                name: (identifier)
                 (equals_value_clause
                   (integer_literal)))
               (variable_declarator
-                (identifier)
+                name: (identifier)
                 (equals_value_clause
                   (integer_literal))))))))))
 
@@ -1143,7 +1143,7 @@ class A {
             (variable_declaration
               type: (predefined_type)
               (variable_declarator
-                (identifier)
+                name: (identifier)
                 (equals_value_clause
                   (integer_literal))))))))))
 
@@ -1173,11 +1173,11 @@ class A {
             (variable_declaration
               type: (predefined_type)
               (variable_declarator
-                (identifier)
+                name: (identifier)
                 (equals_value_clause
                   (integer_literal)))
               (variable_declarator
-                (identifier)
+                name: (identifier)
                 (equals_value_clause
                   (integer_literal))))))))))
 
@@ -1207,7 +1207,7 @@ class A {
               type: (ref_type
                 type: (implicit_type))
               (variable_declarator
-                (identifier)
+                name: (identifier)
                 (equals_value_clause
                   (ref_expression
                     (element_access_expression
@@ -1230,7 +1230,7 @@ var g = args[0].Length;
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (member_access_expression
               expression: (element_access_expression
@@ -1267,7 +1267,7 @@ class A {
             (variable_declaration
               type: (implicit_type)
               (variable_declarator
-                (identifier)
+                name: (identifier)
                 (equals_value_clause
                   (identifier))))
             body: (block
@@ -1300,7 +1300,7 @@ class A {
             (variable_declaration
               type: (identifier)
               (variable_declarator
-                (identifier)
+                name: (identifier)
                 (equals_value_clause
                   (invocation_expression
                     function: (member_access_expression
@@ -1311,7 +1311,7 @@ class A {
                         (string_literal
                           (string_literal_fragment)))))))
               (variable_declarator
-                (identifier)
+                name: (identifier)
                 (equals_value_clause
                   (object_creation_expression
                     type: (identifier)
@@ -1346,7 +1346,7 @@ class A {
             (variable_declaration
               type: (implicit_type)
               (variable_declarator
-                (identifier)
+                name: (identifier)
                 (equals_value_clause
                   (object_creation_expression
                     type: (identifier)
@@ -1379,7 +1379,7 @@ class A {
             (variable_declaration
               type: (identifier)
               (variable_declarator
-                (identifier)
+                name: (identifier)
                 (equals_value_clause
                   (identifier))))
             body: (block
@@ -1501,8 +1501,8 @@ class A {
           (for_each_statement
             type: (implicit_type)
             left: (tuple_pattern
-              (identifier)
-              (identifier))
+              name: (identifier)
+              name: (identifier))
             right: (identifier)
             body: (expression_statement
               (assignment_expression
@@ -1564,7 +1564,7 @@ class A {
             (variable_declaration
               type: (predefined_type)
               (variable_declarator
-                (identifier)
+                name: (identifier)
                 (equals_value_clause
                   (identifier))))
             (block)))))))
@@ -1596,7 +1596,7 @@ class A {
             initializer: (variable_declaration
               type: (predefined_type)
               (variable_declarator
-                (identifier)
+                name: (identifier)
                 (equals_value_clause
                   (integer_literal))))
             condition: (binary_expression
@@ -1680,8 +1680,8 @@ class A {
               type: (implicit_type)
               (variable_declarator
                 (tuple_pattern
-                  (identifier)
-                  (identifier))
+                  name: (identifier)
+                  name: (identifier))
                 (equals_value_clause
                   (identifier)))))
           (expression_statement
@@ -1709,7 +1709,7 @@ class A {
               type: (implicit_type)
               (variable_declarator
                 (tuple_pattern
-                  (identifier)
+                  name: (identifier)
                   (discard))
                 (equals_value_clause
                   (identifier)))))
@@ -1718,9 +1718,9 @@ class A {
               type: (implicit_type)
               (variable_declarator
                 (tuple_pattern
-                  (identifier)
+                  name: (identifier)
                   (tuple_pattern
-                    (identifier)
+                    name: (identifier)
                     (discard)))
                 (equals_value_clause
                   (identifier))))))))))
@@ -1746,7 +1746,7 @@ void A() {
           (variable_declaration
             type: (identifier)
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (string_literal)))))))))
 
@@ -1776,35 +1776,35 @@ async void Sample() {
           (variable_declaration
             type: (implicit_type)
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (string_literal)))))
         (local_declaration_statement
           (variable_declaration
             type: (predefined_type)
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (identifier)))))
         (local_declaration_statement
           (variable_declaration
             type: (identifier)
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (identifier)))))
         (local_declaration_statement
           (variable_declaration
             type: (identifier)
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (identifier)))))
         (local_declaration_statement
           (variable_declaration
             type: (identifier)
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (binary_expression
                   left: (binary_expression
@@ -1859,7 +1859,7 @@ ref T Choice(bool condition, ref T a, ref T b)
             type: (ref_type
               type: (implicit_type))
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (ref_expression
                   (parenthesized_expression
@@ -1885,11 +1885,11 @@ List<int> a = new(1)
     (local_declaration_statement
       (variable_declaration
         type: (generic_name
-          (identifier)
-          (type_argument_list
+          name: (identifier)
+          type_arguments: (type_argument_list
             (predefined_type)))
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (implicit_object_creation_expression
               (argument_list
@@ -1911,7 +1911,7 @@ var a = global => global.Single();
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (lambda_expression
               parameters: (implicit_parameter_list
@@ -1939,8 +1939,8 @@ numbers ??= new List<int>();
         (assignment_operator)
         right: (object_creation_expression
           type: (generic_name
-            (identifier)
-            (type_argument_list
+            name: (identifier)
+            type_arguments: (type_argument_list
               (predefined_type)))
           arguments: (argument_list))))))
 
@@ -2026,12 +2026,12 @@ MyClass myVar = MyFunction<MyOtherClass>("MyArg");
       (variable_declaration
         type: (identifier)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (invocation_expression
               function: (generic_name
-                (identifier)
-                (type_argument_list
+                name: (identifier)
+                type_arguments: (type_argument_list
                   (identifier)))
               arguments: (argument_list
                 (argument

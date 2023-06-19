@@ -255,8 +255,8 @@ record Teacher(string FirstName, string LastName, string Subject) : Person(First
           (argument
             (identifier))))
       (qualified_name
-        (identifier)
-        (identifier))
+        qualifier: (identifier)
+        name: (identifier))
       (identifier))))
 
 ================================================================================
@@ -276,8 +276,8 @@ record A : System.IEquatable<A>;
     bases: (base_list
       (primary_constructor_base_type
         type: (generic_name
-          (identifier)
-          (type_argument_list
+          name: (identifier)
+          type_arguments: (type_argument_list
             (identifier)))
         (argument_list))
       (identifier)))
@@ -285,10 +285,10 @@ record A : System.IEquatable<A>;
     name: (identifier)
     bases: (base_list
       (qualified_name
-        (identifier)
-        (generic_name
-          (identifier)
-          (type_argument_list
+        qualifier: (identifier)
+        name: (generic_name
+          name: (identifier)
+          type_arguments: (type_argument_list
             (identifier)))))))
 
 ================================================================================
@@ -359,7 +359,7 @@ void A() {
           (variable_declaration
             type: (implicit_type)
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (with_expression
                   (identifier)
@@ -393,7 +393,7 @@ void A() {
           (variable_declaration
             type: (implicit_type)
             (variable_declarator
-              (identifier)
+              name: (identifier)
               (equals_value_clause
                 (with_expression
                   (invocation_expression
@@ -425,7 +425,7 @@ var x = (Point) p1 with {X = 3};
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (with_expression
               (cast_expression
@@ -450,7 +450,7 @@ var x = p1 with {X = 3} switch { _ => 3 };
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (switch_expression
               (with_expression
@@ -477,7 +477,7 @@ var x = p1 with {X = 3} == p1 with {X = 4};
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (binary_expression
               left: (with_expression
@@ -507,7 +507,7 @@ var x = p1 with {X = 3} with {X = 4} with {X = 5};
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
-          (identifier)
+          name: (identifier)
           (equals_value_clause
             (with_expression
               (with_expression

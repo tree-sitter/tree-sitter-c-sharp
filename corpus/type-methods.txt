@@ -365,7 +365,7 @@ class A : ISomething {
   (class_declaration
     name: (identifier)
     bases: (base_list
-      (identifier))
+      type: (identifier))
     body: (declaration_list
       (method_declaration
         type: (predefined_type)
@@ -423,8 +423,8 @@ class A {
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list
-          (nullable_type
-            (array_type
+          type: (nullable_type
+            type: (array_type
               type: (predefined_type)
               rank: (array_rank_specifier)))
           name: (identifier))
@@ -461,19 +461,19 @@ ref struct S {
               (generic_name
                 (identifier)
                 (type_argument_list
-                  (predefined_type))))
+                  type: (predefined_type))))
             name: (identifier)))
         body: (block
           (local_declaration_statement
             (variable_declaration
               type: (scoped_type
-                (ref_type
-                  (qualified_name
+                type: (ref_type
+                  type: (qualified_name
                     (identifier)
                     (generic_name
                       (identifier)
                       (type_argument_list
-                        (predefined_type))))))
+                        type: (predefined_type))))))
               (variable_declarator
                 (identifier)
                 (equals_value_clause
@@ -482,12 +482,12 @@ ref struct S {
           (local_declaration_statement
             (variable_declaration
               type: (scoped_type
-                (qualified_name
+                type: (qualified_name
                   (identifier)
                   (generic_name
                     (identifier)
                     (type_argument_list
-                      (predefined_type)))))
+                      type: (predefined_type)))))
               (variable_declarator
                 (identifier)
                 (equals_value_clause

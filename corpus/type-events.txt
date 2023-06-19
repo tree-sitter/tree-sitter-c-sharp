@@ -17,7 +17,7 @@ class A {
         type: (generic_name
           (identifier)
           (type_argument_list
-            (identifier)))
+            type: (identifier)))
         name: (identifier)
         accessors: (accessor_list
           (accessor_declaration
@@ -44,7 +44,7 @@ struct A {
         type: (generic_name
           (identifier)
           (type_argument_list
-            (identifier)))
+            type: (identifier)))
         name: (identifier)
         accessors: (accessor_list
           (accessor_declaration

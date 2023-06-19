@@ -205,7 +205,7 @@ class Z {
   (delegate_declaration
     (modifier)
     type: (ref_type
-      (predefined_type))
+      type: (predefined_type))
     name: (identifier)
     parameters: (parameter_list
       (parameter
@@ -218,7 +218,7 @@ class Z {
   (delegate_declaration
     (modifier)
     type: (ref_type
-      (predefined_type))
+      type: (predefined_type))
     name: (identifier)
     parameters: (parameter_list
       (parameter
@@ -242,7 +242,7 @@ class Z {
     type: (predefined_type)
     name: (identifier)
     parameters: (parameter_list
-      (array_type
+      type: (array_type
         type: (predefined_type)
         rank: (array_rank_specifier))
       name: (identifier)))

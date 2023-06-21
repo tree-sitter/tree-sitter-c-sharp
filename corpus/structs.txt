@@ -72,7 +72,7 @@ public struct A : ISomething { }
     (modifier)
     name: (identifier)
     bases: (base_list
-      type: (identifier))
+      (identifier))
     body: (declaration_list)))
 
 ================================================================================

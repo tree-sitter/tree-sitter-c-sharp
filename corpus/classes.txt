@@ -25,7 +25,7 @@ public class F : dynamic { }
     (modifier)
     name: (identifier)
     bases: (base_list
-      type: (identifier))
+      (identifier))
     body: (declaration_list)))
 
 ================================================================================
@@ -41,9 +41,9 @@ public class F : object, IAlpha, IOmega { }
     (modifier)
     name: (identifier)
     bases: (base_list
-      type: (predefined_type)
-      type: (identifier)
-      type: (identifier))
+      (predefined_type)
+      (identifier)
+      (identifier))
     body: (declaration_list)))
 
 ================================================================================

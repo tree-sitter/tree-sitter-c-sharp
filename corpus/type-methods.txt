@@ -365,7 +365,7 @@ class A : ISomething {
   (class_declaration
     name: (identifier)
     bases: (base_list
-      type: (identifier))
+      (identifier))
     body: (declaration_list
       (method_declaration
         type: (predefined_type)
@@ -461,7 +461,7 @@ ref struct S {
               (generic_name
                 (identifier)
                 (type_argument_list
-                  type: (predefined_type))))
+                  (predefined_type))))
             name: (identifier)))
         body: (block
           (local_declaration_statement
@@ -473,7 +473,7 @@ ref struct S {
                     (generic_name
                       (identifier)
                       (type_argument_list
-                        type: (predefined_type))))))
+                        (predefined_type))))))
               (variable_declarator
                 (identifier)
                 (equals_value_clause
@@ -487,7 +487,7 @@ ref struct S {
                   (generic_name
                     (identifier)
                     (type_argument_list
-                      type: (predefined_type)))))
+                      (predefined_type)))))
               (variable_declarator
                 (identifier)
                 (equals_value_clause

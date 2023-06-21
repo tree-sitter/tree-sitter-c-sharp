@@ -721,7 +721,7 @@ public class C : I
     (modifier)
     name: (identifier)
     bases: (base_list
-      type: (identifier))
+      (identifier))
     body: (declaration_list
       (operator_declaration
         (modifier)
@@ -842,7 +842,7 @@ public class C : I<C>
           type: (generic_name
             (identifier)
             (type_argument_list
-              type: (identifier))))))
+              (identifier))))))
     body: (declaration_list
       (conversion_operator_declaration
         (modifier)
@@ -864,10 +864,10 @@ public class C : I<C>
     (modifier)
     name: (identifier)
     bases: (base_list
-      type: (generic_name
+      (generic_name
         (identifier)
         (type_argument_list
-          type: (identifier))))
+          (identifier))))
     body: (declaration_list
       (conversion_operator_declaration
         (modifier)
@@ -875,7 +875,7 @@ public class C : I<C>
           (generic_name
             (identifier)
             (type_argument_list
-              type: (identifier))))
+              (identifier))))
         type: (identifier)
         parameters: (parameter_list
           (parameter
@@ -890,7 +890,7 @@ public class C : I<C>
           (generic_name
             (identifier)
             (type_argument_list
-              type: (identifier))))
+              (identifier))))
         type: (identifier)
         parameters: (parameter_list
           (parameter

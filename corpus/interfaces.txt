@@ -105,7 +105,7 @@ private interface IOne : ITwo { }
     (modifier)
     name: (identifier)
     bases: (base_list
-      type: (identifier))
+      (identifier))
     body: (declaration_list)))
 
 ================================================================================
@@ -121,8 +121,8 @@ private interface IOne : ITwo, IThree { }
     (modifier)
     name: (identifier)
     bases: (base_list
-      type: (identifier)
-      type: (identifier))
+      (identifier)
+      (identifier))
     body: (declaration_list)))
 
 ================================================================================
@@ -141,7 +141,7 @@ private interface IOne<T1> : ITwo { }
       (type_parameter
         name: (identifier)))
     bases: (base_list
-      type: (identifier))
+      (identifier))
     body: (declaration_list)))
 
 ================================================================================
@@ -160,7 +160,7 @@ private interface IOne<T1> : ITwo where T1:T2 { }
       (type_parameter
         name: (identifier)))
     bases: (base_list
-      type: (identifier))
+      (identifier))
     (type_parameter_constraints_clause
       target: (identifier)
       constraints: (type_parameter_constraint
@@ -186,7 +186,7 @@ private interface IOne<T1, T3> : ITwo where T1:T2 where T3:new() { }
       (type_parameter
         name: (identifier)))
     bases: (base_list
-      type: (identifier))
+      (identifier))
     (type_parameter_constraints_clause
       target: (identifier)
       constraints: (type_parameter_constraint
@@ -215,7 +215,7 @@ namespace A {
       (interface_declaration
         name: (identifier)
         bases: (base_list
-          type: (identifier))
+          (identifier))
         body: (declaration_list)))))
 
 ================================================================================
@@ -237,7 +237,7 @@ interface A {
           type: (generic_name
             (identifier)
             (type_argument_list
-              type: (identifier)))
+              (identifier)))
           (variable_declarator
             (identifier)))))))
 
@@ -323,7 +323,7 @@ public interface IGetNext<T> where T : IGetNext<T>
           type: (generic_name
             (identifier)
             (type_argument_list
-              type: (identifier))))))
+              (identifier))))))
     body: (declaration_list
       (operator_declaration
         (modifier)

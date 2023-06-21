@@ -208,7 +208,7 @@ module.exports = grammar({
       '<',
       choice(
         repeat(','),
-        commaSep1(field('type', $._type)),
+        commaSep1($._type),
       ),
       '>'
     )),
@@ -559,7 +559,7 @@ module.exports = grammar({
       $._opt_semi,
     ),
 
-    base_list: $ => seq(':', commaSep1(field('type', $._type))),
+    base_list: $ => seq(':', commaSep1($._type)),
 
     enum_member_declaration_list: $ => seq(
       '{',
@@ -658,8 +658,8 @@ module.exports = grammar({
     ),
 
     record_base: $ => choice(
-      seq(':', commaSep1(field('type', $._type_name))),
-      seq(':', $.primary_constructor_base_type, optional(seq(',', commaSep1(field('type', $._type_name))))),
+      seq(':', commaSep1($._type_name)),
+      seq(':', $.primary_constructor_base_type, optional(seq(',', commaSep1($._type_name)))),
     ),
 
     primary_constructor_base_type: $ => seq(

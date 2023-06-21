@@ -1969,7 +1969,7 @@ void b() {
                     (generic_name
                       (identifier)
                       (type_argument_list
-                        type: (predefined_type)))
+                        (predefined_type)))
                     (identifier)))))))))))
 
 ================================================================================
@@ -2476,8 +2476,8 @@ var x = new Dictionary<string,int> { ["a"] = 65 };
               type: (generic_name
                 (identifier)
                 (type_argument_list
-                  type: (predefined_type)
-                  type: (predefined_type)))
+                  (predefined_type)
+                  (predefined_type)))
               initializer: (initializer_expression
                 (assignment_expression
                   left: (element_binding_expression
@@ -2564,7 +2564,7 @@ void Test(int value) {
                   expression: (generic_name
                     (identifier)
                     (type_argument_list
-                      type: (predefined_type)))
+                      (predefined_type)))
                   name: (identifier))))))))))
 
 ================================================================================
@@ -3398,7 +3398,7 @@ var x = nameof(A.B);
                   (generic_name
                     (identifier)
                     (type_argument_list
-                      type: (identifier)))))))))))
+                      (identifier)))))))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
@@ -3429,8 +3429,8 @@ MyFunction<A,B>(1);
         function: (generic_name
           (identifier)
           (type_argument_list
-            type: (identifier)
-            type: (identifier)))
+            (identifier)
+            (identifier)))
         arguments: (argument_list
           (argument
             (integer_literal)))))))

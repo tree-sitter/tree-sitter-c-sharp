@@ -1,4 +1,7 @@
-class A
+class A : B, C
+//    ^ type
+//        ^ type
+//           ^ type
 {
     public void M()
     {
@@ -40,6 +43,25 @@ class A
         //       ^ type.builtin
         var a = (A)x;
         //       ^ type
-    }
 
+        A<int, A> a = new A<int, A>();
+        // <- type
+        //^ type.builtin
+        //     ^ type
+        //                ^ type
+        //                  ^ type.builtin
+        //                       ^ type
+    }
 }
+
+record A(int a, B b) : B(), I;
+//     ^ type
+//       ^ type.builtin
+//              ^ type
+//                     ^ type
+//                          ^ type
+
+record A : B, I;
+//     ^ type
+//         ^ type
+//            ^ type

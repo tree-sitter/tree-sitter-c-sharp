@@ -443,8 +443,8 @@ void A() { }
           name: (generic_name
             (identifier)
             (type_argument_list
-              type: (identifier)
-              type: (identifier)))))
+              (identifier)
+              (identifier)))))
       type: (predefined_type)
       name: (identifier)
       parameters: (parameter_list)

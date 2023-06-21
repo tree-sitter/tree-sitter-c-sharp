@@ -49,7 +49,7 @@ namespace A {
       (enum_declaration
         name: (identifier)
         bases: (base_list
-          type: (predefined_type))
+          (predefined_type))
         body: (enum_member_declaration_list
           (enum_member_declaration
             name: (identifier)

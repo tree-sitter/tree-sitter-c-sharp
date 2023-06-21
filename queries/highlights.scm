@@ -202,6 +202,7 @@
 (cast_expression (_) (identifier) @variable)
 
 ;; Class
+(base_list (identifier) @type) ;; applies to record_base too
 (property_declaration (generic_name))
 (property_declaration
   name: (identifier) @variable)
@@ -232,6 +233,7 @@
 ;; Type
 (generic_name (identifier) @type)
 (type_parameter (identifier) @property.definition)
+(type_argument_list (identifier) @type)
 (as_expression right: (identifier) @type)
 (is_expression right: (identifier) @type)
 

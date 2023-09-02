@@ -123,6 +123,9 @@ module.exports = grammar({
   word: $ => $._identifier_token,
 
   rules: {
+    cshtml: $ => repeat(choice($.content, $._razor_annotation)),
+
+    // TODO: delete this?
     compilation_unit: $ => seq(
       repeat($.extern_alias_directive),
       repeat($.using_directive),
@@ -868,6 +871,8 @@ module.exports = grammar({
       $.using_statement,
       $.while_statement,
       $.yield_statement,
+      $.implicit_html,
+      $.explicit_line_html,
     ),
 
     break_statement: $ => seq('break', ';'),
@@ -1964,6 +1969,90 @@ module.exports = grammar({
         ))
       }));
     },
+
+    content: _ => token(repeat1(choice(
+      '@@',
+      /\w@@/,
+      /\w@/,
+      /[^@]/
+    ))),
+
+    _razor_annotation: $ => seq('@', choice(
+      $.implicit_expr,
+      $.explicit_expr,
+      $._code_block,
+    )),
+
+    // TODO: actually parse implicit_expr
+    implicit_expr: _ => /[^\s<>()][^\s<>]*/,
+    explicit_expr: $ => seq('(', $._expression, ')'),
+
+    _code_block: $ => choice(
+      $.code_block,
+      $._razor_conditionals,
+      $._razor_loop,
+    ),
+
+    code_block: $ => seq('{', repeat($._statement), '}'),
+
+    // TODO: better parsing
+    implicit_html: _ => /<.*>/,
+
+    _razor_element: $ => seq($.content, repeat(choice($.content, $._razor_annotation))),
+
+    // TODO: better parsing
+    explicit_line_html: $ => seq('@:', $._razor_element, '\n'),
+
+    _razor_conditionals: $ => choice(
+      $.razor_if,
+      $.switch_statement,
+    ),
+
+    // FIXME: broken
+    razor_if: $ => prec.right(seq(
+      'if',
+      '(',
+      field('condition', $._expression),
+      ')',
+      field('consequence', $.block),
+      repeat(seq(
+        optional('@'),
+        'else if',
+        '(',
+        field('condition', $._expression),
+        ')',
+        field('consequence', $.block),
+      )),
+      optional(seq(
+        optional('@'),
+        'else',
+        field('alternative', $.block)
+      ))
+    )),
+
+    _razor_loop: $ => choice(
+      $.for_statement,
+      $.razor_for_each, // TODO: inconsistent name
+      $.while_statement,
+      $.do_statement,
+    ),
+
+    // for_each_statement includes optional "await"
+    razor_for_each: $=> seq(
+      'foreach',
+      '(',
+      choice(
+        seq(
+          field('type', $._type),
+          field('left', choice($.identifier, $.tuple_pattern)),
+        ), // for_each_statement
+        field('left', $._expression), // for_each_variable_statement
+      ),
+      'in',
+      field('right', $._expression),
+      ')',
+      field('body', $._statement)
+    ),
   }
 })
 

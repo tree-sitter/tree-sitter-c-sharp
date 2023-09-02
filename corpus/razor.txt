@@ -1,0 +1,334 @@
+===================================
+Implicit expressions
+===================================
+
+<p>@DateTime.Now</p>
+---
+
+(cshtml
+  (content)
+  (implicit_expr)
+  (content))
+
+===================================
+Implicit called expressions
+===================================
+
+<p>@DateTime.IsLeapYear(2016)</p>
+---
+
+(cshtml
+  (content)
+  (implicit_expr)
+  (content))
+
+===================================
+Implicit await expression
+===================================
+
+<p>@await DoSomething("hello", "world")</p>
+---
+
+(cshtml
+  (content)
+  (implicit_expr)
+  (content))
+
+===================================
+Implicit expressions reject generics TODO: idk this prolly isn't detailed enough
+===================================
+
+<p>@GenericMethod<int>()</p>
+---
+
+(cshtml
+  (content)
+  (implicit_expr)
+  (content))
+
+
+===================================
+Explicit Razor expressions
+===================================
+
+<p>Last week this time: @(DateTime.Now - TimeSpan.FromDays(7))</p>
+---
+
+(cshtml
+  (content)
+  (explicit_expr
+    (binary_expression
+      (member_access_expression
+        (identifier)
+        (identifier))
+      (invocation_expression
+        (member_access_expression
+          (identifier)
+          (identifier))
+        (argument_list
+          (argument
+            (integer_literal))))))
+  (content))
+
+===================================
+Explicit expr with preceding letter
+===================================
+
+<p>Age@(joe.Age)</p>
+---
+
+(cshtml
+  (content)
+  (explicit_expr)
+  (content))
+
+===================================
+Explicit expr with generic method
+===================================
+
+<p>@(GenericMethod<int>())</p>
+---
+
+(cshtml
+  (content)
+  (explicit_expr
+    (invocation_expression
+      (generic_name
+        (identifier)
+        (type_argument_list
+          (predefined_type)))
+      (argument_list)))
+  (content))
+
+===================================
+Razor code blocks
+===================================
+
+@{
+  var quote = "hello";
+}
+
+<p>@quote</p>
+---
+
+(cshtml
+  (code_block
+    (local_declaration_statement
+      (variable_declaration
+        (implicit_type)
+        (variable_declarator
+          (identifier)
+          (equals_value_clause
+            (string_literal
+              (string_literal_fragment)))))))
+  (content)
+  (implicit_expr)
+  (content))
+
+===================================
+Code block implicit transitions to HTML
+===================================
+
+@{
+    var inCSharp = true;
+    <p>Now in HTML, was in C# @inCSharp</p>
+}
+---
+
+(cshtml
+  (code_block
+    (local_declaration_statement
+      (variable_declaration
+        (implicit_type)
+        (variable_declarator
+          (identifier)
+          (equals_value_clause
+            (boolean_literal)))))
+    (implicit_html)))
+
+===================================
+Razor code blocks with local functions
+===================================
+
+@{
+    void RenderName(string name)
+    {
+        <p>Name: <strong>@name</strong></p>
+    }
+
+    RenderName("Mahatma Gandhi");
+    RenderName("Martin Luther King, Jr.");
+}
+---
+
+(cshtml
+  (code_block
+    (local_function_statement
+      (predefined_type)
+      (identifier)
+      (parameter_list
+        (parameter
+          (predefined_type)
+          (identifier)))
+      (block
+        (implicit_html)))
+    (expression_statement
+      (invocation_expression
+        (identifier)
+        (argument_list
+          (argument
+            (string_literal
+              (string_literal_fragment))))))
+    (expression_statement
+      (invocation_expression
+        (identifier)
+        (argument_list
+          (argument
+            (string_literal
+              (string_literal_fragment))))))))
+
+===================================
+Razor code blocks explicit line transition
+===================================
+
+@if (people.Length > 2)
+{
+    @:Name: @person.Name
+}
+---
+()
+
+===================================
+If
+===================================
+
+@if (value % 2 == 0)
+{
+    <p>The value was even.</p>
+}
+---
+
+(cshtml
+  (razor_if
+    (binary_expression
+      (binary_expression
+        (identifier)
+        (integer_literal))
+      (integer_literal))
+    (block
+      (implicit_html))))
+
+===================================
+Else
+===================================
+
+@if (value % 2 == 0)
+{
+    <p>The value was even.</p>
+}
+else
+{
+    <p>The value is odd.</p>
+}
+---
+
+(cshtml)
+
+===================================
+Else if
+===================================
+
+@if (value % 2 == 0)
+{
+    <p>The value was even.</p>
+}
+else if (value >= 1337)
+{
+    <p>The value is large.</p>
+}
+else
+{
+    <p>The value is odd and small.</p>
+}
+---
+
+(cshtml)
+
+===================================
+Switch statement
+===================================
+
+@switch (value)
+{
+    case 1:
+        <p>The value is 1!</p>
+        break;
+    case 1337:
+        <p>Your number is 1337!</p>
+        break;
+    default:
+        <p>Your number wasn't 1 or 1337.</p>
+        break;
+}
+---
+
+(cshtml
+  (switch_statement
+    (identifier)
+    (switch_body
+      (switch_section
+        (case_switch_label
+          (integer_literal))
+        (implicit_html)
+        (break_statement))
+      (switch_section
+        (case_switch_label
+          (integer_literal))
+        (implicit_html)
+        (break_statement))
+      (switch_section
+        (default_switch_label)
+        (implicit_html)
+        (break_statement)))))
+
+===================================
+For
+===================================
+
+@for (var i = 0; i < people.Length; i++)
+{
+    var person = people[i];
+    <p>Name: @person.Name</p>
+    <p>Age: @person.Age</p>
+}
+---
+
+(cshtml
+  (for_statement
+    (variable_declaration
+      (implicit_type)
+      (variable_declarator
+        (identifier)
+        (equals_value_clause
+          (integer_literal))))
+    (binary_expression
+      (identifier)
+      (member_access_expression
+        (identifier)
+        (identifier)))
+    (postfix_unary_expression
+      (identifier))
+    (block
+      (local_declaration_statement
+        (variable_declaration
+          (implicit_type)
+          (variable_declarator
+            (identifier)
+            (equals_value_clause
+              (element_access_expression
+                (identifier)
+                (bracketed_argument_list
+                  (argument
+                    (identifier))))))))
+      (implicit_html)
+      (implicit_html))))

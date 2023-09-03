@@ -32,6 +32,7 @@ const stringEncoding = /(u|U)8/;
 module.exports = grammar({
   name: 'c_sharp',
 
+  // TODO: these should not be allowed in html content
   extras: $ => [
     $.comment,
     /[\s\u00A0\uFEFF\u3000]+/,
@@ -1973,7 +1974,7 @@ module.exports = grammar({
     content: _ => token(repeat1(choice(
       '@@',
       /\w@@/,
-      /\w@/,
+      /\w@([^\(\{]| )/,
       /[^@]/
     ))),
 

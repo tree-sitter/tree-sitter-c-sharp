@@ -79,7 +79,10 @@ Explicit expr with preceding letter
 
 (cshtml
   (content)
-  (explicit_expr)
+  (explicit_expr
+    (member_access_expression
+      (identifier)
+      (identifier)))
   (content))
 
 ===================================

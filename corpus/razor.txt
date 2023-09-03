@@ -335,3 +335,118 @@ For
                     (identifier))))))))
       (implicit_html)
       (implicit_html))))
+
+===================================
+Foreach
+===================================
+
+@foreach (var person in people)
+{
+    <p>Name: @person.Name</p>
+    <p>Age: @person.Age</p>
+}
+---
+
+(cshtml
+  (razor_for_each
+    (implicit_type)
+    (identifier)
+    (identifier)
+    (block
+      (implicit_html)
+      (implicit_html))))
+
+===================================
+While
+===================================
+@{ var i = 0; }
+@while (i < people.Length)
+{
+    var person = people[i];
+    <p>Name: @person.Name</p>
+    <p>Age: @person.Age</p>
+
+    i++;
+}
+---
+
+(cshtml
+  (code_block
+    (local_declaration_statement
+      (variable_declaration
+        (implicit_type)
+        (variable_declarator
+          (identifier)
+          (equals_value_clause
+            (integer_literal))))))
+  (while_statement
+    (binary_expression
+      (identifier)
+      (member_access_expression
+        (identifier)
+        (identifier)))
+    (block
+      (local_declaration_statement
+        (variable_declaration
+          (implicit_type)
+          (variable_declarator
+            (identifier)
+            (equals_value_clause
+              (element_access_expression
+                (identifier)
+                (bracketed_argument_list
+                  (argument
+                    (identifier))))))))
+      (implicit_html)
+      (implicit_html)
+      (expression_statement
+        (postfix_unary_expression
+          (identifier))))))
+
+===================================
+Do while
+===================================
+
+@{ var i = 0; }
+@do
+{
+    var person = people[i];
+    <p>Name: @person.Name</p>
+    <p>Age: @person.Age</p>
+
+    i++;
+} while (i < people.Length);
+---
+
+(cshtml
+  (code_block
+    (local_declaration_statement
+      (variable_declaration
+        (implicit_type)
+        (variable_declarator
+          (identifier)
+          (equals_value_clause
+            (integer_literal))))))
+  (do_statement
+    (block
+      (local_declaration_statement
+        (variable_declaration
+          (implicit_type)
+          (variable_declarator
+            (identifier)
+            (equals_value_clause
+              (element_access_expression
+                (identifier)
+                (bracketed_argument_list
+                  (argument
+                    (identifier))))))))
+      (implicit_html)
+      (implicit_html)
+      (expression_statement
+        (postfix_unary_expression
+          (identifier))))
+    (binary_expression
+      (identifier)
+      (member_access_expression
+        (identifier)
+        (identifier)))))

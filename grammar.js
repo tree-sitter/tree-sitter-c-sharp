@@ -2060,7 +2060,7 @@ module.exports = grammar({
       'in',
       field('right', $._expression),
       ')',
-      field('body', $._statement)
+      field('body', $.block)
     ),
 
     razor_using: $ => seq(

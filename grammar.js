@@ -1985,7 +1985,14 @@ module.exports = grammar({
     )),
 
     // TODO: actually parse implicit_expr
-    implicit_expr: _ => /[^\s<>()][^\s<>]*/,
+    implicit_expr: $ => choice(
+      seq('await', $._non_await_implicit_expr),
+      $._non_await_implicit_expr,
+    ),
+
+    // non-await implicit expr
+    _non_await_implicit_expr: _ => /[^\s<>()][^\s<>]*/,
+
     explicit_expr: $ => seq('(', $._expression, ')'),
 
     _code_block: $ => choice(

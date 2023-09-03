@@ -1990,8 +1990,7 @@ module.exports = grammar({
       $._non_await_implicit_expr,
     ),
 
-    // non-await implicit expr
-    _non_await_implicit_expr: _ => /[^\s<>()][^\s<>]*/,
+    _non_await_implicit_expr: _ => /\w[^\s<>]*/,
 
     explicit_expr: $ => seq('(', $._expression, ')'),
 

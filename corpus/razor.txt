@@ -450,3 +450,24 @@ Do while
       (member_access_expression
         (identifier)
         (identifier)))))
+
+===================================
+Using
+===================================
+
+@using (Html.BeginForm())
+{
+    <div> Email: <input type="email" id="Email" value=""> <button>Register</button> </div>
+}
+---
+
+(cshtml
+  (razor_using
+    (invocation_expression
+      (member_access_expression
+        (identifier)
+        (identifier))
+      (argument_list))
+    (block
+      (implicit_html))))
+

@@ -1998,6 +1998,7 @@ module.exports = grammar({
       $.code_block,
       $._razor_conditionals,
       $._razor_loop,
+      $.razor_using,
     ),
 
     code_block: $ => seq('{', repeat($._statement), '}'),
@@ -2058,6 +2059,14 @@ module.exports = grammar({
       ),
       'in',
       field('right', $._expression),
+      ')',
+      field('body', $._statement)
+    ),
+
+    razor_using: $ => seq(
+      'using',
+      '(',
+      choice($.variable_declaration, $._expression),
       ')',
       field('body', $._statement)
     ),

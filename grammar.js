@@ -2006,10 +2006,11 @@ module.exports = grammar({
     // TODO: better parsing
     implicit_html: _ => /<.*>/,
 
-    _razor_element: $ => seq($.content, repeat(choice($.content, $._razor_annotation))),
+    // same as cshtml except non-empty
+    _cshtml1: $ => repeat1(choice($.content, $._razor_annotation)),
 
-    // TODO: better parsing
-    explicit_line_html: $ => seq('@:', $._razor_element, '\n'),
+    // TODO: parse html element + interweaved razor expressions @DoSomething()
+    explicit_line_html: $ => seq('@:', $._cshtml1, '\n'),
 
     _razor_conditionals: $ => choice(
       $.razor_if,

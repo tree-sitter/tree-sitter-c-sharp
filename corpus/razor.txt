@@ -11,7 +11,7 @@ Implicit expressions
   (content))
 
 ===================================
-Implicit called expressions
+Implicit called expressions TODO: test not detailed enough
 ===================================
 
 <p>@DateTime.IsLeapYear(2016)</p>
@@ -23,7 +23,7 @@ Implicit called expressions
   (content))
 
 ===================================
-Implicit await expression
+Implicit await expression TODO: test not detailed enough
 ===================================
 
 <p>@await DoSomething("hello", "world")</p>
@@ -470,4 +470,40 @@ Using
       (argument_list))
     (block
       (implicit_html))))
+
+===================================
+Try
+===================================
+
+@try
+{
+    throw new InvalidOperationException("You did something invalid.");
+}
+catch (Exception ex) {
+    <p>The exception message: @ex.Message</p>
+}
+finally {
+    <p>The finally statement.</p>
+}
+---
+
+(cshtml
+  (try_statement
+    (block
+      (throw_statement
+        (object_creation_expression
+          (identifier)
+          (argument_list
+            (argument
+              (string_literal
+                (string_literal_fragment)))))))
+    (catch_clause
+      (catch_declaration
+        (identifier)
+        (identifier))
+      (block
+        (implicit_html)))
+    (finally_clause
+      (block
+        (implicit_html)))))
 

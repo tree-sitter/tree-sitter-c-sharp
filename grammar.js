@@ -2004,6 +2004,7 @@ module.exports = grammar({
       $._razor_conditionals,
       $._razor_loop,
       $.razor_using,
+      $.try_statement,
     ),
 
     code_block: $ => seq('{', repeat($._statement), '}'),

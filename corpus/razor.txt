@@ -211,7 +211,18 @@ Razor code blocks explicit line transition
     @:Name: @person.Name
 }
 ---
-()
+
+(cshtml
+  (razor_if
+    (binary_expression
+      (member_access_expression
+        (identifier)
+        (identifier))
+      (integer_literal))
+    (block
+      (explicit_line_html
+        (content)
+        (implicit_expr)))))
 
 ===================================
 If

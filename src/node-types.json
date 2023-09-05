@@ -1126,6 +1126,21 @@
     }
   },
   {
+    "type": "attribute_directive",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "attribute_list",
     "named": true,
     "fields": {},
@@ -1688,6 +1703,21 @@
     }
   },
   {
+    "type": "code_directive",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "declaration_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "conditional_access_expression",
     "named": true,
     "fields": {
@@ -2011,7 +2041,15 @@
       "required": false,
       "types": [
         {
+          "type": "attribute_directive",
+          "named": true
+        },
+        {
           "type": "code_block",
+          "named": true
+        },
+        {
+          "type": "code_directive",
           "named": true
         },
         {
@@ -2028,6 +2066,14 @@
         },
         {
           "type": "for_statement",
+          "named": true
+        },
+        {
+          "type": "function_directive",
+          "named": true
+        },
+        {
+          "type": "implements_directive",
           "named": true
         },
         {
@@ -2684,7 +2730,15 @@
       "required": true,
       "types": [
         {
+          "type": "attribute_directive",
+          "named": true
+        },
+        {
           "type": "code_block",
+          "named": true
+        },
+        {
+          "type": "code_directive",
           "named": true
         },
         {
@@ -2701,6 +2755,14 @@
         },
         {
           "type": "for_statement",
+          "named": true
+        },
+        {
+          "type": "function_directive",
+          "named": true
+        },
+        {
+          "type": "implements_directive",
           "named": true
         },
         {
@@ -3084,6 +3146,21 @@
     }
   },
   {
+    "type": "function_directive",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "declaration_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "function_pointer_calling_convention",
     "named": true,
     "fields": {},
@@ -3342,6 +3419,21 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "implements_directive",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -7596,6 +7688,10 @@
     "named": false
   },
   {
+    "type": "attribute",
+    "named": false
+  },
+  {
     "type": "await",
     "named": false
   },
@@ -7633,6 +7729,10 @@
   },
   {
     "type": "class",
+    "named": false
+  },
+  {
+    "type": "code",
     "named": false
   },
   {
@@ -7756,6 +7856,10 @@
     "named": false
   },
   {
+    "type": "functions",
+    "named": false
+  },
+  {
     "type": "get",
     "named": false
   },
@@ -7772,11 +7876,19 @@
     "named": false
   },
   {
+    "type": "helper",
+    "named": false
+  },
+  {
     "type": "hidden",
     "named": false
   },
   {
     "type": "if",
+    "named": false
+  },
+  {
+    "type": "implements",
     "named": false
   },
   {
@@ -7789,6 +7901,10 @@
   },
   {
     "type": "in",
+    "named": false
+  },
+  {
+    "type": "inherits",
     "named": false
   },
   {
@@ -7844,6 +7960,10 @@
     "named": false
   },
   {
+    "type": "model",
+    "named": false
+  },
+  {
     "type": "module",
     "named": false
   },
@@ -7893,6 +8013,10 @@
   },
   {
     "type": "override",
+    "named": false
+  },
+  {
+    "type": "page",
     "named": false
   },
   {
@@ -7997,6 +8121,10 @@
   },
   {
     "type": "sealed",
+    "named": false
+  },
+  {
+    "type": "section",
     "named": false
   },
   {

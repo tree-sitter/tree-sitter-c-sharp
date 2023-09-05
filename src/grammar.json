@@ -11064,6 +11064,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "_razor_directive"
+        },
+        {
+          "type": "SYMBOL",
           "name": "_razor_conditionals"
         },
         {
@@ -11101,6 +11105,87 @@
         {
           "type": "STRING",
           "value": "}"
+        }
+      ]
+    },
+    "_razor_directive": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "attribute_directive"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "code_directive"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "function_directive"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "implements_directive"
+        }
+      ]
+    },
+    "attribute_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "attribute"
+        },
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_expression"
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
+    },
+    "code_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "code"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "declaration_list"
+        }
+      ]
+    },
+    "function_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "functions"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "declaration_list"
+        }
+      ]
+    },
+    "implements_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "implements"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
         }
       ]
     },
@@ -11402,6 +11487,96 @@
             "type": "SYMBOL",
             "name": "_statement"
           }
+        }
+      ]
+    },
+    "_razor_keyword": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "page"
+        },
+        {
+          "type": "STRING",
+          "value": "namespace"
+        },
+        {
+          "type": "STRING",
+          "value": "inherits"
+        },
+        {
+          "type": "STRING",
+          "value": "model"
+        },
+        {
+          "type": "STRING",
+          "value": "section"
+        },
+        {
+          "type": "STRING",
+          "value": "helper"
+        }
+      ]
+    },
+    "_csharp_razor_keywords": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "case"
+        },
+        {
+          "type": "STRING",
+          "value": "do"
+        },
+        {
+          "type": "STRING",
+          "value": "default"
+        },
+        {
+          "type": "STRING",
+          "value": "for"
+        },
+        {
+          "type": "STRING",
+          "value": "foreach"
+        },
+        {
+          "type": "STRING",
+          "value": "if"
+        },
+        {
+          "type": "STRING",
+          "value": "else"
+        },
+        {
+          "type": "STRING",
+          "value": "lock"
+        },
+        {
+          "type": "STRING",
+          "value": "switch"
+        },
+        {
+          "type": "STRING",
+          "value": "try"
+        },
+        {
+          "type": "STRING",
+          "value": "catch"
+        },
+        {
+          "type": "STRING",
+          "value": "finally"
+        },
+        {
+          "type": "STRING",
+          "value": "using"
+        },
+        {
+          "type": "STRING",
+          "value": "while"
         }
       ]
     }

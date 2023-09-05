@@ -2030,19 +2030,11 @@ module.exports = grammar({
       field('condition', $._expression),
       ')',
       field('consequence', $.block),
-      repeat(seq(
-        optional('@'),
-        'else if',
-        '(',
-        field('condition', $._expression),
-        ')',
-        field('consequence', $.block),
-      )),
       optional(seq(
         optional('@'),
         'else',
-        field('alternative', $.block)
-      ))
+        field('alternative', choice($.razor_if, $.block)),
+      )),
     )),
 
     _razor_loop: $ => choice(

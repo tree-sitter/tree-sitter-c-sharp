@@ -2023,7 +2023,6 @@ module.exports = grammar({
       $.switch_statement,
     ),
 
-    // FIXME: broken
     razor_if: $ => prec.right(seq(
       'if',
       '(',

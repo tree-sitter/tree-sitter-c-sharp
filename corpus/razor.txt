@@ -1,4 +1,32 @@
 ===================================
+Email pattern (auto escape @)
+===================================
+<p>john@john.LastName</p>
+---
+
+(cshtml (content))
+
+===================================
+Escaped @@ + implicit expr
+===================================
+<p>Username: @@@user.Username</p>
+---
+
+(cshtml
+  (content)
+  (implicit_expr)
+  (content))
+
+===================================
+Escaped @@
+===================================
+<p>Username: @@(user.Username)</p>
+---
+
+(cshtml
+  (content))
+
+===================================
 Implicit expressions
 ===================================
 <p>@john</p>

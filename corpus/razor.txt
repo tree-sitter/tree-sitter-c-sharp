@@ -1,7 +1,17 @@
 ===================================
 Implicit expressions
 ===================================
+<p>@john</p>
+---
 
+(cshtml
+  (content)
+  (implicit_expr)
+  (content))
+
+===================================
+Implicit expressions with accessor
+===================================
 <p>@DateTime.Now</p>
 ---
 
@@ -43,6 +53,18 @@ Implicit expressions reject generics TODO: idk this prolly isn't detailed enough
   (implicit_expr)
   (content))
 
+===================================
+Implicit expression function call with space TODO: test not detailed enough
+===================================
+<p>@await DoSomething("hello", "world")</p>
+---
+
+()
+; (cshtml
+;   (content)
+;   (implicit_expr)
+;   (ERROR)
+;   (content))
 
 ===================================
 Explicit Razor expressions

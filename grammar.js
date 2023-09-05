@@ -2013,7 +2013,10 @@ module.exports = grammar({
     implicit_html: _ => /<.*>/,
 
     // same as cshtml except non-empty
-    _cshtml1: $ => repeat1(choice($.content, $._razor_annotation)),
+    _cshtml1: $ => prec.right(seq(
+      repeat1(seq(optional($.content), $._razor_annotation)),
+      optional($.content),
+    )),
 
     // TODO: parse html element + interweaved razor expressions @DoSomething()
     explicit_line_html: $ => seq('@:', $._cshtml1, '\n'),

@@ -1935,6 +1935,11 @@
     }
   },
   {
+    "type": "content",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "continue_statement",
     "named": true,
     "fields": {}
@@ -2030,6 +2035,10 @@
           "named": true
         },
         {
+          "type": "lock_statement",
+          "named": true
+        },
+        {
           "type": "razor_for_each",
           "named": true
         },
@@ -2038,7 +2047,15 @@
           "named": true
         },
         {
+          "type": "razor_using",
+          "named": true
+        },
+        {
           "type": "switch_statement",
+          "named": true
+        },
+        {
+          "type": "try_statement",
           "named": true
         },
         {
@@ -2691,6 +2708,10 @@
           "named": true
         },
         {
+          "type": "lock_statement",
+          "named": true
+        },
+        {
           "type": "razor_for_each",
           "named": true
         },
@@ -2699,7 +2720,15 @@
           "named": true
         },
         {
+          "type": "razor_using",
+          "named": true
+        },
+        {
           "type": "switch_statement",
+          "named": true
+        },
+        {
+          "type": "try_statement",
           "named": true
         },
         {
@@ -3329,6 +3358,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "implicit_expr",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "implicit_object_creation_expression",
@@ -5739,7 +5773,7 @@
         "required": true,
         "types": [
           {
-            "type": "_statement",
+            "type": "block",
             "named": true
           }
         ]
@@ -5791,11 +5825,15 @@
           {
             "type": "block",
             "named": true
+          },
+          {
+            "type": "razor_if",
+            "named": true
           }
         ]
       },
       "condition": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
@@ -5805,7 +5843,7 @@
         ]
       },
       "consequence": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
@@ -5814,6 +5852,36 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "razor_using",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_statement",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "variable_declaration",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -7444,6 +7512,10 @@
     "named": false
   },
   {
+    "type": "@@",
+    "named": false
+  },
+  {
     "type": "Cdecl",
     "named": false
   },
@@ -7572,10 +7644,6 @@
     "named": false
   },
   {
-    "type": "content",
-    "named": true
-  },
-  {
     "type": "continue",
     "named": false
   },
@@ -7613,10 +7681,6 @@
   },
   {
     "type": "else",
-    "named": false
-  },
-  {
-    "type": "else if",
     "named": false
   },
   {
@@ -7718,10 +7782,6 @@
   {
     "type": "implicit",
     "named": false
-  },
-  {
-    "type": "implicit_expr",
-    "named": true
   },
   {
     "type": "implicit_html",

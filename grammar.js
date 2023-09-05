@@ -2087,6 +2087,33 @@ module.exports = grammar({
       ')',
       field('body', $._statement)
     ),
+
+    // not used right now, keeping for documentation
+    _razor_keyword: _ => choice(
+      'page',
+      'namespace',
+      'inherits',
+      'model',
+      'section',
+      'helper',
+    ),
+
+    _csharp_razor_keywords: _ => choice(
+      'case',
+      'do',
+      'default',
+      'for',
+      'foreach',
+      'if',
+      'else',
+      'lock',
+      'switch',
+      'try',
+      'catch',
+      'finally',
+      'using',
+      'while',
+    ),
   }
 })
 

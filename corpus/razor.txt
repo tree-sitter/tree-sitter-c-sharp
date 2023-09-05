@@ -87,12 +87,10 @@ Implicit expression function call with space TODO: test not detailed enough
 <p>@await DoSomething("hello", "world")</p>
 ---
 
-()
-; (cshtml
-;   (content)
-;   (implicit_expr)
-;   (ERROR)
-;   (content))
+(cshtml
+      (content)
+      (implicit_expr)
+      (content))
 
 ===================================
 Explicit Razor expressions
@@ -451,6 +449,7 @@ While
           (identifier)
           (equals_value_clause
             (integer_literal))))))
+  (content)
   (while_statement
     (binary_expression
       (identifier)
@@ -498,6 +497,7 @@ Do while
           (identifier)
           (equals_value_clause
             (integer_literal))))))
+  (content)
   (do_statement
     (block
       (local_declaration_statement

@@ -124,7 +124,11 @@ module.exports = grammar({
   word: $ => $._identifier_token,
 
   rules: {
-    cshtml: $ => repeat(choice($.content, $._razor_annotation)),
+    // cshtml: $ => prec.right(repeat(choice($._razor_annotation, $.content))),
+    cshtml: $ => prec.right(seq(
+      repeat(seq(optional($.content), $._razor_annotation)),
+      optional($.content),
+    )),
 
     // TODO: delete this?
     compilation_unit: $ => seq(
@@ -1971,11 +1975,12 @@ module.exports = grammar({
       }));
     },
 
-    content: _ => token(repeat1(choice(
+    content: _ => prec.left(repeat1(choice(
+      // this makes it LR(2) I think?
+      // is trailing whitespace here needed?
+      prec(1, /\w@[\w\s]/),
+      /[^@]/,
       '@@',
-      /\w@@/,
-      /\w@([^\(\{]| )/,
-      /[^@]/
     ))),
 
     _razor_annotation: $ => seq('@', choice(

@@ -590,3 +590,19 @@ Lock
     (identifier)
     (block
       (comment))))
+
+===================================
+Comments
+===================================
+@{
+    /* C# comment */
+    // Another C# comment
+}
+<!-- HTML comment -->
+---
+
+(cshtml
+  (code_block
+    (comment)
+    (comment))
+  (content))

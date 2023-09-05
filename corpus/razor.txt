@@ -576,3 +576,17 @@ finally {
       (block
         (implicit_html)))))
 
+===================================
+Lock
+===================================
+@lock (SomeLock)
+{
+    // Do critical section work
+}
+---
+
+(cshtml
+  (lock_statement
+    (identifier)
+    (block
+      (comment))))

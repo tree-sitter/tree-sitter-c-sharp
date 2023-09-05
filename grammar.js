@@ -32,7 +32,7 @@ const stringEncoding = /(u|U)8/;
 module.exports = grammar({
   name: 'c_sharp',
 
-  // TODO: these should not be allowed in html content
+  // TODO: C# comments and preprocessors should not be in html content
   extras: $ => [
     $.comment,
     /[\s\u00A0\uFEFF\u3000]+/,
@@ -2005,6 +2005,7 @@ module.exports = grammar({
       $._razor_loop,
       $.razor_using,
       $.try_statement,
+      $.lock_statement,
     ),
 
     code_block: $ => seq('{', repeat($._statement), '}'),

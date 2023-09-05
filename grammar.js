@@ -2001,6 +2001,7 @@ module.exports = grammar({
 
     _code_block: $ => choice(
       $.code_block,
+      $._razor_directive,
       $._razor_conditionals,
       $._razor_loop,
       $.razor_using,
@@ -2009,6 +2010,21 @@ module.exports = grammar({
     ),
 
     code_block: $ => seq('{', repeat($._statement), '}'),
+
+    _razor_directive: $ => choice(
+      $.attribute_directive,
+      $.code_directive,
+      $.functions_directive,
+      $.implements_directive,
+    ),
+
+    // idk if it's really _expression here
+    attribute_directive: $ => seq('attribute', '[', $._expression, ']'),
+
+    code_directive: $ => seq('code', $.declaration_list),
+    functions_directive: $ => seq('functions', $.declaration_list),
+
+    implements_directive: $ => seq('implements', $.identifier),
 
     // TODO: better parsing
     implicit_html: _ => /<.*>/,

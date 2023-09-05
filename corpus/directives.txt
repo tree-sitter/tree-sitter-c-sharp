@@ -1,0 +1,88 @@
+================================================================================
+Attribute
+================================================================================
+@attribute [Authorize]
+--------------------------------------------------------------------------------
+
+(cshtml
+  (attribute_directive
+    (identifier)))
+
+================================================================================
+Code
+================================================================================
+@code {
+    // C# members (fields, properties, and methods)
+}
+--------------------------------------------------------------------------------
+
+(cshtml
+  (code_directive
+    (declaration_list
+      (comment))))
+
+================================================================================
+Functions
+================================================================================
+@functions {
+    public string GetHello()
+    {
+        return "Hello";
+    }
+}
+
+<div>From method: @GetHello()</div>
+--------------------------------------------------------------------------------
+
+(cshtml
+  (functions_directive
+    (declaration_list
+      (method_declaration
+        (modifier)
+        (predefined_type)
+        (identifier)
+        (parameter_list)
+        (block
+          (return_statement
+            (string_literal
+              (string_literal_fragment)))))))
+  (content)
+  (implicit_expr)
+  (content))
+
+================================================================================
+Implements
+================================================================================
+@implements IDisposable
+
+<h1>Example</h1>
+
+@functions {
+    private bool _isDisposed;
+
+    public void Dispose() => _isDisposed = true;
+}
+--------------------------------------------------------------------------------
+
+(cshtml
+  (implements_directive
+    (identifier))
+  (content)
+  (function_directive
+    (declaration_list
+      (field_declaration
+        (modifier)
+        (variable_declaration
+          (predefined_type)
+          (variable_declarator
+            (identifier))))
+      (method_declaration
+        (modifier)
+        (predefined_type)
+        (identifier)
+        (parameter_list)
+        (arrow_expression_clause
+          (assignment_expression
+            (identifier)
+            (assignment_operator)
+            (boolean_literal)))))))

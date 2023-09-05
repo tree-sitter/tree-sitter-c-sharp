@@ -235,7 +235,17 @@ else
 }
 ---
 
-(cshtml)
+(cshtml
+  (razor_if
+    (binary_expression
+      (binary_expression
+        (identifier)
+        (integer_literal))
+      (integer_literal))
+    (block
+      (implicit_html))
+    (block
+      (implicit_html))))
 
 ===================================
 Else if
@@ -255,7 +265,24 @@ else
 }
 ---
 
-(cshtml)
+(cshtml
+  (razor_if
+    (binary_expression
+      (binary_expression
+        (identifier)
+        (integer_literal))
+      (integer_literal))
+    (block
+      (implicit_html))
+    (razor_if
+      (binary_expression
+        (identifier)
+        (integer_literal))
+      (block
+        (implicit_html))
+      (block
+        (implicit_html)))))
+
 
 ===================================
 Switch statement

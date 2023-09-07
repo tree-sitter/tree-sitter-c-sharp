@@ -10975,8 +10975,17 @@
               }
             },
             {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "comment"
+              },
+              "named": false,
+              "value": "notcomment"
+            },
+            {
               "type": "PATTERN",
-              "value": "[^@]"
+              "value": "[^@+]"
             },
             {
               "type": "STRING",
@@ -11121,11 +11130,43 @@
         },
         {
           "type": "SYMBOL",
-          "name": "function_directive"
+          "name": "functions_directive"
         },
         {
           "type": "SYMBOL",
           "name": "implements_directive"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "inherits_directive"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "inject_directive"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "layout_directive"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "model_directive"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "namespace_directive"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "page_directive"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "preservewhitespace_directive"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "section"
         }
       ]
     },
@@ -11163,7 +11204,7 @@
         }
       ]
     },
-    "function_directive": {
+    "functions_directive": {
       "type": "SEQ",
       "members": [
         {
@@ -11176,6 +11217,10 @@
         }
       ]
     },
+    "type_name": {
+      "type": "SYMBOL",
+      "name": "_type_name"
+    },
     "implements_directive": {
       "type": "SEQ",
       "members": [
@@ -11185,7 +11230,167 @@
         },
         {
           "type": "SYMBOL",
+          "name": "type_name"
+        },
+        {
+          "type": "STRING",
+          "value": "\n"
+        }
+      ]
+    },
+    "inherits_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "inherits"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "type_name"
+        },
+        {
+          "type": "STRING",
+          "value": "\n"
+        }
+      ]
+    },
+    "inject_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "inject"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "type_name"
+        },
+        {
+          "type": "SYMBOL",
           "name": "identifier"
+        },
+        {
+          "type": "STRING",
+          "value": "\n"
+        }
+      ]
+    },
+    "layout_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "layout"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "STRING",
+          "value": "\n"
+        }
+      ]
+    },
+    "model_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "model"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "STRING",
+          "value": "\n"
+        }
+      ]
+    },
+    "namespace_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "namespace"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_name"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "\n"
+        }
+      ]
+    },
+    "page_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "page"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "string_literal"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "\n"
+        }
+      ]
+    },
+    "preservewhitespace_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "preservewhitespace"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "boolean_literal"
+        },
+        {
+          "type": "STRING",
+          "value": "\n"
+        }
+      ]
+    },
+    "section": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "section"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "block"
         }
       ]
     },

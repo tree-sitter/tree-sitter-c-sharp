@@ -2069,7 +2069,7 @@
           "named": true
         },
         {
-          "type": "function_directive",
+          "type": "functions_directive",
           "named": true
         },
         {
@@ -2081,7 +2081,35 @@
           "named": true
         },
         {
+          "type": "inherits_directive",
+          "named": true
+        },
+        {
+          "type": "inject_directive",
+          "named": true
+        },
+        {
+          "type": "layout_directive",
+          "named": true
+        },
+        {
           "type": "lock_statement",
+          "named": true
+        },
+        {
+          "type": "model_directive",
+          "named": true
+        },
+        {
+          "type": "namespace_directive",
+          "named": true
+        },
+        {
+          "type": "page_directive",
+          "named": true
+        },
+        {
+          "type": "preservewhitespace_directive",
           "named": true
         },
         {
@@ -2094,6 +2122,10 @@
         },
         {
           "type": "razor_using",
+          "named": true
+        },
+        {
+          "type": "section",
           "named": true
         },
         {
@@ -2758,7 +2790,7 @@
           "named": true
         },
         {
-          "type": "function_directive",
+          "type": "functions_directive",
           "named": true
         },
         {
@@ -2770,7 +2802,35 @@
           "named": true
         },
         {
+          "type": "inherits_directive",
+          "named": true
+        },
+        {
+          "type": "inject_directive",
+          "named": true
+        },
+        {
+          "type": "layout_directive",
+          "named": true
+        },
+        {
           "type": "lock_statement",
+          "named": true
+        },
+        {
+          "type": "model_directive",
+          "named": true
+        },
+        {
+          "type": "namespace_directive",
+          "named": true
+        },
+        {
+          "type": "page_directive",
+          "named": true
+        },
+        {
+          "type": "preservewhitespace_directive",
           "named": true
         },
         {
@@ -2783,6 +2843,10 @@
         },
         {
           "type": "razor_using",
+          "named": true
+        },
+        {
+          "type": "section",
           "named": true
         },
         {
@@ -3146,21 +3210,6 @@
     }
   },
   {
-    "type": "function_directive",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "declaration_list",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "function_pointer_calling_convention",
     "named": true,
     "fields": {},
@@ -3245,6 +3294,21 @@
       "types": [
         {
           "type": "function_pointer_unmanaged_calling_convention",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "functions_directive",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "declaration_list",
           "named": true
         }
       ]
@@ -3430,7 +3494,7 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "type_name",
           "named": true
         }
       ]
@@ -3575,6 +3639,21 @@
     }
   },
   {
+    "type": "inherits_directive",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "type_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "initializer_expression",
     "named": true,
     "fields": {},
@@ -3584,6 +3663,25 @@
       "types": [
         {
           "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "inject_directive",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "type_name",
           "named": true
         }
       ]
@@ -4013,6 +4111,21 @@
     }
   },
   {
+    "type": "layout_directive",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "let_clause",
     "named": true,
     "fields": {},
@@ -4408,6 +4521,21 @@
     }
   },
   {
+    "type": "model_directive",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "modifier",
     "named": true,
     "fields": {}
@@ -4465,6 +4593,38 @@
           }
         ]
       },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "alias_qualified_name",
+            "named": true
+          },
+          {
+            "type": "generic_name",
+            "named": true
+          },
+          {
+            "type": "global",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "qualified_name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "namespace_directive",
+    "named": true,
+    "fields": {
       "name": {
         "multiple": false,
         "required": true,
@@ -4951,6 +5111,21 @@
       "types": [
         {
           "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "page_directive",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "string_literal",
           "named": true
         }
       ]
@@ -5564,6 +5739,21 @@
       "types": [
         {
           "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "preservewhitespace_directive",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "boolean_literal",
           "named": true
         }
       ]
@@ -6393,6 +6583,32 @@
     }
   },
   {
+    "type": "section",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "select_clause",
     "named": true,
     "fields": {},
@@ -6958,6 +7174,37 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "type_name",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "alias_qualified_name",
+          "named": true
+        },
+        {
+          "type": "generic_name",
+          "named": true
+        },
+        {
+          "type": "global",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "qualified_name",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -7912,6 +8159,10 @@
     "named": false
   },
   {
+    "type": "inject",
+    "named": false
+  },
+  {
     "type": "integer_literal",
     "named": true
   },
@@ -7933,6 +8184,10 @@
   },
   {
     "type": "join",
+    "named": false
+  },
+  {
+    "type": "layout",
     "named": false
   },
   {
@@ -7977,6 +8232,10 @@
   },
   {
     "type": "not",
+    "named": false
+  },
+  {
+    "type": "notcomment",
     "named": false
   },
   {
@@ -8054,6 +8313,10 @@
   {
     "type": "preproc_string_literal",
     "named": true
+  },
+  {
+    "type": "preservewhitespace",
+    "named": false
   },
   {
     "type": "private",

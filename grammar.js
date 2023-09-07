@@ -1975,11 +1975,12 @@ module.exports = grammar({
       }));
     },
 
-    content: _ => prec.left(repeat1(choice(
+    content: $ => prec.left(repeat1(choice(
       // this makes it LR(2) I think?
       // is trailing whitespace here needed?
       prec(1, /\w@[\w\s]/),
-      /[^@]/,
+      alias($.comment, 'notcomment'),
+      /[^@+]/,
       '@@',
     ))),
 

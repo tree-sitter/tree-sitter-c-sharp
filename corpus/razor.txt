@@ -598,11 +598,18 @@ Comments
     /* C# comment */
     // Another C# comment
 }
-<!-- HTML comment -->
+@(Name)// this is normal HTML content
+/* this is also HTML */
+
+<!-- HTML content -->
+// this is normal HTML content
 ---
 
 (cshtml
   (code_block
     (comment)
     (comment))
+  (content)
+  (explicit_expr
+    (identifier))
   (content))

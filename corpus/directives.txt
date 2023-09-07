@@ -66,9 +66,10 @@ Implements
 
 (cshtml
   (implements_directive
-    (identifier))
+    (type_name
+      (identifier)))
   (content)
-  (function_directive
+  (functions_directive
     (declaration_list
       (field_declaration
         (modifier)
@@ -86,3 +87,138 @@ Implements
             (identifier)
             (assignment_operator)
             (boolean_literal)))))))
+
+================================================================================
+Inherits
+================================================================================
+@inherits CustomRazorPage<TModel>
+
+<div>Custom text: @CustomText</div>
+--------------------------------------------------------------------------------
+
+(cshtml
+  (inherits_directive
+    (type_name
+      (generic_name
+        (identifier)
+        (type_argument_list
+          (identifier)))))
+  (content)
+  (implicit_expr)
+  (content))
+
+================================================================================
+Inject
+================================================================================
+@inject IConfiguration Configuration
+
+--------------------------------------------------------------------------------
+
+(cshtml
+  (inject_directive
+    (type_name
+      (identifier))
+    (identifier)))
+
+================================================================================
+Layout
+================================================================================
+@page "/episodes"
+@layout DoctorWhoLayout
+
+<h2>Episodes</h2>
+
+<ul>
+    <li>
+        <a href="https://www.bbc.co.uk/programmes/p00vfknq">
+            <em>The Ribos Operation</em>
+        </a>
+    </li>
+    <li>
+        <a href="https://www.bbc.co.uk/programmes/p00vfdsb">
+            <em>The Sun Makers</em>
+        </a>
+    </li>
+    <li>
+        <a href="https://www.bbc.co.uk/programmes/p00vhc26">
+            <em>Nightmare of Eden</em>
+        </a>
+    </li>
+</ul>
+--------------------------------------------------------------------------------
+
+(cshtml
+  (page_directive
+    (string_literal
+      (string_literal_fragment)))
+  (layout_directive
+    (identifier))
+  (content))
+
+================================================================================
+Model
+================================================================================
+@model LoginViewModel
+
+<div>The Login Email: @Model.Email</div>
+--------------------------------------------------------------------------------
+
+(cshtml
+  (model_directive
+    (identifier))
+  (content)
+  (implicit_expr)
+  (content))
+
+================================================================================
+Namespace
+================================================================================
+@Namespace Your
+@Namespace Your.Namespace.Here
+
+--------------------------------------------------------------------------------
+
+(cshtml
+  (implicit_expr)
+  (content)
+  (implicit_expr)
+  (content))
+
+================================================================================
+page
+================================================================================
+@page
+@page "/app/dashboard"
+
+--------------------------------------------------------------------------------
+
+(cshtml
+  (page_directive)
+  (page_directive
+    (string_literal
+      (string_literal_fragment))))
+
+================================================================================
+Preserve whitespace
+================================================================================
+@preservewhitespace true
+
+--------------------------------------------------------------------------------
+
+(cshtml
+  (preservewhitespace_directive
+    (boolean_literal)))
+
+================================================================================
+Section
+================================================================================
+@section Scripts {
+     <script type="text/javascript" src="~/scripts/main.js"></script>
+}
+--------------------------------------------------------------------------------
+
+(cshtml
+  (section
+    (identifier)
+    (block
+      (implicit_html))))

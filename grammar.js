@@ -2016,6 +2016,14 @@ module.exports = grammar({
       $.code_directive,
       $.functions_directive,
       $.implements_directive,
+      $.inherits_directive,
+      $.inject_directive,
+      $.layout_directive,
+      $.model_directive,
+      $.namespace_directive,
+      $.page_directive,
+      $.preservewhitespace_directive,
+      $.section,
     ),
 
     // idk if it's really _expression here
@@ -2024,7 +2032,25 @@ module.exports = grammar({
     code_directive: $ => seq('code', $.declaration_list),
     functions_directive: $ => seq('functions', $.declaration_list),
 
-    implements_directive: $ => seq('implements', $.identifier),
+    type_name: $ => $._type_name,
+    implements_directive: $ => seq('implements', $.type_name, '\n'),
+    inherits_directive: $ => seq('inherits', $.type_name, '\n'),
+
+    inject_directive: $ => seq('inject', $.type_name, $.identifier, '\n'),
+
+    // only available for razor components (.razor)
+    layout_directive: $ => seq('layout', $.identifier, '\n'),
+
+    // MVC and razor pages only (.cshtml)
+    model_directive: $ => seq('model', $.identifier, '\n'),
+
+    namespace_directive: $ => seq('namespace', field('name', $._name), '\n'),
+
+    page_directive: $ => seq('page', optional($.string_literal), '\n'),
+
+    preservewhitespace_directive: $ => seq('preservewhitespace', $.boolean_literal, '\n'),
+
+    section: $ => seq('section', field('name', $.identifier), $.block),
 
     // TODO: better parsing
     implicit_html: _ => /<.*>/,

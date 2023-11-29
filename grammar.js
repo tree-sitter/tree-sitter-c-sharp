@@ -876,7 +876,15 @@ module.exports = grammar({
 
     continue_statement: $ => seq('continue', ';'),
 
-    do_statement: $ => seq('do', $._statement, 'while', '(', $._expression, ')', ';'),
+    do_statement: $ => seq(
+      'do',
+      field('body', $._statement),
+      'while',
+      '(',
+      field('condition', $._expression),
+      ')',
+      ';'
+    ),
 
     empty_statement: $ => ';',
 
@@ -1161,7 +1169,13 @@ module.exports = grammar({
       field('body', $._statement)
     ),
 
-    while_statement: $ => seq('while', '(', $._expression, ')', $._statement),
+    while_statement: $ => seq(
+      'while',
+      '(',
+      field('condition', $._expression),
+      ')',
+      field('body', $._statement)
+    ),
 
     yield_statement: $ => seq(
       'yield',

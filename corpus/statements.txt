@@ -67,8 +67,8 @@ class A {
         parameters: (parameter_list)
         body: (block
           (while_statement
-            (boolean_literal)
-            (break_statement)))))))
+            condition: (boolean_literal)
+            body: (break_statement)))))))
 
 ================================================================================
 Continue statement
@@ -92,8 +92,8 @@ class A {
         parameters: (parameter_list)
         body: (block
           (while_statement
-            (boolean_literal)
-            (continue_statement)))))))
+            condition: (boolean_literal)
+            body: (continue_statement)))))))
 
 ================================================================================
 Throw nothing
@@ -167,8 +167,8 @@ class A {
             name: (identifier)))
         body: (block
           (do_statement
-            (block)
-            (identifier)))))))
+            body: (block)
+            condition: (identifier)))))))
 
 ================================================================================
 Goto statement and label

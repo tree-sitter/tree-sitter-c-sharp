@@ -20,19 +20,7 @@ Comprehensive supports C# 1 through 10.0 with the following exceptions:
 
 - [ ] `async`, `var` and `await` cannot be used as identifiers everywhere they are valid
 
-#### C# 10.0
-
-- [x] global using directives
-- [x] File-scoped namespace declaration
-- [x] Extended property patterns
-- [x] Allow const interpolated strings
-- [x] Record types can seal ToString()
-- [x] Allow both assignment and declaration in the same deconstruction
-- [x] Allow AsyncMethodBuilder attribute on methods
-- [x] Record structs
-- [x] Lambda improvements
-
-#### C# 11.0 (under development)
+#### C# 11.0
 
 - [x] Generic attributes
 - [x] Static abstract members in interfaces
@@ -44,6 +32,17 @@ Comprehensive supports C# 1 through 10.0 with the following exceptions:
 - [ ] Raw string literals
 - [x] File scoped types
 - [x] Scoped ref
+
+#### C# 12.0 (under development)
+
+- [ ] Alias any type
+- [ ] Collection expressions
+- [ ] Default lambda parameters
+- [x] Experimental attribute
+- [ ] Inline arrays
+- [x] Interceptors
+- [ ] Primary constructors
+- [ ] Ref readonly parameters
 
 ### References
 

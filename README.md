@@ -16,22 +16,10 @@ C# grammar for [tree-sitter](https://github.com/tree-sitter/tree-sitter) based u
 
 ### Status
 
-Comprehensive supports C# 1 through 10.0 with the following exceptions:
+Comprehensive supports C# 1 through 11.0 with the following exceptions:
 
 - [ ] `async`, `var` and `await` cannot be used as identifiers everywhere they are valid
-
-#### C# 11.0
-
-- [x] Generic attributes
-- [x] Static abstract members in interfaces
-- [x] Newlines in string interpolations
-- [x] List patterns
-- [x] Slice pattern
-- [x] Required members
-- [x] File scoped classes
-- [ ] Raw string literals
-- [x] File scoped types
-- [x] Scoped ref
+- [ ] Raw string literals (C# 11)
 
 #### C# 12.0 (under development)
 

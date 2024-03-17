@@ -226,6 +226,7 @@
 
 ;; Variable declarations
 (variable_declarator (identifier) @variable)
+(using_variable_declarator (identifier) @variable)
 (for_each_statement left: (identifier) @variable)
 (catch_declaration (_) (identifier) @variable)
 

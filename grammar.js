@@ -105,6 +105,7 @@ module.exports = grammar({
 
     [$.tuple_element, $.declaration_expression],
     [$.tuple_element, $.variable_declarator],
+    [$.tuple_element, $.using_variable_declarator],
 
     [$.constant_pattern, $._name],
     [$.constant_pattern, $._name, $._lvalue_expression],
@@ -1160,11 +1161,22 @@ module.exports = grammar({
 
     unsafe_statement: $ => seq('unsafe', $.block),
 
+    using_variable_declaration: $ => seq(
+      field('type', $._type),
+      commaSep1($.using_variable_declarator)
+    ),
+
+    using_variable_declarator: $ => seq(
+      field('name', $.identifier),
+      optional($.bracketed_argument_list),
+      optional($.equals_value_clause)
+    ),
+
     using_statement: $ => seq(
       optional('await'),
       'using',
       '(',
-      choice($.variable_declaration, $._expression),
+      choice($.using_variable_declaration, $._expression),
       ')',
       field('body', $._statement)
     ),

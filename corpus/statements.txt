@@ -1264,11 +1264,51 @@ class A {
         parameters: (parameter_list)
         body: (block
           (using_statement
-            (variable_declaration
+            (using_variable_declaration
               type: (implicit_type)
-              (variable_declarator
+              (using_variable_declarator
                 name: (identifier)
                 (equals_value_clause
+                  (identifier))))
+            body: (block
+              (return_statement))))))))
+
+================================================================================
+Using statement with function call
+================================================================================
+
+class A {
+  void Sample() {
+    var four = 4;
+    using (func(four)) {
+      return;
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (method_declaration
+        type: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (block
+          (local_declaration_statement
+              (variable_declaration
+                  type: (implicit_type)
+                  (variable_declarator
+                    name: (identifier)
+                    (equals_value_clause
+                      (integer_literal)))))
+          (using_statement
+            (invocation_expression
+              function: (identifier)
+              arguments: (argument_list
+                (argument
                   (identifier))))
             body: (block
               (return_statement))))))))
@@ -1297,9 +1337,9 @@ class A {
         parameters: (parameter_list)
         body: (block
           (using_statement
-            (variable_declaration
+            (using_variable_declaration
               type: (identifier)
-              (variable_declarator
+              (using_variable_declarator
                 name: (identifier)
                 (equals_value_clause
                   (invocation_expression
@@ -1310,7 +1350,7 @@ class A {
                       (argument
                         (string_literal
                           (string_literal_fragment)))))))
-              (variable_declarator
+              (using_variable_declarator
                 name: (identifier)
                 (equals_value_clause
                   (object_creation_expression
@@ -1376,9 +1416,9 @@ class A {
         parameters: (parameter_list)
         body: (block
           (using_statement
-            (variable_declaration
+            (using_variable_declaration
               type: (identifier)
-              (variable_declarator
+              (using_variable_declarator
                 name: (identifier)
                 (equals_value_clause
                   (identifier))))

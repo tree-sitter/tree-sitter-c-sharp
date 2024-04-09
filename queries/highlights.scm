@@ -33,6 +33,7 @@
 [
   (character_literal)
   (string_literal)
+  (raw_string_literal)
   (verbatim_string_literal)
   (interpolated_string_text)
   (interpolated_verbatim_string_text)

@@ -1,35 +1,139 @@
 name: CI
 
 on:
-  workflow_dispatch:
   push:
-    branches:
-      - master
+    branches: [master]
+    paths:
+      - grammar.js
+      - src/**
+      - test/**
+      - bindings/**
+      - binding.gyp
   pull_request:
-    branches:
-      - "**" # Don't trust forks because miners
+    paths:
+      - grammar.js
+      - src/**
+      - test/**
+      - bindings/**
+      - binding.gyp
+
+concurrency:
+  group: ${{github.workflow}}-${{github.ref}}
+  cancel-in-progress: true
 
 jobs:
   test:
-    runs-on: ${{ matrix.os }}
+    name: Test parser
+    runs-on: ${{matrix.os}}
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
-        os: [macos-14, ubuntu-latest]
+        os: [ubuntu-latest, windows-latest, macos-14]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up tree-sitter
+        uses: tree-sitter/setup-action/cli@v1
+      - name: Set up examples
+        run: |-
+          git clone https://github.com/JamesNK/Newtonsoft.Json examples/Newtonsoft.Json --single-branch --depth=1 --filter=blob:none
+          git clone https://github.com/nunit/nunit examples/nunit --single-branch --depth=1 --filter=blob:none
+          git clone https://github.com/OrchardCMS/orchard examples/orchard --single-branch --depth=1 --filter=blob:none
+          git clone https://github.com/microsoft/PowerToys examples/PowerToys --single-branch --depth=1 --filter=blob:none
+      - name: Run tests
+        uses: tree-sitter/parser-test-action@v2
         with:
-          node-version: 18
-      - run: npm install
-      - run: npm test
-
-  test-windows:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+          test-rust: ${{runner.os == 'Linux'}}
+      - name: Parse examples
+        uses: tree-sitter/parse-action@v4
+        id: test
         with:
-          node-version: 18
-      - run: npm install
-      - run: npm run-script test-windows
+          files: |
+            examples/**/*.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/JsonTextReaderTests/ExceptionHandlingAsyncTests.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/JsonTextReaderTests/ExceptionHandlingTests.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/JsonTextReaderTests/FloatAsyncTests.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/JsonTextReaderTests/FloatTests.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/JsonTextReaderTests/MiscAsyncTests.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/JsonTextReaderTests/MiscTests.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/JsonTextReaderTests/ParseAsyncTests.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/JsonTextReaderTests/ParseTests.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/JsonTextReaderTests/ReadAsyncTests.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/JsonTextReaderTests/ReadTests.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Linq/DynamicTests.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Linq/JTokenTests.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Linq/JsonPath/JPathExecuteTests.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Schema/JsonSchemaSpecTests.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Serialization/ContractResolverTests.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Serialization/JsonSerializerTest.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Serialization/SerializationErrorHandlingTests.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Serialization/WebApiIntegrationTests.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/TestFixtureBase.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/TestObjects/DefaultValueAttributeTestClass.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/TestObjects/Organization/Person.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/TestObjects/Pair.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Utilities/DateTimeUtilsTests.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Utilities/EnumUtilsTests.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Bson/BsonBinaryWriter.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Bson/BsonWriter.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Converters/IsoDateTimeConverter.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Converters/JavaScriptDateTimeConverter.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Converters/UnixDateTimeConverter.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Converters/XmlNodeConverter.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/JsonConvert.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/JsonException.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/JsonReader.Async.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/JsonReader.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/JsonReaderException.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/JsonSerializationException.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/JsonTextReader.Async.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/JsonTextReader.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/JsonTextWriter.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/JsonValidatingReader.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/JsonWriter.Async.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/JsonWriter.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/JsonWriterException.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Linq/IJEnumerable.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Linq/JContainer.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Linq/JObject.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Linq/JToken.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Linq/JTokenWriter.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Linq/JValue.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Linq/JsonPath/FieldMultipleFilter.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Linq/JsonPath/QueryExpression.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Schema/JsonSchemaException.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Schema/JsonSchemaGenerator.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Schema/JsonSchemaNode.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/DefaultContractResolver.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/DefaultSerializationBinder.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/JsonArrayContract.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/JsonDictionaryContract.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/JsonObjectContract.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/JsonPrimitiveContract.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/JsonSerializerInternalReader.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/JsonSerializerInternalWriter.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/JsonTypeReflector.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/TraceJsonWriter.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Utilities/ConvertUtils.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Utilities/DictionaryWrapper.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Utilities/ReflectionUtils.cs
+            !examples/PowerToys/src/modules/MouseWithoutBorders/App/Class/InputHook.cs
+            !examples/PowerToys/src/settings-ui/Settings.UI.Library/Attributes/CmdConfigureIgnoreAttribute.cs
+            !examples/PowerToys/src/settings-ui/Settings.UI/SettingsXAML/App.xaml.cs
+            !examples/nunit/src/NUnitFramework/framework/Attributes/TimeoutAttribute.cs
+            !examples/nunit/src/NUnitFramework/framework/Compatibility/LongLivedMarshalByRefObject.cs
+            !examples/nunit/src/NUnitFramework/framework/Constraints/MsgUtils.cs
+            !examples/nunit/src/NUnitFramework/framework/Internal/DisposeHelper.cs
+            !examples/nunit/src/NUnitFramework/framework/Internal/OSPlatform.cs
+            !examples/nunit/src/NUnitFramework/framework/Internal/Reflect.cs
+            !examples/nunit/src/NUnitFramework/framework/Internal/Results/TestResult.cs
+            !examples/nunit/src/NUnitFramework/framework/Internal/TestExecutionContext.cs
+            !examples/nunit/src/NUnitFramework/nunitlite/Options.cs
+            !examples/nunit/src/NUnitFramework/tests/Assertions/WarningTests.cs
+            !examples/nunit/src/NUnitFramework/tests/Attributes/ApartmentAttributeTests.cs
+            !examples/nunit/src/NUnitFramework/tests/Attributes/DerivedPropertyAttributeTests.cs
+            !examples/nunit/src/NUnitFramework/tests/Attributes/RequiresThreadAttributeTests.cs
+            !examples/nunit/src/NUnitFramework/tests/Attributes/SingleThreadedFixtureTests.cs
+            !examples/nunit/src/NUnitFramework/tests/Internal/EventQueueTests.cs
+            !examples/nunit/src/NUnitFramework/tests/SynchronizationContextTests.cs
+            !examples/nunit/src/NUnitFramework/tests/Syntax/PathConstraintTests.cs

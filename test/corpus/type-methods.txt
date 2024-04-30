@@ -42,6 +42,8 @@ class A {
 
   public readonly double Add => x + y;
 
+  DIn dIn = (ref readonly int p) => { };
+
   public int Zero(params int[]? ints) => 0;
 }
 
@@ -66,7 +68,7 @@ ref struct S {
     body: (declaration_list
       (method_declaration
         (modifier)
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list
           (parameter
@@ -76,7 +78,7 @@ ref struct S {
           (return_statement
             (identifier))))
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         type_parameters: (type_parameter_list
           (type_parameter
@@ -87,7 +89,7 @@ ref struct S {
             name: (identifier)))
         body: (block))
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         type_parameters: (type_parameter_list
           (type_parameter
@@ -97,12 +99,12 @@ ref struct S {
             type: (identifier)
             name: (identifier)))
         (type_parameter_constraints_clause
-          target: (identifier)
-          constraints: (type_parameter_constraint
+          (identifier)
+          (type_parameter_constraint
             (constructor_constraint)))
         body: (block))
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         type_parameters: (type_parameter_list
           (type_parameter
@@ -117,67 +119,66 @@ ref struct S {
             type: (identifier)
             name: (identifier)))
         (type_parameter_constraints_clause
-          target: (identifier)
-          constraints: (type_parameter_constraint
+          (identifier)
+          (type_parameter_constraint
             (constructor_constraint)))
         (type_parameter_constraints_clause
-          target: (identifier)
-          constraints: (type_parameter_constraint
-            (type_constraint
-              type: (identifier)))
-          constraints: (type_parameter_constraint
+          (identifier)
+          (type_parameter_constraint
+            type: (identifier))
+          (type_parameter_constraint
             (constructor_constraint)))
         body: (block))
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list
           (parameter
-            (parameter_modifier)
+            (modifier)
             type: (predefined_type)
             name: (identifier)))
         body: (block))
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list
           (parameter
-            (parameter_modifier)
+            (modifier)
             type: (predefined_type)
             name: (identifier)))
         body: (block))
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list
           (parameter
-            (parameter_modifier)
+            (modifier)
             type: (predefined_type)
             name: (identifier)))
         body: (block))
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list
           (parameter
-            (parameter_modifier)
-            (parameter_modifier)
+            (modifier)
+            (modifier)
             type: (predefined_type)
             name: (identifier)))
         body: (block))
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list
           (parameter
-            (parameter_modifier)
-            (parameter_modifier)
-            (parameter_modifier)
+            (modifier)
+            (modifier)
+            (modifier)
             type: (predefined_type)
             name: (identifier)))
         body: (block))
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list
           (parameter
@@ -188,18 +189,17 @@ ref struct S {
             name: (identifier)))
         body: (block))
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list
           (parameter
             type: (predefined_type)
             name: (identifier)
-            (equals_value_clause
-              (integer_literal))))
+            (integer_literal)))
         body: (block))
       (method_declaration
         (modifier)
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list
           (parameter
@@ -217,9 +217,22 @@ ref struct S {
           (binary_expression
             left: (identifier)
             right: (identifier))))
+      (field_declaration
+        (variable_declaration
+          type: (identifier)
+          (variable_declarator
+            name: (identifier)
+            (lambda_expression
+              parameters: (parameter_list
+                (parameter
+                  (modifier)
+                  (modifier)
+                  type: (predefined_type)
+                  name: (identifier)))
+              body: (block)))))
       (method_declaration
         (modifier)
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list
           type: (nullable_type
@@ -231,13 +244,13 @@ ref struct S {
           (integer_literal)))))
   (class_declaration
     name: (identifier)
-    bases: (base_list
+    (base_list
       (identifier))
     body: (declaration_list
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         (explicit_interface_specifier
-          name: (identifier))
+          (identifier))
         name: (identifier)
         parameters: (parameter_list
           (parameter
@@ -247,21 +260,20 @@ ref struct S {
           (return_statement
             (identifier))))))
   (struct_declaration
-    (modifier)
     name: (identifier)
     body: (declaration_list
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list
           (parameter
-            (parameter_modifier)
-            (parameter_modifier)
+            (modifier)
+            (modifier)
             type: (qualified_name
               qualifier: (identifier)
               name: (generic_name
-                name: (identifier)
-                type_arguments: (type_argument_list
+                (identifier)
+                (type_argument_list
                   (predefined_type))))
             name: (identifier)))
         body: (block
@@ -272,24 +284,22 @@ ref struct S {
                   type: (qualified_name
                     qualifier: (identifier)
                     name: (generic_name
-                      name: (identifier)
-                      type_arguments: (type_argument_list
+                      (identifier)
+                      (type_argument_list
                         (predefined_type))))))
               (variable_declarator
                 name: (identifier)
-                (equals_value_clause
-                  (ref_expression
-                    (identifier))))))
+                (ref_expression
+                  (identifier)))))
           (local_declaration_statement
             (variable_declaration
               type: (scoped_type
                 type: (qualified_name
                   qualifier: (identifier)
                   name: (generic_name
-                    name: (identifier)
-                    type_arguments: (type_argument_list
+                    (identifier)
+                    (type_argument_list
                       (predefined_type)))))
               (variable_declarator
                 name: (identifier)
-                (equals_value_clause
-                  (identifier))))))))))
+                (identifier)))))))))

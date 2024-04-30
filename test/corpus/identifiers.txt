@@ -29,8 +29,7 @@ int _كوكبxxx = 0;
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (identifier))))))
+          (identifier)))))
   (comment)
   (global_statement
     (local_declaration_statement
@@ -38,8 +37,7 @@ int _كوكبxxx = 0;
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (identifier))))))
+          (identifier)))))
   (comment)
   (global_statement
     (local_declaration_statement
@@ -47,16 +45,14 @@ int _كوكبxxx = 0;
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (integer_literal))))))
+          (integer_literal)))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (integer_literal))))))
+          (integer_literal)))))
   (comment)
   (global_statement
     (local_declaration_statement
@@ -64,53 +60,46 @@ int _كوكبxxx = 0;
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (integer_literal))))))
+          (integer_literal)))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (integer_literal))))))
+          (integer_literal)))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (integer_literal))))))
+          (integer_literal)))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (integer_literal))))))
+          (integer_literal)))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (integer_literal))))))
+          (integer_literal)))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (integer_literal))))))
+          (integer_literal)))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (integer_literal)))))))
+          (integer_literal))))))

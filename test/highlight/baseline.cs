@@ -364,8 +364,7 @@ namespace Namespace
             //    ^ type.builtin
             //         ^ variable
             //             ^ operator
-            //               ^ string
-            //                 ^ keyword
+            //                ^ string.escape
             //                  ^ string
             const char hex = '\xf09a';
             // <- keyword
@@ -373,7 +372,7 @@ namespace Namespace
             //         ^ variable
             //             ^ operator
             //               ^ string
-            //                 ^ keyword
+            //                 ^ string.escape
             //                      ^ string
             const char uni16 = '\ua0bf';
             // <- keyword
@@ -381,7 +380,7 @@ namespace Namespace
             //         ^ variable
             //               ^ operator
             //                 ^ string
-            //                   ^ keyword
+            //                   ^ string.escape
             //                        ^ string
             const char uni32 = '\UA0BFf9ca';
             // <- keyword
@@ -389,7 +388,7 @@ namespace Namespace
             //         ^ variable
             //               ^ operator
             //                 ^ string
-            //                   ^ keyword
+            //                   ^ string.escape
             //                            ^ string
 
             const float s = 012.23F;
@@ -505,8 +504,8 @@ namespace Namespace
             //         ^ operator
             //           ^ string
             //            ^ string
-            //              ^ keyword
-            //                 ^ keyword
+            //              ^ string.escape
+            //                 ^ string.escape
             //                  ^ string
             string hex = "ab\x22r";
             // <- type.builtin
@@ -514,8 +513,8 @@ namespace Namespace
             //         ^ operator
             //           ^ string
             //            ^ string
-            //              ^ keyword
-            //               ^ keyword
+            //              ^ string.escape
+            //               ^ string.escape
             //                   ^ string
 
             int @var = @const;
@@ -527,7 +526,7 @@ namespace Namespace
 
 
             var x = $"""The point {X}, {Y} is {Math.Sqrt(X * X + Y * Y)} from the origin""";
-            // <- type.builtin
+            // <- keyword
             //  ^ variable
             //    ^ operator
             //                    ^ punctuation.bracket
@@ -578,7 +577,7 @@ namespace Namespace
             //                                                       ^ punctuation.bracket
 
             var query =
-            // <- type.builtin
+            // <- keyword
             //  ^ variable
             //        ^ operator
                 from num in numbers
@@ -602,7 +601,7 @@ namespace Namespace
                 //        ^ punctuation.delimiter
 
             var u = x is int?
-            // <- type.builtin
+            // <- keyword
             //  ^ variable
             //    ^ operator
             //        ^ keyword
@@ -638,7 +637,7 @@ namespace Namespace
             //           ^ number
             //            ^ punctuation.bracket
             var x = new
-            // <- type.builtin
+            // <- keyword
             //  ^ variable
             //    ^ operator
             //      ^ keyword
@@ -647,7 +646,7 @@ namespace Namespace
             };
             // <- punctuation.bracket
             var three = checked(1 + 2);
-            // <- type.builtin
+            // <- keyword
             //  ^ variable
             //        ^ operator
             //          ^ keyword
@@ -657,7 +656,7 @@ namespace Namespace
             //                      ^ number
             //                       ^ punctuation.bracket
             var d = delegate (int a)
-            // <- type.builtin
+            // <- keyword
             //  ^ variable
             //    ^ operator
             //      ^ keyword
@@ -675,7 +674,7 @@ namespace Namespace
             // <- punctuation.bracket
 
             var l = (A a, B b) => { return a.c(b); };
-            // <- type.builtin
+            // <- keyword
             //  ^ variable
             //    ^ operator
             //      ^ punctuation.bracket
@@ -715,14 +714,14 @@ namespace Namespace
             //               ^ punctuation.bracket
 
             var gp = __makeref(g);
-            // <- type.builtin
+            // <- keyword
             //  ^ variable
             //     ^ operator
             //                ^ punctuation.bracket
             //                  ^ punctuation.bracket
 
             var z = typeof(List<string>.Enumerator);
-            // <- type.builtin
+            // <- keyword
             //  ^ variable
             //    ^ operator
             //      ^ keyword
@@ -741,7 +740,7 @@ namespace Namespace
             //                                                ^ punctuation.delimiter
             ref var elementRef = ref arr[0];
             // <- keyword
-            //  ^ type.builtin
+            //  ^ keyword
             //      ^ variable
             //                 ^ operator
             //                   ^ keyword
@@ -750,14 +749,14 @@ namespace Namespace
             //                            ^ punctuation.bracket
 
             var x = name is (var a);
-            // <- type.builtin
+            // <- keyword
             //  ^ variable
             //    ^ operator
             //           ^ keyword
             //              ^ punctuation.bracket
             //                    ^ punctuation.bracket
             var x = c is < '0' or >= 'A' and <= 'Z';
-            // <- type.builtin
+            // <- keyword
             //  ^ variable
             //    ^ operator
             //        ^ keyword
@@ -772,7 +771,7 @@ namespace Namespace
             //                                   ^ string
             //                                    ^ string
             var x = !this.Call();
-            // <- type.builtin
+            // <- keyword
             //  ^ variable
             //    ^ operator
             //      ^ operator
@@ -910,7 +909,7 @@ namespace Namespace
             foreach (var (x, y) in z)
             // <- keyword
             //      ^ punctuation.bracket
-            //       ^ type.builtin
+            //       ^ keyword
             //           ^ punctuation.bracket
             //             ^ punctuation.delimiter
             //                ^ punctuation.bracket

@@ -8,7 +8,7 @@ class A : B, C
         int a;
         // <- type.builtin
         var a;
-        // <- type.builtin
+        // <- keyword
 
         int? a;
         // <- type.builtin

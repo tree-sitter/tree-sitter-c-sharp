@@ -9,7 +9,7 @@ enum A: byte { One, Two = 2, Three = 0x03 }
 (compilation_unit
   (enum_declaration
     name: (identifier)
-    bases: (base_list
+    (base_list
       (predefined_type))
     body: (enum_member_declaration_list
       (enum_member_declaration

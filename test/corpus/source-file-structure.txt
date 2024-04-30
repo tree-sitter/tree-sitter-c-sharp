@@ -11,6 +11,8 @@ using global::E.F;
 using G = H.I;
 using static J.K;
 
+using Point = (int x, int y);
+
 extern alias A;
 
 namespace Foo {
@@ -47,8 +49,7 @@ namespace A {
         (identifier))
       (identifier)))
   (using_directive
-    (name_equals
-      (identifier))
+    (identifier)
     (qualified_name
       (identifier)
       (identifier)))
@@ -56,13 +57,17 @@ namespace A {
     (qualified_name
       (identifier)
       (identifier)))
-  (global_statement
-    (local_declaration_statement
-      (modifier)
-      (variable_declaration
-        (identifier)
-        (variable_declarator
-          (identifier)))))
+  (using_directive
+    (identifier)
+    (tuple_type
+      (tuple_element
+        (predefined_type)
+        (identifier))
+      (tuple_element
+        (predefined_type)
+        (identifier))))
+  (extern_alias_directive
+    (identifier))
   (namespace_declaration
     (identifier)
     (declaration_list
@@ -97,10 +102,10 @@ class B {
 
 (compilation_unit
   (file_scoped_namespace_declaration
+    name: (identifier))
+  (class_declaration
     name: (identifier)
-    (class_declaration
-      name: (identifier)
-      body: (declaration_list))))
+    body: (declaration_list)))
 
 ================================================================================
 Delegates
@@ -127,12 +132,11 @@ class Z {
     name: (identifier)
     parameters: (parameter_list
       (parameter
-        (parameter_modifier)
+        (modifier)
         type: (predefined_type)
         name: (identifier)
-        (equals_value_clause
-          (character_literal
-            (escape_sequence))))))
+        (character_literal
+          (escape_sequence)))))
   (delegate_declaration
     (modifier)
     type: (ref_type
@@ -140,12 +144,11 @@ class Z {
     name: (identifier)
     parameters: (parameter_list
       (parameter
-        (parameter_modifier)
+        (modifier)
         type: (predefined_type)
         name: (identifier)
-        (equals_value_clause
-          (character_literal
-            (escape_sequence))))))
+        (character_literal
+          (escape_sequence)))))
   (delegate_declaration
     (modifier)
     type: (ref_type
@@ -153,12 +156,11 @@ class Z {
     name: (identifier)
     parameters: (parameter_list
       (parameter
-        (parameter_modifier)
+        (modifier)
         type: (predefined_type)
         name: (identifier)
-        (equals_value_clause
-          (character_literal
-            (escape_sequence))))))
+        (character_literal
+          (escape_sequence)))))
   (delegate_declaration
     type: (predefined_type)
     name: (identifier)
@@ -167,8 +169,8 @@ class Z {
         name: (identifier)))
     parameters: (parameter_list)
     (type_parameter_constraints_clause
-      target: (identifier)
-      constraints: (type_parameter_constraint)))
+      (identifier)
+      (type_parameter_constraint)))
   (delegate_declaration
     type: (predefined_type)
     name: (identifier)

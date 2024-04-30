@@ -1,36 +1,26 @@
 [package]
 name = "tree-sitter-c-sharp"
-description = "C# grammar for the tree-sitter parsing library"
+description = "C# grammar for tree-sitter"
 version = "0.20.0"
 authors = [
-    "Damien Guard <damieng@gmail.com>",
-    "Max Brunsfeld <maxbrunsfeld@gmail.com>",
-    "Martin Midtgaard <martin.midtgaard@gmail.com>",
-    "Sjoerd Langkemper <sjoerd-github@linuxonly.nl>",
-    "Patrick Thomson <patrickt@github.com>",
-    "Noelle Caldwell <noelle.caldwell@microsoft.com>",
-    "Douglas Creager <dcreager@dcreager.net>",
+  "Max Brunsfeld <maxbrunsfeld@gmail.com>",
+  "Amaan Qureshi <amaanq12@gmail.com>",
 ]
 license = "MIT"
-readme = "bindings/rust/README.md"
-keywords = ["incremental", "parsing", "c-sharp"]
+keywords = ["incremental", "parsing", "tree-sitter", "c-sharp"]
 categories = ["parsing", "text-editors"]
 repository = "https://github.com/tree-sitter/tree-sitter-c-sharp"
-edition = "2018"
+edition = "2021"
+autoexamples = false
 
 build = "bindings/rust/build.rs"
-include = [
-  "bindings/rust/*",
-  "grammar.js",
-  "queries/*",
-  "src/*",
-]
+include = ["bindings/rust/*", "grammar.js", "queries/*", "src/*"]
 
 [lib]
 path = "bindings/rust/lib.rs"
 
 [dependencies]
-tree-sitter = ">= 0.19, < 0.21"
+tree-sitter = ">=0.21.0"
 
 [build-dependencies]
-cc = "1.0"
+cc = "1.0.96"

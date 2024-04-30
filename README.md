@@ -5,6 +5,7 @@
 [![matrix][matrix]](https://matrix.to/#/#tree-sitter-chat:matrix.org)
 [![crates][crates]](https://crates.io/crates/tree-sitter-c-sharp)
 [![npm][npm]](https://www.npmjs.com/package/tree-sitter-c-sharp)
+[![pypi][pypi]](https://pypi.org/project/tree-sitter-c-sharp)
 
 C# grammar for [tree-sitter](https://github.com/tree-sitter/tree-sitter) based upon the Roslyn grammar with changes in order to:
 
@@ -13,24 +14,14 @@ C# grammar for [tree-sitter](https://github.com/tree-sitter/tree-sitter) based u
 - Handle `#if`, `#else`, `#elif`, `#endif` blocks
 - Support syntax highlighting/parsing of fragments
 - Simplify the output tree
+- Reduce parser state count and complexity
+- Be in-line with tree-sitter's convention where applicable
 
 ### Status
 
-Comprehensive supports C# 1 through 11.0 with the following exceptions:
+Comprehensive supports C# 1 through 13.0 with the following exception:
 
 - [ ] `async`, `var` and `await` cannot be used as identifiers everywhere they are valid
-- [ ] Raw string literals (C# 11)
-
-#### C# 12.0 (under development)
-
-- [ ] Alias any type
-- [ ] Collection expressions
-- [ ] Default lambda parameters
-- [x] Experimental attribute
-- [ ] Inline arrays
-- [x] Interceptors
-- [ ] Primary constructors
-- [ ] Ref readonly parameters
 
 ### References
 
@@ -43,3 +34,4 @@ Comprehensive supports C# 1 through 11.0 with the following exceptions:
 [matrix]: https://img.shields.io/matrix/tree-sitter-chat%3Amatrix.org?logo=matrix&label=matrix
 [npm]: https://img.shields.io/npm/v/tree-sitter-c-sharp?logo=npm
 [crates]: https://img.shields.io/crates/v/tree-sitter-c-sharp?logo=rust
+[pypi]: https://img.shields.io/pypi/v/tree-sitter-c-sharp?logo=pypi&logoColor=ffd242

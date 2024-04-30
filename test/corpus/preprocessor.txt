@@ -13,39 +13,32 @@ If, elif and else directives
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (if_directive
-    (identifier))
-  (global_statement
+  (preproc_if
+    condition: (identifier)
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
+          (string_literal
+            (string_literal_content)))))
+    alternative: (preproc_elif
+      condition: (identifier)
+      (local_declaration_statement
+        (variable_declaration
+          type: (predefined_type)
+          (variable_declarator
+            name: (identifier)
             (string_literal
-              (string_literal_fragment)))))))
-  (elif_directive
-    (identifier))
-  (global_statement
-    (local_declaration_statement
-      (variable_declaration
-        type: (predefined_type)
-        (variable_declarator
-          name: (identifier)
-          (equals_value_clause
-            (string_literal
-              (string_literal_fragment)))))))
-  (else_directive)
-  (global_statement
-    (local_declaration_statement
-      (variable_declaration
-        type: (predefined_type)
-        (variable_declarator
-          name: (identifier)
-          (equals_value_clause
-            (string_literal
-              (string_literal_fragment)))))))
-  (endif_directive))
+              (string_literal_content)))))
+      alternative: (preproc_else
+        (local_declaration_statement
+          (variable_declaration
+            type: (predefined_type)
+            (variable_declarator
+              name: (identifier)
+              (string_literal
+                (string_literal_content)))))))))
 
 ================================================================================
 If conditions
@@ -75,46 +68,39 @@ If conditions
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (if_directive
-    (prefix_unary_expression
+  (preproc_if
+    condition: (unary_expression
       argument: (identifier)))
-  (endif_directive)
-  (if_directive
-    (binary_expression
+  (preproc_if
+    condition: (binary_expression
       left: (identifier)
       right: (boolean_literal)))
-  (endif_directive)
-  (if_directive
-    (binary_expression
-      left: (prefix_unary_expression
+  (preproc_if
+    condition: (binary_expression
+      left: (unary_expression
         argument: (identifier))
       right: (boolean_literal)))
-  (endif_directive)
-  (if_directive
-    (binary_expression
+  (preproc_if
+    condition: (binary_expression
       left: (binary_expression
         left: (identifier)
         right: (identifier))
       right: (identifier)))
-  (endif_directive)
-  (if_directive
-    (parenthesized_expression
+  (preproc_if
+    condition: (parenthesized_expression
       (identifier)))
-  (endif_directive)
-  (if_directive
-    (parenthesized_expression
+  (preproc_if
+    condition: (parenthesized_expression
       (binary_expression
         left: (identifier)
         right: (identifier))))
-  (endif_directive)
-  (if_directive
-    (binary_expression
+  (preproc_if
+    condition: (binary_expression
       left: (parenthesized_expression
         (binary_expression
           left: (identifier)
           right: (identifier)))
-      right: (identifier)))
-  (endif_directive))
+      right: (identifier))))
 
 ================================================================================
 Define and undefine directives
@@ -126,10 +112,10 @@ Define and undefine directives
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (define_directive
-    (identifier))
-  (undef_directive
-    (identifier)))
+  (preproc_define
+    (preproc_arg))
+  (preproc_undef
+    (preproc_arg)))
 
 ================================================================================
 Line directives
@@ -155,34 +141,38 @@ class Of1879 {
     name: (identifier)
     body: (declaration_list
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (line_directive
-            (preproc_integer_literal)
-            (preproc_string_literal))
-          (comment)
-          (line_directive)
-          (line_directive)
-          (line_directive
-            (preproc_integer_literal)
-            (preproc_integer_literal)
-            (preproc_integer_literal)
-            (preproc_integer_literal)
-            (preproc_integer_literal)
-            (preproc_string_literal))
-          (line_directive
-            (preproc_integer_literal)
-            (preproc_integer_literal)
-            (preproc_integer_literal)
-            (preproc_integer_literal)
-            (preproc_string_literal))
-          (line_directive
-            (preproc_integer_literal)
-            (preproc_string_literal))
-          (line_directive)
-          (line_directive))))))
+          (preproc_line
+            (integer_literal)
+            (string_literal
+              (string_literal_content))
+            (comment))
+          (preproc_line)
+          (preproc_line)
+          (preproc_line
+            (integer_literal)
+            (integer_literal)
+            (integer_literal)
+            (integer_literal)
+            (integer_literal)
+            (string_literal
+              (string_literal_content)))
+          (preproc_line
+            (integer_literal)
+            (integer_literal)
+            (integer_literal)
+            (integer_literal)
+            (string_literal
+              (string_literal_content)))
+          (preproc_line
+            (integer_literal)
+            (string_literal
+              (string_literal_content)))
+          (preproc_line)
+          (preproc_line))))))
 
 ================================================================================
 Directives not in strings or comments
@@ -206,7 +196,7 @@ class Of1879 {
     name: (identifier)
     body: (declaration_list
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
@@ -215,8 +205,7 @@ class Of1879 {
               type: (implicit_type)
               (variable_declarator
                 name: (identifier)
-                (equals_value_clause
-                  (verbatim_string_literal)))))
+                (verbatim_string_literal))))
           (comment))))))
 
 ================================================================================

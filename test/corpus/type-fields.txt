@@ -63,12 +63,12 @@ struct A {
       (field_declaration
         (variable_declaration
           type: (generic_name
-            name: (identifier)
-            type_arguments: (type_argument_list
+            (identifier)
+            (type_argument_list
               (predefined_type)
               (generic_name
-                name: (identifier)
-                type_arguments: (type_argument_list
+                (identifier)
+                (type_argument_list
                   (predefined_type)))))
           (variable_declarator
             name: (identifier))))
@@ -115,8 +115,7 @@ struct A {
           type: (function_pointer_type
             (function_pointer_parameter
               type: (predefined_type))
-            (function_pointer_parameter
-              type: (predefined_type)))
+            returns: (predefined_type))
           (variable_declarator
             name: (identifier))))
       (field_declaration
@@ -125,29 +124,23 @@ struct A {
             (function_pointer_parameter
               type: (function_pointer_type
                 (function_pointer_parameter
-                  (parameter_modifier)
                   type: (predefined_type))
-                (function_pointer_parameter
-                  type: (predefined_type))))
-            (function_pointer_parameter
-              type: (function_pointer_type
-                (function_pointer_parameter
-                  (parameter_modifier)
-                  type: (predefined_type))
-                (function_pointer_parameter
-                  type: (ref_type
-                    type: (predefined_type))))))
+                returns: (predefined_type)))
+            returns: (function_pointer_type
+              (function_pointer_parameter
+                type: (predefined_type))
+              returns: (ref_type
+                type: (predefined_type))))
           (variable_declarator
             name: (identifier))))
       (comment)
       (field_declaration
         (variable_declaration
           type: (function_pointer_type
-            (function_pointer_calling_convention)
+            (calling_convention)
             (function_pointer_parameter
               type: (predefined_type))
-            (function_pointer_parameter
-              type: (predefined_type)))
+            returns: (predefined_type))
           (variable_declarator
             name: (identifier))))
       (field_declaration
@@ -155,22 +148,16 @@ struct A {
           type: (function_pointer_type
             (function_pointer_parameter
               type: (function_pointer_type
-                (function_pointer_calling_convention
-                  (function_pointer_unmanaged_calling_convention_list
-                    (function_pointer_unmanaged_calling_convention
-                      (identifier))
-                    (function_pointer_unmanaged_calling_convention
-                      (identifier))))
+                (calling_convention
+                  (identifier)
+                  (identifier))
                 (function_pointer_parameter
                   type: (predefined_type))
-                (function_pointer_parameter
-                  type: (predefined_type))))
-            (function_pointer_parameter
-              type: (function_pointer_type
-                (function_pointer_parameter
-                  type: (predefined_type))
-                (function_pointer_parameter
-                  type: (predefined_type)))))
+                returns: (predefined_type)))
+            returns: (function_pointer_type
+              (function_pointer_parameter
+                type: (predefined_type))
+              returns: (predefined_type)))
           (variable_declarator
             name: (identifier))))
       (property_declaration

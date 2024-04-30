@@ -45,221 +45,204 @@ var x = from a in sourceA
         type: (implicit_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (query_expression
-              (from_clause
-                name: (identifier)
-                (identifier))
-              (select_clause
-                (conditional_expression
-                  condition: (invocation_expression
-                    function: (member_access_expression
-                      expression: (identifier)
-                      name: (identifier))
-                    arguments: (argument_list))
-                  consequence: (identifier)
-                  alternative: (binary_expression
-                    left: (identifier)
-                    right: (integer_literal))))))))))
-  (global_statement
-    (local_declaration_statement
-      (variable_declaration
-        type: (implicit_type)
-        (variable_declarator
-          name: (identifier)
-          (equals_value_clause
-            (query_expression
-              (from_clause
-                name: (identifier)
-                (identifier))
-              (select_clause
-                (assignment_expression
+          (query_expression
+            (from_clause
+              name: (identifier)
+              (identifier))
+            (select_clause
+              (conditional_expression
+                condition: (invocation_expression
+                  function: (member_access_expression
+                    expression: (identifier)
+                    name: (identifier))
+                  arguments: (argument_list))
+                consequence: (identifier)
+                alternative: (binary_expression
                   left: (identifier)
-                  (assignment_operator)
-                  right: (identifier)))))))))
+                  right: (integer_literal)))))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (query_expression
-              (from_clause
-                name: (identifier)
-                (identifier))
-              (select_clause
-                (anonymous_object_creation_expression
-                  (name_equals
-                    (identifier))
-                  (member_access_expression
-                    expression: (identifier)
-                    name: (identifier))))))))))
+          (query_expression
+            (from_clause
+              name: (identifier)
+              (identifier))
+            (select_clause
+              (assignment_expression
+                left: (identifier)
+                right: (identifier))))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (query_expression
-              (from_clause
-                name: (identifier)
-                (identifier))
-              (where_clause
-                (binary_expression
-                  left: (member_access_expression
-                    expression: (identifier)
-                    name: (identifier))
-                  right: (string_literal
-                    (string_literal_fragment))))
-              (select_clause
-                (anonymous_object_creation_expression
-                  (name_equals
-                    (identifier))
-                  (member_access_expression
-                    expression: (identifier)
-                    name: (identifier))))))))))
-  (global_statement
-    (local_declaration_statement
-      (variable_declaration
-        type: (implicit_type)
-        (variable_declarator
-          name: (identifier)
-          (equals_value_clause
-            (query_expression
-              (from_clause
-                name: (identifier)
-                (identifier))
-              (order_by_clause
+          (query_expression
+            (from_clause
+              name: (identifier)
+              (identifier))
+            (select_clause
+              (anonymous_object_creation_expression
+                (identifier)
                 (member_access_expression
                   expression: (identifier)
-                  name: (identifier)))
-              (order_by_clause
+                  name: (identifier)))))))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (query_expression
+            (from_clause
+              name: (identifier)
+              (identifier))
+            (where_clause
+              (binary_expression
+                left: (member_access_expression
+                  expression: (identifier)
+                  name: (identifier))
+                right: (string_literal
+                  (string_literal_content))))
+            (select_clause
+              (anonymous_object_creation_expression
+                (identifier)
                 (member_access_expression
                   expression: (identifier)
-                  name: (identifier)))
-              (order_by_clause
-                (integer_literal))
-              (select_clause
-                (identifier))))))))
+                  name: (identifier)))))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (query_expression
-              (from_clause
-                name: (identifier)
-                (identifier))
-              (let_clause
-                (identifier)
-                (anonymous_object_creation_expression
-                  (member_access_expression
-                    expression: (identifier)
-                    name: (identifier))
-                  (member_access_expression
-                    expression: (identifier)
-                    name: (identifier))))
-              (select_clause
-                (identifier))))))))
+          (query_expression
+            (from_clause
+              name: (identifier)
+              (identifier))
+            (order_by_clause
+              (member_access_expression
+                expression: (identifier)
+                name: (identifier)))
+            (order_by_clause
+              (member_access_expression
+                expression: (identifier)
+                name: (identifier)))
+            (order_by_clause
+              (integer_literal))
+            (select_clause
+              (identifier)))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (query_expression
-              (from_clause
-                name: (identifier)
-                (identifier))
-              (join_clause
-                name: (identifier)
-                (identifier)
+          (query_expression
+            (from_clause
+              name: (identifier)
+              (identifier))
+            (let_clause
+              (identifier)
+              (anonymous_object_creation_expression
                 (member_access_expression
                   expression: (identifier)
                   name: (identifier))
                 (member_access_expression
                   expression: (identifier)
-                  name: (identifier)))
-              (select_clause
-                (anonymous_object_creation_expression
-                  (member_access_expression
-                    expression: (identifier)
-                    name: (identifier))
-                  (member_access_expression
-                    expression: (identifier)
-                    name: (identifier))))))))))
+                  name: (identifier))))
+            (select_clause
+              (identifier)))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (query_expression
-              (from_clause
-                name: (identifier)
-                (identifier))
-              (from_clause
-                name: (identifier)
-                (identifier))
-              (where_clause
-                (binary_expression
-                  left: (member_access_expression
-                    expression: (identifier)
-                    name: (identifier))
-                  right: (member_access_expression
-                    expression: (identifier)
-                    name: (identifier))))
-              (select_clause
-                (anonymous_object_creation_expression
-                  (member_access_expression
-                    expression: (identifier)
-                    name: (identifier))
-                  (member_access_expression
-                    expression: (identifier)
-                    name: (identifier))))))))))
+          (query_expression
+            (from_clause
+              name: (identifier)
+              (identifier))
+            (join_clause
+              (identifier)
+              (identifier)
+              (member_access_expression
+                expression: (identifier)
+                name: (identifier))
+              (member_access_expression
+                expression: (identifier)
+                name: (identifier)))
+            (select_clause
+              (anonymous_object_creation_expression
+                (member_access_expression
+                  expression: (identifier)
+                  name: (identifier))
+                (member_access_expression
+                  expression: (identifier)
+                  name: (identifier)))))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (query_expression
-              (from_clause
-                name: (identifier)
-                (identifier))
-              (group_clause
+          (query_expression
+            (from_clause
+              name: (identifier)
+              (identifier))
+            (from_clause
+              name: (identifier)
+              (identifier))
+            (where_clause
+              (binary_expression
+                left: (member_access_expression
+                  expression: (identifier)
+                  name: (identifier))
+                right: (member_access_expression
+                  expression: (identifier)
+                  name: (identifier))))
+            (select_clause
+              (anonymous_object_creation_expression
+                (member_access_expression
+                  expression: (identifier)
+                  name: (identifier))
+                (member_access_expression
+                  expression: (identifier)
+                  name: (identifier)))))))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (query_expression
+            (from_clause
+              name: (identifier)
+              (identifier))
+            (group_clause
+              (identifier)
+              (member_access_expression
+                expression: (identifier)
+                name: (identifier)))
+            (identifier)
+            (select_clause
+              (anonymous_object_creation_expression
                 (identifier)
                 (member_access_expression
                   expression: (identifier)
-                  name: (identifier)))
-              (query_continuation
-                name: (identifier)
-                (select_clause
-                  (anonymous_object_creation_expression
-                    (name_equals
-                      (identifier))
-                    (member_access_expression
-                      expression: (identifier)
-                      name: (identifier))
-                    (name_equals
-                      (identifier))
-                    (invocation_expression
-                      function: (member_access_expression
-                        expression: (identifier)
-                        name: (identifier))
-                      arguments: (argument_list
-                        (argument
-                          (lambda_expression
-                            parameters: (implicit_parameter_list
-                              (parameter
-                                name: (identifier)))
-                            body: (member_access_expression
-                              expression: (identifier)
-                              name: (identifier))))))))))))))))
+                  name: (identifier))
+                (identifier)
+                (invocation_expression
+                  function: (member_access_expression
+                    expression: (identifier)
+                    name: (identifier))
+                  arguments: (argument_list
+                    (argument
+                      (lambda_expression
+                        parameters: (implicit_parameter)
+                        body: (member_access_expression
+                          expression: (identifier)
+                          name: (identifier))))))))))))))

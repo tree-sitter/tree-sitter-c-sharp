@@ -47,7 +47,7 @@ public record struct Person2 { };
         accessors: (accessor_list
           (accessor_declaration)
           (accessor_declaration)))))
-  (record_struct_declaration
+  (record_declaration
     name: (identifier)
     body: (declaration_list
       (property_declaration
@@ -68,28 +68,28 @@ public record struct Person2 { };
   (record_declaration
     (modifier)
     name: (identifier)
-    type_parameters: (type_parameter_list
+    (type_parameter_list
       (type_parameter
         name: (identifier)))
     (type_parameter_constraints_clause
-      target: (identifier)
-      constraints: (type_parameter_constraint))
+      (identifier)
+      (type_parameter_constraint))
     body: (declaration_list))
   (record_declaration
     (modifier)
     name: (identifier)
-    type_parameters: (type_parameter_list
+    (type_parameter_list
       (type_parameter
         name: (identifier)))
     (type_parameter_constraints_clause
-      target: (identifier)
-      constraints: (type_parameter_constraint
+      (identifier)
+      (type_parameter_constraint
         (constructor_constraint)))
     body: (declaration_list))
   (record_declaration
     (modifier)
     name: (identifier)
-    bases: (base_list
+    (base_list
       (identifier))
     body: (declaration_list))
   (record_declaration
@@ -98,30 +98,27 @@ public record struct Person2 { };
         name: (identifier)))
     (modifier)
     name: (identifier)
-    type_parameters: (type_parameter_list
+    (type_parameter_list
       (type_parameter
         name: (identifier))
       (type_parameter
         name: (identifier)))
     (type_parameter_constraints_clause
-      target: (identifier)
-      constraints: (type_parameter_constraint
-        (type_constraint
-          type: (identifier)))
-      constraints: (type_parameter_constraint
-        (type_constraint
-          type: (identifier)))
-      constraints: (type_parameter_constraint
+      (identifier)
+      (type_parameter_constraint
+        type: (identifier))
+      (type_parameter_constraint
+        type: (identifier))
+      (type_parameter_constraint
         (constructor_constraint)))
     (type_parameter_constraints_clause
-      target: (identifier)
-      constraints: (type_parameter_constraint
-        (type_constraint
-          type: (identifier))))
+      (identifier)
+      (type_parameter_constraint
+        type: (identifier)))
     body: (declaration_list))
   (record_declaration
     name: (identifier)
-    parameters: (parameter_list
+    (parameter_list
       (parameter
         type: (predefined_type)
         name: (identifier))
@@ -130,7 +127,7 @@ public record struct Person2 { };
         name: (identifier))))
   (record_declaration
     name: (identifier)
-    parameters: (parameter_list
+    (parameter_list
       (parameter
         type: (predefined_type)
         name: (identifier))
@@ -140,7 +137,7 @@ public record struct Person2 { };
       (parameter
         type: (predefined_type)
         name: (identifier)))
-    bases: (base_list
+    (base_list
       (primary_constructor_base_type
         type: (identifier)
         (argument_list
@@ -150,7 +147,7 @@ public record struct Person2 { };
             (identifier))))))
   (record_declaration
     name: (identifier)
-    parameters: (parameter_list
+    (parameter_list
       (parameter
         type: (predefined_type)
         name: (identifier))
@@ -160,7 +157,7 @@ public record struct Person2 { };
       (parameter
         type: (predefined_type)
         name: (identifier)))
-    bases: (base_list
+    (base_list
       (primary_constructor_base_type
         type: (identifier)
         (argument_list
@@ -174,12 +171,12 @@ public record struct Person2 { };
       (identifier)))
   (record_declaration
     name: (identifier)
-    parameters: (parameter_list)
-    bases: (base_list
+    (parameter_list)
+    (base_list
       (primary_constructor_base_type
         type: (generic_name
-          name: (identifier)
-          type_arguments: (type_argument_list
+          (identifier)
+          (type_argument_list
             (identifier)))
         (argument_list))
       (identifier)))
@@ -187,7 +184,7 @@ public record struct Person2 { };
     (modifier)
     name: (identifier)
     body: (declaration_list))
-  (record_struct_declaration
+  (record_declaration
     (modifier)
     name: (identifier)
     body: (declaration_list)))

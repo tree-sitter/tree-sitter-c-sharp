@@ -86,7 +86,6 @@ class Foo: IFoo {
               (expression_statement
                 (assignment_expression
                   left: (identifier)
-                  (assignment_operator)
                   right: (identifier)))))))))
   (class_declaration
     name: (identifier)
@@ -104,7 +103,6 @@ class Foo: IFoo {
               (expression_statement
                 (assignment_expression
                   left: (identifier)
-                  (assignment_operator)
                   right: (identifier)))))))
       (property_declaration
         type: (predefined_type)
@@ -115,7 +113,6 @@ class Foo: IFoo {
               (expression_statement
                 (assignment_expression
                   left: (identifier)
-                  (assignment_operator)
                   right: (identifier)))))
           (accessor_declaration
             body: (block
@@ -143,13 +140,13 @@ class Foo: IFoo {
         value: (integer_literal))))
   (class_declaration
     name: (identifier)
-    bases: (base_list
+    (base_list
       (identifier))
     body: (declaration_list
       (property_declaration
         type: (predefined_type)
         (explicit_interface_specifier
-          name: (identifier))
+          (identifier))
         name: (identifier)
         accessors: (accessor_list
           (accessor_declaration)))

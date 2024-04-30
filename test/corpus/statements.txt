@@ -76,27 +76,24 @@ class A {
             name: (identifier)))
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (default_expression))))))
+          (default_expression)))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (generic_name
-          name: (identifier)
-          type_arguments: (type_argument_list
+          (identifier)
+          (type_argument_list
             (identifier)))
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (null_literal))))))
+          (null_literal)))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (integer_literal))))))
+          (integer_literal)))))
   (global_statement
     (expression_statement
       (assignment_expression
@@ -107,7 +104,6 @@ class A {
             (declaration_expression
               type: (predefined_type)
               name: (identifier))))
-        (assignment_operator)
         right: (identifier))))
   (global_statement
     (local_declaration_statement
@@ -115,58 +111,53 @@ class A {
         type: (implicit_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (invocation_expression
-              function: (member_access_expression
-                expression: (invocation_expression
-                  function: (member_access_expression
-                    expression: (identifier)
-                    name: (identifier))
-                  arguments: (argument_list
-                    (argument
-                      (lambda_expression
-                        parameters: (implicit_parameter_list
-                          (parameter
+          (invocation_expression
+            function: (member_access_expression
+              expression: (invocation_expression
+                function: (member_access_expression
+                  expression: (identifier)
+                  name: (identifier))
+                arguments: (argument_list
+                  (argument
+                    (lambda_expression
+                      parameters: (implicit_parameter)
+                      body: (tuple_expression
+                        (argument
+                          (member_access_expression
+                            expression: (identifier)
                             name: (identifier)))
-                        body: (tuple_expression
-                          (argument
-                            (member_access_expression
-                              expression: (identifier)
-                              name: (identifier)))
-                          (argument
-                            (member_access_expression
-                              expression: (identifier)
-                              name: (identifier))))))))
-                name: (identifier))
-              arguments: (argument_list
-                (argument
-                  (lambda_expression
-                    parameters: (implicit_parameter_list
-                      (parameter
-                        name: (identifier)))
-                    body: (binary_expression
-                      left: (member_access_expression
-                        expression: (identifier)
-                        name: (identifier))
-                      right: (integer_literal)))))))))))
+                        (argument
+                          (member_access_expression
+                            expression: (identifier)
+                            name: (identifier))))))))
+              name: (identifier))
+            arguments: (argument_list
+              (argument
+                (lambda_expression
+                  parameters: (implicit_parameter)
+                  body: (binary_expression
+                    left: (member_access_expression
+                      expression: (identifier)
+                      name: (identifier))
+                    right: (integer_literal))))))))))
   (class_declaration
     name: (identifier)
     body: (declaration_list
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
           (return_statement
             (integer_literal))))
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
           (return_statement)))
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
@@ -177,7 +168,7 @@ class A {
             condition: (boolean_literal)
             body: (continue_statement))))
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
@@ -185,7 +176,7 @@ class A {
           (throw_statement
             (identifier))))
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
@@ -193,7 +184,7 @@ class A {
             body: (block)
             condition: (boolean_literal))))
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
@@ -203,7 +194,7 @@ class A {
             (identifier)
             (return_statement))))
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
@@ -214,7 +205,7 @@ class A {
             alternative: (return_statement
               (integer_literal)))))
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
@@ -222,21 +213,21 @@ class A {
             value: (integer_literal)
             body: (switch_body
               (switch_section
-                (case_switch_label
-                  (integer_literal))
-                (case_switch_label
+                (constant_pattern
+                  (integer_literal)))
+              (switch_section
+                (constant_pattern
                   (integer_literal))
                 (return_statement
                   (integer_literal)))
               (switch_section
-                (default_switch_label)
                 (return_statement
                   (integer_literal)))))))
       (constructor_declaration
         name: (identifier)
         parameters: (parameter_list
           (parameter
-            (parameter_modifier)
+            (modifier)
             type: (tuple_type
               (tuple_element
                 type: (predefined_type)
@@ -246,7 +237,7 @@ class A {
                 name: (identifier)))
             name: (identifier))))
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
@@ -318,7 +309,7 @@ int Sample9(int a) {
               (identifier)))
           (switch_body
             (switch_section
-              (case_switch_label
+              (constant_pattern
                 (tuple_expression
                   (argument
                     (integer_literal))
@@ -327,7 +318,6 @@ int Sample9(int a) {
               (return_statement
                 (integer_literal)))
             (switch_section
-              (default_switch_label)
               (return_statement
                 (integer_literal)))))
         (switch_statement
@@ -338,51 +328,46 @@ int Sample9(int a) {
               (identifier)))
           (switch_body
             (switch_section
-              (case_pattern_switch_label
-                (recursive_pattern
-                  (positional_pattern_clause
-                    (subpattern
-                      (discard))
-                    (subpattern
-                      (discard))))
-                (when_clause
-                  (prefix_unary_expression
-                    (identifier))))
+              (recursive_pattern
+                (positional_pattern_clause
+                  (subpattern
+                    (discard))
+                  (subpattern
+                    (discard))))
+              (when_clause
+                (prefix_unary_expression
+                  (identifier)))
               (break_statement))))
         (switch_statement
           (identifier)
           (switch_body
             (switch_section
-              (case_pattern_switch_label
-                (recursive_pattern
-                  (property_pattern_clause
-                    (subpattern
-                      (expression_colon
-                        (identifier))
-                      (constant_pattern
-                        (integer_literal)))))
-                (when_clause
-                  (prefix_unary_expression
-                    (identifier))))
+              (recursive_pattern
+                (property_pattern_clause
+                  (subpattern
+                    (identifier)
+                    (constant_pattern
+                      (integer_literal)))))
+              (when_clause
+                (prefix_unary_expression
+                  (identifier)))
               (break_statement))))
         (local_declaration_statement
           (variable_declaration
             (predefined_type)
             (variable_declarator
               (identifier)
-              (equals_value_clause
-                (integer_literal)))))
+              (integer_literal))))
         (switch_statement
           (identifier)
           (switch_body
             (switch_section
-              (case_pattern_switch_label
-                (type_pattern
-                  (predefined_type))
-                (when_clause
-                  (binary_expression
-                    (identifier)
-                    (integer_literal))))
+              (type_pattern
+                (predefined_type))
+              (when_clause
+                (binary_expression
+                  (identifier)
+                  (integer_literal)))
               (break_statement))))))))
 
 ================================================================================
@@ -422,7 +407,7 @@ class A {
     name: (identifier)
     body: (declaration_list
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
@@ -500,7 +485,7 @@ class A {
     name: (identifier)
     body: (declaration_list
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
@@ -511,7 +496,6 @@ class A {
             (block
               (return_statement)))
           (lock_statement
-            (this_expression)
             (block
               (return_statement)))
           (yield_statement
@@ -547,7 +531,7 @@ class A {
     name: (identifier)
     body: (declaration_list
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
@@ -561,72 +545,63 @@ class A {
               type: (predefined_type)
               (variable_declarator
                 name: (identifier)
-                (equals_value_clause
-                  (integer_literal)))
+                (integer_literal))
               (variable_declarator
                 name: (identifier)
-                (equals_value_clause
-                  (integer_literal)))))
+                (integer_literal))))
           (local_declaration_statement
             (modifier)
             (variable_declaration
               type: (predefined_type)
               (variable_declarator
                 name: (identifier)
-                (equals_value_clause
-                  (integer_literal)))))
+                (integer_literal))))
           (local_declaration_statement
             (modifier)
             (variable_declaration
               type: (predefined_type)
               (variable_declarator
                 name: (identifier)
-                (equals_value_clause
-                  (integer_literal)))
+                (integer_literal))
               (variable_declarator
                 name: (identifier)
-                (equals_value_clause
-                  (integer_literal)))))
+                (integer_literal))))
           (local_declaration_statement
             (variable_declaration
               type: (ref_type
                 type: (implicit_type))
               (variable_declarator
                 name: (identifier)
-                (equals_value_clause
-                  (ref_expression
-                    (element_access_expression
-                      expression: (identifier)
-                      subscript: (bracketed_argument_list
-                        (argument
-                          (identifier)))))))))
+                (ref_expression
+                  (element_access_expression
+                    expression: (identifier)
+                    subscript: (bracketed_argument_list
+                      (argument
+                        (identifier))))))))
           (local_declaration_statement
             (variable_declaration
               type: (implicit_type)
               (variable_declarator
                 name: (identifier)
-                (equals_value_clause
-                  (member_access_expression
-                    expression: (element_access_expression
-                      expression: (identifier)
-                      subscript: (bracketed_argument_list
-                        (argument
-                          (integer_literal))))
-                    name: (identifier))))))
+                (member_access_expression
+                  expression: (element_access_expression
+                    expression: (identifier)
+                    subscript: (bracketed_argument_list
+                      (argument
+                        (integer_literal))))
+                  name: (identifier)))))
           (expression_statement
             (assignment_expression
               left: (identifier)
-              (assignment_operator)
               right: (object_creation_expression
                 type: (generic_name
-                  name: (identifier)
-                  type_arguments: (type_argument_list
+                  (identifier)
+                  (type_argument_list
                     (predefined_type)))
                 arguments: (argument_list))))
           (expression_statement
             (assignment_expression
               left: (identifier)
-              (assignment_operator)
               right: (binary_expression
                 left: (identifier)
                 right: (binary_expression
@@ -635,7 +610,6 @@ class A {
           (expression_statement
             (assignment_expression
               left: (identifier)
-              (assignment_operator)
               right: (object_creation_expression
                 type: (identifier)
                 arguments: (argument_list
@@ -650,16 +624,15 @@ class A {
               type: (identifier)
               (variable_declarator
                 name: (identifier)
-                (equals_value_clause
-                  (invocation_expression
-                    function: (generic_name
-                      name: (identifier)
-                      type_arguments: (type_argument_list
-                        (identifier)))
-                    arguments: (argument_list
-                      (argument
-                        (string_literal
-                          (string_literal_fragment))))))))))))))
+                (invocation_expression
+                  function: (generic_name
+                    (identifier)
+                    (type_argument_list
+                      (identifier)))
+                  arguments: (argument_list
+                    (argument
+                      (string_literal
+                        (string_literal_content)))))))))))))
 
 ================================================================================
 Using statements
@@ -694,7 +667,7 @@ class A {
     name: (identifier)
     body: (declaration_list
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
@@ -703,8 +676,7 @@ class A {
               type: (implicit_type)
               (variable_declarator
                 name: (identifier)
-                (equals_value_clause
-                  (identifier))))
+                (identifier)))
             body: (block
               (return_statement)))
           (using_statement
@@ -712,23 +684,21 @@ class A {
               type: (identifier)
               (variable_declarator
                 name: (identifier)
-                (equals_value_clause
-                  (invocation_expression
-                    function: (member_access_expression
-                      expression: (identifier)
-                      name: (identifier))
-                    arguments: (argument_list
-                      (argument
-                        (string_literal
-                          (string_literal_fragment)))))))
+                (invocation_expression
+                  function: (member_access_expression
+                    expression: (identifier)
+                    name: (identifier))
+                  arguments: (argument_list
+                    (argument
+                      (string_literal
+                        (string_literal_content))))))
               (variable_declarator
                 name: (identifier)
-                (equals_value_clause
-                  (object_creation_expression
-                    type: (identifier)
-                    arguments: (argument_list
-                      (argument
-                        (identifier)))))))
+                (object_creation_expression
+                  type: (identifier)
+                  arguments: (argument_list
+                    (argument
+                      (identifier))))))
             body: (block
               (return_statement)))
           (local_declaration_statement
@@ -736,21 +706,18 @@ class A {
               type: (implicit_type)
               (variable_declarator
                 name: (identifier)
-                (equals_value_clause
-                  (object_creation_expression
-                    type: (identifier)
-                    arguments: (argument_list))))))
+                (object_creation_expression
+                  type: (identifier)
+                  arguments: (argument_list)))))
           (using_statement
             (variable_declaration
               type: (identifier)
               (variable_declarator
                 name: (identifier)
-                (equals_value_clause
-                  (identifier))))
+                (identifier)))
             body: (block
               (return_statement)))
           (using_statement
-            (this_expression)
             body: (block
               (return_statement))))))))
 
@@ -785,28 +752,26 @@ class A {
     name: (identifier)
     body: (declaration_list
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
-          (for_each_statement
+          (foreach_statement
             type: (predefined_type)
             left: (identifier)
             right: (identifier)
             body: (expression_statement
               (assignment_expression
                 left: (identifier)
-                (assignment_operator)
                 right: (identifier))))
-          (for_each_statement
+          (foreach_statement
             left: (identifier)
             right: (identifier)
             body: (expression_statement
               (assignment_expression
                 left: (identifier)
-                (assignment_operator)
                 right: (identifier))))
-          (for_each_statement
+          (foreach_statement
             type: (implicit_type)
             left: (tuple_pattern
               name: (identifier)
@@ -815,15 +780,13 @@ class A {
             body: (expression_statement
               (assignment_expression
                 left: (identifier)
-                (assignment_operator)
                 right: (identifier))))
           (for_statement
             initializer: (variable_declaration
               type: (predefined_type)
               (variable_declarator
                 name: (identifier)
-                (equals_value_clause
-                  (integer_literal))))
+                (integer_literal)))
             condition: (binary_expression
               left: (identifier)
               right: (integer_literal))
@@ -833,7 +796,6 @@ class A {
               (expression_statement
                 (assignment_expression
                   left: (identifier)
-                  (assignment_operator)
                   right: (identifier)))))
           (for_statement
             body: (block)))))))
@@ -856,7 +818,7 @@ class A {
     name: (identifier)
     body: (declaration_list
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
@@ -865,15 +827,13 @@ class A {
               (expression_statement
                 (assignment_expression
                   left: (identifier)
-                  (assignment_operator)
                   right: (identifier)))))
           (fixed_statement
             (variable_declaration
               type: (predefined_type)
               (variable_declarator
                 name: (identifier)
-                (equals_value_clause
-                  (identifier))))
+                (identifier)))
             (block)))))))
 
 ================================================================================
@@ -898,7 +858,7 @@ class A {
     name: (identifier)
     body: (declaration_list
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
@@ -913,7 +873,6 @@ class A {
                   (declaration_expression
                     type: (implicit_type)
                     name: (identifier))))
-              (assignment_operator)
               right: (identifier)))
           (local_declaration_statement
             (variable_declaration
@@ -922,8 +881,7 @@ class A {
                 (tuple_pattern
                   name: (identifier)
                   name: (identifier))
-                (equals_value_clause
-                  (identifier)))))
+                (identifier))))
           (expression_statement
             (assignment_expression
               left: (tuple_expression
@@ -933,7 +891,6 @@ class A {
                   (identifier))
                 (argument
                   (identifier)))
-              (assignment_operator)
               right: (identifier)))
           (expression_statement
             (assignment_expression
@@ -942,7 +899,6 @@ class A {
                   (identifier))
                 (argument
                   (identifier)))
-              (assignment_operator)
               right: (identifier)))
           (local_declaration_statement
             (variable_declaration
@@ -951,8 +907,7 @@ class A {
                 (tuple_pattern
                   name: (identifier)
                   (discard))
-                (equals_value_clause
-                  (identifier)))))
+                (identifier))))
           (local_declaration_statement
             (variable_declaration
               type: (implicit_type)
@@ -962,8 +917,7 @@ class A {
                   (tuple_pattern
                     name: (identifier)
                     (discard)))
-                (equals_value_clause
-                  (identifier))))))))))
+                (identifier)))))))))
 
 ================================================================================
 Function with contextually reserved identifiers
@@ -992,52 +946,47 @@ async void Sample() {
             type: (implicit_type)
             (variable_declarator
               name: (identifier)
-              (equals_value_clause
-                (string_literal)))))
+              (string_literal))))
         (local_declaration_statement
           (variable_declaration
             type: (predefined_type)
             (variable_declarator
               name: (identifier)
-              (equals_value_clause
-                (identifier)))))
+              (identifier))))
         (local_declaration_statement
           (variable_declaration
             type: (identifier)
             (variable_declarator
               name: (identifier)
-              (equals_value_clause
-                (identifier)))))
+              (identifier))))
         (local_declaration_statement
           (variable_declaration
             type: (identifier)
             (variable_declarator
               name: (identifier)
-              (equals_value_clause
-                (identifier)))))
+              (identifier))))
         (local_declaration_statement
           (variable_declaration
             type: (identifier)
             (variable_declarator
               name: (identifier)
-              (equals_value_clause
-                (binary_expression
+              (binary_expression
+                left: (binary_expression
                   left: (binary_expression
                     left: (binary_expression
                       left: (binary_expression
                         left: (binary_expression
                           left: (binary_expression
                             left: (binary_expression
-                              left: (binary_expression
-                                left: (identifier)
-                                right: (identifier))
+                              left: (identifier)
                               right: (identifier))
                             right: (identifier))
                           right: (identifier))
                         right: (identifier))
                       right: (identifier))
                     right: (identifier))
-                  right: (identifier))))))))))
+                  right: (identifier))
+                right: (identifier)))))))))
 
 ================================================================================
 Function conditional ref expression
@@ -1061,11 +1010,11 @@ ref T Choice(bool condition, ref T a, ref T b)
           type: (predefined_type)
           name: (identifier))
         (parameter
-          (parameter_modifier)
+          (modifier)
           type: (identifier)
           name: (identifier))
         (parameter
-          (parameter_modifier)
+          (modifier)
           type: (identifier)
           name: (identifier)))
       body: (block
@@ -1075,12 +1024,11 @@ ref T Choice(bool condition, ref T a, ref T b)
               type: (implicit_type))
             (variable_declarator
               name: (identifier)
-              (equals_value_clause
-                (ref_expression
-                  (parenthesized_expression
-                    (conditional_expression
-                      condition: (identifier)
-                      consequence: (ref_expression
-                        (identifier))
-                      alternative: (ref_expression
-                        (identifier)))))))))))))
+              (ref_expression
+                (parenthesized_expression
+                  (conditional_expression
+                    condition: (identifier)
+                    consequence: (ref_expression
+                      (identifier))
+                    alternative: (ref_expression
+                      (identifier))))))))))))

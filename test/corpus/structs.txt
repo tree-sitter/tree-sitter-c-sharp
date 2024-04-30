@@ -18,56 +18,52 @@ ref struct Test { }
   (struct_declaration
     (modifier)
     name: (identifier)
-    type_parameters: (type_parameter_list
+    (type_parameter_list
       (type_parameter
         name: (identifier)))
     (type_parameter_constraints_clause
-      target: (identifier)
-      constraints: (type_parameter_constraint))
+      (identifier)
+      (type_parameter_constraint))
     body: (declaration_list))
   (struct_declaration
     (modifier)
     name: (identifier)
-    type_parameters: (type_parameter_list
+    (type_parameter_list
       (type_parameter
         name: (identifier)))
     (type_parameter_constraints_clause
-      target: (identifier)
-      constraints: (type_parameter_constraint
+      (identifier)
+      (type_parameter_constraint
         (constructor_constraint)))
     body: (declaration_list))
   (struct_declaration
     (modifier)
     (modifier)
     name: (identifier)
-    bases: (base_list
+    (base_list
       (identifier))
     body: (declaration_list))
   (struct_declaration
     (modifier)
     name: (identifier)
-    type_parameters: (type_parameter_list
+    (type_parameter_list
       (type_parameter
         name: (identifier))
       (type_parameter
         name: (identifier)))
     (type_parameter_constraints_clause
-      target: (identifier)
-      constraints: (type_parameter_constraint
-        (type_constraint
-          type: (identifier)))
-      constraints: (type_parameter_constraint
-        (type_constraint
-          type: (identifier)))
-      constraints: (type_parameter_constraint
+      (identifier)
+      (type_parameter_constraint
+        type: (identifier))
+      (type_parameter_constraint
+        type: (identifier))
+      (type_parameter_constraint
         (constructor_constraint)))
     (type_parameter_constraints_clause
-      target: (identifier)
-      constraints: (type_parameter_constraint
-        (type_constraint
-          type: (identifier))))
+      (identifier)
+      (type_parameter_constraint
+        type: (identifier)))
     body: (declaration_list))
   (struct_declaration
-    (modifier)
     name: (identifier)
     body: (declaration_list)))

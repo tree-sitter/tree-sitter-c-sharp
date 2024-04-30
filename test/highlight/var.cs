@@ -4,7 +4,7 @@ class var
     void M()
     {
         var var = new var();
-        // <- type.builtin
+        // <- keyword
         //   ^ variable
     }
 }

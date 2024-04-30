@@ -8,10 +8,10 @@ Global attributes
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_attribute_list
+  (global_attribute
     (attribute
       name: (identifier)))
-  (global_attribute_list
+  (global_attribute
     (attribute
       name: (identifier))
     (attribute
@@ -147,7 +147,7 @@ class Zzz {
         (attribute_list
           (attribute
             name: (identifier)))
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
@@ -158,7 +158,7 @@ class Zzz {
           (attribute_target_specifier)
           (attribute
             name: (identifier)))
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
@@ -169,7 +169,7 @@ class Zzz {
           (attribute_target_specifier)
           (attribute
             name: (identifier)))
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
         body: (block
@@ -208,7 +208,7 @@ class Zzz {
             body: (block))))))
   (class_declaration
     name: (identifier)
-    type_parameters: (type_parameter_list
+    (type_parameter_list
       (type_parameter
         (attribute_list
           (attribute
@@ -222,7 +222,7 @@ class Zzz {
         name: (identifier)))
     body: (declaration_list
       (method_declaration
-        type: (predefined_type)
+        returns: (predefined_type)
         name: (identifier)
         type_parameters: (type_parameter_list
           (type_parameter
@@ -298,8 +298,8 @@ void A() { }
       (attribute_list
         (attribute
           name: (generic_name
-            name: (identifier)
-            type_arguments: (type_argument_list
+            (identifier)
+            (type_argument_list
               (identifier)
               (identifier)))))
       type: (predefined_type)
@@ -322,17 +322,16 @@ var greeting = [Hello] () => Console.WriteLine("hello");
         type: (implicit_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (lambda_expression
-              (attribute_list
-                (attribute
-                  name: (identifier)))
-              parameters: (parameter_list)
-              body: (invocation_expression
-                function: (member_access_expression
-                  expression: (identifier)
-                  name: (identifier))
-                arguments: (argument_list
-                  (argument
-                    (string_literal
-                      (string_literal_fragment))))))))))))
+          (lambda_expression
+            (attribute_list
+              (attribute
+                name: (identifier)))
+            parameters: (parameter_list)
+            body: (invocation_expression
+              function: (member_access_expression
+                expression: (identifier)
+                name: (identifier))
+              arguments: (argument_list
+                (argument
+                  (string_literal
+                    (string_literal_content)))))))))))

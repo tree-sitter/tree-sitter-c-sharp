@@ -128,8 +128,7 @@ var x = $"{{";
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (integer_literal))))))
+          (integer_literal)))))
   (global_statement
     (local_declaration_statement
       (modifier)
@@ -137,8 +136,7 @@ var x = $"{{";
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (integer_literal))))))
+          (integer_literal)))))
   (global_statement
     (local_declaration_statement
       (modifier)
@@ -146,8 +144,7 @@ var x = $"{{";
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (integer_literal))))))
+          (integer_literal)))))
   (global_statement
     (local_declaration_statement
       (modifier)
@@ -155,8 +152,7 @@ var x = $"{{";
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (integer_literal))))))
+          (integer_literal)))))
   (global_statement
     (local_declaration_statement
       (modifier)
@@ -164,8 +160,7 @@ var x = $"{{";
         type: (identifier)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (integer_literal))))))
+          (integer_literal)))))
   (global_statement
     (local_declaration_statement
       (modifier)
@@ -173,8 +168,7 @@ var x = $"{{";
         type: (identifier)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (integer_literal))))))
+          (integer_literal)))))
   (global_statement
     (local_declaration_statement
       (modifier)
@@ -182,8 +176,7 @@ var x = $"{{";
         type: (identifier)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (integer_literal))))))
+          (integer_literal)))))
   (global_statement
     (local_declaration_statement
       (modifier)
@@ -191,8 +184,7 @@ var x = $"{{";
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (integer_literal))))))
+          (integer_literal)))))
   (comment)
   (global_statement
     (local_declaration_statement
@@ -201,12 +193,10 @@ var x = $"{{";
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (boolean_literal)))
+          (boolean_literal))
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (boolean_literal))))))
+          (boolean_literal)))))
   (comment)
   (global_statement
     (local_declaration_statement
@@ -215,9 +205,7 @@ var x = $"{{";
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (character_literal
-              (character_literal_unescaped)))))))
+          (character_literal)))))
   (global_statement
     (local_declaration_statement
       (modifier)
@@ -225,9 +213,8 @@ var x = $"{{";
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (character_literal
-              (escape_sequence)))))))
+          (character_literal
+            (escape_sequence))))))
   (global_statement
     (local_declaration_statement
       (modifier)
@@ -235,9 +222,8 @@ var x = $"{{";
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (character_literal
-              (escape_sequence)))))))
+          (character_literal
+            (escape_sequence))))))
   (global_statement
     (local_declaration_statement
       (modifier)
@@ -245,9 +231,8 @@ var x = $"{{";
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (character_literal
-              (escape_sequence)))))))
+          (character_literal
+            (escape_sequence))))))
   (global_statement
     (local_declaration_statement
       (modifier)
@@ -255,9 +240,8 @@ var x = $"{{";
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (character_literal
-              (escape_sequence)))))))
+          (character_literal
+            (escape_sequence))))))
   (comment)
   (global_statement
     (local_declaration_statement
@@ -266,8 +250,7 @@ var x = $"{{";
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (real_literal))))))
+          (real_literal)))))
   (global_statement
     (local_declaration_statement
       (modifier)
@@ -275,8 +258,7 @@ var x = $"{{";
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (real_literal))))))
+          (real_literal)))))
   (global_statement
     (local_declaration_statement
       (modifier)
@@ -284,8 +266,7 @@ var x = $"{{";
         type: (identifier)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (real_literal))))))
+          (real_literal)))))
   (global_statement
     (local_declaration_statement
       (modifier)
@@ -293,8 +274,7 @@ var x = $"{{";
         type: (identifier)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (real_literal))))))
+          (real_literal)))))
   (global_statement
     (local_declaration_statement
       (modifier)
@@ -302,8 +282,7 @@ var x = $"{{";
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (real_literal))))))
+          (real_literal)))))
   (global_statement
     (local_declaration_statement
       (modifier)
@@ -311,8 +290,7 @@ var x = $"{{";
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (real_literal))))))
+          (real_literal)))))
   (global_statement
     (local_declaration_statement
       (modifier)
@@ -320,8 +298,7 @@ var x = $"{{";
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (real_literal))))))
+          (real_literal)))))
   (global_statement
     (local_declaration_statement
       (modifier)
@@ -329,8 +306,7 @@ var x = $"{{";
         type: (identifier)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (real_literal))))))
+          (real_literal)))))
   (comment)
   (global_statement
     (local_declaration_statement
@@ -338,143 +314,128 @@ var x = $"{{";
         type: (identifier)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (string_literal))))))
+          (string_literal)))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (string_literal
-              (string_literal_fragment)))))))
+          (string_literal
+            (string_literal_content))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (string_literal
-              (string_literal_fragment)))))))
+          (string_literal
+            (string_literal_content))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (string_literal
-              (string_literal_fragment)
-              (escape_sequence)
-              (escape_sequence)))))))
+          (string_literal
+            (string_literal_content)
+            (escape_sequence)
+            (escape_sequence))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (string_literal
-              (string_literal_fragment)
-              (escape_sequence)
-              (string_literal_fragment)))))))
+          (string_literal
+            (string_literal_content)
+            (escape_sequence)
+            (string_literal_content))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (string_literal
-              (escape_sequence)
-              (string_literal_fragment)
-              (escape_sequence)))))))
+          (string_literal
+            (escape_sequence)
+            (string_literal_content)
+            (escape_sequence))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (string_literal
-              (escape_sequence)
-              (string_literal_fragment)))))))
+          (string_literal
+            (escape_sequence)
+            (string_literal_content))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (string_literal
-              (escape_sequence)
-              (string_literal_fragment)))))))
+          (string_literal
+            (escape_sequence)
+            (string_literal_content))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (verbatim_string_literal))))))
+          (verbatim_string_literal)))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (verbatim_string_literal))))))
+          (verbatim_string_literal)))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (verbatim_string_literal))))))
+          (verbatim_string_literal)))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (identifier)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (verbatim_string_literal))))))
+          (verbatim_string_literal)))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (string_literal
-              (string_literal_fragment)
-              (escape_sequence)
-              (string_literal_fragment)))))))
+          (string_literal
+            (string_literal_content)
+            (escape_sequence)
+            (string_literal_content))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (string_literal
-              (escape_sequence)
-              (string_literal_fragment)
-              (escape_sequence)
-              (string_literal_fragment)
-              (escape_sequence)))))))
+          (string_literal
+            (escape_sequence)
+            (string_literal_content)
+            (escape_sequence)
+            (string_literal_content)
+            (escape_sequence))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (verbatim_string_literal))))))
+          (verbatim_string_literal)))))
   (comment)
   (global_statement
     (local_declaration_statement
@@ -482,48 +443,46 @@ var x = $"{{";
         type: (implicit_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (string_literal
-              (string_literal_fragment)
-              (string_literal_encoding)))))))
+          (string_literal
+            (string_literal_content)
+            (string_literal_encoding))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (string_literal
-              (string_literal_fragment)
-              (string_literal_encoding)))))))
+          (string_literal
+            (string_literal_content)
+            (string_literal_encoding))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (verbatim_string_literal))))))
+          (verbatim_string_literal)))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (verbatim_string_literal))))))
+          (verbatim_string_literal)))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (interpolated_string_expression
-              (interpolated_string_text)
-              (interpolation
-                (identifier))
-              (interpolated_string_text)))))))
+          (interpolated_string_expression
+            (interpolation_start)
+            (string_content)
+            (interpolation
+              (interpolation_brace)
+              (identifier)
+              (interpolation_brace))
+            (string_content))))))
   (comment)
   (global_statement
     (local_declaration_statement
@@ -531,198 +490,212 @@ var x = $"{{";
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (interpolated_string_expression
-              (interpolated_string_text)))))))
+          (interpolated_string_expression
+            (interpolation_start)
+            (string_content))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (interpolated_string_expression
-              (interpolated_string_text)
-              (interpolated_string_text
-                (escape_sequence))
-              (interpolated_string_text
-                (escape_sequence))))))))
+          (interpolated_string_expression
+            (interpolation_start)
+            (string_content)
+            (escape_sequence)
+            (escape_sequence))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (interpolated_string_expression
-              (interpolated_string_text)
-              (interpolated_string_text)))))))
+          (interpolated_string_expression
+            (interpolation_start)
+            (string_content))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (interpolated_string_expression
-              (interpolated_string_text
-                (escape_sequence))
-              (interpolated_string_text)
-              (interpolated_string_text
-                (escape_sequence))
-              (interpolated_string_text)
-              (interpolated_string_text
-                (escape_sequence))))))))
+          (interpolated_string_expression
+            (interpolation_start)
+            (escape_sequence)
+            (string_content)
+            (escape_sequence)
+            (string_content)
+            (escape_sequence))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (interpolated_string_expression
-              (interpolated_string_text)
-              (interpolation
-                (identifier))
-              (interpolated_string_text)))))))
+          (interpolated_string_expression
+            (interpolation_start)
+            (string_content)
+            (interpolation
+              (interpolation_brace)
+              (identifier)
+              (interpolation_brace))
+            (string_content))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (interpolated_string_expression
-              (interpolated_string_text)
-              (interpolation
-                (identifier)
-                (interpolation_format_clause))
-              (interpolated_string_text)))))))
+          (interpolated_string_expression
+            (interpolation_start)
+            (string_content)
+            (interpolation
+              (interpolation_brace)
+              (identifier)
+              (interpolation_format_clause)
+              (interpolation_brace))
+            (string_content))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (interpolated_string_expression
-              (interpolated_string_text)
-              (interpolation
-                (identifier)
-                (interpolation_alignment_clause
+          (interpolated_string_expression
+            (interpolation_start)
+            (string_content)
+            (interpolation
+              (interpolation_brace)
+              (identifier)
+              (interpolation_alignment_clause
+                (integer_literal))
+              (interpolation_brace))
+            (string_content))))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (predefined_type)
+        (variable_declarator
+          name: (identifier)
+          (interpolated_string_expression
+            (interpolation_start)
+            (string_content)
+            (interpolation
+              (interpolation_brace)
+              (identifier)
+              (interpolation_brace))
+            (string_content))))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (predefined_type)
+        (variable_declarator
+          name: (identifier)
+          (interpolated_string_expression
+            (interpolation_start)
+            (string_content)
+            (interpolation
+              (interpolation_brace)
+              (identifier)
+              (interpolation_format_clause)
+              (interpolation_brace))
+            (string_content))))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (predefined_type)
+        (variable_declarator
+          name: (identifier)
+          (interpolated_string_expression
+            (interpolation_start)
+            (string_content)
+            (interpolation
+              (interpolation_brace)
+              (identifier)
+              (interpolation_alignment_clause
+                (prefix_unary_expression
                   (integer_literal)))
-              (interpolated_string_text)))))))
+              (interpolation_brace))
+            (string_content))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (interpolated_string_expression
-              (interpolated_verbatim_string_text)
-              (interpolation
-                (identifier))
-              (interpolated_verbatim_string_text)))))))
+          (interpolated_string_expression
+            (interpolation_start)
+            (string_content))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (interpolated_string_expression
-              (interpolated_verbatim_string_text)
-              (interpolation
-                (identifier)
-                (interpolation_format_clause))
-              (interpolated_verbatim_string_text)))))))
-  (global_statement
-    (local_declaration_statement
-      (variable_declaration
-        type: (predefined_type)
-        (variable_declarator
-          name: (identifier)
-          (equals_value_clause
-            (interpolated_string_expression
-              (interpolated_verbatim_string_text)
-              (interpolation
-                (identifier)
-                (interpolation_alignment_clause
-                  (prefix_unary_expression
-                    (integer_literal))))
-              (interpolated_verbatim_string_text)))))))
-  (global_statement
-    (local_declaration_statement
-      (variable_declaration
-        type: (predefined_type)
-        (variable_declarator
-          name: (identifier)
-          (equals_value_clause
-            (interpolated_string_expression
-              (interpolated_verbatim_string_text)))))))
-  (global_statement
-    (local_declaration_statement
-      (variable_declaration
-        type: (predefined_type)
-        (variable_declarator
-          name: (identifier)
-          (equals_value_clause
-            (interpolated_string_expression
-              (interpolated_verbatim_string_text)))))))
+          (interpolated_string_expression
+            (interpolation_start)
+            (string_content))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (interpolated_string_expression
-              (interpolated_verbatim_string_text)))))))
+          (interpolated_string_expression
+            (interpolation_start)
+            (string_content))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (interpolated_string_expression
-              (interpolated_verbatim_string_text)
-              (interpolated_verbatim_string_text)
-              (interpolated_verbatim_string_text)
-              (interpolated_verbatim_string_text)
-              (interpolated_verbatim_string_text)
-              (interpolation
-                (identifier))
-              (interpolated_verbatim_string_text)
-              (interpolation
-                (identifier))
-              (interpolated_verbatim_string_text)))))))
+          (interpolated_string_expression
+            (interpolation_start)
+            (string_content)
+            (string_content)
+            (string_content)
+            (interpolation
+              (interpolation_brace)
+              (identifier)
+              (interpolation_brace))
+            (string_content)
+            (interpolation
+              (interpolation_brace)
+              (identifier)
+              (interpolation_brace))
+            (string_content))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (interpolated_string_expression
-              (interpolation
-                (identifier))
-              (interpolated_verbatim_string_text)
-              (interpolation
-                (identifier))))))))
+          (interpolated_string_expression
+            (interpolation_start)
+            (interpolation
+              (interpolation_brace)
+              (identifier)
+              (interpolation_brace))
+            (string_content)
+            (interpolation
+              (interpolation_brace)
+              (identifier)
+              (interpolation_brace)))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (interpolated_string_expression
-              (interpolated_verbatim_string_text)
-              (interpolation
-                (identifier))
-              (interpolated_verbatim_string_text)))))))
+          (interpolated_string_expression
+            (interpolation_start)
+            (string_content)
+            (interpolation
+              (interpolation_brace)
+              (identifier)
+              (interpolation_brace))
+            (string_content))))))
   (comment)
   (global_statement
     (local_declaration_statement
@@ -730,64 +703,65 @@ var x = $"{{";
         type: (implicit_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (raw_string_literal))))))
+          (raw_string_literal)))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (raw_string_literal))))))
+          (raw_string_literal)))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (raw_string_literal))))))
+          (raw_string_literal)))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (interpolated_string_expression
-              (interpolated_raw_string_text)
-              (interpolated_raw_string_text)
-              (interpolation
-                (identifier))
-              (interpolated_raw_string_text)
-              (interpolation
-                (identifier))
-              (interpolated_raw_string_text)
-              (interpolated_raw_string_text)
-              (interpolated_raw_string_text)
-              (interpolation
-                (invocation_expression
-                  function: (member_access_expression
-                    expression: (identifier)
-                    name: (identifier))
-                  arguments: (argument_list
-                    (argument
-                      (binary_expression
-                        left: (binary_expression
-                          left: (identifier)
-                          right: (identifier))
-                        right: (binary_expression
-                          left: (identifier)
-                          right: (identifier)))))))
-              (interpolated_raw_string_text)
-              (interpolated_raw_string_text)))))))
+          (interpolated_string_expression
+            (interpolation_start)
+            (interpolation_quote)
+            (string_content)
+            (interpolation
+              (interpolation_brace)
+              (identifier)
+              (interpolation_brace))
+            (string_content)
+            (interpolation
+              (interpolation_brace)
+              (identifier)
+              (interpolation_brace))
+            (string_content)
+            (interpolation
+              (interpolation_brace)
+              (invocation_expression
+                function: (member_access_expression
+                  expression: (identifier)
+                  name: (identifier))
+                arguments: (argument_list
+                  (argument
+                    (binary_expression
+                      left: (binary_expression
+                        left: (identifier)
+                        right: (identifier))
+                      right: (binary_expression
+                        left: (identifier)
+                        right: (identifier))))))
+              (interpolation_brace))
+            (string_content)
+            (interpolation_quote))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
           name: (identifier)
-          (equals_value_clause
-            (interpolated_string_expression
-              (interpolated_string_text))))))))
+          (interpolated_string_expression
+            (interpolation_start)
+            (string_content)))))))

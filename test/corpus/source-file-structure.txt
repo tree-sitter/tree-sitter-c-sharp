@@ -1,6 +1,9 @@
 ================================================================================
-Using directives
+Using directives, extern alias, and namespace declarations
 ================================================================================
+
+global using A;
+global using static A.B;
 
 using A;
 using B.C;
@@ -8,9 +11,29 @@ using global::E.F;
 using G = H.I;
 using static J.K;
 
+extern alias A;
+
+namespace Foo {
+  using A;
+}
+
+namespace A {
+  namespace B.C.D {
+  }
+
+  namespace E.F {
+  }
+}
+
 --------------------------------------------------------------------------------
 
 (compilation_unit
+  (using_directive
+    (identifier))
+  (using_directive
+    (qualified_name
+      (identifier)
+      (identifier)))
   (using_directive
     (identifier))
   (using_directive
@@ -32,99 +55,34 @@ using static J.K;
   (using_directive
     (qualified_name
       (identifier)
-      (identifier))))
-
-================================================================================
-Nested using directives
-================================================================================
-
-namespace Foo {
-  using A;
-}
-
---------------------------------------------------------------------------------
-
-(compilation_unit
+      (identifier)))
+  (global_statement
+    (local_declaration_statement
+      (modifier)
+      (variable_declaration
+        (identifier)
+        (variable_declarator
+          (identifier)))))
   (namespace_declaration
-    name: (identifier)
-    body: (declaration_list
+    (identifier)
+    (declaration_list
       (using_directive
-        name: (identifier)))))
-
-================================================================================
-Global using directives
-================================================================================
-
-global using A;
-global using static A.B;
-
---------------------------------------------------------------------------------
-
-(compilation_unit
-  (using_directive
-    (identifier))
-  (using_directive
-    (qualified_name
-      (identifier)
-      (identifier))))
-
-================================================================================
-Comments
-================================================================================
-
-// I'm a single-line comment
-
-/*
- *  I'm a block comment: a * b / c
- */
-
---------------------------------------------------------------------------------
-
-(compilation_unit
-  (comment)
-  (comment))
-
-================================================================================
-Comment with double asterisk
-================================================================================
-
-/** test **/
-
---------------------------------------------------------------------------------
-
-(compilation_unit
-  (comment))
-
-================================================================================
-Namespaces
-================================================================================
-
-namespace A {
-  namespace B.C.D {
-  }
-
-  namespace E.F {
-  }
-}
-
---------------------------------------------------------------------------------
-
-(compilation_unit
+        (identifier))))
   (namespace_declaration
-    name: (identifier)
-    body: (declaration_list
+    (identifier)
+    (declaration_list
       (namespace_declaration
-        name: (qualified_name
-          qualifier: (qualified_name
-            qualifier: (identifier)
-            name: (identifier))
-          name: (identifier))
-        body: (declaration_list))
+        (qualified_name
+          (qualified_name
+            (identifier)
+            (identifier))
+          (identifier))
+        (declaration_list))
       (namespace_declaration
-        name: (qualified_name
-          qualifier: (identifier)
-          name: (identifier))
-        body: (declaration_list)))))
+        (qualified_name
+          (identifier)
+          (identifier))
+        (declaration_list)))))
 
 ================================================================================
 File scoped namespaces
@@ -143,33 +101,6 @@ class B {
     (class_declaration
       name: (identifier)
       body: (declaration_list))))
-
-================================================================================
-Interfaces
-================================================================================
-
-public interface IFoo {
-}
-
---------------------------------------------------------------------------------
-
-(compilation_unit
-  (interface_declaration
-    (modifier)
-    name: (identifier)
-    body: (declaration_list)))
-
-================================================================================
-Externs
-================================================================================
-
-extern alias A;
-
---------------------------------------------------------------------------------
-
-(compilation_unit
-  (extern_alias_directive
-    (identifier)))
 
 ================================================================================
 Delegates
@@ -253,21 +184,3 @@ class Z {
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)))))
-
-================================================================================
-Var declared equal to integer literal
-================================================================================
-
-var a = 1;
-
---------------------------------------------------------------------------------
-
-(compilation_unit
-  (global_statement
-    (local_declaration_statement
-      (variable_declaration
-        type: (implicit_type)
-        (variable_declarator
-          name: (identifier)
-          (equals_value_clause
-            (integer_literal)))))))

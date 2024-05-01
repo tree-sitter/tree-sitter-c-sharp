@@ -19,11 +19,57 @@ Global attributes
       (attribute_argument_list))))
 
 ================================================================================
-Attributes with arguments
+Attributes
 ================================================================================
 
 [A(B.C)]
 class D {}
+
+[NS.A(B.C)]
+class D {}
+
+[One][Two]
+[Three]
+class A { }
+
+[A,B()][C]
+struct A { }
+
+class Zzz {
+  [A,B()][C]
+  public int Z;
+}
+
+class Methods {
+  [ValidatedContract]
+  int Method1() { return 0; }
+
+  [method: ValidatedContract]
+  int Method2() { return 0; }
+
+  [return: ValidatedContract]
+  int Method3() { return 0; }
+}
+
+[Single]
+enum A { B, C }
+
+class Zzz {
+  [A,B()][C]
+  public event EventHandler SomeEvent { add { } remove { } }
+}
+
+class Class<[A, B][C()]T1> {
+  void Method<[E] [F, G(1)] T2>() {
+  }
+}
+
+class Zzz {
+  public event EventHandler SomeEvent {
+    [A,B()][C] add { }
+    [A,B()][C] remove { }
+  }
+}
 
 --------------------------------------------------------------------------------
 
@@ -38,18 +84,7 @@ class D {}
               expression: (identifier)
               name: (identifier))))))
     name: (identifier)
-    body: (declaration_list)))
-
-================================================================================
-Attributes with qualified name
-================================================================================
-
-[NS.A(B.C)]
-class D {}
-
---------------------------------------------------------------------------------
-
-(compilation_unit
+    body: (declaration_list))
   (class_declaration
     (attribute_list
       (attribute
@@ -62,31 +97,6 @@ class D {}
               expression: (identifier)
               name: (identifier))))))
     name: (identifier)
-    body: (declaration_list)))
-
-================================================================================
-Attributes on classes
-================================================================================
-
-[Single]
-class A { }
-
-[One][Two]
-[Three]
-class A { }
-
-[One]
-[Two,Three()]
-class A { }
-
---------------------------------------------------------------------------------
-
-(compilation_unit
-  (class_declaration
-    (attribute_list
-      (attribute
-        name: (identifier)))
-    name: (identifier)
     body: (declaration_list))
   (class_declaration
     (attribute_list
@@ -100,29 +110,6 @@ class A { }
         name: (identifier)))
     name: (identifier)
     body: (declaration_list))
-  (class_declaration
-    (attribute_list
-      (attribute
-        name: (identifier)))
-    (attribute_list
-      (attribute
-        name: (identifier))
-      (attribute
-        name: (identifier)
-        (attribute_argument_list)))
-    name: (identifier)
-    body: (declaration_list)))
-
-================================================================================
-Attributes on structs
-================================================================================
-
-[A,B()][C]
-struct A { }
-
---------------------------------------------------------------------------------
-
-(compilation_unit
   (struct_declaration
     (attribute_list
       (attribute
@@ -134,20 +121,7 @@ struct A { }
       (attribute
         name: (identifier)))
     name: (identifier)
-    body: (declaration_list)))
-
-================================================================================
-Attributes on fields
-================================================================================
-
-class Zzz {
-  [A,B()][C]
-  public int Z;
-}
-
---------------------------------------------------------------------------------
-
-(compilation_unit
+    body: (declaration_list))
   (class_declaration
     name: (identifier)
     body: (declaration_list
@@ -165,26 +139,7 @@ class Zzz {
         (variable_declaration
           type: (predefined_type)
           (variable_declarator
-            name: (identifier)))))))
-
-================================================================================
-Attributes on methods
-================================================================================
-
-class Methods {
-  [ValidatedContract]
-  int Method1() { return 0; }
-
-  [method: ValidatedContract]
-  int Method2() { return 0; }
-
-  [return: ValidatedContract]
-  int Method3() { return 0; }
-}
-
---------------------------------------------------------------------------------
-
-(compilation_unit
+            name: (identifier))))))
   (class_declaration
     name: (identifier)
     body: (declaration_list
@@ -219,26 +174,7 @@ class Methods {
         parameters: (parameter_list)
         body: (block
           (return_statement
-            (integer_literal)))))))
-
-================================================================================
-Attributes on enums
-================================================================================
-
-[Single]
-enum A { B, C }
-
-[One][Two]
-[Three]
-enum A { B, C }
-
-[One]
-[Two,Three()]
-enum A { B, C }
-
---------------------------------------------------------------------------------
-
-(compilation_unit
+            (integer_literal))))))
   (enum_declaration
     (attribute_list
       (attribute
@@ -249,51 +185,6 @@ enum A { B, C }
         name: (identifier))
       (enum_member_declaration
         name: (identifier))))
-  (enum_declaration
-    (attribute_list
-      (attribute
-        name: (identifier)))
-    (attribute_list
-      (attribute
-        name: (identifier)))
-    (attribute_list
-      (attribute
-        name: (identifier)))
-    name: (identifier)
-    body: (enum_member_declaration_list
-      (enum_member_declaration
-        name: (identifier))
-      (enum_member_declaration
-        name: (identifier))))
-  (enum_declaration
-    (attribute_list
-      (attribute
-        name: (identifier)))
-    (attribute_list
-      (attribute
-        name: (identifier))
-      (attribute
-        name: (identifier)
-        (attribute_argument_list)))
-    name: (identifier)
-    body: (enum_member_declaration_list
-      (enum_member_declaration
-        name: (identifier))
-      (enum_member_declaration
-        name: (identifier)))))
-
-================================================================================
-Attributes on events
-================================================================================
-
-class Zzz {
-  [A,B()][C]
-  public event EventHandler SomeEvent { add { } remove { } }
-}
-
---------------------------------------------------------------------------------
-
-(compilation_unit
   (class_declaration
     name: (identifier)
     body: (declaration_list
@@ -314,20 +205,7 @@ class Zzz {
           (accessor_declaration
             body: (block))
           (accessor_declaration
-            body: (block)))))))
-
-================================================================================
-Attributes on type parameters
-================================================================================
-
-class Class<[A, B][C()]T1> {
-  void Method<[E] [F, G(1)] T2>() {
-  }
-}
-
---------------------------------------------------------------------------------
-
-(compilation_unit
+            body: (block))))))
   (class_declaration
     name: (identifier)
     type_parameters: (type_parameter_list
@@ -361,22 +239,7 @@ class Class<[A, B][C()]T1> {
                     (integer_literal)))))
             name: (identifier)))
         parameters: (parameter_list)
-        body: (block)))))
-
-================================================================================
-Attributes on event accessors
-================================================================================
-
-class Zzz {
-  public event EventHandler SomeEvent {
-    [A,B()][C] add { }
-    [A,B()][C] remove { }
-  }
-}
-
---------------------------------------------------------------------------------
-
-(compilation_unit
+        body: (block))))
   (class_declaration
     name: (identifier)
     body: (declaration_list
@@ -409,9 +272,13 @@ class Zzz {
             body: (block)))))))
 
 ================================================================================
-Attributes with trailing comma
+Attribute quirks
 ================================================================================
+
 [Theory,]
+void A() { }
+
+[Theory<About,Life>]
 void A() { }
 
 --------------------------------------------------------------------------------
@@ -425,17 +292,7 @@ void A() { }
       type: (predefined_type)
       name: (identifier)
       parameters: (parameter_list)
-      body: (block))))
-
-================================================================================
-Generic attribute
-================================================================================
-[Theory<About,Life>]
-void A() { }
-
---------------------------------------------------------------------------------
-
-(compilation_unit
+      body: (block)))
   (global_statement
     (local_function_statement
       (attribute_list

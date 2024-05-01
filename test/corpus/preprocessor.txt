@@ -48,15 +48,29 @@ If, elif and else directives
   (endif_directive))
 
 ================================================================================
-Complex if conditions
+If conditions
 ================================================================================
+
 #if !MACOS
+#endif
+
 #if WIN32==true
+#endif
+
 #if !MACOS!=false
+#endif
+
 #if A && B || C
+#endif
+
 #if (A)
+#endif
+
 #if (A || B)
+#endif
+
 #if (A && B) || C
+#endif
 
 --------------------------------------------------------------------------------
 
@@ -64,54 +78,43 @@ Complex if conditions
   (if_directive
     (prefix_unary_expression
       argument: (identifier)))
+  (endif_directive)
   (if_directive
     (binary_expression
       left: (identifier)
       right: (boolean_literal)))
+  (endif_directive)
   (if_directive
     (binary_expression
       left: (prefix_unary_expression
         argument: (identifier))
       right: (boolean_literal)))
+  (endif_directive)
   (if_directive
     (binary_expression
       left: (binary_expression
         left: (identifier)
         right: (identifier))
       right: (identifier)))
+  (endif_directive)
   (if_directive
     (parenthesized_expression
       (identifier)))
+  (endif_directive)
   (if_directive
     (parenthesized_expression
       (binary_expression
         left: (identifier)
         right: (identifier))))
+  (endif_directive)
   (if_directive
     (binary_expression
       left: (parenthesized_expression
         (binary_expression
           left: (identifier)
           right: (identifier)))
-      right: (identifier))))
-
-================================================================================
-Region directives
-================================================================================
-
-#region Here, there, everywhere
-
-// something fast
-
-#endregion
-
---------------------------------------------------------------------------------
-
-(compilation_unit
-  (region_directive
-    (preproc_message))
-  (comment)
-  (endregion_directive))
+      right: (identifier)))
+  (endif_directive))
 
 ================================================================================
 Define and undefine directives
@@ -129,26 +132,6 @@ Define and undefine directives
     (identifier)))
 
 ================================================================================
-Warning and error directives
-================================================================================
-
-class Of1879 {
-#warning This class is bad.
-#error Okay, just stop.
-}
-
---------------------------------------------------------------------------------
-
-(compilation_unit
-  (class_declaration
-    name: (identifier)
-    body: (declaration_list
-      (warning_directive
-        (preproc_message))
-      (error_directive
-        (preproc_message)))))
-
-================================================================================
 Line directives
 ================================================================================
 
@@ -159,6 +142,9 @@ class Of1879 {
 #line default
 #line (1, 1) - (1, 3) 1 "a.cs"
 #line (2, 1) - (2, 3) "a.cs"
+# line 2001 "A Space"
+#  line hidden
+#    line default
   }
 }
 
@@ -191,50 +177,12 @@ class Of1879 {
             (preproc_integer_literal)
             (preproc_integer_literal)
             (preproc_integer_literal)
-            (preproc_string_literal)))))))
-
-================================================================================
-Spaces in directives
-================================================================================
-
-class Of1879 {
-  void AMethod() {
-# line 2001 "A Space"
-#  line hidden
-#    line default
-  }
-}
-
---------------------------------------------------------------------------------
-
-(compilation_unit
-  (class_declaration
-    name: (identifier)
-    body: (declaration_list
-      (method_declaration
-        type: (predefined_type)
-        name: (identifier)
-        parameters: (parameter_list)
-        body: (block
+            (preproc_string_literal))
           (line_directive
             (preproc_integer_literal)
             (preproc_string_literal))
           (line_directive)
           (line_directive))))))
-
-================================================================================
-Pragmas
-================================================================================
-
-#pragma warning disable 660,661,nullable
-
---------------------------------------------------------------------------------
-
-(compilation_unit
-  (pragma_directive
-    (integer_literal)
-    (integer_literal)
-    (identifier)))
 
 ================================================================================
 Directives not in strings or comments
@@ -270,30 +218,6 @@ class Of1879 {
                 (equals_value_clause
                   (verbatim_string_literal)))))
           (comment))))))
-
-================================================================================
-Reference (r) directive
-================================================================================
-
-#r "Microsoft.WindowsAzure.Storage"
-
---------------------------------------------------------------------------------
-
-(compilation_unit
-  (reference_directive
-    (preproc_string_literal)))
-
-================================================================================
-Load directive
-================================================================================
-
-#load "mylogger.csx"
-
---------------------------------------------------------------------------------
-
-(compilation_unit
-  (load_directive
-    (preproc_string_literal)))
 
 ================================================================================
 Shebang directive

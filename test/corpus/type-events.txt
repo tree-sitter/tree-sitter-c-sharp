@@ -6,6 +6,14 @@ class A {
   public event EventHandler<T> SomeEvent { add { } remove { } }
 }
 
+struct A {
+  public event EventHandler<T> SomeEvent { add { } remove { } }
+}
+
+class A {
+  public event EventHandler SomeEvent { add => addSomething(); remove => removeSomething(); }
+}
+
 --------------------------------------------------------------------------------
 
 (compilation_unit
@@ -23,19 +31,7 @@ class A {
           (accessor_declaration
             body: (block))
           (accessor_declaration
-            body: (block)))))))
-
-================================================================================
-Struct event declarations
-================================================================================
-
-struct A {
-  public event EventHandler<T> SomeEvent { add { } remove { } }
-}
-
---------------------------------------------------------------------------------
-
-(compilation_unit
+            body: (block))))))
   (struct_declaration
     name: (identifier)
     body: (declaration_list
@@ -50,19 +46,7 @@ struct A {
           (accessor_declaration
             body: (block))
           (accessor_declaration
-            body: (block)))))))
-
-================================================================================
-Class event declarations with expression bodies
-================================================================================
-
-class A {
-  public event EventHandler SomeEvent { add => addSomething(); remove => removeSomething(); }
-}
-
---------------------------------------------------------------------------------
-
-(compilation_unit
+            body: (block))))))
   (class_declaration
     name: (identifier)
     body: (declaration_list

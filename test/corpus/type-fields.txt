@@ -6,6 +6,38 @@ class A {
   public readonly int _B;
   Int64 D_e_f, g;
   Tuple<char, Nullable<int>> z;
+
+  public readonly int? i;
+  private Byte? b;
+
+  public readonly int* i;
+  private Byte* b;
+  private void* c;
+
+  // Function pointer equivalent without calling convention
+  delegate*<string, int> a;
+  delegate*<delegate*<in string, int>, delegate*<ref string, ref readonly int>> b;
+
+  // Function pointer equivalent with calling convention
+  delegate* managed<string, int> c;
+  delegate*<delegate* unmanaged[MyCallConv, YourCallConv]<string, int>, delegate*<string, int>> d;
+
+  ref readonly Point Origin => ref origin;
+  ref readonly Point* Origin;
+  ref readonly Point[] Origin;
+  ref readonly Point? Origin;
+
+  (int, string str) a;
+  (B b, C c, D d) a;
+
+  nint a;
+  nuint b;
+
+  public required int B;
+}
+
+struct A {
+  private readonly int c_;
 }
 
 --------------------------------------------------------------------------------
@@ -39,45 +71,7 @@ class A {
                 type_arguments: (type_argument_list
                   (predefined_type)))))
           (variable_declarator
-            name: (identifier)))))))
-
-================================================================================
-Struct field declarations
-================================================================================
-
-struct A {
-  private readonly int c_;
-}
-
---------------------------------------------------------------------------------
-
-(compilation_unit
-  (struct_declaration
-    name: (identifier)
-    body: (declaration_list
-      (field_declaration
-        (modifier)
-        (modifier)
-        (variable_declaration
-          type: (predefined_type)
-          (variable_declarator
-            name: (identifier)))))))
-
-================================================================================
-Class field nullable type
-================================================================================
-
-class A {
-  public readonly int? i;
-  private Byte? b;
-}
-
---------------------------------------------------------------------------------
-
-(compilation_unit
-  (class_declaration
-    name: (identifier)
-    body: (declaration_list
+            name: (identifier))))
       (field_declaration
         (modifier)
         (modifier)
@@ -92,24 +86,7 @@ class A {
           type: (nullable_type
             type: (identifier))
           (variable_declarator
-            name: (identifier)))))))
-
-================================================================================
-Class field pointer type
-================================================================================
-
-class A {
-  public readonly int* i;
-  private Byte* b;
-  private void* c;
-}
-
---------------------------------------------------------------------------------
-
-(compilation_unit
-  (class_declaration
-    name: (identifier)
-    body: (declaration_list
+            name: (identifier))))
       (field_declaration
         (modifier)
         (modifier)
@@ -131,28 +108,7 @@ class A {
           type: (pointer_type
             type: (predefined_type))
           (variable_declarator
-            name: (identifier)))))))
-
-================================================================================
-Function pointer type
-================================================================================
-
-class A {
-  // Function pointer equivalent without calling convention
-  delegate*<string, int> a;
-  delegate*<delegate*<in string, int>, delegate*<ref string, ref readonly int>> b;
-
-  // Function pointer equivalent with calling convention
-  delegate* managed<string, int> c;
-  delegate*<delegate* unmanaged[MyCallConv, YourCallConv]<string, int>, delegate*<string, int>> d;
-}
-
---------------------------------------------------------------------------------
-
-(compilation_unit
-  (class_declaration
-    name: (identifier)
-    body: (declaration_list
+            name: (identifier))))
       (comment)
       (field_declaration
         (variable_declaration
@@ -216,25 +172,7 @@ class A {
                 (function_pointer_parameter
                   type: (predefined_type)))))
           (variable_declarator
-            name: (identifier)))))))
-
-================================================================================
-Ref readonly
-================================================================================
-
-class A {
-  ref readonly Point Origin => ref origin;
-  ref readonly Point* Origin;
-  ref readonly Point[] Origin;
-  ref readonly Point? Origin;
-}
-
---------------------------------------------------------------------------------
-
-(compilation_unit
-  (class_declaration
-    name: (identifier)
-    body: (declaration_list
+            name: (identifier))))
       (property_declaration
         type: (ref_type
           type: (identifier))
@@ -263,51 +201,7 @@ class A {
             type: (nullable_type
               type: (identifier)))
           (variable_declarator
-            name: (identifier)))))))
-
-================================================================================
-Nullable reference types
-================================================================================
-
-class A {
-  string? a;
-  A? a;
-}
-
---------------------------------------------------------------------------------
-
-(compilation_unit
-  (class_declaration
-    name: (identifier)
-    body: (declaration_list
-      (field_declaration
-        (variable_declaration
-          type: (nullable_type
-            type: (predefined_type))
-          (variable_declarator
             name: (identifier))))
-      (field_declaration
-        (variable_declaration
-          type: (nullable_type
-            type: (identifier))
-          (variable_declarator
-            name: (identifier)))))))
-
-================================================================================
-Tuple types
-================================================================================
-
-class A {
-  (int, string str) a;
-  (B b, C c, D d) a;
-}
-
---------------------------------------------------------------------------------
-
-(compilation_unit
-  (class_declaration
-    name: (identifier)
-    body: (declaration_list
       (field_declaration
         (variable_declaration
           type: (tuple_type
@@ -331,23 +225,7 @@ class A {
               type: (identifier)
               name: (identifier)))
           (variable_declarator
-            name: (identifier)))))))
-
-================================================================================
-Native integer types
-================================================================================
-
-class A {
-  nint a;
-  nuint b;
-}
-
---------------------------------------------------------------------------------
-
-(compilation_unit
-  (class_declaration
-    name: (identifier)
-    body: (declaration_list
+            name: (identifier))))
       (field_declaration
         (variable_declaration
           type: (predefined_type)
@@ -357,20 +235,15 @@ class A {
         (variable_declaration
           type: (predefined_type)
           (variable_declarator
-            name: (identifier)))))))
-
-================================================================================
-Required fields
-================================================================================
-
-class A {
-  public required int B;
-}
-
---------------------------------------------------------------------------------
-
-(compilation_unit
-  (class_declaration
+            name: (identifier))))
+      (field_declaration
+        (modifier)
+        (modifier)
+        (variable_declaration
+          type: (predefined_type)
+          (variable_declarator
+            name: (identifier))))))
+  (struct_declaration
     name: (identifier)
     body: (declaration_list
       (field_declaration

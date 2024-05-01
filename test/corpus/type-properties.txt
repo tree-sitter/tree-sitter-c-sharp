@@ -7,6 +7,31 @@ class Foo {
   char Set { set; }
   uint GetSet { get; set; }
   long SetGet { set; get; }
+
+  public string FirstName { get; init; }
+
+  byte Get { get { return 0xFF; } }
+  char Set { set { x = value; } }
+}
+
+class Foo {
+  uint GetSet {
+    get { return x; }
+    set { x = value; }
+  }
+  long SetGet {
+    set { x = value; }
+    get { return x; }
+  }
+
+  byte Get { get; } = 0x00;
+  uint GetSet { get; set; } = 1;
+  long SetGet { set; get; } = 2;
+}
+
+class Foo: IFoo {
+  byte IFoo.Get { get; }
+  public required int B { get; set; }
 }
 
 --------------------------------------------------------------------------------
@@ -36,46 +61,14 @@ class Foo {
         name: (identifier)
         accessors: (accessor_list
           (accessor_declaration)
-          (accessor_declaration))))))
-
-================================================================================
-Class with init properties
-================================================================================
-
-class Person
-{
-    public string FirstName { get; init; }
-}
-
---------------------------------------------------------------------------------
-
-(compilation_unit
-  (class_declaration
-    name: (identifier)
-    body: (declaration_list
+          (accessor_declaration)))
       (property_declaration
         (modifier)
         type: (predefined_type)
         name: (identifier)
         accessors: (accessor_list
           (accessor_declaration)
-          (accessor_declaration))))))
-
-================================================================================
-Class with single-accessor property bodies
-================================================================================
-
-class Foo {
-  byte Get { get { return 0xFF; } }
-  char Set { set { x = value; } }
-}
-
---------------------------------------------------------------------------------
-
-(compilation_unit
-  (class_declaration
-    name: (identifier)
-    body: (declaration_list
+          (accessor_declaration)))
       (property_declaration
         type: (predefined_type)
         name: (identifier)
@@ -94,26 +87,7 @@ class Foo {
                 (assignment_expression
                   left: (identifier)
                   (assignment_operator)
-                  right: (identifier))))))))))
-
-================================================================================
-Class with double-accessor property bodies
-================================================================================
-
-class Foo {
-  uint GetSet {
-    get { return x; }
-    set { x = value; }
-  }
-  long SetGet {
-    set { x = value; }
-    get { return x; }
-  }
-}
-
---------------------------------------------------------------------------------
-
-(compilation_unit
+                  right: (identifier)))))))))
   (class_declaration
     name: (identifier)
     body: (declaration_list
@@ -146,24 +120,7 @@ class Foo {
           (accessor_declaration
             body: (block
               (return_statement
-                (identifier)))))))))
-
-================================================================================
-Class with bodyless properties and initializers
-================================================================================
-
-class Foo {
-  byte Get { get; } = 0x00;
-  uint GetSet { get; set; } = 1;
-  long SetGet { set; get; } = 2;
-}
-
---------------------------------------------------------------------------------
-
-(compilation_unit
-  (class_declaration
-    name: (identifier)
-    body: (declaration_list
+                (identifier))))))
       (property_declaration
         type: (predefined_type)
         name: (identifier)
@@ -183,19 +140,7 @@ class Foo {
         accessors: (accessor_list
           (accessor_declaration)
           (accessor_declaration))
-        value: (integer_literal)))))
-
-================================================================================
-Class with explicit interface properties
-================================================================================
-
-class Foo: IFoo {
-  byte IFoo.Get { get; }
-}
-
---------------------------------------------------------------------------------
-
-(compilation_unit
+        value: (integer_literal))))
   (class_declaration
     name: (identifier)
     bases: (base_list
@@ -207,22 +152,7 @@ class Foo: IFoo {
           name: (identifier))
         name: (identifier)
         accessors: (accessor_list
-          (accessor_declaration))))))
-
-================================================================================
-Required properties
-================================================================================
-
-class A {
-  public required int B { get; set; }
-}
-
---------------------------------------------------------------------------------
-
-(compilation_unit
-  (class_declaration
-    name: (identifier)
-    body: (declaration_list
+          (accessor_declaration)))
       (property_declaration
         (modifier)
         (modifier)

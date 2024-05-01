@@ -2,84 +2,39 @@
 Query from select
 ================================================================================
 
-var x = from a in source select a.B;
+var x = from a in source select a.B() ? c : c * 2;
 
---------------------------------------------------------------------------------
+var x = from a in source select somevar = a;
 
-(compilation_unit
-  (global_statement
-    (local_declaration_statement
-      (variable_declaration
-        type: (implicit_type)
-        (variable_declarator
-          name: (identifier)
-          (equals_value_clause
-            (query_expression
-              (from_clause
-                name: (identifier)
-                (identifier))
-              (select_clause
-                (member_access_expression
-                  expression: (identifier)
-                  name: (identifier))))))))))
+var x = from a in source select new { Name = a.B };
 
-================================================================================
-Query from select with operator
-================================================================================
+var x = from a in source
+  where a.B == "A"
+  select new { Name = a.B };
 
-var x = from a in source select a * 2;
+var x = from a in source
+  orderby a.A descending
+  orderby a.C ascending
+  orderby 1
+  select a;
 
---------------------------------------------------------------------------------
+var x = from a in source
+  let z = new { a.A, a.B }
+  select z;
 
-(compilation_unit
-  (global_statement
-    (local_declaration_statement
-      (variable_declaration
-        type: (implicit_type)
-        (variable_declarator
-          name: (identifier)
-          (equals_value_clause
-            (query_expression
-              (from_clause
-                name: (identifier)
-                (identifier))
-              (select_clause
-                (binary_expression
-                  left: (identifier)
-                  right: (integer_literal))))))))))
+var x = from a in sourceA
+  join b in sourceB on a.FK equals b.PK
+  select new { A.A, B.B };
 
-================================================================================
-Query from select with method call
-================================================================================
+var x = from a in sourceA
+  from b in sourceB
+  where a.FK == b.FK
+  select new { A.A, B.B };
 
-var x = from a in source select a.B();
+var x = from a in sourceA
+  group a by a.Country into g
+  select new { Country = g.Key, Population = g.Sum(p => p.Population) };
 
---------------------------------------------------------------------------------
-
-(compilation_unit
-  (global_statement
-    (local_declaration_statement
-      (variable_declaration
-        type: (implicit_type)
-        (variable_declarator
-          name: (identifier)
-          (equals_value_clause
-            (query_expression
-              (from_clause
-                name: (identifier)
-                (identifier))
-              (select_clause
-                (invocation_expression
-                  function: (member_access_expression
-                    expression: (identifier)
-                    name: (identifier))
-                  arguments: (argument_list))))))))))
-
-================================================================================
-Query from select with conditional operator
-================================================================================
-
-var x = from a in source select a ? 0 : 1;
 
 --------------------------------------------------------------------------------
 
@@ -97,19 +52,15 @@ var x = from a in source select a ? 0 : 1;
                 (identifier))
               (select_clause
                 (conditional_expression
-                  condition: (identifier)
-                  consequence: (integer_literal)
-                  alternative: (integer_literal))))))))))
-
-================================================================================
-Query from select with assignment
-================================================================================
-
-var x = from a in source select somevar = a;
-
---------------------------------------------------------------------------------
-
-(compilation_unit
+                  condition: (invocation_expression
+                    function: (member_access_expression
+                      expression: (identifier)
+                      name: (identifier))
+                    arguments: (argument_list))
+                  consequence: (identifier)
+                  alternative: (binary_expression
+                    left: (identifier)
+                    right: (integer_literal))))))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
@@ -125,17 +76,7 @@ var x = from a in source select somevar = a;
                 (assignment_expression
                   left: (identifier)
                   (assignment_operator)
-                  right: (identifier))))))))))
-
-================================================================================
-Query from select projection
-================================================================================
-
-var x = from a in source select new { Name = a.B };
-
---------------------------------------------------------------------------------
-
-(compilation_unit
+                  right: (identifier)))))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
@@ -153,19 +94,7 @@ var x = from a in source select new { Name = a.B };
                     (identifier))
                   (member_access_expression
                     expression: (identifier)
-                    name: (identifier)))))))))))
-
-================================================================================
-Query from select with where
-================================================================================
-
-var x = from a in source
-  where a.B == "A"
-  select a;
-
---------------------------------------------------------------------------------
-
-(compilation_unit
+                    name: (identifier))))))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
@@ -185,65 +114,12 @@ var x = from a in source
                   right: (string_literal
                     (string_literal_fragment))))
               (select_clause
-                (identifier)))))))))
-
-================================================================================
-Query from select with where and projection
-================================================================================
-
-var x = from a in source
-  where a.B == "A" && a.C == "D"
-  select new { Name = a.B };
-
---------------------------------------------------------------------------------
-
-(compilation_unit
-  (global_statement
-    (local_declaration_statement
-      (variable_declaration
-        type: (implicit_type)
-        (variable_declarator
-          name: (identifier)
-          (equals_value_clause
-            (query_expression
-              (from_clause
-                name: (identifier)
-                (identifier))
-              (where_clause
-                (binary_expression
-                  left: (binary_expression
-                    left: (member_access_expression
-                      expression: (identifier)
-                      name: (identifier))
-                    right: (string_literal
-                      (string_literal_fragment)))
-                  right: (binary_expression
-                    left: (member_access_expression
-                      expression: (identifier)
-                      name: (identifier))
-                    right: (string_literal
-                      (string_literal_fragment)))))
-              (select_clause
                 (anonymous_object_creation_expression
                   (name_equals
                     (identifier))
                   (member_access_expression
                     expression: (identifier)
-                    name: (identifier)))))))))))
-
-================================================================================
-Query from select with orderby
-================================================================================
-
-var x = from a in source
-  orderby a.A descending
-  orderby a.C ascending
-  orderby 1
-  select a;
-
---------------------------------------------------------------------------------
-
-(compilation_unit
+                    name: (identifier))))))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
@@ -266,19 +142,7 @@ var x = from a in source
               (order_by_clause
                 (integer_literal))
               (select_clause
-                (identifier)))))))))
-
-================================================================================
-Query from select with let
-================================================================================
-
-var x = from a in source
-  let z = new { a.A, a.B }
-  select z;
-
---------------------------------------------------------------------------------
-
-(compilation_unit
+                (identifier))))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
@@ -300,19 +164,7 @@ var x = from a in source
                     expression: (identifier)
                     name: (identifier))))
               (select_clause
-                (identifier)))))))))
-
-================================================================================
-Query from select with join
-================================================================================
-
-var x = from a in sourceA
-  join b in sourceB on a.FK equals b.PK
-  select new { A.A, B.B };
-
---------------------------------------------------------------------------------
-
-(compilation_unit
+                (identifier))))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
@@ -340,20 +192,7 @@ var x = from a in sourceA
                     name: (identifier))
                   (member_access_expression
                     expression: (identifier)
-                    name: (identifier)))))))))))
-
-================================================================================
-Query from select with multiple from
-================================================================================
-
-var x = from a in sourceA
-  from b in sourceB
-  where a.FK == b.FK
-  select new { A.A, B.B };
-
---------------------------------------------------------------------------------
-
-(compilation_unit
+                    name: (identifier))))))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
@@ -383,19 +222,7 @@ var x = from a in sourceA
                     name: (identifier))
                   (member_access_expression
                     expression: (identifier)
-                    name: (identifier)))))))))))
-
-================================================================================
-Query from select with group by & continuation
-================================================================================
-
-var x = from a in sourceA
-  group a by a.Country into g
-  select new { Country = g.Key, Population = g.Sum(p => p.Population) };
-
---------------------------------------------------------------------------------
-
-(compilation_unit
+                    name: (identifier))))))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration

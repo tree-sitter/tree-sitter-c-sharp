@@ -1,5 +1,5 @@
-#ifndef TREE_SITTER_CSHARP_H_
-#define TREE_SITTER_CSHARP_H_
+#ifndef TREE_SITTER_C_SHARP_H_
+#define TREE_SITTER_C_SHARP_H_
 
 typedef struct TSLanguage TSLanguage;
 
@@ -13,4 +13,4 @@ const TSLanguage *tree_sitter_c_sharp(void);
 }
 #endif
 
-#endif // TREE_SITTER_CSHARP_H_
+#endif // TREE_SITTER_C_SHARP_H_

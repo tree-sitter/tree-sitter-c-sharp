@@ -891,7 +891,6 @@ module.exports = grammar({
       $.while_statement,
       $.local_declaration_statement,
       $.local_function_statement,
-      // alias($.preproc_if_in_statement, $.preproc_if),
       alias($.preproc_if_in_top_level, $.preproc_if),
     )),
 
@@ -1856,7 +1855,6 @@ module.exports = grammar({
     ...preprocIf('', $ => $.declaration),
     ...preprocIf('_in_top_level', $ => choice($._top_level_item_no_statement, $.statement)),
     ...preprocIf('_in_expression', $ => $.expression, -2, false),
-    // ...preprocIf('_in_statement', $ => $.statement, -1),
     ...preprocIf('_in_enum_member_declaration', $ => $.enum_member_declaration, 0, false),
 
     preproc_arg: _ => token(prec(-1, /\S([^/\n]|\/[^*]|\\\r?\n)*/)),

@@ -1562,8 +1562,12 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": false,
+      "required": true,
       "types": [
+        {
+          "type": "character_literal_content",
+          "named": true
+        },
         {
           "type": "escape_sequence",
           "named": true
@@ -6379,6 +6383,10 @@
   {
     "type": "catch",
     "named": false
+  },
+  {
+    "type": "character_literal_content",
+    "named": true
   },
   {
     "type": "checked",

@@ -204,6 +204,10 @@
         "named": true
       },
       {
+        "type": "base",
+        "named": false
+      },
+      {
         "type": "binary_expression",
         "named": true
       },

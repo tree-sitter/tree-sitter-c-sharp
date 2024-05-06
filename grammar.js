@@ -1206,6 +1206,7 @@ module.exports = grammar({
     ),
 
     non_lvalue_expression: $ => choice(
+      'base',
       $.binary_expression,
       $.interpolated_string_expression,
       $.conditional_expression,

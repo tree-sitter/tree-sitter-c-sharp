@@ -6135,6 +6135,10 @@
       "type": "CHOICE",
       "members": [
         {
+          "type": "STRING",
+          "value": "base"
+        },
+        {
           "type": "SYMBOL",
           "name": "binary_expression"
         },

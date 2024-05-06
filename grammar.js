@@ -102,6 +102,9 @@ module.exports = grammar({
     $.interpolation_open_brace,
     $.interpolation_close_brace,
     $.interpolation_string_content,
+    $.raw_string_start,
+    $.raw_string_end,
+    $.raw_string_content,
   ],
 
   extras: $ => [
@@ -1813,12 +1816,12 @@ module.exports = grammar({
       optional(stringEncoding),
     )),
 
-    raw_string_literal: _ => token(seq(
-      /""["]+/,
-      optional(/([^"]|("[^"])|(""[^"]))+/),
-      /""["]+/,
+    raw_string_literal: $ => seq(
+      $.raw_string_start,
+      $.raw_string_content,
+      $.raw_string_end,
       optional(stringEncoding),
-    )),
+    ),
 
     boolean_literal: _ => choice('true', 'false'),
 

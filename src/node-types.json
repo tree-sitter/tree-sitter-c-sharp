@@ -4954,6 +4954,29 @@
     }
   },
   {
+    "type": "raw_string_literal",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "raw_string_content",
+          "named": true
+        },
+        {
+          "type": "raw_string_end",
+          "named": true
+        },
+        {
+          "type": "raw_string_start",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "record_declaration",
     "named": true,
     "fields": {
@@ -6681,7 +6704,15 @@
     "named": false
   },
   {
-    "type": "raw_string_literal",
+    "type": "raw_string_content",
+    "named": true
+  },
+  {
+    "type": "raw_string_end",
+    "named": true
+  },
+  {
+    "type": "raw_string_start",
     "named": true
   },
   {

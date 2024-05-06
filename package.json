@@ -4,7 +4,7 @@
   "description": "C# grammar for tree-sitter",
   "repository": "github:tree-sitter/tree-sitter-c-sharp",
   "license": "MIT",
-  "author": "Max Brunsfeld <maxbrunsfeld@gmail.com",
+  "author": "Max Brunsfeld <maxbrunsfeld@gmail.com>",
   "contributors": [
     "Damien Guard <damieng@gmail.com>",
     "Amaan Qureshi <amaanq12@gmail.com>",

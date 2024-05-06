@@ -9308,11 +9308,8 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "IMMEDIATE_TOKEN",
-              "content": {
-                "type": "PATTERN",
-                "value": "[^'\\\\]"
-              }
+              "type": "SYMBOL",
+              "name": "character_literal_content"
             },
             {
               "type": "SYMBOL",
@@ -9325,6 +9322,13 @@
           "value": "'"
         }
       ]
+    },
+    "character_literal_content": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[^'\\\\]"
+      }
     },
     "integer_literal": {
       "type": "TOKEN",

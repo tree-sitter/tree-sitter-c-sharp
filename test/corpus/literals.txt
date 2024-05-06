@@ -205,7 +205,8 @@ var x = $"{{";
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (character_literal)))))
+          (character_literal
+            (character_literal_content))))))
   (global_statement
     (local_declaration_statement
       (modifier)

@@ -366,10 +366,15 @@ bool tree_sitter_c_sharp_external_scanner_scan(void *payload, TSLexer *lexer, co
             // then verbatim, since it could be verbatim + raw, but run the raw branch first
             else if (is_verbatim(current_interpolation)) {
                 if (lexer->lookahead == '"') {
+                    lexer->mark_end(lexer);
+                    advance(lexer);
+                    if (lexer->lookahead == '"') {
+                        advance(lexer);
+                        continue;
+                    }
                     if (did_advance) {
                         array_pop(&scanner->interpolation_stack);
                     }
-                    lexer->mark_end(lexer);
                     return did_advance;
                 }
 

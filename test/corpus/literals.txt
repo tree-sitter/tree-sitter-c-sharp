@@ -122,10 +122,13 @@ var x = $@"""{foo}""";
 var x = $"""{bar}""";
 
 var x = """"baz"""";
+
 var x = $""""
     [||]
     """
 """";
+
+var x = $@" ""hi"" ";
 
 --------------------------------------------------------------------------------
 
@@ -833,4 +836,13 @@ var x = $""""
             (interpolation_start)
             (interpolation_quote)
             (string_content)
-            (interpolation_quote)))))))
+            (interpolation_quote))))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (interpolated_string_expression
+            (interpolation_start)
+            (string_content)))))))

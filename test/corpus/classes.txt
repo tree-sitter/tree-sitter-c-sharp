@@ -83,6 +83,8 @@ class Ωµ {
 // file scoped class
 file class A {}
 
+class Baz(int a, int b) : Bar(a, b) { }
+
 --------------------------------------------------------------------------------
 
 (compilation_unit
@@ -378,4 +380,21 @@ file class A {}
   (class_declaration
     (modifier)
     name: (identifier)
+    body: (declaration_list))
+  (class_declaration
+    name: (identifier)
+    (parameter_list
+      (parameter
+        type: (predefined_type)
+        name: (identifier))
+      (parameter
+        type: (predefined_type)
+        name: (identifier)))
+    (base_list
+      (identifier)
+      (argument_list
+        (argument
+          (identifier))
+        (argument
+          (identifier))))
     body: (declaration_list)))

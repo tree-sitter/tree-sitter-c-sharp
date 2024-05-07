@@ -682,6 +682,7 @@ module.exports = grammar({
     bracketed_argument_list: $ => seq(
       '[',
       commaSep1($.argument),
+      optional(','),
       ']',
     ),
 

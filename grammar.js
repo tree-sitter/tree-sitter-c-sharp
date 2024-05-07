@@ -387,7 +387,7 @@ module.exports = grammar({
       field('name', $.identifier),
     ),
 
-    base_list: $ => seq(':', commaSep1($.type)),
+    base_list: $ => seq(':', commaSep1(seq($.type, optional($.argument_list)))),
 
     type_parameter_constraints_clause: $ => seq(
       'where',

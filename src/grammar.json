@@ -1520,8 +1520,25 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "type"
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "type"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "argument_list"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
             },
             {
               "type": "REPEAT",
@@ -1533,8 +1550,25 @@
                     "value": ","
                   },
                   {
-                    "type": "SYMBOL",
-                    "name": "type"
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "type"
+                      },
+                      {
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "argument_list"
+                          },
+                          {
+                            "type": "BLANK"
+                          }
+                        ]
+                      }
+                    ]
                   }
                 ]
               }

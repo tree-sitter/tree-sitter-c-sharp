@@ -220,7 +220,6 @@ bool tree_sitter_c_sharp_external_scanner_scan(void *payload, TSLexer *lexer, co
                 }
                 lexer->result_symbol = INTERPOLATION_VERBATIM_START;
                 interpolation.string_type = VERBATIM;
-                array_push(&scanner->interpolation_stack, interpolation);
             }
 
             lexer->mark_end(lexer);

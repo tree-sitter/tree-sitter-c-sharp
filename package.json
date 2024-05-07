@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-c-sharp",
-  "version": "0.21.1",
+  "version": "0.21.2",
   "description": "C# grammar for tree-sitter",
   "repository": "github:tree-sitter/tree-sitter-c-sharp",
   "license": "MIT",
@@ -45,7 +45,7 @@
   "devDependencies": {
     "eslint": "^8.57.0",
     "eslint-config-google": "^0.14.0",
-    "tree-sitter-cli": "^0.22.5",
+    "tree-sitter-cli": "^0.22.6",
     "prebuildify": "^6.0.1"
   },
   "scripts": {

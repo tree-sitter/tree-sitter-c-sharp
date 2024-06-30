@@ -62,7 +62,7 @@ void tree_sitter_c_sharp_external_scanner_destroy(void *payload) {
 unsigned tree_sitter_c_sharp_external_scanner_serialize(void *payload, char *buffer) {
     Scanner *scanner = (Scanner *)payload;
 
-    if (scanner->interpolation_stack.size * 4 > TREE_SITTER_SERIALIZATION_BUFFER_SIZE) {
+    if (scanner->interpolation_stack.size * 4 + 2 > TREE_SITTER_SERIALIZATION_BUFFER_SIZE) {
         return 0;
     }
 

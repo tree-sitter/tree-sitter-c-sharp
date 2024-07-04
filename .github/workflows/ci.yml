@@ -134,6 +134,7 @@ jobs:
             !examples/nunit/src/NUnitFramework/tests/Attributes/DerivedPropertyAttributeTests.cs
             !examples/nunit/src/NUnitFramework/tests/Attributes/RequiresThreadAttributeTests.cs
             !examples/nunit/src/NUnitFramework/tests/Attributes/SingleThreadedFixtureTests.cs
+            !examples/nunit/src/NUnitFramework/tests/Attributes/TimeoutTests.cs
             !examples/nunit/src/NUnitFramework/tests/Internal/EventQueueTests.cs
             !examples/nunit/src/NUnitFramework/tests/SynchronizationContextTests.cs
             !examples/nunit/src/NUnitFramework/tests/Syntax/PathConstraintTests.cs

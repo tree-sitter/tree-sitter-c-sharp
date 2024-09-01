@@ -1497,15 +1497,15 @@ module.exports = grammar({
     interpolated_string_expression: $ => choice(
       seq(
         alias($.interpolation_regular_start, $.interpolation_start),
-        '"',
+        alias($.interpolation_start_quote, '"'),
         repeat($._interpolated_string_content),
-        '"',
+        alias($.interpolation_end_quote, '"'),
       ),
       seq(
         alias($.interpolation_verbatim_start, $.interpolation_start),
-        '"',
+        alias($.interpolation_start_quote, '"'),
         repeat($._interpolated_verbatim_string_content),
-        '"',
+        alias($.interpolation_end_quote, '"'),
       ),
       seq(
         alias($.interpolation_raw_start, $.interpolation_start),

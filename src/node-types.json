@@ -4733,6 +4733,21 @@
     }
   },
   {
+    "type": "preproc_warning",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "preproc_arg",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "primary_constructor_base_type",
     "named": true,
     "fields": {
@@ -6145,6 +6160,10 @@
   },
   {
     "type": "#undef",
+    "named": false
+  },
+  {
+    "type": "#warning",
     "named": false
   },
   {

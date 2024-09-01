@@ -8102,7 +8102,12 @@
               "value": "interpolation_start"
             },
             {
-              "type": "STRING",
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "interpolation_start_quote"
+              },
+              "named": false,
               "value": "\""
             },
             {
@@ -8113,7 +8118,12 @@
               }
             },
             {
-              "type": "STRING",
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "interpolation_end_quote"
+              },
+              "named": false,
               "value": "\""
             }
           ]
@@ -8131,7 +8141,12 @@
               "value": "interpolation_start"
             },
             {
-              "type": "STRING",
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "interpolation_start_quote"
+              },
+              "named": false,
               "value": "\""
             },
             {
@@ -8142,7 +8157,12 @@
               }
             },
             {
-              "type": "STRING",
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "interpolation_end_quote"
+              },
+              "named": false,
               "value": "\""
             }
           ]
@@ -11236,6 +11256,28 @@
         }
       ]
     },
+    "preproc_warning": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "#[ \t]*warning"
+          },
+          "named": false,
+          "value": "#warning"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "preproc_arg"
+        },
+        {
+          "type": "PATTERN",
+          "value": "\\n"
+        }
+      ]
+    },
     "preproc_define": {
       "type": "SEQ",
       "members": [
@@ -11367,6 +11409,10 @@
     {
       "type": "SYMBOL",
       "name": "preproc_error"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "preproc_warning"
     },
     {
       "type": "SYMBOL",

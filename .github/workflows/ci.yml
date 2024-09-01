@@ -129,6 +129,7 @@ jobs:
             !examples/nunit/src/NUnitFramework/framework/Internal/Results/TestResult.cs
             !examples/nunit/src/NUnitFramework/framework/Internal/TestExecutionContext.cs
             !examples/nunit/src/NUnitFramework/nunitlite/Options.cs
+            !examples/nunit/src/NUnitFramework/testdata/TestCaseAttributeFixture.cs
             !examples/nunit/src/NUnitFramework/tests/Assertions/WarningTests.cs
             !examples/nunit/src/NUnitFramework/tests/Attributes/ApartmentAttributeTests.cs
             !examples/nunit/src/NUnitFramework/tests/Attributes/DerivedPropertyAttributeTests.cs
@@ -138,3 +139,4 @@ jobs:
             !examples/nunit/src/NUnitFramework/tests/Internal/EventQueueTests.cs
             !examples/nunit/src/NUnitFramework/tests/SynchronizationContextTests.cs
             !examples/nunit/src/NUnitFramework/tests/Syntax/PathConstraintTests.cs
+            !examples/nunit/src/NUnitFramework/windows-tests/SynchronizationContextTests.cs

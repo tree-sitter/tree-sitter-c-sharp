@@ -116,6 +116,7 @@ module.exports = grammar({
     $.preproc_pragma,
     $.preproc_nullable,
     $.preproc_error,
+    $.preproc_warning,
     $.preproc_define,
     $.preproc_undef,
   ],
@@ -1959,6 +1960,12 @@ module.exports = grammar({
 
     preproc_error: $ => seq(
       preprocessor('error'),
+      $.preproc_arg,
+      /\n/,
+    ),
+
+    preproc_warning: $ => seq(
+      preprocessor('warning'),
       $.preproc_arg,
       /\n/,
     ),

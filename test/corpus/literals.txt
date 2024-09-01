@@ -129,6 +129,7 @@ var x = $""""
 """";
 
 var x = $@" ""hi"" ";
+var x = @$"""Hello"" {world}!";
 
 --------------------------------------------------------------------------------
 
@@ -845,4 +846,18 @@ var x = $@" ""hi"" ";
           name: (identifier)
           (interpolated_string_expression
             (interpolation_start)
+            (string_content))))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (interpolated_string_expression
+            (interpolation_start)
+            (string_content)
+            (interpolation
+              (interpolation_brace)
+              (identifier)
+              (interpolation_brace))
             (string_content)))))))

@@ -225,7 +225,7 @@ bool tree_sitter_c_sharp_external_scanner_scan(void *payload, TSLexer *lexer, co
             lexer->mark_end(lexer);
             advance(lexer);
 
-            if (lexer->lookahead == '"') {
+            if (lexer->lookahead == '"' && !is_verbatim) {
                 advance(lexer);
                 if (lexer->lookahead == '"') {
                     lexer->result_symbol = INTERPOLATION_RAW_START;

@@ -1,4 +1,4 @@
-VERSION := 0.21.3
+VERSION := 0.23.0
 
 LANGUAGE_NAME := tree-sitter-c_sharp
 

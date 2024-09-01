@@ -217,6 +217,7 @@ bool tree_sitter_c_sharp_external_scanner_scan(void *payload, TSLexer *lexer, co
             if (is_verbatim || lexer->lookahead == '@') {
                 if (lexer->lookahead == '@') {
                     advance(lexer);
+                    is_verbatim = true;
                 }
                 lexer->result_symbol = INTERPOLATION_VERBATIM_START;
                 interpolation.string_type = VERBATIM;
@@ -246,13 +247,20 @@ bool tree_sitter_c_sharp_external_scanner_scan(void *payload, TSLexer *lexer, co
     if (valid_symbols[INTERPOLATION_START_QUOTE] && scanner->interpolation_stack.size > 0) {
         Interpolation *current_interpolation = array_back(&scanner->interpolation_stack);
 
-        while (lexer->lookahead == '"') {
-            advance(lexer);
-            current_interpolation->quote_count++;
+        if (is_verbatim(current_interpolation) || is_regular(current_interpolation)) {
+            if (lexer->lookahead == '"') {
+                advance(lexer);
+                current_interpolation->quote_count++;
+            }
+        } else {
+            while (lexer->lookahead == '"') {
+                advance(lexer);
+                current_interpolation->quote_count++;
+            }
         }
 
         lexer->result_symbol = INTERPOLATION_START_QUOTE;
-        return current_interpolation->quote_count >= 3;
+        return current_interpolation->quote_count > 0;
     }
 
     if (valid_symbols[INTERPOLATION_END_QUOTE] && scanner->interpolation_stack.size > 0) {
@@ -302,20 +310,6 @@ bool tree_sitter_c_sharp_external_scanner_scan(void *payload, TSLexer *lexer, co
 
             if (brace_advanced == current_interpolation->open_brace_count) {
                 current_interpolation->open_brace_count = 0;
-                if (lexer->lookahead == '"') {
-                    if (is_regular(current_interpolation) || is_verbatim(current_interpolation)) {
-                        if (is_verbatim(current_interpolation)) {
-                            lexer->mark_end(lexer);
-                            advance(lexer);
-                            // double quote in verbatim does not signify end, unless it's a triple quote
-                            if (lexer->lookahead != '"') {
-                                array_pop(&scanner->interpolation_stack);
-                            }
-                        } else {
-                            array_pop(&scanner->interpolation_stack);
-                        }
-                    }
-                }
                 lexer->result_symbol = INTERPOLATION_CLOSE_BRACE;
                 return true;
             }
@@ -371,9 +365,6 @@ bool tree_sitter_c_sharp_external_scanner_scan(void *payload, TSLexer *lexer, co
                         advance(lexer);
                         continue;
                     }
-                    if (did_advance) {
-                        array_pop(&scanner->interpolation_stack);
-                    }
                     return did_advance;
                 }
 
@@ -395,9 +386,6 @@ bool tree_sitter_c_sharp_external_scanner_scan(void *payload, TSLexer *lexer, co
             // finally regular
             else if (is_regular(current_interpolation)) {
                 if (lexer->lookahead == '\\' || lexer->lookahead == '\n' || lexer->lookahead == '"') {
-                    if (did_advance && lexer->lookahead == '"') {
-                        array_pop(&scanner->interpolation_stack);
-                    }
                     lexer->mark_end(lexer);
                     return did_advance;
                 }

@@ -233,7 +233,7 @@ module.exports = grammar({
     _attribute_list: $ => choice($.attribute_list, $.preproc_if_in_attribute_list),
 
     attribute_target_specifier: _ => seq(
-      choice('field', 'event', 'method', 'param', 'property', 'return', 'type'),
+      choice('field', 'event', 'method', 'param', 'property', 'return', 'type', 'typevar'),
       ':',
     ),
 

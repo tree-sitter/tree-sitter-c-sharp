@@ -7027,6 +7027,10 @@
     "named": false
   },
   {
+    "type": "typevar",
+    "named": false
+  },
+  {
     "type": "unchecked",
     "named": false
   },

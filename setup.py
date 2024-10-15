@@ -9,7 +9,7 @@ from wheel.bdist_wheel import bdist_wheel
 class Build(build):
     def run(self):
         if isdir("queries"):
-            dest = join(self.build_lib, "tree_sitter_c_sharp", "queries")
+            dest = join(self.build_lib, "tree_sitter_c-sharp", "queries")
             self.copy_tree("queries", dest)
         super().run()
 
@@ -18,7 +18,7 @@ class BdistWheel(bdist_wheel):
     def get_tag(self):
         python, abi, platform = super().get_tag()
         if python.startswith("cp"):
-            python, abi = "cp38", "abi3"
+            python, abi = "cp39", "abi3"
         return python, abi, platform
 
 
@@ -40,13 +40,15 @@ setup(
             ],
             extra_compile_args=[
                 "-std=c11",
+                "-fvisibility=hidden",
             ] if system() != "Windows" else [
                 "/std:c11",
                 "/utf-8",
             ],
             define_macros=[
-                ("Py_LIMITED_API", "0x03080000"),
-                ("PY_SSIZE_T_CLEAN", None)
+                ("Py_LIMITED_API", "0x03090000"),
+                ("PY_SSIZE_T_CLEAN", None),
+                ("TREE_SITTER_HIDE_SYMBOLS", None),
             ],
             include_dirs=["src"],
             py_limited_api=True,

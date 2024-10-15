@@ -43,7 +43,11 @@ jobs:
       - name: Run tests
         uses: tree-sitter/parser-test-action@v2
         with:
-          test-rust: ${{runner.os == 'Linux'}}
+          test-rust: true
+          test-node: true
+          test-python: true
+          test-go: true
+          test-swift: true
       - name: Parse examples
         uses: tree-sitter/parse-action@v4
         id: test
@@ -120,6 +124,7 @@ jobs:
             !examples/PowerToys/src/modules/MouseWithoutBorders/App/Class/InputHook.cs
             !examples/PowerToys/src/settings-ui/Settings.UI.Library/Attributes/CmdConfigureIgnoreAttribute.cs
             !examples/PowerToys/src/settings-ui/Settings.UI/SettingsXAML/App.xaml.cs
+            !examples/nunit/src/NUnitFramework/benchmarks/nunit.framework.benchmarks/ParamAttributeTypeConversionsBenchmark.cs
             !examples/nunit/src/NUnitFramework/framework/Attributes/TimeoutAttribute.cs
             !examples/nunit/src/NUnitFramework/framework/Compatibility/LongLivedMarshalByRefObject.cs
             !examples/nunit/src/NUnitFramework/framework/Constraints/MsgUtils.cs
@@ -128,6 +133,7 @@ jobs:
             !examples/nunit/src/NUnitFramework/framework/Internal/Reflect.cs
             !examples/nunit/src/NUnitFramework/framework/Internal/Results/TestResult.cs
             !examples/nunit/src/NUnitFramework/framework/Internal/TestExecutionContext.cs
+            !examples/nunit/src/NUnitFramework/framework/Internal/TypeHelper.cs
             !examples/nunit/src/NUnitFramework/nunitlite/Options.cs
             !examples/nunit/src/NUnitFramework/testdata/TestCaseAttributeFixture.cs
             !examples/nunit/src/NUnitFramework/tests/Assertions/WarningTests.cs

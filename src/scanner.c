@@ -48,7 +48,7 @@ static inline void advance(TSLexer *lexer) { lexer->advance(lexer, false); }
 static inline void skip(TSLexer *lexer) { lexer->advance(lexer, true); }
 
 void *tree_sitter_c_sharp_external_scanner_create() {
-    Scanner *scanner = ts_calloc(sizeof(Scanner), 1);
+    Scanner *scanner = ts_calloc(1, sizeof(Scanner));
     array_init(&scanner->interpolation_stack);
     return scanner;
 }

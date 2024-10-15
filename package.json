@@ -5,12 +5,6 @@
   "repository": "github:tree-sitter/tree-sitter-c-sharp",
   "license": "MIT",
   "author": "Max Brunsfeld <maxbrunsfeld@gmail.com>",
-  "contributors": [
-    "Damien Guard <damieng@gmail.com>",
-    "Amaan Qureshi <amaanq12@gmail.com>",
-    "Martin Midtgaard <martin.midtgaard@gmail.com>",
-    "Sjoerd Langkemper <sjoerd-github@linuxonly.nl>"
-  ],
   "maintainers": [
     "Amaan Qureshi <amaanq12@gmail.com>"
   ],
@@ -28,11 +22,12 @@
     "prebuilds/**",
     "bindings/node/*",
     "queries/*",
-    "src/**"
+    "src/**",
+    "*.wasm"
   ],
   "dependencies": {
-    "node-addon-api": "^8.0.0",
-    "node-gyp-build": "^4.8.1"
+    "node-addon-api": "^8.2.1",
+    "node-gyp-build": "^4.8.2"
   },
   "peerDependencies": {
     "tree-sitter": "^0.21.0"
@@ -43,9 +38,9 @@
     }
   },
   "devDependencies": {
-    "eslint": "^8.57.0",
-    "eslint-config-google": "^0.14.0",
-    "tree-sitter-cli": "^0.22.6",
+    "eslint": "^9.12.0",
+    "eslint-config-treesitter": "^1.0.2",
+    "tree-sitter-cli": "^0.24.3",
     "prebuildify": "^6.0.1"
   },
   "scripts": {
@@ -54,62 +49,5 @@
     "prestart": "tree-sitter build --wasm",
     "start": "tree-sitter playground",
     "test": "node --test bindings/node/*_test.js"
-  },
-  "tree-sitter": [
-    {
-      "scope": "source.cs",
-      "injection-regex": "cs",
-      "file-types": [
-        "cs"
-      ],
-      "highlights": [
-        "queries/highlights.scm"
-      ],
-      "tags": [
-        "queries/tags.scm"
-      ]
-    }
-  ],
-  "eslintConfig": {
-    "env": {
-      "commonjs": true,
-      "es2021": true
-    },
-    "extends": "google",
-    "parserOptions": {
-      "ecmaVersion": "latest",
-      "sourceType": "module"
-    },
-    "rules": {
-      "arrow-parens": "off",
-      "camel-case": "off",
-      "indent": [
-        "error",
-        2,
-        {
-          "SwitchCase": 1
-        }
-      ],
-      "max-len": [
-        "error",
-        {
-          "code": 160,
-          "ignoreComments": true,
-          "ignoreUrls": true,
-          "ignoreStrings": true
-        }
-      ],
-      "spaced-comment": [
-        "warn",
-        "always",
-        {
-          "line": {
-            "markers": [
-              "/"
-            ]
-          }
-        }
-      ]
-    }
   }
 }

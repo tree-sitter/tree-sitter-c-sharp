@@ -1,4 +1,4 @@
-* text eol=lf
+* text=auto eol=lf
 
 src/*.json linguist-generated
 src/parser.c linguist-generated
@@ -8,4 +8,6 @@ bindings/** linguist-generated
 binding.gyp linguist-generated
 setup.py linguist-generated
 Makefile linguist-generated
+CMakeLists.txt linguist-generated
 Package.swift linguist-generated
+go.mod linguist-generated

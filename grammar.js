@@ -225,7 +225,7 @@ module.exports = grammar({
     ),
 
     attribute_target_specifier: _ => seq(
-      choice('field', 'event', 'method', 'param', 'property', 'return', 'type'),
+      choice('field', 'event', 'method', 'param', 'property', 'return', 'type', 'typevar'),
       ':',
     ),
 

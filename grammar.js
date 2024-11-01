@@ -1827,7 +1827,7 @@ module.exports = grammar({
 
     boolean_literal: _ => choice('true', 'false'),
 
-    _identifier_token: _ => token(seq(optional('@'), /[\p{L}\p{Nl}_][\p{L}\p{Nl}\p{Nd}\p{Pc}\p{Cf}\p{Mn}\p{Mc}]*/)),
+    _identifier_token: _ => token(seq(optional('@'), /(\p{XID_Start}|_|\\u[0-9A-Fa-f]{4}|\\U[0-9A-Fa-f]{8})(\p{XID_Continue}|\\u[0-9A-Fa-f]{4}|\\U[0-9A-Fa-f]{8})*/)),
     identifier: $ => choice(
       $._identifier_token,
       $._reserved_identifier,
@@ -1996,12 +1996,12 @@ module.exports = grammar({
 });
 
 /**
-  * Creates a preprocessor regex rule
-  *
-  * @param {RegExp|Rule|String} command
-  *
-  * @return {AliasRule}
-  */
+ * Creates a preprocessor regex rule
+ *
+ * @param {RegExp | Rule | string} command
+ *
+ * @returns {AliasRule}
+ */
 function preprocessor(command) {
   return alias(new RegExp('#[ \t]*' + command), '#' + command);
 }
@@ -2016,16 +2016,15 @@ function preprocessor(command) {
  *
  * @param {boolean} rep
  *
- * @return {RuleBuilders<string, string>}
+ * @returns {RuleBuilders<string, string>}
  */
 function preprocIf(suffix, content, precedence = 0, rep = true) {
   /**
-    *
-    * @param {GrammarSymbols<string>} $
-    *
-    * @return {ChoiceRule}
-    *
-    */
+   *
+   * @param {GrammarSymbols<string>} $
+   *
+   * @returns {ChoiceRule}
+   */
   function alternativeBlock($) {
     return choice(
       suffix ? alias($['preproc_else' + suffix], $.preproc_else) : $.preproc_else,
@@ -2063,8 +2062,7 @@ function preprocIf(suffix, content, precedence = 0, rep = true) {
  *
  * @param {Rule} rule
  *
- * @return {SeqRule}
- *
+ * @returns {SeqRule}
  */
 function commaSep1(rule) {
   return seq(rule, repeat(seq(',', rule)));
@@ -2075,8 +2073,7 @@ function commaSep1(rule) {
  *
  * @param {Rule} rule
  *
- * @return {SeqRule}
- *
+ * @returns {SeqRule}
  */
 function commaSep2(rule) {
   return seq(rule, repeat1(seq(',', rule)));
@@ -2087,8 +2084,7 @@ function commaSep2(rule) {
  *
  * @param {Rule} rule
  *
- * @return {ChoiceRule}
- *
+ * @returns {ChoiceRule}
  */
 function commaSep(rule) {
   return optional(commaSep1(rule));
@@ -2101,8 +2097,7 @@ function commaSep(rule) {
  *
  * @param {RuleOrLiteral} separator
  *
- * @return {SeqRule}
- *
+ * @returns {SeqRule}
  */
 function sep1(rule, separator) {
   return seq(rule, repeat(seq(separator, rule)));
@@ -2115,8 +2110,7 @@ function sep1(rule, separator) {
  *
  * @param {RuleOrLiteral} separator
  *
- * @return {ChoiceRule}
- *
+ * @returns {ChoiceRule}
  */
 function sep(rule, separator) {
   return optional(sep1(rule, separator));

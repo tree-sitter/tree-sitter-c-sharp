@@ -3545,11 +3545,26 @@
   {
     "type": "list_pattern",
     "named": true,
-    "fields": {},
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "parenthesized_variable_designation",
+          "named": true
+        },
         {
           "type": "pattern",
           "named": true
@@ -5545,6 +5560,10 @@
       "types": [
         {
           "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
           "named": true
         },
         {

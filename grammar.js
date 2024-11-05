@@ -47,6 +47,7 @@ module.exports = grammar({
     [$._simple_name, $.generic_name],
     [$._simple_name, $.constructor_declaration],
     [$._simple_name, $.type_parameter],
+    [$._simple_name, $.subpattern],
 
     [$.tuple_element, $.type_pattern],
     [$.tuple_element, $.using_variable_declarator],
@@ -1128,14 +1129,15 @@ module.exports = grammar({
 
     type_pattern: $ => prec.right(field('type', $.type)),
 
-    list_pattern: $ => seq(
+    list_pattern: $ => prec.right(seq(
       '[',
       optional(seq(
         commaSep1(choice($.pattern, '..')),
         optional(','),
       )),
       ']',
-    ),
+      optional($._variable_designation),
+    )),
 
     recursive_pattern: $ => prec.left(seq(
       optional(field('type', $.type)),
@@ -1151,7 +1153,7 @@ module.exports = grammar({
 
     positional_pattern_clause: $ => prec(1, seq(
       '(',
-      optional(commaSep2($.subpattern)),
+      optional(commaSep($.subpattern)),
       ')',
     )),
 
@@ -1162,10 +1164,15 @@ module.exports = grammar({
       '}',
     )),
 
-    subpattern: $ => seq(
-      optional(seq($.expression, ':')),
+    subpattern: $ => prec.right(seq(
+      optional(
+        choice(
+          seq($.expression, ':'),
+          seq($.identifier, ':'),
+        ),
+      ),
       $.pattern,
-    ),
+    )),
 
     relational_pattern: $ => choice(
       seq('<', $.expression),

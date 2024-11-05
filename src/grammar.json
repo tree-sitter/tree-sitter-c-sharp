@@ -11744,6 +11744,10 @@
       "subpattern"
     ],
     [
+      "_simple_name",
+      "subpattern"
+    ],
+    [
       "tuple_element",
       "type_pattern"
     ],

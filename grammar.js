@@ -1670,6 +1670,7 @@ module.exports = grammar({
       'with',
       '{',
       commaSep($.with_initializer),
+      optional(','),
       '}',
     )),
 

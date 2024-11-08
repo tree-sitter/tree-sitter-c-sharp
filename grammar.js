@@ -1727,6 +1727,7 @@ module.exports = grammar({
     _with_body: $ => seq(
       '{',
       commaSep($.with_initializer),
+      optional(','),
       '}',
     ),
 

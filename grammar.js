@@ -1835,7 +1835,7 @@ module.exports = grammar({
 
     boolean_literal: _ => choice('true', 'false'),
 
-    _identifier_token: _ => token(seq(optional('@'), /[\p{L}\p{Nl}_][\p{L}\p{Nl}\p{Nd}\p{Pc}\p{Cf}\p{Mn}\p{Mc}]*/)),
+    _identifier_token: _ => token(seq(optional('@'), /(\p{XID_Start}|_|\\u[0-9A-Fa-f]{4}|\\U[0-9A-Fa-f]{8})(\p{XID_Continue}|\\u[0-9A-Fa-f]{4}|\\U[0-9A-Fa-f]{8})*/)),
     identifier: $ => choice(
       $._identifier_token,
       $._reserved_identifier,

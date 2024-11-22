@@ -1577,13 +1577,18 @@ module.exports = grammar({
     _parenthesized_lvalue_expression: $ => seq('(', $.lvalue_expression, ')'),
 
     lambda_expression: $ => prec(-1, seq(
+      $._lambda_expression_init,
+      '=>',
+      field('body', choice($.block, $.expression)),
+    )),
+
+    _lambda_expression_init: $ => prec(-1, seq(
       repeat($.attribute_list),
       repeat(prec(-1, alias(choice('static', 'async'), $.modifier))),
       optional(field('type', $.type)),
       field('parameters', $._lambda_parameters),
-      '=>',
-      field('body', choice($.block, $.expression)),
-    )),
+    ),
+    ),
 
     _lambda_parameters: $ => prec(-1, choice(
       $.parameter_list,

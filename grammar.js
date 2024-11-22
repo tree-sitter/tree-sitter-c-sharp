@@ -1665,10 +1665,13 @@ module.exports = grammar({
     with_expression: $ => prec.left(PREC.WITH, seq(
       $.expression,
       'with',
+      $._with_body,
+    )),
+    _with_body: $ => seq(
       '{',
       commaSep($.with_initializer),
       '}',
-    )),
+    ),
 
     with_initializer: $ => seq($.identifier, '=', $.expression),
 

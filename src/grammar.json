@@ -7160,40 +7160,22 @@
       "type": "PREC",
       "value": 18,
       "content": {
-        "type": "CHOICE",
+        "type": "SEQ",
         "members": [
           {
-            "type": "SEQ",
+            "type": "SYMBOL",
+            "name": "expression"
+          },
+          {
+            "type": "CHOICE",
             "members": [
-              {
-                "type": "SYMBOL",
-                "name": "expression"
-              },
               {
                 "type": "STRING",
                 "value": "++"
-              }
-            ]
-          },
-          {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "expression"
               },
               {
                 "type": "STRING",
                 "value": "--"
-              }
-            ]
-          },
-          {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "expression"
               },
               {
                 "type": "STRING",

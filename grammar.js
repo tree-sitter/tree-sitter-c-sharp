@@ -1327,10 +1327,9 @@ module.exports = grammar({
       )),
     ),
 
-    postfix_unary_expression: $ => prec(PREC.POSTFIX, choice(
-      seq($.expression, '++'),
-      seq($.expression, '--'),
-      seq($.expression, '!'),
+    postfix_unary_expression: $ => prec(PREC.POSTFIX, seq(
+      $.expression,
+      choice('++', '--', '!'),
     )),
 
     prefix_unary_expression: $ => prec(PREC.UNARY, seq(

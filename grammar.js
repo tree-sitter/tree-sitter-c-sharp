@@ -1466,11 +1466,15 @@ module.exports = grammar({
     switch_expression: $ => prec(PREC.SWITCH, seq(
       $.expression,
       'switch',
+      $._switch_expression_body,
+    )),
+    _switch_expression_body: $ => seq(
       '{',
       commaSep($.switch_expression_arm),
       optional(','),
       '}',
-    )),
+    ),
+
 
     switch_expression_arm: $ => seq(
       $.pattern,

@@ -257,10 +257,7 @@ module.exports = grammar({
     ),
 
     class_declaration: $ => seq(
-      repeat($.attribute_list),
-      repeat($.modifier),
-      'class',
-      field('name', $.identifier),
+      $._class_declaration_initializer,
       optional($.type_parameter_list),
       optional($.parameter_list),
       optional($.base_list),
@@ -269,18 +266,29 @@ module.exports = grammar({
       $._optional_semi,
     ),
 
-    struct_declaration: $ => seq(
+    _class_declaration_initializer: $ => seq(
       repeat($.attribute_list),
       repeat($.modifier),
-      optional('ref'),
-      'struct',
+      'class',
       field('name', $.identifier),
+    ),
+
+    struct_declaration: $ => seq(
+      $._struct_declaration_initializer,
       optional($.type_parameter_list),
       optional($.parameter_list),
       optional($.base_list),
       repeat($.type_parameter_constraints_clause),
       field('body', $.declaration_list),
       $._optional_semi,
+    ),
+
+    _struct_declaration_initializer: $ => seq(
+      repeat($.attribute_list),
+      repeat($.modifier),
+      optional('ref'),
+      'struct',
+      field('name', $.identifier),
     ),
 
     enum_declaration: $ => seq(
@@ -334,17 +342,21 @@ module.exports = grammar({
     ),
 
     record_declaration: $ => seq(
-      repeat($.attribute_list),
-      repeat($.modifier),
-      'record',
-      optional(choice('class', 'struct')),
-      field('name', $.identifier),
+      $._record_declaration_initializer,
       optional($.type_parameter_list),
       optional($.parameter_list),
       optional(alias($.record_base, $.base_list)),
       repeat($.type_parameter_constraints_clause),
       choice(field('body', $.declaration_list), ';'),
       $._optional_semi,
+    ),
+
+    _record_declaration_initializer: $ => seq(
+      repeat($.attribute_list),
+      repeat($.modifier),
+      'record',
+      optional(choice('class', 'struct')),
+      field('name', $.identifier),
     ),
 
     record_base: $ => choice(
@@ -923,6 +935,11 @@ module.exports = grammar({
 
     for_statement: $ => seq(
       'for',
+      $._for_statement_conditions,
+      field('body', $.statement),
+    ),
+
+    _for_statement_conditions: $ => seq(
       '(',
       field('initializer', optional(
         choice($.variable_declaration, commaSep1($.expression)),
@@ -932,7 +949,6 @@ module.exports = grammar({
       ';',
       field('update', optional(commaSep1($.expression))),
       ')',
-      field('body', $.statement),
     ),
 
     return_statement: $ => seq('return', optional($.expression), ';'),

@@ -90,6 +90,10 @@ module.exports = grammar({
     [$.parameter, $.tuple_element],
 
     [$.event_declaration, $.variable_declarator],
+
+    [$.base_list],
+    [$.using_directive, $.modifier],
+    [$.using_directive],
   ],
 
   externals: $ => [
@@ -183,8 +187,7 @@ module.exports = grammar({
           $.type,
         ),
         seq(
-          optional('static'),
-          optional('unsafe'),
+          repeat(choice('static', 'unsafe')),
           $._name,
         ),
       ),
@@ -258,9 +261,7 @@ module.exports = grammar({
 
     class_declaration: $ => seq(
       $._class_declaration_initializer,
-      optional($.type_parameter_list),
-      optional($.parameter_list),
-      optional($.base_list),
+      repeat(choice($.type_parameter_list, $.parameter_list, $.base_list)),
       repeat($.type_parameter_constraints_clause),
       field('body', $.declaration_list),
       $._optional_semi,
@@ -275,9 +276,7 @@ module.exports = grammar({
 
     struct_declaration: $ => seq(
       $._struct_declaration_initializer,
-      optional($.type_parameter_list),
-      optional($.parameter_list),
-      optional($.base_list),
+      repeat(choice($.type_parameter_list, $.parameter_list, $.base_list)),
       repeat($.type_parameter_constraints_clause),
       field('body', $.declaration_list),
       $._optional_semi,
@@ -343,8 +342,7 @@ module.exports = grammar({
 
     record_declaration: $ => seq(
       $._record_declaration_initializer,
-      optional($.type_parameter_list),
-      optional($.parameter_list),
+      repeat(choice($.type_parameter_list, $.parameter_list)),
       optional(alias($.record_base, $.base_list)),
       repeat($.type_parameter_constraints_clause),
       choice(field('body', $.declaration_list), ';'),
@@ -457,9 +455,10 @@ module.exports = grammar({
         'implicit',
         'explicit',
       ),
-      optional($.explicit_interface_specifier),
-      'operator',
-      optional('checked'),
+      repeat1(choice(
+        $.explicit_interface_specifier,
+        'operator',
+        'checked')),
       field('type', $.type),
       field('parameters', $.parameter_list),
       $._function_body,
@@ -1005,8 +1004,7 @@ module.exports = grammar({
 
     catch_clause: $ => seq(
       'catch',
-      optional($.catch_declaration),
-      optional($.catch_filter_clause),
+      repeat(choice($.catch_declaration, $.catch_filter_clause)),
       field('body', $.block),
     ),
 

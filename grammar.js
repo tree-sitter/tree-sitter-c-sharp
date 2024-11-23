@@ -45,7 +45,6 @@ module.exports = grammar({
 
   conflicts: $ => [
     [$._simple_name, $.generic_name],
-    [$._simple_name, $.constructor_declaration],
     [$._simple_name, $.type_parameter],
 
     [$.tuple_element, $.type_pattern],
@@ -94,6 +93,9 @@ module.exports = grammar({
     [$.base_list],
     [$.using_directive, $.modifier],
     [$.using_directive],
+
+
+    [$._constructor_declaration_initializer, $._simple_name],
   ],
 
   externals: $ => [
@@ -261,9 +263,6 @@ module.exports = grammar({
 
     class_declaration: $ => seq(
       $._class_declaration_initializer,
-      repeat(choice($.type_parameter_list, $.parameter_list, $.base_list)),
-      repeat($.type_parameter_constraints_clause),
-      field('body', $.declaration_list),
       $._optional_semi,
     ),
 
@@ -272,12 +271,13 @@ module.exports = grammar({
       repeat($.modifier),
       'class',
       field('name', $.identifier),
+      repeat(choice($.type_parameter_list, $.parameter_list, $.base_list)),
+      repeat($.type_parameter_constraints_clause),
+      field('body', $.declaration_list),
     ),
 
     struct_declaration: $ => seq(
       $._struct_declaration_initializer,
-      repeat(choice($.type_parameter_list, $.parameter_list, $.base_list)),
-      repeat($.type_parameter_constraints_clause),
       field('body', $.declaration_list),
       $._optional_semi,
     ),
@@ -288,6 +288,8 @@ module.exports = grammar({
       optional('ref'),
       'struct',
       field('name', $.identifier),
+      repeat(choice($.type_parameter_list, $.parameter_list, $.base_list)),
+      repeat($.type_parameter_constraints_clause),
     ),
 
     enum_declaration: $ => seq(
@@ -318,9 +320,6 @@ module.exports = grammar({
 
     interface_declaration: $ => seq(
       $._interface_declaration_initializer,
-      field('type_parameters', optional($.type_parameter_list)),
-      optional($.base_list),
-      repeat($.type_parameter_constraints_clause),
       field('body', $.declaration_list),
       $._optional_semi,
     ),
@@ -330,9 +329,18 @@ module.exports = grammar({
       repeat($.modifier),
       'interface',
       field('name', $.identifier),
+      field('type_parameters', optional($.type_parameter_list)),
+      optional($.base_list),
+      repeat($.type_parameter_constraints_clause),
     ),
 
     delegate_declaration: $ => seq(
+      $._delegate_declaration_initializer,
+      repeat($.type_parameter_constraints_clause),
+      ';',
+    ),
+
+    _delegate_declaration_initializer: $ => seq(
       repeat($.attribute_list),
       repeat($.modifier),
       'delegate',
@@ -340,15 +348,10 @@ module.exports = grammar({
       field('name', $.identifier),
       field('type_parameters', optional($.type_parameter_list)),
       field('parameters', $.parameter_list),
-      repeat($.type_parameter_constraints_clause),
-      ';',
     ),
 
     record_declaration: $ => seq(
       $._record_declaration_initializer,
-      repeat(choice($.type_parameter_list, $.parameter_list)),
-      optional(alias($.record_base, $.base_list)),
-      repeat($.type_parameter_constraints_clause),
       choice(field('body', $.declaration_list), ';'),
       $._optional_semi,
     ),
@@ -359,6 +362,9 @@ module.exports = grammar({
       'record',
       optional(choice('class', 'struct')),
       field('name', $.identifier),
+      repeat(choice($.type_parameter_list, $.parameter_list)),
+      optional(alias($.record_base, $.base_list)),
+      repeat($.type_parameter_constraints_clause),
     ),
 
     record_base: $ => choice(
@@ -504,12 +510,16 @@ module.exports = grammar({
     ),
 
     constructor_declaration: $ => seq(
+      $._constructor_declaration_initializer,
+      $._function_body,
+    ),
+
+    _constructor_declaration_initializer: $ => seq(
       repeat($.attribute_list),
       repeat($.modifier),
       field('name', $.identifier),
       field('parameters', $.parameter_list),
       optional($.constructor_initializer),
-      $._function_body,
     ),
 
     destructor_declaration: $ => seq(
@@ -1038,6 +1048,11 @@ module.exports = grammar({
     ),
 
     foreach_statement: $ => seq(
+      $._foreach_statement_initializer,
+      field('body', $.statement),
+    ),
+
+    _foreach_statement_initializer: $ => seq(
       optional('await'),
       'foreach',
       '(',
@@ -1051,7 +1066,6 @@ module.exports = grammar({
       'in',
       field('right', $.expression),
       ')',
-      field('body', $.statement),
     ),
 
     goto_statement: $ => seq(

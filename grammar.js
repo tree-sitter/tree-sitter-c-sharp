@@ -468,7 +468,8 @@ module.exports = grammar({
       repeat1(choice(
         $.explicit_interface_specifier,
         'operator',
-        'checked')),
+        'checked',
+      )),
       field('type', $.type),
       field('parameters', $.parameter_list),
       $._function_body,

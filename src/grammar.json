@@ -5406,6 +5406,26 @@
       "type": "SEQ",
       "members": [
         {
+          "type": "SYMBOL",
+          "name": "_local_function_declaration"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "type_parameter_constraints_clause"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_function_body"
+        }
+      ]
+    },
+    "_local_function_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
           "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
@@ -5458,17 +5478,6 @@
             "type": "SYMBOL",
             "name": "parameter_list"
           }
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "SYMBOL",
-            "name": "type_parameter_constraints_clause"
-          }
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_function_body"
         }
       ]
     },

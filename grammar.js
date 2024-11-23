@@ -1096,14 +1096,18 @@ module.exports = grammar({
     ),
 
     local_function_statement: $ => seq(
+      $._local_function_declaration,
+      repeat($.type_parameter_constraints_clause),
+      $._function_body,
+    ),
+
+    _local_function_declaration: $ => seq(
       repeat($.attribute_list),
       repeat($.modifier),
       field('type', $.type),
       field('name', $.identifier),
       field('type_parameters', optional($.type_parameter_list)),
       field('parameters', $.parameter_list),
-      repeat($.type_parameter_constraints_clause),
-      $._function_body,
     ),
 
     pattern: $ => choice(

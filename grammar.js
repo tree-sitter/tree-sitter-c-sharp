@@ -317,15 +317,19 @@ module.exports = grammar({
     ),
 
     interface_declaration: $ => seq(
-      repeat($.attribute_list),
-      repeat($.modifier),
-      'interface',
-      field('name', $.identifier),
+      $._interface_declaration_initializer,
       field('type_parameters', optional($.type_parameter_list)),
       optional($.base_list),
       repeat($.type_parameter_constraints_clause),
       field('body', $.declaration_list),
       $._optional_semi,
+    ),
+
+    _interface_declaration_initializer: $ => seq(
+      repeat($.attribute_list),
+      repeat($.modifier),
+      'interface',
+      field('name', $.identifier),
     ),
 
     delegate_declaration: $ => seq(

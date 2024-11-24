@@ -649,6 +649,10 @@
         {
           "type": "modifier",
           "named": true
+        },
+        {
+          "type": "preproc_if_in_attribute_list",
+          "named": true
         }
       ]
     }
@@ -1443,6 +1447,10 @@
         {
           "type": "parameter",
           "named": true
+        },
+        {
+          "type": "preproc_if_in_attribute_list",
+          "named": true
         }
       ]
     }
@@ -1656,6 +1664,10 @@
         },
         {
           "type": "parameter_list",
+          "named": true
+        },
+        {
+          "type": "preproc_if_in_attribute_list",
           "named": true
         },
         {
@@ -1913,6 +1925,10 @@
         {
           "type": "modifier",
           "named": true
+        },
+        {
+          "type": "preproc_if_in_attribute_list",
+          "named": true
         }
       ]
     }
@@ -1990,6 +2006,10 @@
         },
         {
           "type": "modifier",
+          "named": true
+        },
+        {
+          "type": "preproc_if_in_attribute_list",
           "named": true
         }
       ]
@@ -2150,6 +2170,10 @@
           "named": true
         },
         {
+          "type": "preproc_if_in_attribute_list",
+          "named": true
+        },
+        {
           "type": "type_parameter_constraints_clause",
           "named": true
         }
@@ -2201,6 +2225,10 @@
       "types": [
         {
           "type": "attribute_list",
+          "named": true
+        },
+        {
+          "type": "preproc_if_in_attribute_list",
           "named": true
         }
       ]
@@ -2318,6 +2346,10 @@
         {
           "type": "modifier",
           "named": true
+        },
+        {
+          "type": "preproc_if_in_attribute_list",
+          "named": true
         }
       ]
     }
@@ -2353,6 +2385,10 @@
       "types": [
         {
           "type": "attribute_list",
+          "named": true
+        },
+        {
+          "type": "preproc_if_in_attribute_list",
           "named": true
         }
       ]
@@ -2427,6 +2463,10 @@
         {
           "type": "modifier",
           "named": true
+        },
+        {
+          "type": "preproc_if_in_attribute_list",
+          "named": true
         }
       ]
     }
@@ -2445,6 +2485,10 @@
         },
         {
           "type": "modifier",
+          "named": true
+        },
+        {
+          "type": "preproc_if_in_attribute_list",
           "named": true
         },
         {
@@ -2550,6 +2594,10 @@
         },
         {
           "type": "modifier",
+          "named": true
+        },
+        {
+          "type": "preproc_if_in_attribute_list",
           "named": true
         },
         {
@@ -3094,6 +3142,10 @@
         {
           "type": "modifier",
           "named": true
+        },
+        {
+          "type": "preproc_if_in_attribute_list",
+          "named": true
         }
       ]
     }
@@ -3162,6 +3214,10 @@
         },
         {
           "type": "modifier",
+          "named": true
+        },
+        {
+          "type": "preproc_if_in_attribute_list",
           "named": true
         },
         {
@@ -3459,6 +3515,10 @@
         {
           "type": "modifier",
           "named": true
+        },
+        {
+          "type": "preproc_if_in_attribute_list",
+          "named": true
         }
       ]
     }
@@ -3585,6 +3645,10 @@
         },
         {
           "type": "modifier",
+          "named": true
+        },
+        {
+          "type": "preproc_if_in_attribute_list",
           "named": true
         },
         {
@@ -3771,6 +3835,10 @@
         },
         {
           "type": "modifier",
+          "named": true
+        },
+        {
+          "type": "preproc_if_in_attribute_list",
           "named": true
         },
         {
@@ -4066,6 +4134,10 @@
         {
           "type": "modifier",
           "named": true
+        },
+        {
+          "type": "preproc_if_in_attribute_list",
+          "named": true
         }
       ]
     }
@@ -4161,6 +4233,10 @@
         {
           "type": "modifier",
           "named": true
+        },
+        {
+          "type": "preproc_if_in_attribute_list",
+          "named": true
         }
       ]
     }
@@ -4204,6 +4280,10 @@
         },
         {
           "type": "parameter",
+          "named": true
+        },
+        {
+          "type": "preproc_if_in_attribute_list",
           "named": true
         }
       ]
@@ -4455,6 +4535,10 @@
       "required": false,
       "types": [
         {
+          "type": "attribute_list",
+          "named": true
+        },
+        {
           "type": "declaration",
           "named": true
         },
@@ -4497,6 +4581,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "attribute_list",
+          "named": true
+        },
         {
           "type": "declaration",
           "named": true
@@ -4650,6 +4738,70 @@
         },
         {
           "type": "type_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "preproc_if_in_attribute_list",
+    "named": true,
+    "fields": {
+      "alternative": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "preproc_elif",
+            "named": true
+          },
+          {
+            "type": "preproc_else",
+            "named": true
+          }
+        ]
+      },
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "boolean_literal",
+            "named": true
+          },
+          {
+            "type": "character_literal",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "integer_literal",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "attribute_list",
           "named": true
         }
       ]
@@ -4850,6 +5002,10 @@
         {
           "type": "modifier",
           "named": true
+        },
+        {
+          "type": "preproc_if_in_attribute_list",
+          "named": true
         }
       ]
     }
@@ -5035,6 +5191,10 @@
         },
         {
           "type": "parameter_list",
+          "named": true
+        },
+        {
+          "type": "preproc_if_in_attribute_list",
           "named": true
         },
         {
@@ -5358,6 +5518,10 @@
         },
         {
           "type": "parameter_list",
+          "named": true
+        },
+        {
+          "type": "preproc_if_in_attribute_list",
           "named": true
         },
         {
@@ -5686,6 +5850,10 @@
       "types": [
         {
           "type": "attribute_list",
+          "named": true
+        },
+        {
+          "type": "preproc_if_in_attribute_list",
           "named": true
         }
       ]

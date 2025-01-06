@@ -85,6 +85,10 @@ file class A {}
 
 class Baz(int a, int b) : Bar(a, b) { }
 
+public class NoBody;
+
+private class NoBodyPrimary(int a, int b);
+
 --------------------------------------------------------------------------------
 
 (compilation_unit
@@ -397,4 +401,20 @@ class Baz(int a, int b) : Bar(a, b) { }
           (identifier))
         (argument
           (identifier))))
-    body: (declaration_list)))
+    body: (declaration_list))
+  (class_declaration
+    (modifier)
+    name: (identifier)
+  )
+  (class_declaration
+    (modifier)
+    name: (identifier)
+    (parameter_list
+      (parameter
+        type: (predefined_type)
+        name: (identifier))
+      (parameter
+        type: (predefined_type)
+        name: (identifier)))
+  ))
+

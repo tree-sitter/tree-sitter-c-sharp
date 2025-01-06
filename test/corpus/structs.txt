@@ -12,6 +12,9 @@ private struct F<T1,T2> where T1 : I1, I2, new() where T2 : I2 { }
 
 ref struct Test { }
 
+struct NoBody;
+
+private struct NoBodyWithPrimary(int g);
 --------------------------------------------------------------------------------
 
 (compilation_unit
@@ -66,4 +69,13 @@ ref struct Test { }
     body: (declaration_list))
   (struct_declaration
     name: (identifier)
-    body: (declaration_list)))
+    body: (declaration_list))
+  (struct_declaration
+    name: (identifier))
+  (struct_declaration
+    (modifier)
+    name: (identifier)
+    (parameter_list
+      (parameter
+        type: (predefined_type)
+        name: (identifier)))))

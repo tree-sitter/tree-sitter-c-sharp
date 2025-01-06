@@ -39,8 +39,8 @@
   "devDependencies": {
     "eslint": "^9.14.0",
     "eslint-config-treesitter": "^1.0.2",
-    "tree-sitter-cli": "^0.24.4",
-    "prebuildify": "^6.0.1"
+    "prebuildify": "^6.0.1",
+    "tree-sitter-cli": "^0.24.4"
   },
   "peerDependencies": {
     "tree-sitter": "^0.21.1"
@@ -55,6 +55,13 @@
     "lint": "eslint grammar.js",
     "prestart": "tree-sitter build --wasm",
     "start": "tree-sitter playground",
-    "test": "node --test bindings/node/*_test.js"
-  }
+    "test": "node --test bindings/node/*_test.js",
+    "prebuildify": "prebuildify --napi --strip"
+  },
+  "tree-sitter": [
+    {
+      "scope": "source.c_sharp",
+      "injection-regex": "^c_sharp$"
+    }
+  ]
 }

@@ -38,3 +38,8 @@ dist/
 *.tar.gz
 *.tgz
 *.zip
+
+# Build artifacts
+parser.exp
+parser.lib
+bindings/*

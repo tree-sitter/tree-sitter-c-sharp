@@ -265,7 +265,7 @@ module.exports = grammar({
 
     class_declaration: $ => seq(
       $._class_declaration_initializer,
-      $._optional_semi,
+      $._declaration_list_body,
     ),
 
     _class_declaration_initializer: $ => seq(
@@ -275,13 +275,11 @@ module.exports = grammar({
       field('name', $.identifier),
       repeat(choice($.type_parameter_list, $.parameter_list, $.base_list)),
       repeat($.type_parameter_constraints_clause),
-      field('body', $.declaration_list),
     ),
 
     struct_declaration: $ => seq(
       $._struct_declaration_initializer,
-      field('body', $.declaration_list),
-      $._optional_semi,
+      $._declaration_list_body,
     ),
 
     _struct_declaration_initializer: $ => seq(
@@ -295,13 +293,19 @@ module.exports = grammar({
     ),
 
     enum_declaration: $ => seq(
+      $._enum_declaration_initializer,
+      choice(
+        seq(field('body', $.enum_member_declaration_list), $._optional_semi),
+        ';',
+      ),
+    ),
+
+    _enum_declaration_initializer: $ => seq(
       repeat($._attribute_list),
       repeat($.modifier),
       'enum',
       field('name', $.identifier),
       optional($.base_list),
-      field('body', $.enum_member_declaration_list),
-      $._optional_semi,
     ),
 
     enum_member_declaration_list: $ => seq(
@@ -322,8 +326,7 @@ module.exports = grammar({
 
     interface_declaration: $ => seq(
       $._interface_declaration_initializer,
-      field('body', $.declaration_list),
-      $._optional_semi,
+      $._declaration_list_body,
     ),
 
     _interface_declaration_initializer: $ => seq(
@@ -354,8 +357,7 @@ module.exports = grammar({
 
     record_declaration: $ => seq(
       $._record_declaration_initializer,
-      choice(field('body', $.declaration_list), ';'),
-      $._optional_semi,
+      $._declaration_list_body,
     ),
 
     _record_declaration_initializer: $ => seq(
@@ -372,6 +374,11 @@ module.exports = grammar({
     record_base: $ => choice(
       seq(':', commaSep1($._name)),
       seq(':', $.primary_constructor_base_type, optional(seq(',', commaSep1($._name)))),
+    ),
+
+    _declaration_list_body: $ => choice(
+      seq(field('body', $.declaration_list), $._optional_semi),
+      ';',
     ),
 
     primary_constructor_base_type: $ => seq(

@@ -42,6 +42,8 @@ public interface IGetNext<T> where T : IGetNext<T>
     static abstract T operator ++(T other);
 }
 
+private interface NoBody;
+
 --------------------------------------------------------------------------------
 
 (compilation_unit
@@ -204,4 +206,8 @@ public interface IGetNext<T> where T : IGetNext<T>
         parameters: (parameter_list
           (parameter
             type: (identifier)
-            name: (identifier)))))))
+            name: (identifier))))))
+  (interface_declaration
+    (modifier)
+    name: (identifier)))
+

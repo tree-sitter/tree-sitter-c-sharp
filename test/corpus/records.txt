@@ -35,6 +35,8 @@ public record Person { };
 
 public record struct Person2 { };
 
+record NoBody;
+
 --------------------------------------------------------------------------------
 
 (compilation_unit
@@ -187,4 +189,6 @@ public record struct Person2 { };
   (record_declaration
     (modifier)
     name: (identifier)
-    body: (declaration_list)))
+    body: (declaration_list))
+  (record_declaration
+    name: (identifier)))

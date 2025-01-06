@@ -265,10 +265,7 @@ module.exports = grammar({
 
     class_declaration: $ => seq(
       $._class_declaration_initializer,
-      choice(
-        seq(field('body', $.declaration_list), $._optional_semi),
-        ';',
-      ),
+      $._declaration_list_body,
     ),
 
     _class_declaration_initializer: $ => seq(
@@ -282,10 +279,7 @@ module.exports = grammar({
 
     struct_declaration: $ => seq(
       $._struct_declaration_initializer,
-      choice(
-        seq(field('body', $.declaration_list), $._optional_semi),
-        ';',
-      ),
+      $._declaration_list_body,
     ),
 
     _struct_declaration_initializer: $ => seq(
@@ -332,10 +326,7 @@ module.exports = grammar({
 
     interface_declaration: $ => seq(
       $._interface_declaration_initializer,
-      choice(
-        seq(field('body', $.declaration_list), $._optional_semi),
-        ';',
-      ),
+      $._declaration_list_body,
     ),
 
     _interface_declaration_initializer: $ => seq(
@@ -366,10 +357,7 @@ module.exports = grammar({
 
     record_declaration: $ => seq(
       $._record_declaration_initializer,
-      choice(
-        seq(field('body', $.declaration_list), $._optional_semi),
-        ';',
-      ),
+      $._declaration_list_body,
     ),
 
     _record_declaration_initializer: $ => seq(
@@ -386,6 +374,11 @@ module.exports = grammar({
     record_base: $ => choice(
       seq(':', commaSep1($._name)),
       seq(':', $.primary_constructor_base_type, optional(seq(',', commaSep1($._name)))),
+    ),
+
+    _declaration_list_body: $ => choice(
+      seq(field('body', $.declaration_list), $._optional_semi),
+      ';',
     ),
 
     primary_constructor_base_type: $ => seq(

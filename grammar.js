@@ -267,8 +267,8 @@ module.exports = grammar({
       $._class_declaration_initializer,
       choice(
         seq(field('body', $.declaration_list), $._optional_semi),
-        ';'
-      )
+        ';',
+      ),
     ),
 
     _class_declaration_initializer: $ => seq(
@@ -284,8 +284,8 @@ module.exports = grammar({
       $._struct_declaration_initializer,
       choice(
         seq(field('body', $.declaration_list), $._optional_semi),
-        ';'
-      )
+        ';',
+      ),
     ),
 
     _struct_declaration_initializer: $ => seq(
@@ -302,10 +302,10 @@ module.exports = grammar({
       $._enum_declaration_initializer,
       choice(
         seq(field('body', $.enum_member_declaration_list), $._optional_semi),
-        ';'
-      )
+        ';',
+      ),
     ),
-    
+
     _enum_declaration_initializer: $ => seq(
       repeat($._attribute_list),
       repeat($.modifier),
@@ -334,8 +334,8 @@ module.exports = grammar({
       $._interface_declaration_initializer,
       choice(
         seq(field('body', $.declaration_list), $._optional_semi),
-        ';'
-      )
+        ';',
+      ),
     ),
 
     _interface_declaration_initializer: $ => seq(
@@ -368,8 +368,8 @@ module.exports = grammar({
       $._record_declaration_initializer,
       choice(
         seq(field('body', $.declaration_list), $._optional_semi),
-        ';'
-      )
+        ';',
+      ),
     ),
 
     _record_declaration_initializer: $ => seq(

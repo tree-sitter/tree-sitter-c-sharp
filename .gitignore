@@ -39,7 +39,3 @@ dist/
 *.tgz
 *.zip
 
-# Build artifacts
-parser.exp
-parser.lib
-bindings/*

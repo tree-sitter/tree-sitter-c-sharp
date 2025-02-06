@@ -4621,22 +4621,6 @@
     }
   },
   {
-    "type": "preproc_endregion",
-    "named": true,
-    "fields": {
-      "content": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "preproc_arg",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "preproc_error",
     "named": true,
     "fields": {},
@@ -4646,6 +4630,32 @@
       "types": [
         {
           "type": "preproc_arg",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "preproc_full_region",
+    "named": true,
+    "fields": {
+      "content": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "preproc_arg",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "declaration",
           "named": true
         }
       ]
@@ -4852,22 +4862,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "preproc_region",
-    "named": true,
-    "fields": {
-      "content": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "preproc_arg",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {

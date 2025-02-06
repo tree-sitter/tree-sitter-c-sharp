@@ -11121,7 +11121,7 @@
         }
       ]
     },
-    "preproc_region": {
+    "preproc_full_region": {
       "type": "SEQ",
       "members": [
         {
@@ -11152,12 +11152,14 @@
         {
           "type": "PATTERN",
           "value": "\\n"
-        }
-      ]
-    },
-    "preproc_endregion": {
-      "type": "SEQ",
-      "members": [
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "declaration"
+          }
+        },
         {
           "type": "ALIAS",
           "content": {
@@ -11633,11 +11635,7 @@
     },
     {
       "type": "SYMBOL",
-      "name": "preproc_region"
-    },
-    {
-      "type": "SYMBOL",
-      "name": "preproc_endregion"
+      "name": "preproc_full_region"
     },
     {
       "type": "SYMBOL",

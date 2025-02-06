@@ -116,8 +116,7 @@ module.exports = grammar({
   extras: $ => [
     /[\s\u00A0\uFEFF\u3000]+/,
     $.comment,
-    $.preproc_region,
-    $.preproc_endregion,
+    $.preproc_full_region,
     $.preproc_line,
     $.preproc_pragma,
     $.preproc_nullable,
@@ -1965,13 +1964,11 @@ module.exports = grammar({
       }));
     },
 
-    preproc_region: $ => seq(
+    preproc_full_region: $ => seq(
       preprocessor('region'),
       optional(field('content', $.preproc_arg)),
       /\n/,
-    ),
-
-    preproc_endregion: $ => seq(
+      repeat($.declaration),
       preprocessor('endregion'),
       optional(field('content', $.preproc_arg)),
       /\n/,

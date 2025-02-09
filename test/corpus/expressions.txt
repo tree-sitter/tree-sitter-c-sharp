@@ -1863,6 +1863,11 @@ void b() {
       2 => "two",
       _ => "more"
   };
+
+  var t = obj.Parent.Parent switch {
+    A(S.G) { Parent: A { Parent: B baseProperty } } => baseProperty.Type,
+    _ => null,
+  };
 }
 
 --------------------------------------------------------------------------------
@@ -1894,7 +1899,44 @@ void b() {
                 (switch_expression_arm
                   (discard)
                   (string_literal
-                    (string_literal_content)))))))))))
+                    (string_literal_content)))))))
+        (local_declaration_statement
+          (variable_declaration
+            type: (implicit_type)
+            (variable_declarator
+              name: (identifier)
+              (switch_expression
+                (member_access_expression
+                  expression: (member_access_expression
+                    expression: (identifier)
+                    name: (identifier))
+                  name: (identifier))
+                (switch_expression_arm
+                  (recursive_pattern
+                    type: (identifier)
+                    (positional_pattern_clause
+                      (subpattern
+                        (type_pattern
+                          type: (qualified_name
+                            qualifier: (identifier)
+                            name: (identifier)))))
+                    (property_pattern_clause
+                      (subpattern
+                        (identifier)
+                        (recursive_pattern
+                          type: (identifier)
+                          (property_pattern_clause
+                            (subpattern
+                              (identifier)
+                              (declaration_pattern
+                                type: (identifier)
+                                name: (identifier))))))))
+                  (member_access_expression
+                    expression: (identifier)
+                    name: (identifier)))
+                (switch_expression_arm
+                  (discard)
+                  (null_literal))))))))))
 
 ================================================================================
 switch expression with trailing comma
@@ -2456,6 +2498,7 @@ var c = s is "test";
 var a = 1 is int.MaxValue;
 var d = a is nameof(a);
 var e = a is (int)b;
+var f = b is A { E: C(S.C) bb } ? bb : null;
 
 --------------------------------------------------------------------------------
 
@@ -2519,7 +2562,32 @@ var e = a is (int)b;
             pattern: (constant_pattern
               (cast_expression
                 type: (predefined_type)
-                value: (identifier)))))))))
+                value: (identifier))))))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (conditional_expression
+            condition: (is_pattern_expression
+              expression: (identifier)
+              pattern: (recursive_pattern
+                type: (identifier)
+                (property_pattern_clause
+                  (subpattern
+                    (identifier)
+                    (recursive_pattern
+                      type: (identifier)
+                      (positional_pattern_clause
+                        (subpattern
+                          (type_pattern
+                            type: (qualified_name
+                              qualifier: (identifier)
+                              name: (identifier)))))
+                      name: (identifier))))))
+            consequence: (identifier)
+            alternative: (null_literal)))))))
 
 ================================================================================
 Precedence between is operator and conditional_expression
@@ -2638,6 +2706,7 @@ Negated pattern
 ================================================================================
 
 var x = name is not null;
+if (a is not B { E: C(S.E) x }) {}
 
 --------------------------------------------------------------------------------
 
@@ -2652,7 +2721,27 @@ var x = name is not null;
             expression: (identifier)
             pattern: (negated_pattern
               (constant_pattern
-                (null_literal)))))))))
+                (null_literal))))))))
+  (global_statement
+    (if_statement
+      condition: (is_pattern_expression
+        expression: (identifier)
+        pattern: (negated_pattern
+          (recursive_pattern
+            type: (identifier)
+            (property_pattern_clause
+              (subpattern
+                (identifier)
+                (recursive_pattern
+                  type: (identifier)
+                  (positional_pattern_clause
+                    (subpattern
+                      (type_pattern
+                        type: (qualified_name
+                          qualifier: (identifier)
+                          name: (identifier)))))
+                  name: (identifier)))))))
+      consequence: (block))))
 
 ================================================================================
 Parenthesized pattern
@@ -2872,6 +2961,7 @@ List patterns
 ================================================================================
 
 var a = p is [1,2,x,] and [] or [2,..];
+if (aa is [(name: A.B), ..]) { }
 
 --------------------------------------------------------------------------------
 
@@ -2896,7 +2986,21 @@ var a = p is [1,2,x,] and [] or [2,..];
                 right: (list_pattern))
               right: (list_pattern
                 (constant_pattern
-                  (integer_literal))))))))))
+                  (integer_literal)))))))))
+  (global_statement
+    (if_statement
+      condition: (is_pattern_expression
+        expression: (identifier)
+        pattern: (list_pattern
+          (recursive_pattern
+            (positional_pattern_clause
+              (subpattern
+                (identifier)
+                (constant_pattern
+                  (member_access_expression
+                    expression: (identifier)
+                    name: (identifier))))))))
+      consequence: (block))))
 
 ================================================================================
 Conditional expression with member accesses

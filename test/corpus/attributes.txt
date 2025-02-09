@@ -1,5 +1,5 @@
 ================================================================================
-Global attributes
+Attribute targets
 ================================================================================
 
 [assembly: Single]
@@ -17,6 +17,7 @@ Global attributes
     (attribute
       name: (identifier)
       (attribute_argument_list))))
+
 
 ================================================================================
 Attributes
@@ -270,6 +271,90 @@ class Zzz {
               (attribute
                 name: (identifier)))
             body: (block)))))))
+
+================================================================================
+Attribute targets (non-global)
+================================================================================
+
+[type: Obsolete]
+class A<[typevar: B] TC>
+{
+  [field:JsonIgnore]
+  [property: JsonIgnore]
+  public int D { get; set; }
+
+  [method: Obsolete]
+  [return: MaybeNull]
+  public void E([param: AllowNull] int f) { }
+
+  [event: Obsolete]
+  public event EventHandler OnG;
+}
+
+---
+
+(compilation_unit
+  (class_declaration
+    (attribute_list
+      (attribute_target_specifier)
+      (attribute
+        (identifier)))
+    (identifier)
+    (type_parameter_list
+      (type_parameter
+        (attribute_list
+          (attribute_target_specifier)
+          (attribute
+            (identifier)))
+        (identifier)))
+    (declaration_list
+      (property_declaration
+        (attribute_list
+          (attribute_target_specifier)
+          (attribute
+            (identifier)))
+        (attribute_list
+          (attribute_target_specifier)
+          (attribute
+            (identifier)))
+        (modifier)
+        (predefined_type)
+        (identifier)
+        (accessor_list
+          (accessor_declaration)
+          (accessor_declaration)))
+      (method_declaration
+        (attribute_list
+          (attribute_target_specifier)
+          (attribute
+            (identifier)))
+        (attribute_list
+          (attribute_target_specifier)
+          (attribute
+            (identifier)))
+        (modifier)
+        (predefined_type)
+        (identifier)
+        (parameter_list
+          (parameter
+            (attribute_list
+              (attribute_target_specifier)
+              (attribute
+                (identifier)))
+            (predefined_type)
+            (identifier)))
+        (block))
+      (event_field_declaration
+        (attribute_list
+          (attribute_target_specifier)
+          (attribute
+            (identifier)))
+        (modifier)
+        (variable_declaration
+          (identifier)
+          (variable_declarator
+            (identifier)))))))
+
 
 ================================================================================
 Attribute quirks

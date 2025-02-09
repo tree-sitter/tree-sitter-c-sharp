@@ -12,6 +12,10 @@
     {
       "name": "Amaan Qureshi",
       "email": "amaanq12@gmail.com"
+    },
+    {
+      "name": "Damien Guard",
+      "email": "damieng@gmail.com"
     }
   ],
   "main": "bindings/node",

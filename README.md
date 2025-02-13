@@ -25,7 +25,7 @@ Comprehensive supports C# 1 through 13.0 with the following exception:
 
 ### References
 
-- [Official C# 6 Language Spec](https://github.com/dotnet/csharplang/blob/master/spec/) provides chapters that formally define the language grammar.
+- [Official C# 8 Draft Language Spec](https://github.com/dotnet/csharpstandard/tree/draft-v8/standard) provides chapters that formally define the language grammar.
 - [Roslyn C# language grammar export](https://github.com/dotnet/roslyn/blob/master/src/Compilers/CSharp/Portable/Generated/CSharp.Generated.g4)
 - [SharpLab](https://sharplab.io) (web-based syntax tree playground based on Roslyn)
 

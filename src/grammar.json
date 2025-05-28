@@ -7325,20 +7325,24 @@
       }
     },
     "_pointer_indirection_expression": {
-      "type": "PREC_RIGHT",
-      "value": 17,
+      "type": "PREC_DYNAMIC",
+      "value": 1,
       "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "STRING",
-            "value": "*"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "lvalue_expression"
-          }
-        ]
+        "type": "PREC_RIGHT",
+        "value": 17,
+        "content": {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "*"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "expression"
+            }
+          ]
+        }
       }
     },
     "query_expression": {
@@ -9109,62 +9113,8 @@
             "value": "with"
           },
           {
-<<<<<<< HEAD
             "type": "SYMBOL",
             "name": "_with_body"
-=======
-            "type": "STRING",
-            "value": "{"
-          },
-          {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "with_initializer"
-                  },
-                  {
-                    "type": "REPEAT",
-                    "content": {
-                      "type": "SEQ",
-                      "members": [
-                        {
-                          "type": "STRING",
-                          "value": ","
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "with_initializer"
-                        }
-                      ]
-                    }
-                  }
-                ]
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          },
-          {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "STRING",
-                "value": ","
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          },
-          {
-            "type": "STRING",
-            "value": "}"
->>>>>>> b88a7e0 (Accept trailing comma on with_expression)
           }
         ]
       }
@@ -11798,10 +11748,6 @@
       "subpattern"
     ],
     [
-      "_simple_name",
-      "subpattern"
-    ],
-    [
       "tuple_element",
       "type_pattern"
     ],
@@ -11956,6 +11902,10 @@
     [
       "_constructor_declaration_initializer",
       "_simple_name"
+    ],
+    [
+      "expression",
+      "assignment_expression"
     ]
   ],
   "precedences": [

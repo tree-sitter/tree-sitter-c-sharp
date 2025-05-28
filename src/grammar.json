@@ -7325,20 +7325,24 @@
       }
     },
     "_pointer_indirection_expression": {
-      "type": "PREC_RIGHT",
-      "value": 17,
+      "type": "PREC_DYNAMIC",
+      "value": 1,
       "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "STRING",
-            "value": "*"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "lvalue_expression"
-          }
-        ]
+        "type": "PREC_RIGHT",
+        "value": 17,
+        "content": {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "*"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "expression"
+            }
+          ]
+        }
       }
     },
     "query_expression": {
@@ -11896,6 +11900,10 @@
       "using_directive"
     ],
     [
+      "expression",
+      "assignment_expression"
+    ],
+    [
       "_constructor_declaration_initializer",
       "_simple_name"
     ]
@@ -11989,5 +11997,6 @@
     "type",
     "type_declaration",
     "pattern"
-  ]
+  ],
+  "reserved": {}
 }

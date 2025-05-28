@@ -95,7 +95,7 @@ module.exports = grammar({
     [$.using_directive, $.modifier],
     [$.using_directive],
 
-
+    [$.expression, $.assignment_expression],
     [$._constructor_declaration_initializer, $._simple_name],
   ],
 
@@ -1390,10 +1390,12 @@ module.exports = grammar({
       $.expression,
     )),
 
-    _pointer_indirection_expression: $ => prec.right(PREC.UNARY, seq(
-      '*',
-      $.lvalue_expression,
-    )),
+    _pointer_indirection_expression: $ => prec.dynamic(1,
+      prec.right(PREC.UNARY, seq(
+        '*',
+        $.expression,
+      )),
+    ),
 
     query_expression: $ => seq($.from_clause, $._query_body),
 

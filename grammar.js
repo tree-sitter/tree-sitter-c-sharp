@@ -1113,6 +1113,7 @@ module.exports = grammar({
     ),
 
     local_declaration_statement: $ => seq(
+      repeat($._attribute_list),
       optional('await'),
       optional('using'),
       repeat($.modifier),

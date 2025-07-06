@@ -3581,7 +3581,15 @@
       "required": true,
       "types": [
         {
+          "type": "attribute_list",
+          "named": true
+        },
+        {
           "type": "modifier",
+          "named": true
+        },
+        {
+          "type": "preproc_if_in_attribute_list",
           "named": true
         },
         {

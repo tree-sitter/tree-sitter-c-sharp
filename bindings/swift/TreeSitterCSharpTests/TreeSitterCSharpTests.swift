@@ -7,6 +7,6 @@ final class TreeSitterCSharpTests: XCTestCase {
         let parser = Parser()
         let language = Language(language: tree_sitter_c_sharp())
         XCTAssertNoThrow(try parser.setLanguage(language),
-                         "Error loading C# grammar")
+                         "Error loading CSharp grammar")
     }
 }

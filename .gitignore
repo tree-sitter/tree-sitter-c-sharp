@@ -25,6 +25,8 @@ dist/
 *.dylib
 *.dll
 *.pc
+parser.exp
+parser.lib
 
 # Example dirs
 /examples/*/

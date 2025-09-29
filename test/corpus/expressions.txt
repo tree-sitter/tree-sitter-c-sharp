@@ -3574,3 +3574,52 @@ var x = [ y, ];
           (element_binding_expression
             (argument
               (identifier))))))))
+
+================================================================================
+Pointer indirection expressions
+================================================================================
+
+var f = *(A.B*)pointer;
+*ptr = v;
+*(ptr + 1) = v;
+a = *b = 7;
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        (implicit_type)
+        (variable_declarator
+          (identifier)
+          (prefix_unary_expression
+            (cast_expression
+              (pointer_type
+                (qualified_name
+                  (identifier)
+                  (identifier)))
+              (identifier)))))))
+  (global_statement
+    (expression_statement
+      (assignment_expression
+        (prefix_unary_expression
+          (identifier))
+        (identifier))))
+  (global_statement
+    (expression_statement
+      (assignment_expression
+        (prefix_unary_expression
+          (parenthesized_expression
+            (binary_expression
+              (identifier)
+              (integer_literal))))
+        (identifier))))
+  (global_statement
+    (expression_statement
+      (assignment_expression
+        (identifier)
+        (assignment_expression
+          (prefix_unary_expression
+            (identifier))
+          (integer_literal))))))

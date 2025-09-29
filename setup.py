@@ -1,3 +1,4 @@
+from os import environ
 from os.path import isdir, join
 from platform import system
 
@@ -41,7 +42,7 @@ setup(
             extra_compile_args=[
                 "-std=c11",
                 "-fvisibility=hidden",
-            ] if system() != "Windows" else [
+            ] if system() != "Windows" or "MSYSTEM" in environ else [
                 "/std:c11",
                 "/utf-8",
             ],

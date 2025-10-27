@@ -9759,7 +9759,7 @@
         "members": [
           {
             "type": "PATTERN",
-            "value": "\\\\x[0-9a-fA-F]{2,4}"
+            "value": "\\\\x[0-9a-fA-F]{1,4}"
           },
           {
             "type": "PATTERN",
@@ -11989,5 +11989,6 @@
     "type",
     "type_declaration",
     "pattern"
-  ]
+  ],
+  "reserved": {}
 }

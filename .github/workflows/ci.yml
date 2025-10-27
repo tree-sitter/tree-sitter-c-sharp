@@ -98,6 +98,7 @@ jobs:
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/JsonWriter.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/JsonWriterException.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Linq/IJEnumerable.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Linq/JArray.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Linq/JContainer.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Linq/JObject.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Linq/JToken.cs
@@ -121,6 +122,9 @@ jobs:
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Utilities/ConvertUtils.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Utilities/DictionaryWrapper.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Utilities/ReflectionUtils.cs
+            !examples/PowerToys/src/modules/cmdpal/Tests/Microsoft.CmdPal.Ext.Bookmarks.UnitTests/BookmarkResolverTests.Common.cs
+            !examples/PowerToys/src/modules/cmdpal/Tests/Microsoft.CmdPal.Ext.Bookmarks.UnitTests/BookmarkResolverTests.Quoted.cs
+            !examples/PowerToys/src/modules/cmdpal/Tests/Microsoft.CmdPal.Ext.Bookmarks.UnitTests/MockBookmarkManager.cs
             !examples/PowerToys/src/modules/MouseWithoutBorders/App/Class/InputHook.cs
             !examples/PowerToys/src/settings-ui/Settings.UI.Library/Attributes/CmdConfigureIgnoreAttribute.cs
             !examples/PowerToys/src/settings-ui/Settings.UI/SettingsXAML/App.xaml.cs
@@ -130,6 +134,7 @@ jobs:
             !examples/nunit/src/NUnitFramework/framework/Constraints/MsgUtils.cs
             !examples/nunit/src/NUnitFramework/framework/Internal/DisposeHelper.cs
             !examples/nunit/src/NUnitFramework/framework/Internal/OSPlatform.cs
+            !examples/nunit/src/NUnitFramework/framework/Internal/OverloadResolutionPriorityAttribute.cs
             !examples/nunit/src/NUnitFramework/framework/Internal/Reflect.cs
             !examples/nunit/src/NUnitFramework/framework/Internal/Results/TestResult.cs
             !examples/nunit/src/NUnitFramework/framework/Internal/TestExecutionContext.cs

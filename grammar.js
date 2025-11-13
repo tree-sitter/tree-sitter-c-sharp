@@ -1865,7 +1865,7 @@ module.exports = grammar({
     ),
 
     escape_sequence: _ => token(choice(
-      /\\x[0-9a-fA-F]{2,4}/,
+      /\\x[0-9a-fA-F]{1,4}/,
       /\\u[0-9a-fA-F]{4}/,
       /\\U[0-9a-fA-F]{8}/,
       /\\[abefnrtv'\"\\\?0]/,

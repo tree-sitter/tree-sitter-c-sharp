@@ -22,6 +22,7 @@ const bool t = true, u = false;
 const char c = 'a';
 const char esc = '\n';
 const char hex = '\xf09a';
+const char hex2 = '\x9';
 const char uni16 = '\ua0bf';
 const char uni32 = '\UA0BFf9ca';
 
@@ -223,6 +224,15 @@ var s = $$"""
           name: (identifier)
           (character_literal
             (character_literal_content))))))
+  (global_statement
+    (local_declaration_statement
+      (modifier)
+      (variable_declaration
+        type: (predefined_type)
+        (variable_declarator
+          name: (identifier)
+          (character_literal
+            (escape_sequence))))))
   (global_statement
     (local_declaration_statement
       (modifier)

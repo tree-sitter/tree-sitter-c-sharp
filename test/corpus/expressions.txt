@@ -3641,6 +3641,293 @@ var x = [ y, ];
         (implicit_type)
         (variable_declarator
           (identifier)
-          (element_binding_expression
-            (argument
-              (identifier))))))))
+          (collection_expression
+            (collection_element
+              (expression_element
+                (identifier)))))))))
+
+================================================================================
+Empty collection expression
+================================================================================
+
+var empty = [];
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (collection_expression))))))
+
+================================================================================
+Collection expression with elements
+================================================================================
+
+var numbers = [1, 2, 3];
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (collection_expression
+            (collection_element
+              (expression_element
+                (integer_literal)))
+            (collection_element
+              (expression_element
+                (integer_literal)))
+            (collection_element
+              (expression_element
+                (integer_literal)))))))))
+
+================================================================================
+Collection expression with spreads
+================================================================================
+
+var combined = [..first, ..second];
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (collection_expression
+            (collection_element
+              (spread_element
+                (identifier)))
+            (collection_element
+              (spread_element
+                (identifier)))))))))
+
+================================================================================
+Mixed elements with trailing comma
+================================================================================
+
+var mixed = [1, ..others, 2,];
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (collection_expression
+            (collection_element
+              (expression_element
+                (integer_literal)))
+            (collection_element
+              (spread_element
+                (identifier)))
+            (collection_element
+              (expression_element
+                (integer_literal)))))))))
+
+================================================================================
+Nested collection expressions
+================================================================================
+
+var nested = [[1], [2]];
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (collection_expression
+            (collection_element
+              (expression_element
+                (collection_expression
+                  (collection_element
+                    (expression_element
+                      (integer_literal))))))
+            (collection_element
+              (expression_element
+                (collection_expression
+                  (collection_element
+                    (expression_element
+                      (integer_literal))))))))))))
+
+================================================================================
+Collection expression in argument
+================================================================================
+
+SomeMethod([1, 2]);
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        function: (identifier)
+        arguments: (argument_list
+          (argument
+            (collection_expression
+              (collection_element
+                (expression_element
+                  (integer_literal)))
+              (collection_element
+                (expression_element
+                  (integer_literal))))))))))
+
+================================================================================
+Empty collection expression in argument
+================================================================================
+
+SomeMethod([]);
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        function: (identifier)
+        arguments: (argument_list
+          (argument
+            (collection_expression)))))))
+
+================================================================================
+Collection expression in coalescing expression
+================================================================================
+
+var fallback = items ?? [];
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (binary_expression
+            left: (identifier)
+            right: (collection_expression)))))))
+
+================================================================================
+Collection expression - nested
+================================================================================
+
+int[][] x = [[1, 2], [3, 4]];
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        (array_type
+          (array_type
+            (predefined_type)
+            (array_rank_specifier))
+          (array_rank_specifier))
+        (variable_declarator
+          (identifier)
+          (collection_expression
+            (collection_element
+              (expression_element
+                (collection_expression
+                  (collection_element
+                    (expression_element
+                      (integer_literal)))
+                  (collection_element
+                    (expression_element
+                      (integer_literal))))))
+            (collection_element
+              (expression_element
+                (collection_expression
+                  (collection_element
+                    (expression_element
+                      (integer_literal)))
+                  (collection_element
+                    (expression_element
+                      (integer_literal))))))))))))
+
+================================================================================
+Collection expression - cast with qualified member access
+================================================================================
+
+class C {
+    void M() {
+        foreach (var id in (int[])[
+            Constants.Region.US,
+            Constants.Region.EU,
+            Constants.Region.AP,
+        ])
+        {
+            Invalidate(key, id);
+        }
+    }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (block
+          (foreach_statement
+            type: (implicit_type)
+            left: (identifier)
+            right: (cast_expression
+              type: (array_type
+                type: (predefined_type)
+                rank: (array_rank_specifier))
+              value: (collection_expression
+                (collection_element
+                  (expression_element
+                    (member_access_expression
+                      expression: (member_access_expression
+                        expression: (identifier)
+                        name: (identifier))
+                      name: (identifier))))
+                (collection_element
+                  (expression_element
+                    (member_access_expression
+                      expression: (member_access_expression
+                        expression: (identifier)
+                        name: (identifier))
+                      name: (identifier))))
+                (collection_element
+                  (expression_element
+                    (member_access_expression
+                      expression: (member_access_expression
+                        expression: (identifier)
+                        name: (identifier))
+                      name: (identifier))))))
+            body: (block
+              (expression_statement
+                (invocation_expression
+                  function: (identifier)
+                  arguments: (argument_list
+                    (argument
+                      (identifier))
+                    (argument
+                      (identifier))))))))))))

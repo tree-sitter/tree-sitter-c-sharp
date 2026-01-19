@@ -6319,6 +6319,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "collection_expression"
+        },
+        {
+          "type": "SYMBOL",
           "name": "switch_expression"
         },
         {
@@ -8968,6 +8972,106 @@
           "name": "initializer_expression"
         }
       ]
+    },
+    "collection_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "collection_element"
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": ","
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "collection_element"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": ","
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
+    },
+    "collection_element": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "expression_element"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "spread_element"
+        }
+      ]
+    },
+    "expression_element": {
+      "type": "PREC",
+      "value": 1,
+      "content": {
+        "type": "SYMBOL",
+        "name": "expression"
+      }
+    },
+    "spread_element": {
+      "type": "PREC_DYNAMIC",
+      "value": 1,
+      "content": {
+        "type": "PREC",
+        "value": 16,
+        "content": {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": ".."
+            },
+            {
+              "type": "SYMBOL",
+              "name": "expression"
+            }
+          ]
+        }
+      }
     },
     "initializer_expression": {
       "type": "SEQ",
@@ -11833,6 +11937,18 @@
       "constant_pattern",
       "lvalue_expression",
       "_name"
+    ],
+    [
+      "expression_element",
+      "argument"
+    ],
+    [
+      "spread_element",
+      "range_expression"
+    ],
+    [
+      "collection_expression",
+      "list_pattern"
     ],
     [
       "_reserved_identifier",

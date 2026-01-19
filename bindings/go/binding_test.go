@@ -10,6 +10,6 @@ import (
 func TestCanLoadGrammar(t *testing.T) {
 	language := tree_sitter.NewLanguage(tree_sitter_c_sharp.Language())
 	if language == nil {
-		t.Errorf("Error loading C# grammar")
+		t.Errorf("Error loading CSharp grammar")
 	}
 }

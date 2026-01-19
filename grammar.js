@@ -40,7 +40,7 @@ const decimalDigitSequence = /([0-9][0-9_]*[0-9]|[0-9])/;
 
 const stringEncoding = /(u|U)8/;
 
-module.exports = grammar({
+export default grammar({
   name: 'c_sharp',
 
   conflicts: $ => [

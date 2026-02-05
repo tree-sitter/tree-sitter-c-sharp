@@ -97,6 +97,10 @@ export default grammar({
 
 
     [$._constructor_declaration_initializer, $._simple_name],
+
+    // Preprocessor conflicts in different contexts
+    [$.preproc_else_in_expression, $.preproc_else_in_attribute_list, $.preproc_else_in_initializer_expression],
+    [$.preproc_elif_in_expression, $.preproc_elif_in_attribute_list, $.preproc_elif_in_initializer_expression],
   ],
 
   externals: $ => [
@@ -1700,8 +1704,20 @@ export default grammar({
 
     initializer_expression: $ => seq(
       '{',
-      commaSep($.expression),
-      optional(','),
+      optional(seq(
+        choice(
+          $.expression,
+          alias($.preproc_if_in_initializer_expression, $.preproc_if),
+        ),
+        repeat(seq(
+          ',',
+          choice(
+            $.expression,
+            alias($.preproc_if_in_initializer_expression, $.preproc_if),
+          ),
+        )),
+        optional(','),
+      )),
       '}',
     ),
 
@@ -1930,6 +1946,7 @@ export default grammar({
     ...preprocIf('_in_expression', $ => $.expression, -2, false),
     ...preprocIf('_in_enum_member_declaration', $ => $.enum_member_declaration, 0, false),
     ...preprocIf('_in_attribute_list', $ => $.attribute_list, -1, false),
+    ...preprocIf('_in_initializer_expression', $ => seq($.expression, optional(',')), -1, true),
 
     preproc_arg: _ => token(prec(-1, /\S([^/\n]|\/[^*]|\\\r?\n)*/)),
     preproc_directive: _ => /#[ \t]*[a-zA-Z0-9]\w*/,
@@ -2106,10 +2123,12 @@ function preprocIf(suffix, content, precedence = 0, rep = true) {
       rep ? repeat(content($)) : optional(content($)),
       field('alternative', optional(alternativeBlock($))),
       preprocessor('endif'),
+      /\n/,
     )),
 
     ['preproc_else' + suffix]: $ => prec(precedence, seq(
       preprocessor('else'),
+      /\n/,
       rep ? repeat(content($)) : optional(content($)),
     )),
 

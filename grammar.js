@@ -97,6 +97,8 @@ export default grammar({
 
 
     [$._constructor_declaration_initializer, $._simple_name],
+
+    [$.list_pattern, $.collection_expression],
   ],
 
   externals: $ => [
@@ -1296,6 +1298,7 @@ export default grammar({
       $.implicit_object_creation_expression,
       $.implicit_stackalloc_expression,
       $.initializer_expression,
+      $.collection_expression,
       $.query_expression,
       alias($.preproc_if_in_expression, $.preproc_if),
     ),
@@ -1306,7 +1309,6 @@ export default grammar({
       $.tuple_expression,
       $._simple_name,
       $.element_access_expression,
-      alias($.bracketed_argument_list, $.element_binding_expression),
       alias($._pointer_indirection_expression, $.prefix_unary_expression),
       alias($._parenthesized_lvalue_expression, $.parenthesized_expression),
     ),
@@ -1475,7 +1477,7 @@ export default grammar({
       '?',
       choice(
         $.member_binding_expression,
-        alias($.bracketed_argument_list, $.element_binding_expression),
+        alias($.collection_expression, $.element_binding_expression),
       ),
     )),
 
@@ -1700,10 +1702,19 @@ export default grammar({
 
     initializer_expression: $ => seq(
       '{',
-      commaSep($.expression),
+      commaSep(choice(
+        alias($._initializer_index_assignment, $.assignment_expression),
+        $.expression,
+      )),
       optional(','),
       '}',
     ),
+
+    _initializer_index_assignment: $ => prec.dynamic(1, seq(
+      field('left', alias($.collection_expression, $.element_binding_expression)),
+      field('operator', '='),
+      field('right', $.expression),
+    )),
 
     declaration_expression: $ => prec.dynamic(1, seq(
       field('type', $.type),
@@ -1783,6 +1794,20 @@ export default grammar({
       '..',
       optional($.expression),
     )),
+
+    collection_expression: $ => prec.dynamic(1, seq(
+      '[',
+      optional(seq(
+        commaSep1(choice(
+          $.expression,
+          $.spread_element,
+        )),
+        optional(','),
+      )),
+      ']',
+    )),
+
+    spread_element: $ => prec(PREC.RANGE + 1, seq('..', $.expression)),
 
     tuple_expression: $ => seq(
       '(',

@@ -374,8 +374,7 @@ var x = new A
                 right: (integer_literal))
               (assignment_expression
                 left: (element_binding_expression
-                  (argument
-                    (identifier)))
+                  (identifier))
                 right: (integer_literal))))))))
   (global_statement
     (expression_statement
@@ -2388,9 +2387,8 @@ var x = new Dictionary<string,int> { ["a"] = 65 };
             initializer: (initializer_expression
               (assignment_expression
                 left: (element_binding_expression
-                  (argument
-                    (string_literal
-                      (string_literal_content))))
+                  (string_literal
+                    (string_literal_content)))
                 right: (integer_literal)))))))))
 
 ================================================================================
@@ -3072,9 +3070,8 @@ var x = dict?["a"];
           (conditional_access_expression
             condition: (identifier)
             (element_binding_expression
-              (argument
-                (string_literal
-                  (string_literal_content))))))))))
+              (string_literal
+                (string_literal_content)))))))))
 
 ================================================================================
 Conditional access expression with member binding
@@ -3116,8 +3113,7 @@ if ((p as Person[])?[0]._Age != 1) { }
                   type: (identifier)
                   rank: (array_rank_specifier))))
             (element_binding_expression
-              (argument
-                (integer_literal))))
+              (integer_literal)))
           name: (identifier))
         right: (integer_literal))
       consequence: (block))))
@@ -3571,6 +3567,223 @@ var x = [ y, ];
         (implicit_type)
         (variable_declarator
           (identifier)
-          (element_binding_expression
-            (argument
+          (collection_expression
+            (identifier)))))))
+
+================================================================================
+Collection expression empty
+================================================================================
+
+int[] x = [];
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        (array_type
+          (predefined_type)
+          (array_rank_specifier))
+        (variable_declarator
+          (identifier)
+          (collection_expression))))))
+
+================================================================================
+Collection expression with elements
+================================================================================
+
+int[] x = [1, 2, 3];
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        (array_type
+          (predefined_type)
+          (array_rank_specifier))
+        (variable_declarator
+          (identifier)
+          (collection_expression
+            (integer_literal)
+            (integer_literal)
+            (integer_literal)))))))
+
+================================================================================
+Collection expression with spread element
+================================================================================
+
+int[] x = [1, ..a, 2];
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        (array_type
+          (predefined_type)
+          (array_rank_specifier))
+        (variable_declarator
+          (identifier)
+          (collection_expression
+            (integer_literal)
+            (spread_element
+              (identifier))
+            (integer_literal)))))))
+
+================================================================================
+Collection expression with trailing comma
+================================================================================
+
+int[] x = [1, 2, 3,];
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        (array_type
+          (predefined_type)
+          (array_rank_specifier))
+        (variable_declarator
+          (identifier)
+          (collection_expression
+            (integer_literal)
+            (integer_literal)
+            (integer_literal)))))))
+
+================================================================================
+Collection expression with multiple spreads
+================================================================================
+
+int[] x = [..a, ..b, ..c];
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        (array_type
+          (predefined_type)
+          (array_rank_specifier))
+        (variable_declarator
+          (identifier)
+          (collection_expression
+            (spread_element
+              (identifier))
+            (spread_element
+              (identifier))
+            (spread_element
               (identifier))))))))
+
+================================================================================
+Collection expression spread with method call
+================================================================================
+
+int[] x = [1, ..items.Where(i => i > 0), 2];
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        (array_type
+          (predefined_type)
+          (array_rank_specifier))
+        (variable_declarator
+          (identifier)
+          (collection_expression
+            (integer_literal)
+            (spread_element
+              (invocation_expression
+                (member_access_expression
+                  (identifier)
+                  (identifier))
+                (argument_list
+                  (argument
+                    (lambda_expression
+                      (implicit_parameter)
+                      (binary_expression
+                        (identifier)
+                        (integer_literal)))))))
+            (integer_literal)))))))
+
+================================================================================
+Collection expression nested
+================================================================================
+
+int[][] x = [[1, 2], [3, 4]];
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        (array_type
+          (array_type
+            (predefined_type)
+            (array_rank_specifier))
+          (array_rank_specifier))
+        (variable_declarator
+          (identifier)
+          (collection_expression
+            (collection_expression
+              (integer_literal)
+              (integer_literal))
+            (collection_expression
+              (integer_literal)
+              (integer_literal))))))))
+
+================================================================================
+Collection expression as argument
+================================================================================
+
+M([1, 2, 3]);
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        (identifier)
+        (argument_list
+          (argument
+            (collection_expression
+              (integer_literal)
+              (integer_literal)
+              (integer_literal))))))))
+
+================================================================================
+Collection expression with conditional spread
+================================================================================
+
+int[] x = [a, ..(flag ? items1 : items2), e];
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        (array_type
+          (predefined_type)
+          (array_rank_specifier))
+        (variable_declarator
+          (identifier)
+          (collection_expression
+            (identifier)
+            (spread_element
+              (parenthesized_expression
+                (conditional_expression
+                  (identifier)
+                  (identifier)
+                  (identifier))))
+            (identifier)))))))

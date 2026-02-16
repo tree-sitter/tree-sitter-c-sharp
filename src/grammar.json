@@ -2907,17 +2907,8 @@
           "type": "FIELD",
           "name": "type",
           "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "array_type"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "nullable_type"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "type"
           }
         },
         {

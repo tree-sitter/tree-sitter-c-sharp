@@ -1426,11 +1426,7 @@
         "required": false,
         "types": [
           {
-            "type": "array_type",
-            "named": true
-          },
-          {
-            "type": "nullable_type",
+            "type": "type",
             "named": true
           }
         ]
@@ -4275,11 +4271,7 @@
         "required": false,
         "types": [
           {
-            "type": "array_type",
-            "named": true
-          },
-          {
-            "type": "nullable_type",
+            "type": "type",
             "named": true
           }
         ]

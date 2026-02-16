@@ -95,7 +95,6 @@ export default grammar({
     [$.using_directive, $.modifier],
     [$.using_directive],
 
-
     [$._constructor_declaration_initializer, $._simple_name],
   ],
 
@@ -652,7 +651,7 @@ export default grammar({
     _parameter_array: $ => seq(
       repeat($._attribute_list),
       'params',
-      field('type', choice($.array_type, $.nullable_type)),
+      field('type', $.type),
       field('name', $.identifier),
     ),
 

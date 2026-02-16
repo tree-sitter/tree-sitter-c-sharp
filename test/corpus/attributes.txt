@@ -420,3 +420,59 @@ var greeting = [Hello] () => Console.WriteLine("hello");
                 (argument
                   (string_literal
                     (string_literal_content)))))))))))
+
+================================================================================
+Attribute named arguments with colon
+================================================================================
+
+[RegularExpression(pattern: "/.+", ErrorMessage = "The Callback Path Must start with a forward slash '/' followed by one or more characters")]
+class Validator { }
+
+[Route(Name: "default", Template = "/api/{id}")]
+[Obsolete(message: "Use NewMethod instead", error: true)]
+class Example { }
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    (attribute_list
+      (attribute
+        name: (identifier)
+        (attribute_argument_list
+          (attribute_argument
+            name: (identifier)
+            (string_literal
+              (string_literal_content)))
+          (attribute_argument
+            name: (identifier)
+            (string_literal
+              (string_literal_content))))))
+    name: (identifier)
+    body: (declaration_list))
+  (class_declaration
+    (attribute_list
+      (attribute
+        name: (identifier)
+        (attribute_argument_list
+          (attribute_argument
+            name: (identifier)
+            (string_literal
+              (string_literal_content)))
+          (attribute_argument
+            name: (identifier)
+            (string_literal
+              (string_literal_content))))))
+    (attribute_list
+      (attribute
+        name: (identifier)
+        (attribute_argument_list
+          (attribute_argument
+            name: (identifier)
+            (string_literal
+              (string_literal_content)))
+          (attribute_argument
+            name: (identifier)
+            (boolean_literal)))))
+    name: (identifier)
+    body: (declaration_list)))

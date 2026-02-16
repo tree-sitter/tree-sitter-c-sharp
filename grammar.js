@@ -222,7 +222,7 @@ export default grammar({
     )),
 
     attribute_argument: $ => prec(-1, seq(
-      optional(seq($.identifier, '=')),
+      optional(prec(1, seq(field('name', $.identifier), choice(':', '=')))),
       $.expression,
     )),
 

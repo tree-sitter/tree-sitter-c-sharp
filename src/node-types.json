@@ -4480,7 +4480,6 @@
   {
     "type": "preproc_define",
     "named": true,
-    "extra": true,
     "fields": {},
     "children": {
       "multiple": false,
@@ -4639,7 +4638,6 @@
   {
     "type": "preproc_endregion",
     "named": true,
-    "extra": true,
     "fields": {
       "content": {
         "multiple": false,
@@ -4656,7 +4654,6 @@
   {
     "type": "preproc_error",
     "named": true,
-    "extra": true,
     "fields": {},
     "children": {
       "multiple": false,
@@ -4828,7 +4825,6 @@
   {
     "type": "preproc_line",
     "named": true,
-    "extra": true,
     "fields": {},
     "children": {
       "multiple": true,
@@ -4848,13 +4844,11 @@
   {
     "type": "preproc_nullable",
     "named": true,
-    "extra": true,
     "fields": {}
   },
   {
     "type": "preproc_pragma",
     "named": true,
-    "extra": true,
     "fields": {},
     "children": {
       "multiple": true,
@@ -4878,7 +4872,6 @@
   {
     "type": "preproc_region",
     "named": true,
-    "extra": true,
     "fields": {
       "content": {
         "multiple": false,
@@ -4895,7 +4888,6 @@
   {
     "type": "preproc_undef",
     "named": true,
-    "extra": true,
     "fields": {},
     "children": {
       "multiple": false,
@@ -4911,7 +4903,6 @@
   {
     "type": "preproc_warning",
     "named": true,
-    "extra": true,
     "fields": {},
     "children": {
       "multiple": false,
@@ -5493,11 +5484,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "string_literal_content",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "struct_declaration",
@@ -6649,8 +6635,7 @@
   },
   {
     "type": "comment",
-    "named": true,
-    "extra": true
+    "named": true
   },
   {
     "type": "const",
@@ -6998,6 +6983,10 @@
   },
   {
     "type": "string_content",
+    "named": true
+  },
+  {
+    "type": "string_literal_content",
     "named": true
   },
   {

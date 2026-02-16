@@ -218,7 +218,7 @@ export default grammar({
     )),
 
     attribute_argument: $ => prec(-1, seq(
-      optional(seq($.identifier, choice(':', '='))),
+      optional(seq($.identifier, '=')),
       $.expression,
     )),
 
@@ -475,11 +475,9 @@ export default grammar({
         'implicit',
         'explicit',
       ),
-      repeat1(choice(
-        $.explicit_interface_specifier,
-        'operator',
-        'checked',
-      )),
+      optional($.explicit_interface_specifier),
+      'operator',
+      optional('checked'),
       field('type', $.type),
       field('parameters', $.parameter_list),
       $._function_body,
@@ -1859,10 +1857,7 @@ export default grammar({
       optional($.string_literal_encoding),
     ),
 
-    string_literal_content: _ => choice(
-      token.immediate(prec(1, /[^"\\\n]+/)),
-      prec(2, token.immediate(seq('\\', /[^abefnrtv'\"\\\?0]/))),
-    ),
+    string_literal_content: _ => token.immediate(prec(1, /[^"\\\n]+/)),
 
     escape_sequence: _ => token(choice(
       /\\x[0-9a-fA-F]{1,4}/,

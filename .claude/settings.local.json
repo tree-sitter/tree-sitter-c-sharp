@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(tree-sitter:*)",
-      "Bash(npx tree-sitter:*)",
-      "Bash(tee:*)"
-    ]
-  }
-}

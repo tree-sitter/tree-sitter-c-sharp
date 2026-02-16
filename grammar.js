@@ -77,6 +77,12 @@ export default grammar({
     [$.constant_pattern, $._name],
     [$.constant_pattern, $.lvalue_expression, $._name],
 
+    [$.type, $._name_invocation_pattern, $.recursive_pattern],
+    [$.attribute, $.type, $._name_invocation_pattern, $.recursive_pattern],
+    [$.attribute_argument, $.argument, $._simple_name, $.subpattern],
+
+    [$.parenthesized_pattern, $._parenthesized_pattern_with_designation],
+
     [$._reserved_identifier, $.modifier],
     [$._reserved_identifier, $.scoped_type],
     [$._reserved_identifier, $.implicit_type],
@@ -1146,12 +1152,22 @@ export default grammar({
       $.recursive_pattern,
       $.var_pattern,
       $.negated_pattern,
+      // This must come before plain parenthesized_pattern to create GLR conflict
+      prec.dynamic(1, alias($._parenthesized_pattern_with_designation, $.recursive_pattern)),
       $.parenthesized_pattern,
       $.relational_pattern,
       $.or_pattern,
       $.and_pattern,
       $.list_pattern,
       $.type_pattern,
+    ),
+
+    // Uses '(' pattern ')' to create direct conflict with parenthesized_pattern
+    _parenthesized_pattern_with_designation: $ => seq(
+      '(',
+      $.pattern,
+      ')',
+      $._variable_designation,
     ),
 
     constant_pattern: $ => choice(
@@ -1165,11 +1181,31 @@ export default grammar({
       $.tuple_expression,
       $.typeof_expression,
       $.member_access_expression,
-      $.invocation_expression,
+      alias($._name_invocation_pattern, $.invocation_expression),
+      alias($._complex_invocation_expression, $.invocation_expression),
       $.cast_expression,
       $._simple_name,
       $.literal,
     ),
+
+    // Invocation with name - creates conflict with recursive_pattern's Name(positional_pattern_clause)
+    _name_invocation_pattern: $ => seq(
+      field('function', $._name),
+      field('arguments', $.argument_list),
+    ),
+
+    // Invocation where function is not a simple name
+    _complex_invocation_expression: $ => prec(PREC.INVOCATION, seq(
+      field('function', choice(
+        $.member_access_expression,
+        $.element_access_expression,
+        $.invocation_expression,
+        $.parenthesized_expression,
+        $.conditional_access_expression,
+        $.cast_expression,
+      )),
+      field('arguments', $.argument_list),
+    )),
 
     discard: _ => '_',
 
@@ -1189,16 +1225,50 @@ export default grammar({
       optional($._variable_designation),
     )),
 
-    recursive_pattern: $ => prec.left(seq(
-      optional(field('type', $.type)),
-      choice(
-        seq(
-          $.positional_pattern_clause,
-          optional($.property_pattern_clause),
+    recursive_pattern: $ => prec.left(choice(
+      // name followed by positional pattern WITH variable designation
+      prec.dynamic(1, seq(
+        field('type', $._name),
+        $.positional_pattern_clause,
+        optional($.property_pattern_clause),
+        $._variable_designation,
+      )),
+      // name followed by positional pattern WITHOUT variable designation
+      prec.dynamic(-1, seq(
+        field('type', $._name),
+        $.positional_pattern_clause,
+        optional($.property_pattern_clause),
+      )),
+      // positional pattern with variable designation (no type prefix)
+      prec.dynamic(1, seq(
+        $.positional_pattern_clause,
+        $._variable_designation,
+      )),
+      // positional pattern without variable designation (no type prefix)
+      $.positional_pattern_clause,
+      // other type followed by pattern clauses (type is required here to avoid ambiguity)
+      seq(
+        field('type', $.type),
+        choice(
+          seq(
+            $.positional_pattern_clause,
+            optional($.property_pattern_clause),
+          ),
+          $.property_pattern_clause,
         ),
-        $.property_pattern_clause,
+        optional($._variable_designation),
       ),
-      optional($._variable_designation),
+      // no type, just pattern clauses (no variable designation to avoid conflict with above)
+      seq(
+        choice(
+          seq(
+            $.positional_pattern_clause,
+            $.property_pattern_clause,
+          ),
+          $.property_pattern_clause,
+        ),
+        optional($._variable_designation),
+      ),
     )),
 
     positional_pattern_clause: $ => prec(1, seq(

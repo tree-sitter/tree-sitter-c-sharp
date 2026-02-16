@@ -3328,7 +3328,47 @@
         "required": true,
         "types": [
           {
+            "type": "alias_qualified_name",
+            "named": true
+          },
+          {
+            "type": "cast_expression",
+            "named": true
+          },
+          {
+            "type": "conditional_access_expression",
+            "named": true
+          },
+          {
+            "type": "element_access_expression",
+            "named": true
+          },
+          {
             "type": "expression",
+            "named": true
+          },
+          {
+            "type": "generic_name",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "invocation_expression",
+            "named": true
+          },
+          {
+            "type": "member_access_expression",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "qualified_name",
             "named": true
           }
         ]
@@ -5266,11 +5306,11 @@
       "required": true,
       "types": [
         {
-          "type": "discard",
+          "type": "parenthesized_variable_designation",
           "named": true
         },
         {
-          "type": "parenthesized_variable_designation",
+          "type": "pattern",
           "named": true
         },
         {

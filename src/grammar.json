@@ -1916,32 +1916,24 @@
           ]
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "explicit_interface_specifier"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "STRING",
-          "value": "operator"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "checked"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
+          "type": "REPEAT1",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "explicit_interface_specifier"
+              },
+              {
+                "type": "STRING",
+                "value": "operator"
+              },
+              {
+                "type": "STRING",
+                "value": "checked"
+              }
+            ]
+          }
         },
         {
           "type": "FIELD",

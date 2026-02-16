@@ -89,6 +89,8 @@ public class NoBody;
 
 private class NoBodyPrimary(int a, int b);
 
+public class NoBodyPrimaryWithBase(int x) : Base(x);
+
 --------------------------------------------------------------------------------
 
 (compilation_unit
@@ -416,5 +418,17 @@ private class NoBodyPrimary(int a, int b);
       (parameter
         type: (predefined_type)
         name: (identifier)))
-  ))
+  )
+  (class_declaration
+    (modifier)
+    name: (identifier)
+    (parameter_list
+      (parameter
+        type: (predefined_type)
+        name: (identifier)))
+    (base_list
+      (identifier)
+      (argument_list
+        (argument
+          (identifier))))))
 

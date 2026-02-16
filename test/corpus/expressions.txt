@@ -1916,9 +1916,9 @@ void b() {
                     type: (identifier)
                     (positional_pattern_clause
                       (subpattern
-                        (type_pattern
-                          type: (qualified_name
-                            qualifier: (identifier)
+                        (constant_pattern
+                          (member_access_expression
+                            expression: (identifier)
                             name: (identifier)))))
                     (property_pattern_clause
                       (subpattern
@@ -2920,6 +2920,76 @@ var c = p is (var x, var y) { x: 0 };
                   (identifier)
                   (constant_pattern
                     (integer_literal)))))))))))
+
+================================================================================
+Recursive patterns with variable designation (issue #282)
+================================================================================
+
+var x = expr is R(E.A) v0;
+var y = expr is R(E.A or E.B) v1;
+var z = expr is (E.A or E.B) v2;
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (is_pattern_expression
+            expression: (identifier)
+            pattern: (recursive_pattern
+              type: (identifier)
+              (positional_pattern_clause
+                (subpattern
+                  (type_pattern
+                    type: (qualified_name
+                      qualifier: (identifier)
+                      name: (identifier)))))
+              name: (identifier)))))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (is_pattern_expression
+            expression: (identifier)
+            pattern: (recursive_pattern
+              type: (identifier)
+              (positional_pattern_clause
+                (subpattern
+                  (or_pattern
+                    left: (type_pattern
+                      type: (qualified_name
+                        qualifier: (identifier)
+                        name: (identifier)))
+                    right: (constant_pattern
+                      (member_access_expression
+                        expression: (identifier)
+                        name: (identifier))))))
+              name: (identifier)))))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (is_pattern_expression
+            expression: (identifier)
+            pattern: (recursive_pattern
+              (or_pattern
+                left: (constant_pattern
+                  (member_access_expression
+                    expression: (identifier)
+                    name: (identifier)))
+                right: (constant_pattern
+                  (member_access_expression
+                    expression: (identifier)
+                    name: (identifier))))
+              name: (identifier))))))))
 
 ================================================================================
 Type patterns

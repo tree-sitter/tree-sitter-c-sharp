@@ -79,7 +79,6 @@ export default grammar({
 
     [$.type, $._name_invocation_pattern, $.recursive_pattern],
     [$.attribute, $.type, $._name_invocation_pattern, $.recursive_pattern],
-    [$.attribute_argument, $.argument, $._simple_name, $.subpattern],
 
     [$.parenthesized_pattern, $._parenthesized_pattern_with_designation],
 
@@ -100,7 +99,6 @@ export default grammar({
     [$.base_list],
     [$.using_directive, $.modifier],
     [$.using_directive],
-
 
     [$._constructor_declaration_initializer, $._simple_name],
   ],
@@ -224,7 +222,7 @@ export default grammar({
     )),
 
     attribute_argument: $ => prec(-1, seq(
-      optional(seq($.identifier, choice(':', '='))),
+      optional(prec(1, seq(field('name', $.identifier), choice(':', '=')))),
       $.expression,
     )),
 
@@ -481,7 +479,7 @@ export default grammar({
         'implicit',
         'explicit',
       ),
-      repeat1(choice(
+      repeat1(choice( // Intentionally structured this way for grammar size
         $.explicit_interface_specifier,
         'operator',
         'checked',
@@ -660,7 +658,7 @@ export default grammar({
     _parameter_array: $ => seq(
       repeat($._attribute_list),
       'params',
-      field('type', choice($.array_type, $.nullable_type)),
+      field('type', $.type),
       field('name', $.identifier),
     ),
 
@@ -1929,10 +1927,7 @@ export default grammar({
       optional($.string_literal_encoding),
     ),
 
-    string_literal_content: _ => choice(
-      token.immediate(prec(1, /[^"\\\n]+/)),
-      prec(2, token.immediate(seq('\\', /[^abefnrtv'\"\\\?0]/))),
-    ),
+    string_literal_content: _ => token.immediate(prec(1, /[^"\\\n]+/)),
 
     escape_sequence: _ => token(choice(
       /\\x[0-9a-fA-F]{1,4}/,

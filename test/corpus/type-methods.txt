@@ -303,3 +303,60 @@ ref struct S {
               (variable_declarator
                 name: (identifier)
                 (identifier)))))))))
+
+================================================================================
+C# 13 params collections
+================================================================================
+
+class C {
+  void M1(params int[] args) { }
+  void M2(params Span<int> items) { }
+  void M3(params IEnumerable<string> values) { }
+  void M4(params List<double> numbers) { }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list
+          type: (array_type
+            type: (predefined_type)
+            rank: (array_rank_specifier))
+          name: (identifier))
+        body: (block))
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list
+          type: (generic_name
+            (identifier)
+            (type_argument_list
+              (predefined_type)))
+          name: (identifier))
+        body: (block))
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list
+          type: (generic_name
+            (identifier)
+            (type_argument_list
+              (predefined_type)))
+          name: (identifier))
+        body: (block))
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list
+          type: (generic_name
+            (identifier)
+            (type_argument_list
+              (predefined_type)))
+          name: (identifier))
+        body: (block)))))

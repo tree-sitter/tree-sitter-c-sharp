@@ -2812,6 +2812,7 @@ var x = !this.Call();
           (prefix_unary_expression
             (invocation_expression
               function: (member_access_expression
+                expression: (this)
                 name: (identifier))
               arguments: (argument_list))))))))
 

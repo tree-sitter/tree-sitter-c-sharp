@@ -127,7 +127,7 @@
 
 [
   (modifier)
-  "this"
+  (this)
   (implicit_type)
 ] @keyword
 

@@ -674,7 +674,7 @@ export default grammar({
       repeat($.modifier),
       field('type', $.type),
       optional($.explicit_interface_specifier),
-      'this',
+      $.this,
       field('parameters', $.bracketed_parameter_list),
       choice(
         field('accessors', $.accessor_list),
@@ -719,7 +719,7 @@ export default grammar({
 
     _parameter_type_with_modifiers: $ => seq(
       repeat(prec.left(alias(
-        choice('this', 'scoped', 'ref', 'out', 'in', 'readonly'),
+        choice($.this, 'scoped', 'ref', 'out', 'in', 'readonly'),
         $.modifier,
       ))),
       field('type', $.type),
@@ -741,7 +741,7 @@ export default grammar({
 
     constructor_initializer: $ => seq(
       ':',
-      choice('base', 'this'),
+      choice('base', $.this),
       $.argument_list,
     ),
 
@@ -1460,7 +1460,7 @@ export default grammar({
     ),
 
     lvalue_expression: $ => choice(
-      'this',
+      $.this,
       $.member_access_expression,
       $.tuple_expression,
       $._simple_name,
@@ -2159,6 +2159,8 @@ export default grammar({
       'where',
       'yield',
     ),
+
+    this: _ => 'this',
 
     // Preprocessor
 

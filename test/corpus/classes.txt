@@ -275,6 +275,7 @@ public class NoBodyPrimaryWithBase(int x) : Base(x);
       (indexer_declaration
         (modifier)
         type: (predefined_type)
+        (this)
         parameters: (bracketed_parameter_list
           (parameter
             type: (predefined_type)
@@ -294,6 +295,7 @@ public class NoBodyPrimaryWithBase(int x) : Base(x);
       (indexer_declaration
         (modifier)
         type: (predefined_type)
+        (this)
         parameters: (bracketed_parameter_list
           (parameter
             type: (predefined_type)
@@ -307,6 +309,7 @@ public class NoBodyPrimaryWithBase(int x) : Base(x);
       (indexer_declaration
         (modifier)
         type: (predefined_type)
+        (this)
         parameters: (bracketed_parameter_list
           (parameter
             type: (predefined_type)
@@ -331,6 +334,7 @@ public class NoBodyPrimaryWithBase(int x) : Base(x);
       (indexer_declaration
         (modifier)
         type: (predefined_type)
+        (this)
         parameters: (bracketed_parameter_list
           type: (array_type
             type: (predefined_type)
@@ -470,6 +474,7 @@ partial class C {
           (expression_statement
             (assignment_expression
               left: (member_access_expression
+                expression: (this)
                 name: (identifier))
               right: (identifier)))))
       (constructor_declaration

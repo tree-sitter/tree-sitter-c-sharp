@@ -486,6 +486,7 @@ partial class C {
             type: (predefined_type)
             name: (identifier)))
         (constructor_initializer
+          (base)
           (argument_list
             (argument
               (identifier)))))
@@ -498,6 +499,7 @@ partial class C {
             type: (predefined_type)
             name: (identifier)))
         (constructor_initializer
+          (base)
           (argument_list
             (argument
               (identifier))))

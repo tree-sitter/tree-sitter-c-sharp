@@ -741,7 +741,7 @@ export default grammar({
 
     constructor_initializer: $ => seq(
       ':',
-      choice('base', $.this),
+      choice($.base, $.this),
       $.argument_list,
     ),
 
@@ -1417,7 +1417,7 @@ export default grammar({
     ),
 
     non_lvalue_expression: $ => choice(
-      'base',
+      $.base,
       $.binary_expression,
       $.interpolated_string_expression,
       $.conditional_expression,
@@ -2161,6 +2161,7 @@ export default grammar({
     ),
 
     this: _ => 'this',
+    base: _ => 'base',
 
     // Preprocessor
 

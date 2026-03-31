@@ -135,7 +135,7 @@
   "add"
   "alias"
   "as"
-  "base"
+  (base)
   "break"
   "case"
   "catch"

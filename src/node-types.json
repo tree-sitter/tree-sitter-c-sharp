@@ -138,11 +138,11 @@
     "named": true,
     "subtypes": [
       {
-        "type": "element_access_expression",
+        "type": "collection_expression",
         "named": true
       },
       {
-        "type": "element_binding_expression",
+        "type": "element_access_expression",
         "named": true
       },
       {
@@ -1685,6 +1685,25 @@
     }
   },
   {
+    "type": "collection_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "spread_element",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "compilation_unit",
     "named": true,
     "root": true,
@@ -2295,10 +2314,14 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
-          "type": "argument",
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "spread_element",
           "named": true
         }
       ]
@@ -5482,6 +5505,21 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "spread_element",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
     }
   },
   {

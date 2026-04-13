@@ -101,6 +101,8 @@ export default grammar({
     [$.using_directive],
 
     [$._constructor_declaration_initializer, $._simple_name],
+
+    [$._collection_expression, $.list_pattern],
   ],
 
   externals: $ => [
@@ -1209,7 +1211,7 @@ export default grammar({
 
     type_pattern: $ => prec.right(field('type', $.type)),
 
-    list_pattern: $ => prec.right(seq(
+    list_pattern: $ => prec.dynamic(1, prec.right(seq(
       '[',
       optional(seq(
         commaSep1(choice($.pattern, '..')),
@@ -1217,7 +1219,7 @@ export default grammar({
       )),
       ']',
       optional($._variable_designation),
-    )),
+    ))),
 
     recursive_pattern: $ => prec.left(choice(
       // name followed by positional pattern WITH variable designation
@@ -1374,7 +1376,7 @@ export default grammar({
       $.tuple_expression,
       $._simple_name,
       $.element_access_expression,
-      alias($.bracketed_argument_list, $.element_binding_expression),
+      alias($._collection_expression, $.collection_expression),
       alias($._pointer_indirection_expression, $.prefix_unary_expression),
       alias($._parenthesized_lvalue_expression, $.parenthesized_expression),
     ),
@@ -1543,7 +1545,7 @@ export default grammar({
       '?',
       choice(
         $.member_binding_expression,
-        alias($.bracketed_argument_list, $.element_binding_expression),
+        alias($._collection_expression, $.element_binding_expression),
       ),
     )),
 
@@ -1772,6 +1774,22 @@ export default grammar({
       optional(','),
       '}',
     ),
+
+    // Shared underlying rule for collection_expression and element_binding_expression.
+    // Using a single hidden rule ensures shared LALR states so that
+    // `expr ? [x] : [y]` (ternary with collections) is correctly disambiguated
+    // from `expr?[x]` (conditional element access).
+    _collection_expression: $ => seq(
+      '[',
+      commaSep(choice($.expression, $.spread_element)),
+      optional(','),
+      ']',
+    ),
+
+    spread_element: $ => prec(PREC.RANGE + 1, seq(
+      '..',
+      $.expression,
+    )),
 
     declaration_expression: $ => prec.dynamic(1, seq(
       field('type', $.type),

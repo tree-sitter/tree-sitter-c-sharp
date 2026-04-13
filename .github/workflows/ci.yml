@@ -165,3 +165,16 @@ jobs:
             !examples/nunit/src/NUnitFramework/tests/Syntax/PathConstraintTests.cs
             !examples/nunit/src/NUnitFramework/tests/TestUtilities/StressUtility.cs
             !examples/nunit/src/NUnitFramework/windows-tests/SynchronizationContextTests.cs
+            !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.Common/Services/Sanitizer/SecretKeyValueRulesProvider.cs
+            !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.Common/Text/PrecomputedFuzzyMatcher.cs
+            !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI/Dock/DockWindow.xaml.cs
+            !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI.ViewModels/CommandItemViewModel.cs
+            !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI.ViewModels/Commands/NewExtensionPage.cs
+            !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI.ViewModels/ContentTreeViewModel.cs
+            !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI.ViewModels/ListViewModel.cs
+            !examples/PowerToys/src/modules/cmdpal/ext/Microsoft.CmdPal.Ext.Apps/Helpers/AppxIconLoader.cs
+            !examples/PowerToys/src/modules/cmdpal/ext/Microsoft.CmdPal.Ext.Shell/Pages/ShellListPage.cs
+            !examples/nunit/src/NUnitFramework/framework/Attributes/TestCaseAttribute.cs
+            !examples/nunit/src/NUnitFramework/nunitlite.tests/MakeRunSettingsTests.cs
+            !examples/nunit/src/NUnitFramework/tests/Api/TestAssemblyRunnerTests.cs
+            !examples/nunit/src/NUnitFramework/tests/Attributes/UnhandledExceptionHandlingAttributeTests.cs

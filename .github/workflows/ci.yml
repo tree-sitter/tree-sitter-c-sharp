@@ -122,16 +122,26 @@ jobs:
             !examples/PowerToys/src/modules/cmdpal/Core/Microsoft.CmdPal.Core.Common/Text/PrecomputedFuzzyMatcher.cs
             !examples/PowerToys/src/modules/cmdpal/Core/Microsoft.CmdPal.Core.ViewModels/CommandItemViewModel.cs
             !examples/PowerToys/src/modules/cmdpal/Core/Microsoft.CmdPal.Core.ViewModels/ListViewModel.cs
+            !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.Common/Services/Sanitizer/SecretKeyValueRulesProvider.cs
+            !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.Common/Text/PrecomputedFuzzyMatcher.cs
+            !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI.ViewModels/CommandItemViewModel.cs
             !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI.ViewModels/Commands/MainListPage.cs
+            !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI.ViewModels/Commands/NewExtensionPage.cs
+            !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI.ViewModels/ContentTreeViewModel.cs
+            !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI.ViewModels/ListViewModel.cs
+            !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI/Dock/DockWindow.xaml.cs
             !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI/Helpers/GlobalErrorHandler.cs
             !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI/MainWindow.xaml.cs
             !examples/PowerToys/src/modules/cmdpal/Tests/Microsoft.CmdPal.Ext.Bookmarks.UnitTests/BookmarkResolverTests.Common.cs
             !examples/PowerToys/src/modules/cmdpal/Tests/Microsoft.CmdPal.Ext.Bookmarks.UnitTests/BookmarkResolverTests.Quoted.cs
             !examples/PowerToys/src/modules/cmdpal/Tests/Microsoft.CmdPal.Ext.Bookmarks.UnitTests/MockBookmarkManager.cs
+            !examples/PowerToys/src/modules/cmdpal/ext/Microsoft.CmdPal.Ext.Apps/Helpers/AppxIconLoader.cs
             !examples/PowerToys/src/modules/cmdpal/ext/Microsoft.CmdPal.Ext.PerformanceMonitor/PerformanceWidgetsPage.cs
+            !examples/PowerToys/src/modules/cmdpal/ext/Microsoft.CmdPal.Ext.Shell/Pages/ShellListPage.cs
             !examples/PowerToys/src/settings-ui/Settings.UI.Library/Attributes/CmdConfigureIgnoreAttribute.cs
             !examples/PowerToys/src/settings-ui/Settings.UI/SettingsXAML/App.xaml.cs
             !examples/nunit/src/NUnitFramework/benchmarks/nunit.framework.benchmarks/ParamAttributeTypeConversionsBenchmark.cs
+            !examples/nunit/src/NUnitFramework/framework/Attributes/TestCaseAttribute.cs
             !examples/nunit/src/NUnitFramework/framework/Attributes/TimeoutAttribute.cs
             !examples/nunit/src/NUnitFramework/framework/Compatibility/LongLivedMarshalByRefObject.cs
             !examples/nunit/src/NUnitFramework/framework/Compatibility/System.Threading/SpinWait.cs
@@ -146,8 +156,10 @@ jobs:
             !examples/nunit/src/NUnitFramework/framework/Internal/TestExecutionContext.cs
             !examples/nunit/src/NUnitFramework/framework/Internal/TestParameters.cs
             !examples/nunit/src/NUnitFramework/framework/Internal/TypeHelper.cs
+            !examples/nunit/src/NUnitFramework/nunitlite.tests/MakeRunSettingsTests.cs
             !examples/nunit/src/NUnitFramework/nunitlite/Options.cs
             !examples/nunit/src/NUnitFramework/testdata/TestCaseAttributeFixture.cs
+            !examples/nunit/src/NUnitFramework/tests/Api/TestAssemblyRunnerTests.cs
             !examples/nunit/src/NUnitFramework/tests/Assertions/AssertMultipleTests.cs
             !examples/nunit/src/NUnitFramework/tests/Assertions/AssertThatTests.cs
             !examples/nunit/src/NUnitFramework/tests/Assertions/AssumeThatTests.cs
@@ -158,6 +170,7 @@ jobs:
             !examples/nunit/src/NUnitFramework/tests/Attributes/RequiresThreadAttributeTests.cs
             !examples/nunit/src/NUnitFramework/tests/Attributes/SingleThreadedFixtureTests.cs
             !examples/nunit/src/NUnitFramework/tests/Attributes/TimeoutTests.cs
+            !examples/nunit/src/NUnitFramework/tests/Attributes/UnhandledExceptionHandlingAttributeTests.cs
             !examples/nunit/src/NUnitFramework/tests/AwaitableReturnTypeTests.cs
             !examples/nunit/src/NUnitFramework/tests/Internal/EventQueueTests.cs
             !examples/nunit/src/NUnitFramework/tests/NonVoidResultAwaitableReturnTypeTests.cs

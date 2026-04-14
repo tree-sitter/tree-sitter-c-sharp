@@ -91,5 +91,9 @@ class C
         // misc
         var l = (int i) => i;
         //              ^ operator
+
+        // spread
+        var x = [.. b];
+        //       ^ operator//
     }
 }

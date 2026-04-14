@@ -82,6 +82,10 @@ export default grammar({
 
     [$.parenthesized_pattern, $._parenthesized_pattern_with_designation],
 
+    [$.expression_element, $.argument],
+    [$.spread_element, $.range_expression],
+    [$.collection_expression, $.list_pattern],
+
     [$._reserved_identifier, $.modifier],
     [$._reserved_identifier, $.scoped_type],
     [$._reserved_identifier, $.implicit_type],
@@ -1344,6 +1348,7 @@ export default grammar({
       $.as_expression,
       $.cast_expression,
       $.checked_expression,
+      $.collection_expression,
       $.switch_expression,
       $.throw_expression,
       $.default_expression,
@@ -1765,6 +1770,24 @@ export default grammar({
       ']',
       $.initializer_expression,
     ),
+
+    collection_expression: $ => seq(
+      '[',
+      optional(seq(
+        commaSep1($.collection_element),
+        optional(','),
+      )),
+      ']',
+    ),
+
+    collection_element: $ => choice(
+      $.expression_element,
+      $.spread_element,
+    ),
+
+    expression_element: $ => prec(1, $.expression),
+
+    spread_element: $ => prec.dynamic(1, prec(PREC.RANGE, seq('..', $.expression))),
 
     initializer_expression: $ => seq(
       '{',

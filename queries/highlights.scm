@@ -193,6 +193,7 @@
   "init"
   "with"
   "let"
+  "unsafe"
 ] @keyword
 
 ;; Attribute

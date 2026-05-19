@@ -6710,6 +6710,10 @@
           },
           "named": true,
           "value": "parenthesized_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "conditional_access_expression"
         }
       ]
     },
@@ -12099,6 +12103,10 @@
     [
       "parameter",
       "lvalue_expression"
+    ],
+    [
+      "lvalue_expression",
+      "non_lvalue_expression"
     ],
     [
       "type",

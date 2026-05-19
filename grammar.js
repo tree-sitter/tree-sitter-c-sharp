@@ -57,6 +57,10 @@ export default grammar({
 
     [$.lvalue_expression, $._name],
     [$.parameter, $.lvalue_expression],
+    // C# 14 null-conditional assignment: `obj?.x = v` requires
+    // `conditional_access_expression` to appear in both lvalue and
+    // non-lvalue contexts. Tree-sitter needs GLR for the decision.
+    [$.lvalue_expression, $.non_lvalue_expression],
 
     [$.type, $.attribute],
     [$.type, $.nullable_type],
@@ -1395,6 +1399,9 @@ export default grammar({
       alias($.bracketed_argument_list, $.element_binding_expression),
       alias($._pointer_indirection_expression, $.prefix_unary_expression),
       alias($._parenthesized_lvalue_expression, $.parenthesized_expression),
+      // C# 14 null-conditional assignment: `obj?.x = v`, `obj?[i] = v`.
+      // https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-14#null-conditional-assignment
+      $.conditional_access_expression,
     ),
 
     // Covers error CS0201: Only assignment, call, increment, decrement, await, and new object expressions can be used as a statement

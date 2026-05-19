@@ -138,6 +138,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "conditional_access_expression",
+        "named": true
+      },
+      {
         "type": "element_access_expression",
         "named": true
       },

@@ -158,3 +158,115 @@ class Foo: IFoo {
         accessors: (accessor_list
           (accessor_declaration)
           (accessor_declaration))))))
+
+================================================================================
+Field-backed properties with `field` contextual keyword (C# 14)
+================================================================================
+
+class C {
+  public string Name { get; set => field = value; }
+  public string Tagged { get => field ?? "default"; set; }
+  public string Lazy => field ??= Compute();
+  public string Lazy2 { get => field ??= Compute(); }
+  public int Counter { get { return field; } set { field = value; } }
+  [field: Xyz]
+  public string Decorated => field ??= Compute();
+  public bool IsActive { get; set => Set(ref field, value); } = true;
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (property_declaration
+        (modifier)
+        type: (predefined_type)
+        name: (identifier)
+        accessors: (accessor_list
+          (accessor_declaration)
+          (accessor_declaration
+            body: (arrow_expression_clause
+              (assignment_expression
+                left: (identifier)
+                right: (identifier))))))
+      (property_declaration
+        (modifier)
+        type: (predefined_type)
+        name: (identifier)
+        accessors: (accessor_list
+          (accessor_declaration
+            body: (arrow_expression_clause
+              (binary_expression
+                left: (identifier)
+                right: (string_literal
+                  (string_literal_content)))))
+          (accessor_declaration)))
+      (property_declaration
+        (modifier)
+        type: (predefined_type)
+        name: (identifier)
+        value: (arrow_expression_clause
+          (assignment_expression
+            left: (identifier)
+            right: (invocation_expression
+              function: (identifier)
+              arguments: (argument_list)))))
+      (property_declaration
+        (modifier)
+        type: (predefined_type)
+        name: (identifier)
+        accessors: (accessor_list
+          (accessor_declaration
+            body: (arrow_expression_clause
+              (assignment_expression
+                left: (identifier)
+                right: (invocation_expression
+                  function: (identifier)
+                  arguments: (argument_list)))))))
+      (property_declaration
+        (modifier)
+        type: (predefined_type)
+        name: (identifier)
+        accessors: (accessor_list
+          (accessor_declaration
+            body: (block
+              (return_statement
+                (identifier))))
+          (accessor_declaration
+            body: (block
+              (expression_statement
+                (assignment_expression
+                  left: (identifier)
+                  right: (identifier)))))))
+      (property_declaration
+        (attribute_list
+          (attribute_target_specifier)
+          (attribute
+            name: (identifier)))
+        (modifier)
+        type: (predefined_type)
+        name: (identifier)
+        value: (arrow_expression_clause
+          (assignment_expression
+            left: (identifier)
+            right: (invocation_expression
+              function: (identifier)
+              arguments: (argument_list)))))
+      (property_declaration
+        (modifier)
+        type: (predefined_type)
+        name: (identifier)
+        accessors: (accessor_list
+          (accessor_declaration)
+          (accessor_declaration
+            body: (arrow_expression_clause
+              (invocation_expression
+                function: (identifier)
+                arguments: (argument_list
+                  (argument
+                    (identifier))
+                  (argument
+                    (identifier)))))))
+        value: (boolean_literal)))))

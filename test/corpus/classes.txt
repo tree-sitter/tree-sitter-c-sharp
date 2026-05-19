@@ -498,3 +498,150 @@ partial class C {
               (identifier))))
         body: (block)))))
 
+================================================================================
+Extension declarations (C# 14)
+================================================================================
+
+public static class E
+{
+    extension(IEnumerable source)
+    {
+        public bool IsEmpty => !source.Any();
+    }
+
+    extension<T>(IEnumerable<T> source)
+    {
+        public IEnumerable<T> Where(Func<T, bool> p) => null;
+    }
+
+    extension<T>(IEnumerable<T>)
+        where T : INumber<T>
+    {
+        public static IEnumerable<T> operator +(IEnumerable<T> a, IEnumerable<T> b) => null;
+        public static IEnumerable<T> Identity => null;
+    }
+
+    extension<T>(ref readonly T source)
+    {
+        public T Echo() => source;
+    }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    (modifier)
+    (modifier)
+    name: (identifier)
+    body: (declaration_list
+      (extension_declaration
+        (receiver_parameter
+          type: (identifier)
+          name: (identifier))
+        (extension_body
+          (property_declaration
+            (modifier)
+            type: (predefined_type)
+            name: (identifier)
+            value: (arrow_expression_clause
+              (prefix_unary_expression
+                (invocation_expression
+                  function: (member_access_expression
+                    expression: (identifier)
+                    name: (identifier))
+                  arguments: (argument_list)))))))
+      (extension_declaration
+        (type_parameter_list
+          (type_parameter
+            name: (identifier)))
+        (receiver_parameter
+          type: (generic_name
+            (identifier)
+            (type_argument_list
+              (identifier)))
+          name: (identifier))
+        (extension_body
+          (method_declaration
+            (modifier)
+            returns: (generic_name
+              (identifier)
+              (type_argument_list
+                (identifier)))
+            name: (identifier)
+            parameters: (parameter_list
+              (parameter
+                type: (generic_name
+                  (identifier)
+                  (type_argument_list
+                    (identifier)
+                    (predefined_type)))
+                name: (identifier)))
+            body: (arrow_expression_clause
+              (null_literal)))))
+      (extension_declaration
+        (type_parameter_list
+          (type_parameter
+            name: (identifier)))
+        (receiver_parameter
+          type: (generic_name
+            (identifier)
+            (type_argument_list
+              (identifier))))
+        (type_parameter_constraints_clause
+          (identifier)
+          (type_parameter_constraint
+            type: (generic_name
+              (identifier)
+              (type_argument_list
+                (identifier)))))
+        (extension_body
+          (operator_declaration
+            (modifier)
+            (modifier)
+            type: (generic_name
+              (identifier)
+              (type_argument_list
+                (identifier)))
+            parameters: (parameter_list
+              (parameter
+                type: (generic_name
+                  (identifier)
+                  (type_argument_list
+                    (identifier)))
+                name: (identifier))
+              (parameter
+                type: (generic_name
+                  (identifier)
+                  (type_argument_list
+                    (identifier)))
+                name: (identifier)))
+            body: (arrow_expression_clause
+              (null_literal)))
+          (property_declaration
+            (modifier)
+            (modifier)
+            type: (generic_name
+              (identifier)
+              (type_argument_list
+                (identifier)))
+            name: (identifier)
+            value: (arrow_expression_clause
+              (null_literal)))))
+      (extension_declaration
+        (type_parameter_list
+          (type_parameter
+            name: (identifier)))
+        (receiver_parameter
+          (modifier)
+          (modifier)
+          type: (identifier)
+          name: (identifier))
+        (extension_body
+          (method_declaration
+            (modifier)
+            returns: (identifier)
+            name: (identifier)
+            parameters: (parameter_list)
+            body: (arrow_expression_clause
+              (identifier))))))))

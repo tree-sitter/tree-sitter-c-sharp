@@ -105,6 +105,12 @@ export default grammar({
     [$.using_directive],
 
     [$._constructor_declaration_initializer, $._simple_name],
+
+    // For C# 14 extension declarations: `extension(scoped X x)` —
+    // `scoped` can be a parameter modifier, a scoped_type, or a
+    // reserved identifier (when there's no further type). Keep all
+    // three alive until later tokens disambiguate.
+    [$.receiver_parameter, $.scoped_type, $._reserved_identifier],
   ],
 
   externals: $ => [
@@ -519,6 +525,53 @@ export default grammar({
       $.property_declaration,
       $.using_directive,
       $.preproc_if,
+      $.extension_declaration,
+    ),
+
+    // C# 14: extension declarations introduce extension methods, properties,
+    // and operators with a shared receiver inside a non-generic static class.
+    // https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-14.0/extensions
+    //
+    //   extension_declaration:
+    //     'extension' type_parameter_list? '(' receiver_parameter ')'
+    //         type_parameter_constraints_clause* extension_body
+    //   extension_body: '{' extension_member_declaration* '}' ';'?
+    //   extension_member_declaration:
+    //     method_declaration | property_declaration | operator_declaration
+    //   receiver_parameter: attributes? parameter_modifiers? type identifier?
+    //
+    // `extension` is contextual; it is recognized as the start of an
+    // extension declaration when followed by `<` or `(` in declaration
+    // position. Use prec.dynamic so an identifier named `extension` in
+    // other positions still parses.
+    extension_declaration: $ => prec.dynamic(1, seq(
+      repeat($._attribute_list),
+      'extension',
+      optional($.type_parameter_list),
+      '(',
+      $.receiver_parameter,
+      ')',
+      repeat($.type_parameter_constraints_clause),
+      $.extension_body,
+    )),
+
+    receiver_parameter: $ => seq(
+      repeat($._attribute_list),
+      $._parameter_type_with_modifiers,
+      optional(field('name', $.identifier)),
+    ),
+
+    extension_body: $ => seq(
+      '{',
+      repeat($._extension_member_declaration),
+      '}',
+      optional(';'),
+    ),
+
+    _extension_member_declaration: $ => choice(
+      $.method_declaration,
+      $.property_declaration,
+      $.operator_declaration,
     ),
 
     field_declaration: $ => seq(

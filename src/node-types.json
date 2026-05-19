@@ -36,6 +36,10 @@
         "named": true
       },
       {
+        "type": "extension_declaration",
+        "named": true
+      },
+      {
         "type": "field_declaration",
         "named": true
       },
@@ -2615,6 +2619,64 @@
         },
         {
           "type": "prefix_unary_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "extension_body",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "method_declaration",
+          "named": true
+        },
+        {
+          "type": "operator_declaration",
+          "named": true
+        },
+        {
+          "type": "property_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "extension_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_list",
+          "named": true
+        },
+        {
+          "type": "extension_body",
+          "named": true
+        },
+        {
+          "type": "preproc_if_in_attribute_list",
+          "named": true
+        },
+        {
+          "type": "receiver_parameter",
+          "named": true
+        },
+        {
+          "type": "type_parameter_constraints_clause",
+          "named": true
+        },
+        {
+          "type": "type_parameter_list",
           "named": true
         }
       ]
@@ -5265,6 +5327,50 @@
     }
   },
   {
+    "type": "receiver_parameter",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "attribute_list",
+          "named": true
+        },
+        {
+          "type": "modifier",
+          "named": true
+        },
+        {
+          "type": "preproc_if_in_attribute_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "record_declaration",
     "named": true,
     "fields": {
@@ -6812,6 +6918,10 @@
   },
   {
     "type": "explicit",
+    "named": false
+  },
+  {
+    "type": "extension",
     "named": false
   },
   {

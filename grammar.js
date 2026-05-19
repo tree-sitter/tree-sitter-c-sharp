@@ -471,6 +471,13 @@ export default grammar({
         '==', '!=',
         '>', '<',
         '>=', '<=',
+        // C# 14: user-defined compound assignment operators.
+        // https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-14#user-defined-compound-assignment-operators
+        '+=', '-=',
+        '*=', '/=',
+        '%=', '^=',
+        '|=', '&=',
+        '<<=', '>>=', '>>>=',
       )),
       field('parameters', $.parameter_list),
       $._function_body,

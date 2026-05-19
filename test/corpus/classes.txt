@@ -432,3 +432,69 @@ public class NoBodyPrimaryWithBase(int x) : Base(x);
         (argument
           (identifier))))))
 
+================================================================================
+Partial constructor declarations (C# 14)
+================================================================================
+
+partial class C {
+  public partial C(int x);
+  public partial C(int x) { this.x = x; }
+  public partial C(int x) : base(x);
+  public partial C(int x) : base(x) { }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    (modifier)
+    name: (identifier)
+    body: (declaration_list
+      (constructor_declaration
+        (modifier)
+        (modifier)
+        name: (identifier)
+        parameters: (parameter_list
+          (parameter
+            type: (predefined_type)
+            name: (identifier))))
+      (constructor_declaration
+        (modifier)
+        (modifier)
+        name: (identifier)
+        parameters: (parameter_list
+          (parameter
+            type: (predefined_type)
+            name: (identifier)))
+        body: (block
+          (expression_statement
+            (assignment_expression
+              left: (member_access_expression
+                name: (identifier))
+              right: (identifier)))))
+      (constructor_declaration
+        (modifier)
+        (modifier)
+        name: (identifier)
+        parameters: (parameter_list
+          (parameter
+            type: (predefined_type)
+            name: (identifier)))
+        (constructor_initializer
+          (argument_list
+            (argument
+              (identifier)))))
+      (constructor_declaration
+        (modifier)
+        (modifier)
+        name: (identifier)
+        parameters: (parameter_list
+          (parameter
+            type: (predefined_type)
+            name: (identifier)))
+        (constructor_initializer
+          (argument_list
+            (argument
+              (identifier))))
+        body: (block)))))
+

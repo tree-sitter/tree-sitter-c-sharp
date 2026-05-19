@@ -3412,6 +3412,57 @@ var x = nameof(A.B);
                   name: (identifier))))))))))
 
 ================================================================================
+Nameof with unbound generic types (C# 14)
+================================================================================
+
+var x = nameof(List<>);
+var x = nameof(Dictionary<,>);
+var x = nameof(IDictionary<,,>);
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (invocation_expression
+            function: (identifier)
+            arguments: (argument_list
+              (argument
+                (generic_name
+                  (identifier)
+                  (type_argument_list)))))))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (invocation_expression
+            function: (identifier)
+            arguments: (argument_list
+              (argument
+                (generic_name
+                  (identifier)
+                  (type_argument_list)))))))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (invocation_expression
+            function: (identifier)
+            arguments: (argument_list
+              (argument
+                (generic_name
+                  (identifier)
+                  (type_argument_list))))))))))
+
+================================================================================
 Generic invocation expression
 ================================================================================
 

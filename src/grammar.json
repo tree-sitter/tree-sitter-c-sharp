@@ -6816,6 +6816,15 @@
           "name": "ref_expression"
         },
         {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_address_of_expression"
+          },
+          "named": true,
+          "value": "prefix_unary_expression"
+        },
+        {
           "type": "SYMBOL",
           "name": "reftype_expression"
         },
@@ -7775,10 +7784,6 @@
               },
               {
                 "type": "STRING",
-                "value": "&"
-              },
-              {
-                "type": "STRING",
                 "value": "^"
               }
             ]
@@ -7799,6 +7804,23 @@
           {
             "type": "STRING",
             "value": "*"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "lvalue_expression"
+          }
+        ]
+      }
+    },
+    "_address_of_expression": {
+      "type": "PREC_RIGHT",
+      "value": 17,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "&"
           },
           {
             "type": "SYMBOL",

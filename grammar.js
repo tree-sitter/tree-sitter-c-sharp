@@ -1439,6 +1439,11 @@ export default grammar({
       $.typeof_expression,
       $.makeref_expression,
       $.ref_expression,
+      // Address-of (see `_address_of_expression` below): aliased to
+      // `prefix_unary_expression` to preserve the public AST shape.
+      // Parallels `_pointer_indirection_expression` (the `*` operator),
+      // which is similarly aliased back into `lvalue_expression`.
+      alias($._address_of_expression, $.prefix_unary_expression),
       $.reftype_expression,
       $.refvalue_expression,
       $.stackalloc_expression,
@@ -1543,12 +1548,35 @@ export default grammar({
     )),
 
     prefix_unary_expression: $ => prec(PREC.UNARY, seq(
-      choice('++', '--', '+', '-', '!', '~', '&', '^'),
+      // `&` and `*` are intentionally NOT in this choice list:
+      //   * `&` → `_address_of_expression` (operand restricted to lvalue
+      //           — see comment on that rule for the #413 rationale)
+      //   * `*` → `_pointer_indirection_expression` (same shape,
+      //           restricted to lvalue, surfaced in `lvalue_expression`)
+      // Both are aliased back to `prefix_unary_expression` so the
+      // public AST is unaffected.
+      choice('++', '--', '+', '-', '!', '~', '^'),
       $.expression,
     )),
 
     _pointer_indirection_expression: $ => prec.right(PREC.UNARY, seq(
       '*',
+      $.lvalue_expression,
+    )),
+
+    // Address-of is split out from `prefix_unary_expression` so that
+    // `&` can't act as a fallback when the lexer would otherwise
+    // emit `&&`. Its operand is restricted to an lvalue (same shape
+    // as the spec's `address-of-expression`). This is the fix for
+    // tree-sitter#413: `(a) && (b > 0)` was misparsed as
+    // `cast(a, &(&(b > 0)))` because the cast state accepted `&` as
+    // a unary start and the lexer split `&&` into two `&` tokens.
+    // With this split, `&` is only valid before an lvalue, which
+    // `(b > 0)` is not — so the cast interpretation can no longer
+    // consume the trailing parenthesized expression and `&&` must
+    // be emitted as a single token for the binary path to succeed.
+    _address_of_expression: $ => prec.right(PREC.UNARY, seq(
+      '&',
       $.lvalue_expression,
     )),
 

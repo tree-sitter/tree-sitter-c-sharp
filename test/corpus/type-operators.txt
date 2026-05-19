@@ -898,3 +898,195 @@ public class C : I<C>
         body: (arrow_expression_clause
           (throw_expression
             (null_literal)))))))
+
+================================================================================
+User-defined compound assignment operators (C# 14)
+================================================================================
+
+class C {
+  public int Value;
+
+  public void operator +=(int x) => Value += x;
+  public void operator -=(int x) => Value -= x;
+  public void operator *=(int x) => Value *= x;
+  public void operator /=(int x) => Value /= x;
+  public void operator %=(int x) => Value %= x;
+  public void operator ^=(int x) => Value ^= x;
+  public void operator |=(int x) => Value |= x;
+  public void operator &=(int x) => Value &= x;
+  public void operator <<=(int x) => Value <<= x;
+  public void operator >>=(int x) => Value >>= x;
+  public void operator >>>=(int x) => Value >>>= x;
+
+  public void operator checked +=(int x) => Value += x;
+  public void operator checked -=(int x) => Value -= x;
+  public void operator checked *=(int x) => Value *= x;
+  public void operator checked /=(int x) => Value /= x;
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (field_declaration
+        (modifier)
+        (variable_declaration
+          type: (predefined_type)
+          (variable_declarator name: (identifier))))
+      (operator_declaration
+        (modifier)
+        type: (predefined_type)
+        parameters: (parameter_list
+          (parameter type: (predefined_type) name: (identifier)))
+        body: (arrow_expression_clause
+          (assignment_expression left: (identifier) right: (identifier))))
+      (operator_declaration
+        (modifier)
+        type: (predefined_type)
+        parameters: (parameter_list
+          (parameter type: (predefined_type) name: (identifier)))
+        body: (arrow_expression_clause
+          (assignment_expression left: (identifier) right: (identifier))))
+      (operator_declaration
+        (modifier)
+        type: (predefined_type)
+        parameters: (parameter_list
+          (parameter type: (predefined_type) name: (identifier)))
+        body: (arrow_expression_clause
+          (assignment_expression left: (identifier) right: (identifier))))
+      (operator_declaration
+        (modifier)
+        type: (predefined_type)
+        parameters: (parameter_list
+          (parameter type: (predefined_type) name: (identifier)))
+        body: (arrow_expression_clause
+          (assignment_expression left: (identifier) right: (identifier))))
+      (operator_declaration
+        (modifier)
+        type: (predefined_type)
+        parameters: (parameter_list
+          (parameter type: (predefined_type) name: (identifier)))
+        body: (arrow_expression_clause
+          (assignment_expression left: (identifier) right: (identifier))))
+      (operator_declaration
+        (modifier)
+        type: (predefined_type)
+        parameters: (parameter_list
+          (parameter type: (predefined_type) name: (identifier)))
+        body: (arrow_expression_clause
+          (assignment_expression left: (identifier) right: (identifier))))
+      (operator_declaration
+        (modifier)
+        type: (predefined_type)
+        parameters: (parameter_list
+          (parameter type: (predefined_type) name: (identifier)))
+        body: (arrow_expression_clause
+          (assignment_expression left: (identifier) right: (identifier))))
+      (operator_declaration
+        (modifier)
+        type: (predefined_type)
+        parameters: (parameter_list
+          (parameter type: (predefined_type) name: (identifier)))
+        body: (arrow_expression_clause
+          (assignment_expression left: (identifier) right: (identifier))))
+      (operator_declaration
+        (modifier)
+        type: (predefined_type)
+        parameters: (parameter_list
+          (parameter type: (predefined_type) name: (identifier)))
+        body: (arrow_expression_clause
+          (assignment_expression left: (identifier) right: (identifier))))
+      (operator_declaration
+        (modifier)
+        type: (predefined_type)
+        parameters: (parameter_list
+          (parameter type: (predefined_type) name: (identifier)))
+        body: (arrow_expression_clause
+          (assignment_expression left: (identifier) right: (identifier))))
+      (operator_declaration
+        (modifier)
+        type: (predefined_type)
+        parameters: (parameter_list
+          (parameter type: (predefined_type) name: (identifier)))
+        body: (arrow_expression_clause
+          (assignment_expression left: (identifier) right: (identifier))))
+      (operator_declaration
+        (modifier)
+        type: (predefined_type)
+        parameters: (parameter_list
+          (parameter type: (predefined_type) name: (identifier)))
+        body: (arrow_expression_clause
+          (assignment_expression left: (identifier) right: (identifier))))
+      (operator_declaration
+        (modifier)
+        type: (predefined_type)
+        parameters: (parameter_list
+          (parameter type: (predefined_type) name: (identifier)))
+        body: (arrow_expression_clause
+          (assignment_expression left: (identifier) right: (identifier))))
+      (operator_declaration
+        (modifier)
+        type: (predefined_type)
+        parameters: (parameter_list
+          (parameter type: (predefined_type) name: (identifier)))
+        body: (arrow_expression_clause
+          (assignment_expression left: (identifier) right: (identifier))))
+      (operator_declaration
+        (modifier)
+        type: (predefined_type)
+        parameters: (parameter_list
+          (parameter type: (predefined_type) name: (identifier)))
+        body: (arrow_expression_clause
+          (assignment_expression left: (identifier) right: (identifier)))))))
+
+================================================================================
+Instance increment and decrement operators (C# 14)
+================================================================================
+
+class C {
+  public int Value;
+
+  public void operator ++() { Value++; }
+  public void operator --() => Value--;
+  public void operator checked ++() => Value++;
+  public void operator checked --() => Value--;
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (field_declaration
+        (modifier)
+        (variable_declaration
+          type: (predefined_type)
+          (variable_declarator name: (identifier))))
+      (operator_declaration
+        (modifier)
+        type: (predefined_type)
+        parameters: (parameter_list)
+        body: (block
+          (expression_statement
+            (postfix_unary_expression (identifier)))))
+      (operator_declaration
+        (modifier)
+        type: (predefined_type)
+        parameters: (parameter_list)
+        body: (arrow_expression_clause
+          (postfix_unary_expression (identifier))))
+      (operator_declaration
+        (modifier)
+        type: (predefined_type)
+        parameters: (parameter_list)
+        body: (arrow_expression_clause
+          (postfix_unary_expression (identifier))))
+      (operator_declaration
+        (modifier)
+        type: (predefined_type)
+        parameters: (parameter_list)
+        body: (arrow_expression_clause
+          (postfix_unary_expression (identifier)))))))

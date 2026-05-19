@@ -4103,3 +4103,149 @@ class C {
                       (identifier))
                     (argument
                       (identifier))))))))))))
+
+================================================================================
+Simple lambda parameters with modifiers (C# 14)
+================================================================================
+
+class C { void M() {
+  var a = (ref x) => x;
+  var b = (out y) => y = 0;
+  var c = (in z) => z;
+  var d = (scoped p) => p;
+  var e = (ref readonly q) => q;
+  var f = (text, out result) => Int32.TryParse(text, out result);
+  var g = (ref x, out y, in z) => 0;
+} }
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (block
+          (local_declaration_statement
+            (variable_declaration
+              type: (implicit_type)
+              (variable_declarator
+                name: (identifier)
+                (lambda_expression
+                  parameters: (modifier)
+                  parameters: (implicit_parameter)
+                  body: (identifier)))))
+          (local_declaration_statement
+            (variable_declaration
+              type: (implicit_type)
+              (variable_declarator
+                name: (identifier)
+                (lambda_expression
+                  parameters: (modifier)
+                  parameters: (implicit_parameter)
+                  body: (assignment_expression
+                    left: (identifier)
+                    right: (integer_literal))))))
+          (local_declaration_statement
+            (variable_declaration
+              type: (implicit_type)
+              (variable_declarator
+                name: (identifier)
+                (lambda_expression
+                  parameters: (modifier)
+                  parameters: (implicit_parameter)
+                  body: (identifier)))))
+          (local_declaration_statement
+            (variable_declaration
+              type: (implicit_type)
+              (variable_declarator
+                name: (identifier)
+                (lambda_expression
+                  parameters: (parameter_list
+                    (parameter
+                      type: (identifier)
+                      name: (identifier)))
+                  body: (identifier)))))
+          (local_declaration_statement
+            (variable_declaration
+              type: (implicit_type)
+              (variable_declarator
+                name: (identifier)
+                (lambda_expression
+                  parameters: (modifier)
+                  parameters: (modifier)
+                  parameters: (implicit_parameter)
+                  body: (identifier)))))
+          (local_declaration_statement
+            (variable_declaration
+              type: (implicit_type)
+              (variable_declarator
+                name: (identifier)
+                (lambda_expression
+                  parameters: (implicit_parameter)
+                  parameters: (modifier)
+                  parameters: (implicit_parameter)
+                  body: (invocation_expression
+                    function: (member_access_expression
+                      expression: (identifier)
+                      name: (identifier))
+                    arguments: (argument_list
+                      (argument
+                        (identifier))
+                      (argument
+                        (identifier))))))))
+          (local_declaration_statement
+            (variable_declaration
+              type: (implicit_type)
+              (variable_declarator
+                name: (identifier)
+                (lambda_expression
+                  parameters: (modifier)
+                  parameters: (implicit_parameter)
+                  parameters: (modifier)
+                  parameters: (implicit_parameter)
+                  parameters: (modifier)
+                  parameters: (implicit_parameter)
+                  body: (integer_literal))))))))))
+
+================================================================================
+Modifier-prefixed parens that are NOT lambda parameter lists (C# 14)
+================================================================================
+
+class C { void M() {
+  var a = (ref obj);
+  var b = (ref x) + 1;
+} }
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (block
+          (local_declaration_statement
+            (variable_declaration
+              type: (implicit_type)
+              (variable_declarator
+                name: (identifier)
+                (parenthesized_expression
+                  (ref_expression
+                    (identifier))))))
+          (local_declaration_statement
+            (variable_declaration
+              type: (implicit_type)
+              (variable_declarator
+                name: (identifier)
+                (cast_expression
+                  type: (ref_type
+                    type: (identifier))
+                  value: (prefix_unary_expression
+                    (integer_literal)))))))))))

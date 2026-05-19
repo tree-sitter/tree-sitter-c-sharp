@@ -130,6 +130,10 @@ export default grammar({
     $.raw_string_start,
     $.raw_string_end,
     $.raw_string_content,
+    // C# 14: emitted by the scanner at '(' when forward-scanning shows a
+    // simple-lambda parameter list (at least one element has a parameter
+    // modifier) closed by ')=>'.
+    $._lambda_paren_open,
   ],
 
   extras: $ => [
@@ -1802,7 +1806,31 @@ export default grammar({
     _lambda_parameters: $ => prec(-1, choice(
       $.parameter_list,
       alias($.identifier, $.implicit_parameter),
+      // C# 14: `(ref x) => x`, `(out y) => ...`, `(text, out result) => ...`
+      // The opening '(' is recognized via the external _lambda_paren_open
+      // token, which the scanner only emits when it can confirm a closing
+      // ')=>' follows a parameter list containing at least one modifier.
+      $._implicit_parameter_list_with_modifiers,
     )),
+
+    // C# 14 simple-lambda parameter list with modifiers. Each element is
+    // either a bare identifier or one or more modifiers (scoped/ref/out/in/
+    // readonly) followed by an identifier. The opening token is the
+    // external _lambda_paren_open; the closing ')' is the regular literal.
+    _implicit_parameter_list_with_modifiers: $ => seq(
+      $._lambda_paren_open,
+      commaSep1(choice(
+        seq(
+          repeat1(alias(
+            choice('scoped', 'ref', 'out', 'in', 'readonly'),
+            $.modifier,
+          )),
+          alias($.identifier, $.implicit_parameter),
+        ),
+        alias($.identifier, $.implicit_parameter),
+      )),
+      ')',
+    ),
 
     array_creation_expression: $ => prec.dynamic(PREC.UNARY, seq(
       'new',

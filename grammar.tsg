@@ -55,62 +55,70 @@ macro preprocessor(name: str_t) rule_t {
     alias(regexp(concat("#[ \\t]*", name)), concat("#", name))
 }
 
-// preprocIf body shapes. The JS preprocIf helper generates a rule triple
-// (preproc_if{suffix}, preproc_else{suffix}, preproc_elif{suffix}) for each
-// of 5 suffixes. We capture the per-rule shape as macros here; rule-defs at
-// the end of the file instantiate them for each suffix.
+// preprocIf: each invocation emits a {preproc_if, preproc_else, preproc_elif}
+// triple suffixed for one context. Mirrors the JS preprocIf helper. The "rep"
+// vs "opt" split (controlled by `rep` bool in JS) becomes two macros.
 
-// The "rep" parameter in grammar.js controls repeat vs optional. We split
-// it into two macro variants (_rep / _opt) instead of using bool_t.
-
-macro preproc_if_body_rep(p: int_t, content: rule_t, alternative: rule_t) rule_t {
-    prec(p, seq(
-        preprocessor("if"),
-        field(condition, _preproc_expression),
-        regexp(r"\n"),
-        repeat(content),
-        field(alternative, optional(alternative)),
-        preprocessor("endif"),
-    ))
+macro preproc_if_rep(suffix: str_t, content: rule_t, p: int_t) {
+    rule @concat("preproc_if", suffix) {
+        prec(p, seq(
+            preprocessor("if"),
+            field(condition, _preproc_expression),
+            regexp(r"\n"),
+            repeat(content),
+            field(alternative, optional(choice(
+                alias(@concat("preproc_else", suffix), preproc_else),
+                alias(@concat("preproc_elif", suffix), preproc_elif),
+            ))),
+            preprocessor("endif"),
+        ))
+    }
+    rule @concat("preproc_else", suffix) {
+        prec(p, seq(preprocessor("else"), repeat(content)))
+    }
+    rule @concat("preproc_elif", suffix) {
+        prec(p, seq(
+            preprocessor("elif"),
+            field(condition, _preproc_expression),
+            regexp(r"\n"),
+            repeat(content),
+            field(alternative, optional(choice(
+                alias(@concat("preproc_else", suffix), preproc_else),
+                alias(@concat("preproc_elif", suffix), preproc_elif),
+            ))),
+        ))
+    }
 }
 
-macro preproc_if_body_opt(p: int_t, content: rule_t, alternative: rule_t) rule_t {
-    prec(p, seq(
-        preprocessor("if"),
-        field(condition, _preproc_expression),
-        regexp(r"\n"),
-        optional(content),
-        field(alternative, optional(alternative)),
-        preprocessor("endif"),
-    ))
-}
-
-macro preproc_else_body_rep(p: int_t, content: rule_t) rule_t {
-    prec(p, seq(preprocessor("else"), repeat(content)))
-}
-
-macro preproc_else_body_opt(p: int_t, content: rule_t) rule_t {
-    prec(p, seq(preprocessor("else"), optional(content)))
-}
-
-macro preproc_elif_body_rep(p: int_t, content: rule_t, alternative: rule_t) rule_t {
-    prec(p, seq(
-        preprocessor("elif"),
-        field(condition, _preproc_expression),
-        regexp(r"\n"),
-        repeat(content),
-        field(alternative, optional(alternative)),
-    ))
-}
-
-macro preproc_elif_body_opt(p: int_t, content: rule_t, alternative: rule_t) rule_t {
-    prec(p, seq(
-        preprocessor("elif"),
-        field(condition, _preproc_expression),
-        regexp(r"\n"),
-        optional(content),
-        field(alternative, optional(alternative)),
-    ))
+macro preproc_if_opt(suffix: str_t, content: rule_t, p: int_t) {
+    rule @concat("preproc_if", suffix) {
+        prec(p, seq(
+            preprocessor("if"),
+            field(condition, _preproc_expression),
+            regexp(r"\n"),
+            optional(content),
+            field(alternative, optional(choice(
+                alias(@concat("preproc_else", suffix), preproc_else),
+                alias(@concat("preproc_elif", suffix), preproc_elif),
+            ))),
+            preprocessor("endif"),
+        ))
+    }
+    rule @concat("preproc_else", suffix) {
+        prec(p, seq(preprocessor("else"), optional(content)))
+    }
+    rule @concat("preproc_elif", suffix) {
+        prec(p, seq(
+            preprocessor("elif"),
+            field(condition, _preproc_expression),
+            regexp(r"\n"),
+            optional(content),
+            field(alternative, optional(choice(
+                alias(@concat("preproc_else", suffix), preproc_else),
+                alias(@concat("preproc_elif", suffix), preproc_elif),
+            ))),
+        ))
+    }
 }
 
 // Binary operator macro for binary_expression.
@@ -1824,95 +1832,37 @@ rule _reserved_identifier {
 }
 
 // ---------------------------------------------------------------------------
-// Preprocessor (5 suffix instantiations of the preprocIf JS helper)
+// Preprocessor: bare names (no aliasing) hand-written; suffixed variants
+// emitted by preproc_if_{rep,opt}.
 // ---------------------------------------------------------------------------
 
 rule preproc_if {
-    preproc_if_body_rep(0, declaration, choice(preproc_else, preproc_elif))
+    prec(0, seq(
+        preprocessor("if"),
+        field(condition, _preproc_expression),
+        regexp(r"\n"),
+        repeat(declaration),
+        field(alternative, optional(choice(preproc_else, preproc_elif))),
+        preprocessor("endif"),
+    ))
 }
 rule preproc_else {
-    preproc_else_body_rep(0, declaration)
+    prec(0, seq(preprocessor("else"), repeat(declaration)))
 }
 rule preproc_elif {
-    preproc_elif_body_rep(0, declaration, choice(preproc_else, preproc_elif))
+    prec(0, seq(
+        preprocessor("elif"),
+        field(condition, _preproc_expression),
+        regexp(r"\n"),
+        repeat(declaration),
+        field(alternative, optional(choice(preproc_else, preproc_elif))),
+    ))
 }
 
-// For each suffixed variant, alternativeBlock aliases the inner names back
-// to the unsuffixed names ($.preproc_else / $.preproc_elif), matching the
-// JS preprocIf helper.
-rule preproc_if_in_top_level {
-    preproc_if_body_rep(0,
-        choice(_top_level_item_no_statement, statement),
-        choice(
-            alias(preproc_else_in_top_level, preproc_else),
-            alias(preproc_elif_in_top_level, preproc_elif),
-        ))
-}
-rule preproc_else_in_top_level {
-    preproc_else_body_rep(0, choice(_top_level_item_no_statement, statement))
-}
-rule preproc_elif_in_top_level {
-    preproc_elif_body_rep(0,
-        choice(_top_level_item_no_statement, statement),
-        choice(
-            alias(preproc_else_in_top_level, preproc_else),
-            alias(preproc_elif_in_top_level, preproc_elif),
-        ))
-}
-
-rule preproc_if_in_expression {
-    preproc_if_body_opt(-2, expression,
-        choice(
-            alias(preproc_else_in_expression, preproc_else),
-            alias(preproc_elif_in_expression, preproc_elif),
-        ))
-}
-rule preproc_else_in_expression {
-    preproc_else_body_opt(-2, expression)
-}
-rule preproc_elif_in_expression {
-    preproc_elif_body_opt(-2, expression,
-        choice(
-            alias(preproc_else_in_expression, preproc_else),
-            alias(preproc_elif_in_expression, preproc_elif),
-        ))
-}
-
-rule preproc_if_in_enum_member_declaration {
-    preproc_if_body_opt(0, enum_member_declaration,
-        choice(
-            alias(preproc_else_in_enum_member_declaration, preproc_else),
-            alias(preproc_elif_in_enum_member_declaration, preproc_elif),
-        ))
-}
-rule preproc_else_in_enum_member_declaration {
-    preproc_else_body_opt(0, enum_member_declaration)
-}
-rule preproc_elif_in_enum_member_declaration {
-    preproc_elif_body_opt(0, enum_member_declaration,
-        choice(
-            alias(preproc_else_in_enum_member_declaration, preproc_else),
-            alias(preproc_elif_in_enum_member_declaration, preproc_elif),
-        ))
-}
-
-rule preproc_if_in_attribute_list {
-    preproc_if_body_opt(-1, attribute_list,
-        choice(
-            alias(preproc_else_in_attribute_list, preproc_else),
-            alias(preproc_elif_in_attribute_list, preproc_elif),
-        ))
-}
-rule preproc_else_in_attribute_list {
-    preproc_else_body_opt(-1, attribute_list)
-}
-rule preproc_elif_in_attribute_list {
-    preproc_elif_body_opt(-1, attribute_list,
-        choice(
-            alias(preproc_else_in_attribute_list, preproc_else),
-            alias(preproc_elif_in_attribute_list, preproc_elif),
-        ))
-}
+preproc_if_rep("_in_top_level", choice(_top_level_item_no_statement, statement), 0)
+preproc_if_opt("_in_expression", expression, -2)
+preproc_if_opt("_in_enum_member_declaration", enum_member_declaration, 0)
+preproc_if_opt("_in_attribute_list", attribute_list, -1)
 
 rule preproc_arg {
     token(prec(-1, regexp(r"\S([^/\n]|\/[^*]|\\\r?\n)*")))

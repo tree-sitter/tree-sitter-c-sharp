@@ -59,7 +59,7 @@ macro preprocessor(name: str_t) rule_t {
 // triple suffixed for one context. Mirrors the JS preprocIf helper. The "rep"
 // vs "opt" split (controlled by `rep` bool in JS) becomes two macros.
 
-macro preproc_if_rep(suffix: str_t, content: rule_t, p: int_t) {
+rules preproc_if_rep(suffix: str_t, content: rule_t, p: int_t) {
     rule @concat("preproc_if", suffix) {
         prec(p, seq(
             preprocessor("if"),
@@ -90,7 +90,7 @@ macro preproc_if_rep(suffix: str_t, content: rule_t, p: int_t) {
     }
 }
 
-macro preproc_if_opt(suffix: str_t, content: rule_t, p: int_t) {
+rules preproc_if_opt(suffix: str_t, content: rule_t, p: int_t) {
     rule @concat("preproc_if", suffix) {
         prec(p, seq(
             preprocessor("if"),
@@ -1859,10 +1859,10 @@ rule preproc_elif {
     ))
 }
 
-preproc_if_rep("_in_top_level", choice(_top_level_item_no_statement, statement), 0)
-preproc_if_opt("_in_expression", expression, -2)
-preproc_if_opt("_in_enum_member_declaration", enum_member_declaration, 0)
-preproc_if_opt("_in_attribute_list", attribute_list, -1)
+@preproc_if_rep("_in_top_level", choice(_top_level_item_no_statement, statement), 0)
+@preproc_if_opt("_in_expression", expression, -2)
+@preproc_if_opt("_in_enum_member_declaration", enum_member_declaration, 0)
+@preproc_if_opt("_in_attribute_list", attribute_list, -1)
 
 rule preproc_arg {
     token(prec(-1, regexp(r"\S([^/\n]|\/[^*]|\\\r?\n)*")))

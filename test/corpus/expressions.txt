@@ -3605,25 +3605,140 @@ MyFunction<A,B>(1);
             (integer_literal)))))))
 
 ================================================================================
-Dereference versus logical and
+Logical AND vs cast disambiguation with parenthesized LHS (#413)
 ================================================================================
 
-bool c = (a) && b;
+class C {
+  void M() {
+    bool a = (x) && y;
+    bool b = (x) && (y > 0);
+    bool c = (x) && (y) && (z);
+    bool d = (x) && (y) || (z);
+    bool e = !(x) && (y);
+    bool g = (MyType<T>) && c;
+    bool h = (i) && &j;
+    int k = (l) & m;
+    var p1 = (IntPtr) &x;
+    var p2 = &x;
+  }
+}
 
 --------------------------------------------------------------------------------
 
 (compilation_unit
-  (global_statement
-    (local_declaration_statement
-      (variable_declaration
-        type: (predefined_type)
-        (variable_declarator
-          name: (identifier)
-          (cast_expression
-            type: (identifier)
-            value: (prefix_unary_expression
-              (prefix_unary_expression
-                (identifier)))))))))
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (block
+          (local_declaration_statement
+            (variable_declaration
+              type: (predefined_type)
+              (variable_declarator
+                name: (identifier)
+                (binary_expression
+                  left: (parenthesized_expression
+                    (identifier))
+                  right: (identifier)))))
+          (local_declaration_statement
+            (variable_declaration
+              type: (predefined_type)
+              (variable_declarator
+                name: (identifier)
+                (binary_expression
+                  left: (parenthesized_expression
+                    (identifier))
+                  right: (parenthesized_expression
+                    (binary_expression
+                      left: (identifier)
+                      right: (integer_literal)))))))
+          (local_declaration_statement
+            (variable_declaration
+              type: (predefined_type)
+              (variable_declarator
+                name: (identifier)
+                (binary_expression
+                  left: (binary_expression
+                    left: (parenthesized_expression
+                      (identifier))
+                    right: (parenthesized_expression
+                      (identifier)))
+                  right: (parenthesized_expression
+                    (identifier))))))
+          (local_declaration_statement
+            (variable_declaration
+              type: (predefined_type)
+              (variable_declarator
+                name: (identifier)
+                (binary_expression
+                  left: (binary_expression
+                    left: (parenthesized_expression
+                      (identifier))
+                    right: (parenthesized_expression
+                      (identifier)))
+                  right: (parenthesized_expression
+                    (identifier))))))
+          (local_declaration_statement
+            (variable_declaration
+              type: (predefined_type)
+              (variable_declarator
+                name: (identifier)
+                (binary_expression
+                  left: (prefix_unary_expression
+                    (parenthesized_expression
+                      (identifier)))
+                  right: (parenthesized_expression
+                    (identifier))))))
+          (local_declaration_statement
+            (variable_declaration
+              type: (predefined_type)
+              (variable_declarator
+                name: (identifier)
+                (binary_expression
+                  left: (parenthesized_expression
+                    (generic_name
+                      (identifier)
+                      (type_argument_list
+                        (identifier))))
+                  right: (identifier)))))
+          (local_declaration_statement
+            (variable_declaration
+              type: (predefined_type)
+              (variable_declarator
+                name: (identifier)
+                (binary_expression
+                  left: (parenthesized_expression
+                    (identifier))
+                  right: (prefix_unary_expression
+                    (identifier))))))
+          (local_declaration_statement
+            (variable_declaration
+              type: (predefined_type)
+              (variable_declarator
+                name: (identifier)
+                (cast_expression
+                  type: (identifier)
+                  value: (prefix_unary_expression
+                    (identifier))))))
+          (local_declaration_statement
+            (variable_declaration
+              type: (implicit_type)
+              (variable_declarator
+                name: (identifier)
+                (cast_expression
+                  type: (identifier)
+                  value: (prefix_unary_expression
+                    (identifier))))))
+          (local_declaration_statement
+            (variable_declaration
+              type: (implicit_type)
+              (variable_declarator
+                name: (identifier)
+                (prefix_unary_expression
+                  (identifier))))))))))
 
 ================================================================================
 With expression typical basic form

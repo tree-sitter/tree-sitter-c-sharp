@@ -468,50 +468,54 @@
       ]
     },
     "attribute_target_specifier": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "field"
-            },
-            {
-              "type": "STRING",
-              "value": "event"
-            },
-            {
-              "type": "STRING",
-              "value": "method"
-            },
-            {
-              "type": "STRING",
-              "value": "param"
-            },
-            {
-              "type": "STRING",
-              "value": "property"
-            },
-            {
-              "type": "STRING",
-              "value": "return"
-            },
-            {
-              "type": "STRING",
-              "value": "type"
-            },
-            {
-              "type": "STRING",
-              "value": "typevar"
-            }
-          ]
-        },
-        {
-          "type": "STRING",
-          "value": ":"
-        }
-      ]
+      "type": "PREC",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "field"
+              },
+              {
+                "type": "STRING",
+                "value": "event"
+              },
+              {
+                "type": "STRING",
+                "value": "method"
+              },
+              {
+                "type": "STRING",
+                "value": "param"
+              },
+              {
+                "type": "STRING",
+                "value": "property"
+              },
+              {
+                "type": "STRING",
+                "value": "return"
+              },
+              {
+                "type": "STRING",
+                "value": "type"
+              },
+              {
+                "type": "STRING",
+                "value": "typevar"
+              }
+            ]
+          },
+          {
+            "type": "STRING",
+            "value": ":"
+          }
+        ]
+      }
     },
     "_namespace_member_declaration": {
       "type": "CHOICE",
@@ -5838,8 +5842,8 @@
                             "name": "pattern"
                           },
                           {
-                            "type": "STRING",
-                            "value": ".."
+                            "type": "SYMBOL",
+                            "name": "slice_pattern"
                           }
                         ]
                       },
@@ -5860,8 +5864,8 @@
                                   "name": "pattern"
                                 },
                                 {
-                                  "type": "STRING",
-                                  "value": ".."
+                                  "type": "SYMBOL",
+                                  "name": "slice_pattern"
                                 }
                               ]
                             }
@@ -5899,6 +5903,31 @@
               {
                 "type": "SYMBOL",
                 "name": "_variable_designation"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "slice_pattern": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": ".."
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "pattern"
               },
               {
                 "type": "BLANK"
@@ -10264,6 +10293,10 @@
         },
         {
           "type": "STRING",
+          "value": "field"
+        },
+        {
+          "type": "STRING",
           "value": "file"
         },
         {
@@ -10292,6 +10325,10 @@
         },
         {
           "type": "STRING",
+          "value": "method"
+        },
+        {
+          "type": "STRING",
           "value": "notnull"
         },
         {
@@ -10304,11 +10341,27 @@
         },
         {
           "type": "STRING",
+          "value": "param"
+        },
+        {
+          "type": "STRING",
+          "value": "property"
+        },
+        {
+          "type": "STRING",
           "value": "scoped"
         },
         {
           "type": "STRING",
           "value": "select"
+        },
+        {
+          "type": "STRING",
+          "value": "type"
+        },
+        {
+          "type": "STRING",
+          "value": "typevar"
         },
         {
           "type": "STRING",

@@ -65,3 +65,37 @@ class A {
               (invocation_expression
                 function: (identifier)
                 arguments: (argument_list)))))))))
+
+================================================================================
+Partial event declarations (C# 14)
+================================================================================
+
+partial class C {
+  public partial event EventHandler SomeEvent;
+  public partial event EventHandler SomeEvent { add { } remove { } }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    (modifier)
+    name: (identifier)
+    body: (declaration_list
+      (event_field_declaration
+        (modifier)
+        (modifier)
+        (variable_declaration
+          type: (identifier)
+          (variable_declarator
+            name: (identifier))))
+      (event_declaration
+        (modifier)
+        (modifier)
+        type: (identifier)
+        name: (identifier)
+        accessors: (accessor_list
+          (accessor_declaration
+            body: (block))
+          (accessor_declaration
+            body: (block)))))))

@@ -240,10 +240,15 @@ export default grammar({
 
     _attribute_list: $ => choice($.attribute_list, $.preproc_if_in_attribute_list),
 
-    attribute_target_specifier: _ => seq(
+    // Higher precedence than `_reserved_identifier`: when both interpretations
+    // are valid (e.g. `[field :` could be `_reserved_identifier` followed by
+    // bogus `:`, or `attribute_target_specifier`), prefer the target-specifier
+    // reading. `_reserved_identifier` still wins when no `:` follows, so
+    // `[field]` continues to parse as collection_expression with identifier.
+    attribute_target_specifier: _ => prec(1, seq(
       choice('field', 'event', 'method', 'param', 'property', 'return', 'type', 'typevar'),
       ':',
-    ),
+    )),
 
     _namespace_member_declaration: $ => choice(
       $.namespace_declaration,
@@ -1216,11 +1221,19 @@ export default grammar({
     list_pattern: $ => prec.right(seq(
       '[',
       optional(seq(
-        commaSep1(choice($.pattern, '..')),
+        commaSep1(choice($.pattern, $.slice_pattern)),
         optional(','),
       )),
       ']',
       optional($._variable_designation),
+    )),
+
+    // C# 11 slice pattern: `..` optionally followed by a subpattern that
+    // binds the captured slice. `[a, .. var rest, z]`, `[..]` (bare),
+    // `[.. List<int> rest]` (declaration_pattern), etc.
+    slice_pattern: $ => prec.right(seq(
+      '..',
+      optional($.pattern),
     )),
 
     recursive_pattern: $ => prec.left(choice(
@@ -1992,6 +2005,14 @@ export default grammar({
       'by',
       'descending',
       'equals',
+      // attribute_target_specifier keywords — contextual only when followed
+      // by `:` in `[target: Attr]` position. Anywhere else they're
+      // identifiers. Without listing them here the LR table preferred the
+      // literal-keyword interpretation, breaking `[type]`, `[field]`, etc.
+      // as collection_expression elements. Excludes `'event'` and `'return'`
+      // from the attribute_target_specifier choice — those are real C#
+      // keywords and must not be accepted as identifiers anywhere else.
+      'field',
       'file',
       'from',
       'global',
@@ -1999,11 +2020,16 @@ export default grammar({
       'into',
       'join',
       'let',
+      'method',
       'notnull',
       'on',
       'orderby',
+      'param',
+      'property',
       'scoped',
       'select',
+      'type',
+      'typevar',
       'unmanaged',
       'var',
       'when',

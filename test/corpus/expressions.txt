@@ -3056,7 +3056,8 @@ if (aa is [(name: A.B), ..]) { }
                 right: (list_pattern))
               right: (list_pattern
                 (constant_pattern
-                  (integer_literal)))))))))
+                  (integer_literal))
+                (slice_pattern))))))))
   (global_statement
     (if_statement
       condition: (is_pattern_expression
@@ -3069,8 +3070,75 @@ if (aa is [(name: A.B), ..]) { }
                 (constant_pattern
                   (member_access_expression
                     expression: (identifier)
-                    name: (identifier))))))))
+                    name: (identifier))))))
+          (slice_pattern)))
       consequence: (block))))
+
+================================================================================
+List pattern with slice subpatterns (C# 11)
+================================================================================
+
+class C {
+    string M(string s) => s switch {
+        ['"', .. var inner, '"'] => inner,
+        [.. List<int> all] => "list",
+        [a, .., b] => "bare",
+        _ => s,
+    };
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list
+          (parameter
+            type: (predefined_type)
+            name: (identifier)))
+        body: (arrow_expression_clause
+          (switch_expression
+            (identifier)
+            (switch_expression_arm
+              (list_pattern
+                (constant_pattern
+                  (character_literal
+                    (character_literal_content)))
+                (slice_pattern
+                  (declaration_pattern
+                    type: (implicit_type)
+                    name: (identifier)))
+                (constant_pattern
+                  (character_literal
+                    (character_literal_content))))
+              (identifier))
+            (switch_expression_arm
+              (list_pattern
+                (slice_pattern
+                  (declaration_pattern
+                    type: (generic_name
+                      (identifier)
+                      (type_argument_list
+                        (predefined_type)))
+                    name: (identifier))))
+              (string_literal
+                (string_literal_content)))
+            (switch_expression_arm
+              (list_pattern
+                (constant_pattern
+                  (identifier))
+                (slice_pattern)
+                (constant_pattern
+                  (identifier)))
+              (string_literal
+                (string_literal_content)))
+            (switch_expression_arm
+              (discard)
+              (identifier))))))))
 
 ================================================================================
 Conditional expression with member accesses

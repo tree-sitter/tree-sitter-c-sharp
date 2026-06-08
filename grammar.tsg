@@ -158,6 +158,7 @@ grammar {
 
         [lvalue_expression, _name],
         [parameter, lvalue_expression],
+        [lvalue_expression, non_lvalue_expression],
 
         [type, attribute],
         [type, nullable_type],
@@ -178,6 +179,13 @@ grammar {
         [constant_pattern, _name],
         [constant_pattern, lvalue_expression, _name],
 
+        [type, _name_invocation_pattern, recursive_pattern],
+        [attribute, type, _name_invocation_pattern, recursive_pattern],
+        [parenthesized_pattern, _parenthesized_pattern_with_designation],
+        [expression_element, argument],
+        [spread_element, range_expression],
+        [collection_expression, list_pattern],
+
         [_reserved_identifier, modifier],
         [_reserved_identifier, scoped_type],
         [_reserved_identifier, implicit_type],
@@ -197,6 +205,7 @@ grammar {
         [using_directive],
 
         [_constructor_declaration_initializer, _simple_name],
+        [receiver_parameter, scoped_type, _reserved_identifier],
     ],
 
     externals: [
@@ -212,6 +221,7 @@ grammar {
         raw_string_start,
         raw_string_end,
         raw_string_content,
+        _lambda_paren_open,
     ],
 
     extras: [
@@ -316,7 +326,7 @@ rule attribute_argument_list {
 
 rule attribute_argument {
     prec(-1, seq(
-        optional(seq(identifier, choice(":", "="))),
+        optional(prec(1, seq(field(name, identifier), choice(":", "=")))),
         expression,
     ))
 }
@@ -334,10 +344,10 @@ rule attribute_list {
 rule _attribute_list { choice(attribute_list, preproc_if_in_attribute_list) }
 
 rule attribute_target_specifier {
-    seq(
+    prec(1, seq(
         choice("field", "event", "method", "param", "property", "return", "type", "typevar"),
         ":",
-    )
+    ))
 }
 
 rule _namespace_member_declaration { choice(namespace_declaration, type_declaration) }
@@ -549,6 +559,8 @@ rule operator_declaration {
             "+", "-", "*", "/", "%", "^", "|", "&",
             "<<", ">>", ">>>", "==", "!=",
             ">", "<", ">=", "<=",
+            "+=", "-=", "*=", "/=", "%=", "^=", "|=", "&=",
+            "<<=", ">>=", ">>>=",
         )),
         field(parameters, parameter_list),
         _function_body,
@@ -590,7 +602,37 @@ rule declaration {
         property_declaration,
         using_directive,
         preproc_if,
+        extension_declaration,
     )
+}
+
+rule extension_declaration {
+    prec_dynamic(1, seq(
+        repeat(_attribute_list),
+        "extension",
+        optional(type_parameter_list),
+        "(",
+        receiver_parameter,
+        ")",
+        repeat(type_parameter_constraints_clause),
+        extension_body,
+    ))
+}
+
+rule receiver_parameter {
+    seq(
+        repeat(_attribute_list),
+        _parameter_type_with_modifiers,
+        optional(field(name, identifier)),
+    )
+}
+
+rule extension_body {
+    seq("{", repeat(_extension_member_declaration), "}", optional(";"))
+}
+
+rule _extension_member_declaration {
+    choice(method_declaration, property_declaration, operator_declaration)
 }
 
 rule field_declaration {
@@ -736,7 +778,7 @@ rule _parameter_array {
     seq(
         repeat(_attribute_list),
         "params",
-        field(type, choice(array_type, nullable_type)),
+        field(type, type),
         field(name, identifier),
     )
 }
@@ -1145,6 +1187,7 @@ rule pattern {
         recursive_pattern,
         var_pattern,
         negated_pattern,
+        prec_dynamic(1, alias(_parenthesized_pattern_with_designation, recursive_pattern)),
         parenthesized_pattern,
         relational_pattern,
         or_pattern,
@@ -1152,6 +1195,10 @@ rule pattern {
         list_pattern,
         type_pattern,
     )
+}
+
+rule _parenthesized_pattern_with_designation {
+    seq("(", pattern, ")", _variable_designation)
 }
 
 rule constant_pattern {
@@ -1166,11 +1213,30 @@ rule constant_pattern {
         tuple_expression,
         typeof_expression,
         member_access_expression,
-        invocation_expression,
+        alias(_name_invocation_pattern, invocation_expression),
+        alias(_complex_invocation_expression, invocation_expression),
         cast_expression,
         _simple_name,
         literal,
     )
+}
+
+rule _name_invocation_pattern {
+    seq(field(function, _name), field(arguments, argument_list))
+}
+
+rule _complex_invocation_expression {
+    prec(PREC.INVOCATION, seq(
+        field(function, choice(
+            member_access_expression,
+            element_access_expression,
+            invocation_expression,
+            parenthesized_expression,
+            conditional_access_expression,
+            cast_expression,
+        )),
+        field(arguments, argument_list),
+    ))
 }
 
 rule discard { "_" }
@@ -1184,20 +1250,44 @@ rule type_pattern { prec_right(0, field(type, type)) }
 rule list_pattern {
     prec_right(0, seq(
         "[",
-        optional(seq(comma_sep1(choice(pattern, "..")), optional(","))),
+        optional(seq(comma_sep1(choice(pattern, slice_pattern)), optional(","))),
         "]",
         optional(_variable_designation),
     ))
 }
 
+rule slice_pattern { prec_right(0, seq("..", optional(pattern))) }
+
 rule recursive_pattern {
-    prec_left(0, seq(
-        optional(field(type, type)),
-        choice(
-            seq(positional_pattern_clause, optional(property_pattern_clause)),
-            property_pattern_clause,
+    prec_left(0, choice(
+        prec_dynamic(1, seq(
+            field(type, _name),
+            positional_pattern_clause,
+            optional(property_pattern_clause),
+            _variable_designation,
+        )),
+        prec_dynamic(-1, seq(
+            field(type, _name),
+            positional_pattern_clause,
+            optional(property_pattern_clause),
+        )),
+        prec_dynamic(1, seq(positional_pattern_clause, _variable_designation)),
+        positional_pattern_clause,
+        seq(
+            field(type, type),
+            choice(
+                seq(positional_pattern_clause, optional(property_pattern_clause)),
+                property_pattern_clause,
+            ),
+            optional(_variable_designation),
         ),
-        optional(_variable_designation),
+        seq(
+            choice(
+                seq(positional_pattern_clause, property_pattern_clause),
+                property_pattern_clause,
+            ),
+            optional(_variable_designation),
+        ),
     ))
 }
 
@@ -1279,6 +1369,7 @@ rule non_lvalue_expression {
         as_expression,
         cast_expression,
         checked_expression,
+        collection_expression,
         switch_expression,
         throw_expression,
         default_expression,
@@ -1288,6 +1379,7 @@ rule non_lvalue_expression {
         typeof_expression,
         makeref_expression,
         ref_expression,
+        alias(_address_of_expression, prefix_unary_expression),
         reftype_expression,
         refvalue_expression,
         stackalloc_expression,
@@ -1314,7 +1406,12 @@ rule lvalue_expression {
         alias(bracketed_argument_list, element_binding_expression),
         alias(_pointer_indirection_expression, prefix_unary_expression),
         alias(_parenthesized_lvalue_expression, parenthesized_expression),
+        conditional_access_expression,
     )
+}
+
+rule _address_of_expression {
+    prec_right(PREC.UNARY, seq("&", lvalue_expression))
 }
 
 rule _expression_statement_expression {
@@ -1375,7 +1472,7 @@ rule postfix_unary_expression {
 
 rule prefix_unary_expression {
     prec(PREC.UNARY, seq(
-        choice("++", "--", "+", "-", "!", "~", "&", "^"),
+        choice("++", "--", "+", "-", "!", "~", "^"),
         expression,
     ))
 }
@@ -1610,7 +1707,25 @@ rule _lambda_expression_init {
 }
 
 rule _lambda_parameters {
-    prec(-1, choice(parameter_list, alias(identifier, implicit_parameter)))
+    prec(-1, choice(
+        parameter_list,
+        alias(identifier, implicit_parameter),
+        _implicit_parameter_list_with_modifiers,
+    ))
+}
+
+rule _implicit_parameter_list_with_modifiers {
+    seq(
+        _lambda_paren_open,
+        comma_sep1(choice(
+            seq(
+                repeat1(alias(choice("scoped", "ref", "out", "in", "readonly"), modifier)),
+                alias(identifier, implicit_parameter),
+            ),
+            alias(identifier, implicit_parameter),
+        )),
+        ")",
+    )
 }
 
 rule array_creation_expression {
@@ -1654,6 +1769,16 @@ rule implicit_object_creation_expression {
 rule implicit_stackalloc_expression {
     seq("stackalloc", "[", "]", initializer_expression)
 }
+
+rule collection_expression {
+    seq("[", optional(seq(comma_sep1(collection_element), optional(","))), "]")
+}
+
+rule collection_element { choice(expression_element, spread_element) }
+
+rule expression_element { prec(1, expression) }
+
+rule spread_element { prec_dynamic(1, prec(PREC.RANGE, seq("..", expression))) }
 
 rule initializer_expression {
     seq("{", comma_sep(expression), optional(","), "}")
@@ -1782,10 +1907,7 @@ rule string_literal {
 }
 
 rule string_literal_content {
-    choice(
-        token_immediate(prec(1, regexp(r#"[^"\\\n]+"#))),
-        prec(2, token_immediate(seq("\\", regexp(r#"[^abefnrtv'"\\\?0]"#)))),
-    )
+    token_immediate(prec(1, regexp(r#"[^"\\\n]+"#)))
 }
 
 rule escape_sequence {
@@ -1825,9 +1947,10 @@ rule identifier { choice(_identifier_token, _reserved_identifier) }
 
 rule _reserved_identifier {
     choice(
-        "alias", "ascending", "by", "descending", "equals", "file", "from",
-        "global", "group", "into", "join", "let", "notnull", "on", "orderby",
-        "scoped", "select", "unmanaged", "var", "when", "where", "yield",
+        "alias", "ascending", "by", "descending", "equals", "field", "file",
+        "from", "global", "group", "into", "join", "let", "method", "notnull",
+        "on", "orderby", "param", "property", "scoped", "select", "type",
+        "typevar", "unmanaged", "var", "when", "where", "yield",
     )
 }
 

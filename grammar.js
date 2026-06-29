@@ -829,7 +829,7 @@ export default grammar({
       field('name', $._simple_name),
     )),
 
-    generic_name: $ => seq($.identifier, $.type_argument_list),
+    generic_name: $ => prec.dynamic(PREC.GENERIC, seq($.identifier, $.type_argument_list)),
 
     type_argument_list: $ => seq(
       '<',

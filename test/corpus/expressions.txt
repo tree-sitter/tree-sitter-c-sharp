@@ -4765,3 +4765,70 @@ class C {
                     (constant_pattern
                       (integer_literal))
                     name: (identifier)))))))))))
+
+================================================================================
+Assign a comparison
+================================================================================
+
+var c = a < b;
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (binary_expression
+            left: (identifier)
+            right: (identifier)))))))
+
+================================================================================
+Assign a container
+================================================================================
+
+var a = new List<PointUi>();
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (object_creation_expression
+            type: (generic_name
+              (identifier)
+              (type_argument_list
+                (identifier)))
+            arguments: (argument_list)))))))
+
+================================================================================
+Assign a container initialized
+================================================================================
+
+var a = new List<PointUi>(points) { point };
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (object_creation_expression
+            type: (generic_name
+              (identifier)
+              (type_argument_list
+                (identifier)))
+            arguments: (argument_list
+              (argument
+                (identifier)))
+            initializer: (initializer_expression
+              (identifier))))))))

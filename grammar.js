@@ -762,7 +762,7 @@ export default grammar({
       optional(choice('ref', 'out', 'in')),
       choice(
         $.expression,
-        $.declaration_expression,
+        prec.dynamic(-1, $.declaration_expression),
       ),
     )),
 

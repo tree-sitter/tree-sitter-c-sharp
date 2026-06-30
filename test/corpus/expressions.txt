@@ -4432,3 +4432,70 @@ var a = new List<PointUi>(points) { point };
                 (identifier)))
             initializer: (initializer_expression
               (identifier))))))))
+
+================================================================================
+Multiplication in argument disambiguation
+================================================================================
+
+Math.Atan(t * pow_es);
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+   (global_statement
+     (expression_statement
+       (invocation_expression
+        function: (member_access_expression
+            expression: (identifier)
+            name: (identifier))
+        arguments: (argument_list
+           (argument
+             (binary_expression
+              left: (identifier)
+              right: (identifier))))))))
+
+================================================================================
+Declaration expression in argument
+================================================================================
+
+Stream.TryRead(buffer, out byte count);
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+   (global_statement
+     (expression_statement
+       (invocation_expression
+        function: (member_access_expression
+            expression: (identifier)
+            name: (identifier))
+        arguments: (argument_list
+           (argument
+             (identifier))
+           (argument
+             (declaration_expression
+              type: (predefined_type)
+              name: (identifier))))))))
+
+================================================================================
+Multiple multiplications in argument
+================================================================================
+
+Foo(a * b + c * d);
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+   (global_statement
+     (expression_statement
+       (invocation_expression
+        function: (identifier)
+        arguments: (argument_list
+           (argument
+             (binary_expression
+              left: (binary_expression
+                   left: (identifier)
+                   right: (identifier))
+              right: (binary_expression
+                   left: (identifier)
+                   right: (identifier)))))))))

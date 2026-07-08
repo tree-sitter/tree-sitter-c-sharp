@@ -2226,18 +2226,37 @@ export default grammar({
       /\n/,
     ),
 
+    preproc_string_literal: $ => token(choice(
+      seq(
+        '@"',
+        repeat(choice(
+          /[^"]/,
+          '""',
+        )),
+        '"',
+      ),
+      seq(
+        '"',
+        repeat(choice(
+          /[^"\\\n]/,
+          /\\./,
+        )),
+        '"',
+      ),
+    )),
+
     preproc_line: $ => seq(
       preprocessor('line'),
       choice(
         'default',
         'hidden',
-        seq($.integer_literal, optional($.string_literal)),
+        seq($.integer_literal, optional($.preproc_string_literal)),
         seq(
           '(', $.integer_literal, ',', $.integer_literal, ')',
           '-',
           '(', $.integer_literal, ',', $.integer_literal, ')',
           optional($.integer_literal),
-          $.string_literal,
+          $.preproc_string_literal,
         ),
       ),
       /\n/,

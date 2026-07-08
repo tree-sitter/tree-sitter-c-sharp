@@ -5073,7 +5073,7 @@
           "named": true
         },
         {
-          "type": "string_literal",
+          "type": "preproc_string_literal",
           "named": true
         }
       ]
@@ -7209,6 +7209,10 @@
   },
   {
     "type": "preproc_arg",
+    "named": true
+  },
+  {
+    "type": "preproc_string_literal",
     "named": true
   },
   {

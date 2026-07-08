@@ -1211,6 +1211,7 @@ export default grammar({
       repeat($._attribute_list),
       repeat($.modifier),
       field('type', $.type),
+      optional($.explicit_interface_specifier),
       field('name', $.identifier),
       field('type_parameters', optional($.type_parameter_list)),
       field('parameters', $.parameter_list),

@@ -127,7 +127,7 @@
 
 [
   (modifier)
-  "this"
+  (this)
   (implicit_type)
 ] @keyword
 
@@ -135,7 +135,7 @@
   "add"
   "alias"
   "as"
-  "base"
+  (base)
   "break"
   "case"
   "catch"

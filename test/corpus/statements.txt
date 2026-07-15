@@ -496,6 +496,7 @@ class A {
             (block
               (return_statement)))
           (lock_statement
+            (this)
             (block
               (return_statement)))
           (yield_statement
@@ -718,6 +719,7 @@ class A {
             body: (block
               (return_statement)))
           (using_statement
+            (this)
             body: (block
               (return_statement))))))))
 
@@ -1032,3 +1034,46 @@ ref T Choice(bool condition, ref T a, ref T b)
                       (identifier))
                     alternative: (ref_expression
                       (identifier))))))))))))
+
+================================================================================
+Explicit interface local function with attributes
+================================================================================
+
+[SomeAttribute()]
+void System.Windows.Markup.IComponentConnector.Connect(int connectionId, object target) {
+    this._contentLoaded = true;
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_function_statement
+      (attribute_list
+        (attribute
+          name: (identifier)
+          (attribute_argument_list)))
+      type: (predefined_type)
+      (explicit_interface_specifier
+        (qualified_name
+          qualifier: (qualified_name
+            qualifier: (qualified_name
+              qualifier: (identifier)
+              name: (identifier))
+            name: (identifier))
+          name: (identifier)))
+      name: (identifier)
+      parameters: (parameter_list
+        (parameter
+          type: (predefined_type)
+          name: (identifier))
+        (parameter
+          type: (predefined_type)
+          name: (identifier)))
+      body: (block
+        (expression_statement
+          (assignment_expression
+            left: (member_access_expression
+              expression: (this)
+              name: (identifier))
+            right: (boolean_literal)))))))

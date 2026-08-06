@@ -218,3 +218,66 @@ Shebang directive
 
 (compilation_unit
   (shebang_directive))
+
+================================================================================
+Preprocesser directive in a conditional base list
+================================================================================
+
+interface IMarker { }
+
+class C 
+#if INCLUDE_BASE
+    : IMarker
+#endif
+{ }
+
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (interface_declaration
+    name: (identifier)
+    body: (declaration_list))
+  (class_declaration
+    name: (identifier)
+    (preproc_if
+      condition: (identifier)
+      (base_list
+        (identifier)))
+    body: (declaration_list)))
+
+================================================================================
+Preprocessor-controlled braces inside a method
+================================================================================
+
+class C 
+{
+    int M()
+    {
+#if INCLUDE_SCOPE
+        {
+#endif
+        return 1;
+#if INCLUDE_SCOPE
+        }
+#endif
+    }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (block
+          (preproc_if
+            condition: (identifier))
+          (return_statement
+            (integer_literal))
+          (preproc_if
+            condition: (identifier)))))))

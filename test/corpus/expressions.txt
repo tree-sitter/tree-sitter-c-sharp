@@ -391,6 +391,92 @@ var x = new A
         right: (integer_literal)))))
 
 ================================================================================
+Assignment through a cast pointer
+================================================================================
+
+unsafe class C
+{
+    void M(byte* ptr)
+    {
+        *((uint*) ptr) = 1;
+        *(ulong*) ptr = 2;
+    }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    (modifier)
+    name: (identifier)
+    body: (declaration_list
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list
+          (parameter
+            type: (pointer_type
+              type: (predefined_type))
+            name: (identifier)))
+        body: (block
+          (expression_statement
+            (assignment_expression
+              left: (prefix_unary_expression
+                (parenthesized_expression
+                  (cast_expression
+                    type: (pointer_type
+                      type: (predefined_type))
+                    value: (identifier))))
+              right: (integer_literal)))
+          (expression_statement
+            (assignment_expression
+              left: (prefix_unary_expression
+                (cast_expression
+                  type: (pointer_type
+                    type: (predefined_type))
+                  value: (identifier)))
+              right: (integer_literal))))))))
+
+================================================================================
+Assignment to a ref-return expression
+================================================================================
+
+class C 
+{
+    ref int Slot() => throw null;
+    void M(in int value) => Slot() = value;
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (method_declaration
+        returns: (ref_type
+          type: (predefined_type))
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (arrow_expression_clause
+          (throw_expression
+            (null_literal))))
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list
+          (parameter
+            (modifier)
+            type: (predefined_type)
+            name: (identifier)))
+        body: (arrow_expression_clause
+          (assignment_expression
+            left: (invocation_expression
+              function: (identifier)
+              arguments: (argument_list))
+            right: (identifier)))))))
+
+================================================================================
 Ternary Expression
 ================================================================================
 
@@ -1375,6 +1461,76 @@ MyIntDelegate a = (ref int i) => i + 1;
             body: (binary_expression
               left: (identifier)
               right: (integer_literal))))))))
+
+================================================================================
+Explicit parameter modifiers in lambdas
+================================================================================
+
+delegate int InCallback(in int value);
+delegate int OutCallback(out int value);
+
+class c
+{
+    void M()
+    {
+        InCallback read = (in int value) => value;
+        OutCallback write = (out int value) => value = 1;
+    }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (delegate_declaration
+    type: (predefined_type)
+    name: (identifier)
+    parameters: (parameter_list
+      (parameter
+        (modifier)
+        type: (predefined_type)
+        name: (identifier))))
+  (delegate_declaration
+    type: (predefined_type)
+    name: (identifier)
+    parameters: (parameter_list
+      (parameter
+        (modifier)
+        type: (predefined_type)
+        name: (identifier))))
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (block
+          (local_declaration_statement
+            (variable_declaration
+              type: (identifier)
+              (variable_declarator
+                name: (identifier)
+                (lambda_expression
+                  parameters: (parameter_list
+                    (parameter
+                      (modifier)
+                      type: (predefined_type)
+                      name: (identifier)))
+                  body: (identifier)))))
+          (local_declaration_statement
+            (variable_declaration
+              type: (identifier)
+              (variable_declarator
+                name: (identifier)
+                (lambda_expression
+                  parameters: (parameter_list
+                    (parameter
+                      (modifier)
+                      type: (predefined_type)
+                      name: (identifier)))
+                  body: (assignment_expression
+                    left: (identifier)
+                    right: (integer_literal)))))))))))
 
 ================================================================================
 Invocation expressions

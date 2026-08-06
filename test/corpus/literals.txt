@@ -882,3 +882,67 @@ var s = $$"""
               (interpolation_brace))
             (string_content)
             (interpolation_quote)))))))
+
+================================================================================
+Nested braces in an interpolated string
+================================================================================
+
+class C 
+{
+    string M(object value) => $"{{{string.Join(", ", value)}}}";
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list
+          (parameter
+            type: (predefined_type)
+            name: (identifier)))
+        body: (arrow_expression_clause
+          (interpolated_string_expression
+            (interpolation_start)
+            (string_content)
+            (interpolation
+              (interpolation_brace)
+              (invocation_expression
+                function: (member_access_expression
+                  expression: (predefined_type)
+                  name: (identifier))
+                arguments: (argument_list
+                  (argument
+                    (string_literal
+                      (string_literal_content)))
+                  (argument
+                    (identifier))))
+              (interpolation_brace))
+            (string_content)))))))
+
+================================================================================
+Empty interpolated string
+================================================================================
+
+class C 
+{
+    string M() => $"";
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (arrow_expression_clause
+          (interpolated_string_expression
+            (interpolation_start)))))))

@@ -587,3 +587,35 @@ class nameof { }
   (class_declaration
     name: (identifier)
     body: (declaration_list)))
+
+================================================================================
+`required` used as an ordinary identifier
+================================================================================
+
+class C 
+{
+    void M(out bool required)
+    {
+        required = true;
+    }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list
+          (parameter
+            (modifier)
+            type: (predefined_type)
+            name: (identifier)))
+        body: (block
+          (expression_statement
+            (assignment_expression
+              left: (identifier)
+              right: (boolean_literal))))))))

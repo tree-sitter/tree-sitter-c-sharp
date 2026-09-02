@@ -15,6 +15,12 @@ ref struct Test { }
 struct NoBody;
 
 private struct NoBodyWithPrimary(int g);
+
+ref partial struct RefPartial { }
+
+public ref partial struct MessagePackReader { }
+
+internal ref partial struct SequenceReader<T> { }
 --------------------------------------------------------------------------------
 
 (compilation_unit
@@ -78,4 +84,18 @@ private struct NoBodyWithPrimary(int g);
     (parameter_list
       (parameter
         type: (predefined_type)
-        name: (identifier)))))
+        name: (identifier))))
+  (struct_declaration
+    name: (identifier)
+    body: (declaration_list))
+  (struct_declaration
+    (modifier)
+    name: (identifier)
+    body: (declaration_list))
+  (struct_declaration
+    (modifier)
+    name: (identifier)
+    (type_parameter_list
+      (type_parameter
+        name: (identifier)))
+    body: (declaration_list)))

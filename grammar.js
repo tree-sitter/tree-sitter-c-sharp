@@ -313,7 +313,10 @@ export default grammar({
     _struct_declaration_initializer: $ => seq(
       repeat($._attribute_list),
       repeat($.modifier),
-      optional('ref'),
+      // C# requires `partial` to be the LAST modifier before the type keyword,
+      // so the legal order is `ref partial struct` — `ref` cannot live inside
+      // the modifier repeat without swallowing ref types elsewhere.
+      optional(seq('ref', optional('partial'))),
       'struct',
       field('name', $.identifier),
       repeat(choice($.type_parameter_list, $.parameter_list, $.base_list)),

@@ -2812,6 +2812,7 @@ var x = !this.Call();
           (prefix_unary_expression
             (invocation_expression
               function: (member_access_expression
+                expression: (this)
                 name: (identifier))
               arguments: (argument_list))))))))
 
@@ -4364,3 +4365,137 @@ class C { void M() {
                     type: (identifier))
                   value: (prefix_unary_expression
                     (integer_literal)))))))))))
+
+================================================================================
+Assign a comparison
+================================================================================
+
+var c = a < b;
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (binary_expression
+            left: (identifier)
+            right: (identifier)))))))
+
+================================================================================
+Assign a container
+================================================================================
+
+var a = new List<PointUi>();
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (object_creation_expression
+            type: (generic_name
+              (identifier)
+              (type_argument_list
+                (identifier)))
+            arguments: (argument_list)))))))
+
+================================================================================
+Assign a container initialized
+================================================================================
+
+var a = new List<PointUi>(points) { point };
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (object_creation_expression
+            type: (generic_name
+              (identifier)
+              (type_argument_list
+                (identifier)))
+            arguments: (argument_list
+              (argument
+                (identifier)))
+            initializer: (initializer_expression
+              (identifier))))))))
+
+================================================================================
+Multiplication in argument disambiguation
+================================================================================
+
+Math.Atan(t * pow_es);
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+   (global_statement
+     (expression_statement
+       (invocation_expression
+        function: (member_access_expression
+            expression: (identifier)
+            name: (identifier))
+        arguments: (argument_list
+           (argument
+             (binary_expression
+              left: (identifier)
+              right: (identifier))))))))
+
+================================================================================
+Declaration expression in argument
+================================================================================
+
+Stream.TryRead(buffer, out byte count);
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+   (global_statement
+     (expression_statement
+       (invocation_expression
+        function: (member_access_expression
+            expression: (identifier)
+            name: (identifier))
+        arguments: (argument_list
+           (argument
+             (identifier))
+           (argument
+             (declaration_expression
+              type: (predefined_type)
+              name: (identifier))))))))
+
+================================================================================
+Multiple multiplications in argument
+================================================================================
+
+Foo(a * b + c * d);
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+   (global_statement
+     (expression_statement
+       (invocation_expression
+        function: (identifier)
+        arguments: (argument_list
+           (argument
+             (binary_expression
+              left: (binary_expression
+                   left: (identifier)
+                   right: (identifier))
+              right: (binary_expression
+                   left: (identifier)
+                   right: (identifier)))))))))

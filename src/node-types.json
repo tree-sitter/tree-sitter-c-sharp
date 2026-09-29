@@ -175,7 +175,7 @@
       },
       {
         "type": "this",
-        "named": false
+        "named": true
       },
       {
         "type": "tuple_expression",
@@ -213,7 +213,7 @@
       },
       {
         "type": "base",
-        "named": false
+        "named": true
       },
       {
         "type": "binary_expression",
@@ -1987,11 +1987,19 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
           "type": "argument_list",
+          "named": true
+        },
+        {
+          "type": "base",
+          "named": true
+        },
+        {
+          "type": "this",
           "named": true
         }
       ]
@@ -3251,7 +3259,7 @@
     },
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "attribute_list",
@@ -3267,6 +3275,10 @@
         },
         {
           "type": "preproc_if_in_attribute_list",
+          "named": true
+        },
+        {
+          "type": "this",
           "named": true
         }
       ]
@@ -3834,6 +3846,10 @@
       "types": [
         {
           "type": "attribute_list",
+          "named": true
+        },
+        {
+          "type": "explicit_interface_specifier",
           "named": true
         },
         {
@@ -5057,7 +5073,7 @@
           "named": true
         },
         {
-          "type": "string_literal",
+          "type": "preproc_string_literal",
           "named": true
         }
       ]
@@ -6900,7 +6916,7 @@
   },
   {
     "type": "base",
-    "named": false
+    "named": true
   },
   {
     "type": "break",
@@ -7196,6 +7212,10 @@
     "named": true
   },
   {
+    "type": "preproc_string_literal",
+    "named": true
+  },
+  {
     "type": "private",
     "named": false
   },
@@ -7309,7 +7329,7 @@
   },
   {
     "type": "this",
-    "named": false
+    "named": true
   },
   {
     "type": "throw",

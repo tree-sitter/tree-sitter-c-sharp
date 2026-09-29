@@ -147,8 +147,7 @@ class Of1879 {
         body: (block
           (preproc_line
             (integer_literal)
-            (string_literal
-              (string_literal_content))
+            (preproc_string_literal)
             (comment))
           (preproc_line)
           (preproc_line)
@@ -158,19 +157,16 @@ class Of1879 {
             (integer_literal)
             (integer_literal)
             (integer_literal)
-            (string_literal
-              (string_literal_content)))
+            (preproc_string_literal))
           (preproc_line
             (integer_literal)
             (integer_literal)
             (integer_literal)
             (integer_literal)
-            (string_literal
-              (string_literal_content)))
+            (preproc_string_literal))
           (preproc_line
             (integer_literal)
-            (string_literal
-              (string_literal_content)))
+            (preproc_string_literal))
           (preproc_line)
           (preproc_line))))))
 
@@ -218,3 +214,50 @@ Shebang directive
 
 (compilation_unit
   (shebang_directive))
+
+================================================================================
+#line with verbatim and backslash strings
+================================================================================
+
+class Test {
+  void M() {
+#line 10 "normal.cs"
+#line 20 @"verbatim\path.cs"
+#line 30 "raw\path.cs"
+#line (1,1)-(5,60) "span.cs"
+#line (1,1)-(5,60) @"span\verbatim.cs"
+  }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (block
+          (preproc_line
+            (integer_literal)
+            (preproc_string_literal))
+          (preproc_line
+            (integer_literal)
+            (preproc_string_literal))
+          (preproc_line
+            (integer_literal)
+            (preproc_string_literal))
+          (preproc_line
+            (integer_literal)
+            (integer_literal)
+            (integer_literal)
+            (integer_literal)
+            (preproc_string_literal))
+          (preproc_line
+            (integer_literal)
+            (integer_literal)
+            (integer_literal)
+            (integer_literal)
+            (preproc_string_literal)))))))

@@ -159,6 +159,7 @@ private interface NoBody;
                 name: (identifier))))
           (indexer_declaration
             type: (predefined_type)
+            (this)
             parameters: (bracketed_parameter_list
               (parameter
                 type: (predefined_type)

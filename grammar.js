@@ -674,7 +674,7 @@ export default grammar({
       repeat($.modifier),
       field('type', $.type),
       optional($.explicit_interface_specifier),
-      'this',
+      $.this,
       field('parameters', $.bracketed_parameter_list),
       choice(
         field('accessors', $.accessor_list),
@@ -719,7 +719,7 @@ export default grammar({
 
     _parameter_type_with_modifiers: $ => seq(
       repeat(prec.left(alias(
-        choice('this', 'scoped', 'ref', 'out', 'in', 'readonly'),
+        choice($.this, 'scoped', 'ref', 'out', 'in', 'readonly'),
         $.modifier,
       ))),
       field('type', $.type),
@@ -741,7 +741,7 @@ export default grammar({
 
     constructor_initializer: $ => seq(
       ':',
-      choice('base', 'this'),
+      choice($.base, $.this),
       $.argument_list,
     ),
 
@@ -762,7 +762,7 @@ export default grammar({
       optional(choice('ref', 'out', 'in')),
       choice(
         $.expression,
-        $.declaration_expression,
+        prec.dynamic(-1, $.declaration_expression),
       ),
     )),
 
@@ -829,7 +829,7 @@ export default grammar({
       field('name', $._simple_name),
     )),
 
-    generic_name: $ => seq($.identifier, $.type_argument_list),
+    generic_name: $ => prec.dynamic(PREC.GENERIC, seq($.identifier, $.type_argument_list)),
 
     type_argument_list: $ => seq(
       '<',
@@ -1417,7 +1417,7 @@ export default grammar({
     ),
 
     non_lvalue_expression: $ => choice(
-      'base',
+      $.base,
       $.binary_expression,
       $.interpolated_string_expression,
       $.conditional_expression,
@@ -1460,7 +1460,7 @@ export default grammar({
     ),
 
     lvalue_expression: $ => choice(
-      'this',
+      $.this,
       $.member_access_expression,
       $.tuple_expression,
       $._simple_name,
@@ -2159,6 +2159,9 @@ export default grammar({
       'where',
       'yield',
     ),
+
+    this: _ => 'this',
+    base: _ => 'base',
 
     // Preprocessor
 

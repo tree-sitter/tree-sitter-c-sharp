@@ -2680,8 +2680,8 @@
           ]
         },
         {
-          "type": "STRING",
-          "value": "this"
+          "type": "SYMBOL",
+          "name": "this"
         },
         {
           "type": "FIELD",
@@ -2993,8 +2993,8 @@
                 "type": "CHOICE",
                 "members": [
                   {
-                    "type": "STRING",
-                    "value": "this"
+                    "type": "SYMBOL",
+                    "name": "this"
                   },
                   {
                     "type": "STRING",
@@ -3129,12 +3129,12 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "STRING",
-              "value": "base"
+              "type": "SYMBOL",
+              "name": "base"
             },
             {
-              "type": "STRING",
-              "value": "this"
+              "type": "SYMBOL",
+              "name": "this"
             }
           ]
         },
@@ -3736,17 +3736,21 @@
       }
     },
     "generic_name": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "identifier"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "type_argument_list"
-        }
-      ]
+      "type": "PREC_DYNAMIC",
+      "value": 19,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "identifier"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "type_argument_list"
+          }
+        ]
+      }
     },
     "type_argument_list": {
       "type": "SEQ",
@@ -6728,8 +6732,8 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "STRING",
-          "value": "base"
+          "type": "SYMBOL",
+          "name": "base"
         },
         {
           "type": "SYMBOL",
@@ -6887,8 +6891,8 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "STRING",
-          "value": "this"
+          "type": "SYMBOL",
+          "name": "this"
         },
         {
           "type": "SYMBOL",
@@ -10746,6 +10750,14 @@
           "value": "yield"
         }
       ]
+    },
+    "this": {
+      "type": "STRING",
+      "value": "this"
+    },
+    "base": {
+      "type": "STRING",
+      "value": "base"
     },
     "preproc_if": {
       "type": "PREC",

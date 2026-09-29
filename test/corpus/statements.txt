@@ -496,6 +496,7 @@ class A {
             (block
               (return_statement)))
           (lock_statement
+            (this)
             (block
               (return_statement)))
           (yield_statement
@@ -718,6 +719,7 @@ class A {
             body: (block
               (return_statement)))
           (using_statement
+            (this)
             body: (block
               (return_statement))))))))
 

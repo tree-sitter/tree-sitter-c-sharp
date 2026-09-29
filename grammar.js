@@ -1209,11 +1209,23 @@ export default grammar({
 
     _local_function_declaration: $ => seq(
       repeat($._attribute_list),
-      repeat($.modifier),
-      field('type', $.type),
-      field('name', $.identifier),
-      field('type_parameters', optional($.type_parameter_list)),
-      field('parameters', $.parameter_list),
+      choice(
+        prec(2, seq(
+          alias('async', $.modifier),
+          repeat($.modifier),
+          field('type', $.type),
+          field('name', $.identifier),
+          field('type_parameters', optional($.type_parameter_list)),
+          field('parameters', $.parameter_list),
+        )),
+        seq(
+          repeat($.modifier),
+          field('type', $.type),
+          field('name', $.identifier),
+          field('type_parameters', optional($.type_parameter_list)),
+          field('parameters', $.parameter_list),
+        ),
+      ),
     ),
 
     pattern: $ => choice(
@@ -1825,7 +1837,7 @@ export default grammar({
 
     _lambda_expression_init: $ => prec(-1, seq(
       repeat($._attribute_list),
-      repeat(prec(-1, alias(choice('static', 'async'), $.modifier))),
+      repeat(prec(1, alias(choice('static', 'async'), $.modifier))),
       optional(field('type', $.type)),
       field('parameters', $._lambda_parameters),
     ),
@@ -1867,7 +1879,7 @@ export default grammar({
     )),
 
     anonymous_method_expression: $ => seq(
-      repeat(prec(-1, alias(choice('static', 'async'), $.modifier))),
+      repeat(prec(1, alias(choice('static', 'async'), $.modifier))),
       'delegate',
       optional(field('parameters', $.parameter_list)),
       $.block,
@@ -2124,6 +2136,7 @@ export default grammar({
 
     _reserved_identifier: _ => choice(
       'alias',
+      'async',
       'ascending',
       'by',
       'descending',

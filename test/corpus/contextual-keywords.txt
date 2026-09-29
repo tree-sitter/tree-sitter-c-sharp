@@ -587,3 +587,61 @@ class nameof { }
   (class_declaration
     name: (identifier)
     body: (declaration_list)))
+
+================================================================================
+Async contextual keyword
+================================================================================
+
+class C {
+    void M(bool async) {
+        Use(async);
+    }
+    async Task Run() => await Work();
+    Func<Task> callback = async () => await Work();
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list
+          (parameter
+            type: (predefined_type)
+            name: (identifier)))
+        body: (block
+          (expression_statement
+            (invocation_expression
+              function: (identifier)
+              arguments: (argument_list
+                (argument
+                  (identifier)))))))
+      (method_declaration
+        (modifier)
+        returns: (identifier)
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (arrow_expression_clause
+          (await_expression
+            (invocation_expression
+              function: (identifier)
+              arguments: (argument_list)))))
+      (field_declaration
+        (variable_declaration
+          type: (generic_name
+            (identifier)
+            (type_argument_list
+              (identifier)))
+          (variable_declarator
+            name: (identifier)
+            (lambda_expression
+              (modifier)
+              parameters: (parameter_list)
+              body: (await_expression
+                (invocation_expression
+                  function: (identifier)
+                  arguments: (argument_list))))))))))

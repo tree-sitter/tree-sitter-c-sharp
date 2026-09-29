@@ -714,8 +714,25 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "STRING",
-              "value": "ref"
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "ref"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "partial"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
             },
             {
               "type": "BLANK"

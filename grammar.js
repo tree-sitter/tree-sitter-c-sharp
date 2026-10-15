@@ -134,6 +134,7 @@ export default grammar({
     // simple-lambda parameter list (at least one element has a parameter
     // modifier) closed by ')=>'.
     $._lambda_paren_open,
+    $._conditional_member_question,
   ],
 
   extras: $ => [
@@ -1655,14 +1656,21 @@ export default grammar({
       field('alternative', $.expression),
     )),
 
-    conditional_access_expression: $ => prec.right(PREC.CONDITIONAL, seq(
-      field('condition', $.expression),
-      '?',
-      choice(
+    conditional_access_expression: $ => choice(
+      prec.right(PREC.DOT, seq(
+        field('condition', $.expression),
+        alias($._conditional_member_question, '?'),
         $.member_binding_expression,
-        alias($.bracketed_argument_list, $.element_binding_expression),
-      ),
-    )),
+      )),
+      prec.right(PREC.CONDITIONAL, seq(
+        field('condition', $.expression),
+        '?',
+        choice(
+          $.member_binding_expression,
+          alias($.bracketed_argument_list, $.element_binding_expression),
+        ),
+      )),
+    ),
 
     as_expression: $ => prec(PREC.REL, seq(
       field('left', $.expression),

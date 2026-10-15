@@ -3141,6 +3141,67 @@ class C {
               (identifier))))))))
 
 ================================================================================
+Logical or before conditional member access
+================================================================================
+
+var result = x || x?.C;
+var grouped = (x || y)?.C;
+var commented = x || y? /* member */ .C;
+var decimal = flag ?.5 : other;
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (binary_expression
+            left: (identifier)
+            right: (conditional_access_expression
+              condition: (identifier)
+              (member_binding_expression
+                name: (identifier))))))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (conditional_access_expression
+            condition: (parenthesized_expression
+              (binary_expression
+                left: (identifier)
+                right: (identifier)))
+            (member_binding_expression
+              name: (identifier)))))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (binary_expression
+            left: (identifier)
+            right: (conditional_access_expression
+              condition: (identifier)
+              (comment)
+              (member_binding_expression
+                name: (identifier))))))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (conditional_expression
+            condition: (identifier)
+            consequence: (real_literal)
+            alternative: (identifier)))))))
+
+================================================================================
 Conditional expression with member accesses
 ================================================================================
 

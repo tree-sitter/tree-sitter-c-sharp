@@ -142,6 +142,7 @@ export default grammar({
     $._lambda_paren_open,
     // `#if` immediately followed (after the condition line) by `else`.
     $._preproc_else_if_start,
+    $._conditional_member_question,
   ],
 
   extras: $ => [
@@ -1732,14 +1733,21 @@ export default grammar({
       field('alternative', $.expression),
     )),
 
-    conditional_access_expression: $ => prec.right(PREC.CONDITIONAL, seq(
-      field('condition', $.expression),
-      '?',
-      choice(
+    conditional_access_expression: $ => choice(
+      prec.right(PREC.DOT, seq(
+        field('condition', $.expression),
+        alias($._conditional_member_question, '?'),
         $.member_binding_expression,
-        alias($.bracketed_argument_list, $.element_binding_expression),
-      ),
-    )),
+      )),
+      prec.right(PREC.CONDITIONAL, seq(
+        field('condition', $.expression),
+        '?',
+        choice(
+          $.member_binding_expression,
+          alias($.bracketed_argument_list, $.element_binding_expression),
+        ),
+      )),
+    ),
 
     as_expression: $ => prec(PREC.REL, seq(
       field('left', $.expression),

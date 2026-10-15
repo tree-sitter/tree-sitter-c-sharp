@@ -8253,43 +8253,78 @@
       }
     },
     "conditional_access_expression": {
-      "type": "PREC_RIGHT",
-      "value": 2,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "FIELD",
-            "name": "condition",
-            "content": {
-              "type": "SYMBOL",
-              "name": "expression"
-            }
-          },
-          {
-            "type": "STRING",
-            "value": "?"
-          },
-          {
-            "type": "CHOICE",
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PREC_RIGHT",
+          "value": 18,
+          "content": {
+            "type": "SEQ",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "member_binding_expression"
+                "type": "FIELD",
+                "name": "condition",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "expression"
+                }
               },
               {
                 "type": "ALIAS",
                 "content": {
                   "type": "SYMBOL",
-                  "name": "bracketed_argument_list"
+                  "name": "_conditional_member_question"
                 },
-                "named": true,
-                "value": "element_binding_expression"
+                "named": false,
+                "value": "?"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "member_binding_expression"
               }
             ]
           }
-        ]
-      }
+        },
+        {
+          "type": "PREC_RIGHT",
+          "value": 2,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "condition",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "expression"
+                }
+              },
+              {
+                "type": "STRING",
+                "value": "?"
+              },
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "member_binding_expression"
+                  },
+                  {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "bracketed_argument_list"
+                    },
+                    "named": true,
+                    "value": "element_binding_expression"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
     },
     "as_expression": {
       "type": "PREC",
@@ -12758,6 +12793,10 @@
     {
       "type": "SYMBOL",
       "name": "_lambda_paren_open"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_conditional_member_question"
     }
   ],
   "inline": [

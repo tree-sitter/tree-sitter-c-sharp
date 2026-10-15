@@ -19,6 +19,7 @@ enum TokenType {
     RAW_STRING_END,
     RAW_STRING_CONTENT,
     LAMBDA_PAREN_OPEN,
+    CONDITIONAL_MEMBER_QUESTION,
 };
 
 typedef enum {
@@ -306,6 +307,37 @@ static LambdaScanResult scan_lambda_paren_open(TSLexer *lexer) {
 }
 #undef BAIL
 
+// Match the grammar extras independently of the process locale.
+static bool is_member_access_space(int32_t c) {
+    return (c >= '\t' && c <= '\r') || c == ' ' || c == 0xA0 || c == 0x3000 || c == 0xFEFF;
+}
+
+static bool skip_member_access_trivia(TSLexer *lexer) {
+    for (;;) {
+        while (is_member_access_space(lexer->lookahead)) advance(lexer);
+        if (lexer->lookahead != '/') return true;
+        advance(lexer);
+        if (lexer->lookahead == '/') {
+            while (lexer->lookahead != 0 && lexer->lookahead != '\n' && lexer->lookahead != '\r') {
+                advance(lexer);
+            }
+        } else if (lexer->lookahead == '*') {
+            advance(lexer);
+            for (;;) {
+                if (lexer->lookahead == 0) return false;
+                int32_t c = lexer->lookahead;
+                advance(lexer);
+                if (c == '*' && lexer->lookahead == '/') {
+                    advance(lexer);
+                    break;
+                }
+            }
+        } else {
+            return false;
+        }
+    }
+}
+
 bool tree_sitter_c_sharp_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
     Scanner *scanner = (Scanner *)payload;
 
@@ -336,6 +368,25 @@ bool tree_sitter_c_sharp_external_scanner_scan(void *payload, TSLexer *lexer, co
     // error recovery, gives better trees this way
     if (valid_symbols[OPT_SEMI] && valid_symbols[INTERPOLATION_REGULAR_START]) {
         return false;
+    }
+
+    if (valid_symbols[CONDITIONAL_MEMBER_QUESTION]) {
+        while (is_member_access_space(lexer->lookahead)) {
+            skip(lexer);
+        }
+        if (lexer->lookahead == '?') {
+            advance(lexer);
+            lexer->mark_end(lexer);
+            if (!skip_member_access_trivia(lexer)) return false;
+            if (lexer->lookahead == '.') {
+                advance(lexer);
+                if (lexer->lookahead < '0' || lexer->lookahead > '9') {
+                    lexer->result_symbol = CONDITIONAL_MEMBER_QUESTION;
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
     if (valid_symbols[OPT_SEMI]) {

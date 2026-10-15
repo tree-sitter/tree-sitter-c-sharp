@@ -6097,29 +6097,34 @@
       }
     },
     "slice_pattern": {
-      "type": "PREC_RIGHT",
-      "value": 0,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PREC",
+          "value": 17,
+          "content": {
             "type": "STRING",
             "value": ".."
-          },
-          {
-            "type": "CHOICE",
+          }
+        },
+        {
+          "type": "PREC_RIGHT",
+          "value": 0,
+          "content": {
+            "type": "SEQ",
             "members": [
+              {
+                "type": "STRING",
+                "value": ".."
+              },
               {
                 "type": "SYMBOL",
                 "name": "pattern"
-              },
-              {
-                "type": "BLANK"
               }
             ]
           }
-        ]
-      }
+        }
+      ]
     },
     "recursive_pattern": {
       "type": "PREC_LEFT",

@@ -3075,6 +3075,41 @@ if (aa is [(name: A.B), ..]) { }
       consequence: (block))))
 
 ================================================================================
+Slice-only list patterns before logical operators
+================================================================================
+
+var a = items is [..] && ready;
+var b = items is [..] || ready;
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (binary_expression
+            left: (is_pattern_expression
+              expression: (identifier)
+              pattern: (list_pattern
+                (slice_pattern)))
+            right: (identifier))))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (binary_expression
+            left: (is_pattern_expression
+              expression: (identifier)
+              pattern: (list_pattern
+                (slice_pattern)))
+            right: (identifier)))))))
+
+================================================================================
 List pattern with slice subpatterns (C# 11)
 ================================================================================
 

@@ -1299,10 +1299,10 @@ export default grammar({
     // C# 11 slice pattern: `..` optionally followed by a subpattern that
     // binds the captured slice. `[a, .. var rest, z]`, `[..]` (bare),
     // `[.. List<int> rest]` (declaration_pattern), etc.
-    slice_pattern: $ => prec.right(seq(
-      '..',
-      optional($.pattern),
-    )),
+    slice_pattern: $ => choice(
+      prec(PREC.RANGE + 1, '..'),
+      prec.right(seq('..', $.pattern)),
+    ),
 
     recursive_pattern: $ => prec.left(choice(
       // name followed by positional pattern WITH variable designation

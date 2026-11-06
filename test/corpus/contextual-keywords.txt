@@ -587,3 +587,69 @@ class nameof { }
   (class_declaration
     name: (identifier)
     body: (declaration_list)))
+
+================================================================================
+With and pattern combinator contextual keywords
+================================================================================
+
+void m()
+{
+    var with = items[0];
+    foreach (var with in items)
+    {
+        m(with);
+    }
+
+    var q = from not in tokens
+            from and in tokens
+            from or in tokens
+            select exp;
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_function_statement
+      type: (predefined_type)
+      name: (identifier)
+      parameters: (parameter_list)
+      body: (block
+        (local_declaration_statement
+          (variable_declaration
+            type: (implicit_type)
+            (variable_declarator
+              name: (identifier)
+              (element_access_expression
+                expression: (identifier)
+                subscript: (bracketed_argument_list
+                  (argument
+                    (integer_literal)))))))
+        (foreach_statement
+          type: (implicit_type)
+          left: (identifier)
+          right: (identifier)
+          body: (block
+            (expression_statement
+              (invocation_expression
+                function: (identifier)
+                arguments: (argument_list
+                  (argument
+                    (identifier)))))))
+        (local_declaration_statement
+          (variable_declaration
+            type: (implicit_type)
+            (variable_declarator
+              name: (identifier)
+              (query_expression
+                (from_clause
+                  name: (identifier)
+                  (identifier))
+                (from_clause
+                  name: (identifier)
+                  (identifier))
+                (from_clause
+                  name: (identifier)
+                  (identifier))
+                (select_clause
+                  (identifier))))))))))

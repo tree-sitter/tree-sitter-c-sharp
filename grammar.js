@@ -1585,7 +1585,7 @@ export default grammar({
     from_clause: $ => seq(
       'from',
       optional(field('type', $.type)),
-      field('name', $.identifier),
+      field('name', choice($.identifier, alias(choice('and', 'not', 'or'), $.identifier))),
       'in',
       $.expression,
     ),
@@ -2157,6 +2157,7 @@ export default grammar({
       'var',
       'when',
       'where',
+      'with',
       'yield',
     ),
 

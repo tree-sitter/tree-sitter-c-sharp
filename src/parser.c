@@ -14,7 +14,7 @@
 #pragma GCC optimize ("O0")
 #endif
 
-#define LANGUAGE_VERSION 15
+#define LANGUAGE_VERSION 14
 #define STATE_COUNT 8516
 #define LARGE_STATE_COUNT 4523
 #define SYMBOL_COUNT 542
@@ -25,7 +25,7 @@
 #define MAX_ALIAS_SEQUENCE_LENGTH 15
 #define MAX_RESERVED_WORD_SET_SIZE 0
 #define PRODUCTION_ID_COUNT 206
-#define SUPERTYPE_COUNT 9
+#define SUPERTYPE_COUNT 0
 
 enum ts_symbol_identifiers {
   sym__identifier_token = 1,
@@ -13416,192 +13416,6 @@ static const TSStateId ts_primary_state_ids[STATE_COUNT] = {
   [8515] = 8515,
 };
 
-static const TSSymbol ts_supertype_symbols[SUPERTYPE_COUNT] = {
-  sym_declaration,
-  sym_expression,
-  sym_literal,
-  sym_lvalue_expression,
-  sym_non_lvalue_expression,
-  sym_pattern,
-  sym_statement,
-  sym_type,
-  sym_type_declaration,
-};
-
-static const TSMapSlice ts_supertype_map_slices[] = {
-  [sym_declaration] = {.index = 0, .length = 20},
-  [sym_expression] = {.index = 20, .length = 2},
-  [sym_literal] = {.index = 22, .length = 8},
-  [sym_lvalue_expression] = {.index = 30, .length = 14},
-  [sym_non_lvalue_expression] = {.index = 44, .length = 46},
-  [sym_pattern] = {.index = 90, .length = 13},
-  [sym_statement] = {.index = 103, .length = 28},
-  [sym_type] = {.index = 131, .length = 13},
-  [sym_type_declaration] = {.index = 144, .length = 6},
-};
-
-static const TSSymbol ts_supertype_map_entries[] = {
-  [0] =
-    sym_class_declaration,
-    sym_constructor_declaration,
-    sym_conversion_operator_declaration,
-    sym_delegate_declaration,
-    sym_destructor_declaration,
-    sym_enum_declaration,
-    sym_event_declaration,
-    sym_event_field_declaration,
-    sym_extension_declaration,
-    sym_field_declaration,
-    sym_indexer_declaration,
-    sym_interface_declaration,
-    sym_method_declaration,
-    sym_namespace_declaration,
-    sym_operator_declaration,
-    sym_preproc_if,
-    sym_property_declaration,
-    sym_record_declaration,
-    sym_struct_declaration,
-    sym_using_directive,
-  [20] =
-    sym_lvalue_expression,
-    sym_non_lvalue_expression,
-  [22] =
-    sym_boolean_literal,
-    sym_character_literal,
-    sym_integer_literal,
-    sym_null_literal,
-    sym_raw_string_literal,
-    sym_real_literal,
-    sym_string_literal,
-    sym_verbatim_string_literal,
-  [30] =
-    alias_sym_element_binding_expression,
-    anon_sym_this,
-    sym__address_of_expression,
-    sym__parenthesized_lvalue_expression,
-    sym__pointer_indirection_expression,
-    sym_conditional_access_expression,
-    sym_element_access_expression,
-    sym_generic_name,
-    sym_identifier,
-    sym_member_access_expression,
-    sym_parenthesized_expression,
-    sym_prefix_unary_expression,
-    sym_preproc_parenthesized_expression,
-    sym_tuple_expression,
-  [44] =
-    anon_sym_base,
-    sym__address_of_expression,
-    sym__pointer_indirection_expression,
-    sym_anonymous_method_expression,
-    sym_anonymous_object_creation_expression,
-    sym_array_creation_expression,
-    sym_as_expression,
-    sym_assignment_expression,
-    sym_await_expression,
-    sym_binary_expression,
-    sym_cast_expression,
-    sym_checked_expression,
-    sym_collection_expression,
-    sym_conditional_access_expression,
-    sym_conditional_expression,
-    sym_default_expression,
-    sym_implicit_array_creation_expression,
-    sym_implicit_object_creation_expression,
-    sym_implicit_stackalloc_expression,
-    sym_initializer_expression,
-    sym_interpolated_string_expression,
-    sym_invocation_expression,
-    sym_is_expression,
-    sym_is_pattern_expression,
-    sym_lambda_expression,
-    sym_literal,
-    sym_makeref_expression,
-    sym_object_creation_expression,
-    sym_parenthesized_expression,
-    sym_postfix_unary_expression,
-    sym_prefix_unary_expression,
-    sym_preproc_if,
-    sym_preproc_if_in_enum_member_declaration,
-    sym_preproc_if_in_expression,
-    sym_preproc_if_in_top_level,
-    sym_query_expression,
-    sym_range_expression,
-    sym_ref_expression,
-    sym_reftype_expression,
-    sym_refvalue_expression,
-    sym_sizeof_expression,
-    sym_stackalloc_expression,
-    sym_switch_expression,
-    sym_throw_expression,
-    sym_typeof_expression,
-    sym_with_expression,
-  [90] =
-    sym__parenthesized_pattern_with_designation,
-    sym_and_pattern,
-    sym_constant_pattern,
-    sym_declaration_pattern,
-    sym_discard,
-    sym_list_pattern,
-    sym_negated_pattern,
-    sym_or_pattern,
-    sym_parenthesized_pattern,
-    sym_recursive_pattern,
-    sym_relational_pattern,
-    sym_type_pattern,
-    sym_var_pattern,
-  [103] =
-    sym_block,
-    sym_break_statement,
-    sym_checked_statement,
-    sym_continue_statement,
-    sym_do_statement,
-    sym_empty_statement,
-    sym_expression_statement,
-    sym_fixed_statement,
-    sym_for_statement,
-    sym_foreach_statement,
-    sym_goto_statement,
-    sym_if_statement,
-    sym_labeled_statement,
-    sym_local_declaration_statement,
-    sym_local_function_statement,
-    sym_lock_statement,
-    sym_preproc_if,
-    sym_preproc_if_in_enum_member_declaration,
-    sym_preproc_if_in_expression,
-    sym_preproc_if_in_top_level,
-    sym_return_statement,
-    sym_switch_statement,
-    sym_throw_statement,
-    sym_try_statement,
-    sym_unsafe_statement,
-    sym_using_statement,
-    sym_while_statement,
-    sym_yield_statement,
-  [131] =
-    sym_alias_qualified_name,
-    sym_array_type,
-    sym_function_pointer_type,
-    sym_generic_name,
-    sym_identifier,
-    sym_implicit_type,
-    sym_nullable_type,
-    sym_pointer_type,
-    sym_predefined_type,
-    sym_qualified_name,
-    sym_ref_type,
-    sym_scoped_type,
-    sym_tuple_type,
-  [144] =
-    sym_class_declaration,
-    sym_delegate_declaration,
-    sym_enum_declaration,
-    sym_interface_declaration,
-    sym_record_declaration,
-    sym_struct_declaration,
-};
-
 static const TSCharacterRange sym__identifier_token_character_set_2[] = {
   {'A', 'Z'}, {'\\', '\\'}, {'_', '_'}, {'a', 'z'}, {0xaa, 0xaa}, {0xb5, 0xb5}, {0xba, 0xba}, {0xc0, 0xd6},
   {0xd8, 0xf6}, {0xf8, 0x2c1}, {0x2c6, 0x2d1}, {0x2e0, 0x2e4}, {0x2ec, 0x2ec}, {0x2ee, 0x2ee}, {0x370, 0x374}, {0x376, 0x377},
@@ -18470,7 +18284,7 @@ static bool ts_lex_keywords(TSLexer *lexer, TSStateId state) {
   }
 }
 
-static const TSLexerMode ts_lex_modes[STATE_COUNT] = {
+static const TSLexMode ts_lex_modes[STATE_COUNT] = {
   [0] = {.lex_state = 0, .external_lex_state = 1},
   [1] = {.lex_state = 127, .external_lex_state = 2},
   [2] = {.lex_state = 127, .external_lex_state = 2},
@@ -888259,7 +888073,6 @@ TS_PUBLIC const TSLanguage *tree_sitter_c_sharp(void) {
     .state_count = STATE_COUNT,
     .large_state_count = LARGE_STATE_COUNT,
     .production_id_count = PRODUCTION_ID_COUNT,
-    .supertype_count = SUPERTYPE_COUNT,
     .field_count = FIELD_COUNT,
     .max_alias_sequence_length = MAX_ALIAS_SEQUENCE_LENGTH,
     .parse_table = &ts_parse_table[0][0],
@@ -888270,9 +888083,6 @@ TS_PUBLIC const TSLanguage *tree_sitter_c_sharp(void) {
     .field_names = ts_field_names,
     .field_map_slices = ts_field_map_slices,
     .field_map_entries = ts_field_map_entries,
-    .supertype_map_slices = ts_supertype_map_slices,
-    .supertype_map_entries = ts_supertype_map_entries,
-    .supertype_symbols = ts_supertype_symbols,
     .symbol_metadata = ts_symbol_metadata,
     .public_symbol_map = ts_symbol_map,
     .alias_map = ts_non_terminal_alias_map,
@@ -888291,13 +888101,6 @@ TS_PUBLIC const TSLanguage *tree_sitter_c_sharp(void) {
       tree_sitter_c_sharp_external_scanner_deserialize,
     },
     .primary_state_ids = ts_primary_state_ids,
-    .name = "c_sharp",
-    .max_reserved_word_set_size = 0,
-    .metadata = {
-      .major_version = 0,
-      .minor_version = 23,
-      .patch_version = 5,
-    },
   };
   return &language;
 }

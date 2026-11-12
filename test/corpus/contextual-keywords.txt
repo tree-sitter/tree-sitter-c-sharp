@@ -587,3 +587,413 @@ class nameof { }
   (class_declaration
     name: (identifier)
     body: (declaration_list)))
+
+================================================================================
+Partial, async and required as locals at statement start
+================================================================================
+
+class C {
+  void M(D partial, D async, D required) {
+    partial.X = null;
+    async.X = null;
+    required.X = null;
+    partial.Go();
+    async.Go();
+    required.Go();
+    partial(1);
+    async(1);
+    required(1);
+    partial[0] = 1;
+    async[0] = 1;
+    required[0] = 1;
+    partial = 1;
+    async = 1;
+    required = 1;
+  }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    (identifier)
+    (declaration_list
+      (method_declaration
+        (predefined_type)
+        (identifier)
+        (parameter_list
+          (parameter
+            (identifier)
+            (identifier))
+          (parameter
+            (identifier)
+            (identifier))
+          (parameter
+            (identifier)
+            (identifier)))
+        (block
+          (expression_statement
+            (assignment_expression
+              (member_access_expression
+                (identifier)
+                (identifier))
+              (null_literal)))
+          (expression_statement
+            (assignment_expression
+              (member_access_expression
+                (identifier)
+                (identifier))
+              (null_literal)))
+          (expression_statement
+            (assignment_expression
+              (member_access_expression
+                (identifier)
+                (identifier))
+              (null_literal)))
+          (expression_statement
+            (invocation_expression
+              (member_access_expression
+                (identifier)
+                (identifier))
+              (argument_list)))
+          (expression_statement
+            (invocation_expression
+              (member_access_expression
+                (identifier)
+                (identifier))
+              (argument_list)))
+          (expression_statement
+            (invocation_expression
+              (member_access_expression
+                (identifier)
+                (identifier))
+              (argument_list)))
+          (expression_statement
+            (invocation_expression
+              (identifier)
+              (argument_list
+                (argument
+                  (integer_literal)))))
+          (expression_statement
+            (invocation_expression
+              (identifier)
+              (argument_list
+                (argument
+                  (integer_literal)))))
+          (expression_statement
+            (invocation_expression
+              (identifier)
+              (argument_list
+                (argument
+                  (integer_literal)))))
+          (expression_statement
+            (assignment_expression
+              (element_access_expression
+                (identifier)
+                (bracketed_argument_list
+                  (argument
+                    (integer_literal))))
+              (integer_literal)))
+          (expression_statement
+            (assignment_expression
+              (element_access_expression
+                (identifier)
+                (bracketed_argument_list
+                  (argument
+                    (integer_literal))))
+              (integer_literal)))
+          (expression_statement
+            (assignment_expression
+              (element_access_expression
+                (identifier)
+                (bracketed_argument_list
+                  (argument
+                    (integer_literal))))
+              (integer_literal)))
+          (expression_statement
+            (assignment_expression
+              (identifier)
+              (integer_literal)))
+          (expression_statement
+            (assignment_expression
+              (identifier)
+              (integer_literal)))
+          (expression_statement
+            (assignment_expression
+              (identifier)
+              (integer_literal))))))))
+
+================================================================================
+Partial, async and required locals at the top level
+================================================================================
+
+var partial = Get();
+partial.Uris = null;
+async.Go();
+required = 2;
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        (implicit_type)
+        (variable_declarator
+          (identifier)
+          (invocation_expression
+            (identifier)
+            (argument_list))))))
+  (global_statement
+    (expression_statement
+      (assignment_expression
+        (member_access_expression
+          (identifier)
+          (identifier))
+        (null_literal))))
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        (member_access_expression
+          (identifier)
+          (identifier))
+        (argument_list))))
+  (global_statement
+    (expression_statement
+      (assignment_expression
+        (identifier)
+        (integer_literal)))))
+
+================================================================================
+Partial, async and required keep their modifier meaning
+================================================================================
+
+partial class A {
+  partial void M();
+  public async Task N() { }
+  async void O() { }
+  public required string P { get; set; }
+  required string F;
+  void Local() {
+    async Task L() { await Task.Yield(); }
+    static async Task S() { }
+    var f = async () => 1;
+    var g = async x => x;
+    var h = async delegate { };
+    var i = async (int x) => x;
+  }
+}
+partial struct B { }
+partial interface I { }
+partial record R;
+partial record struct RS;
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    (modifier)
+    (identifier)
+    (declaration_list
+      (method_declaration
+        (modifier)
+        (predefined_type)
+        (identifier)
+        (parameter_list))
+      (method_declaration
+        (modifier)
+        (modifier)
+        (identifier)
+        (identifier)
+        (parameter_list)
+        (block))
+      (method_declaration
+        (modifier)
+        (predefined_type)
+        (identifier)
+        (parameter_list)
+        (block))
+      (property_declaration
+        (modifier)
+        (modifier)
+        (predefined_type)
+        (identifier)
+        (accessor_list
+          (accessor_declaration)
+          (accessor_declaration)))
+      (field_declaration
+        (modifier)
+        (variable_declaration
+          (predefined_type)
+          (variable_declarator
+            (identifier))))
+      (method_declaration
+        (predefined_type)
+        (identifier)
+        (parameter_list)
+        (block
+          (local_function_statement
+            (modifier)
+            (identifier)
+            (identifier)
+            (parameter_list)
+            (block
+              (expression_statement
+                (await_expression
+                  (invocation_expression
+                    (member_access_expression
+                      (identifier)
+                      (identifier))
+                    (argument_list))))))
+          (local_function_statement
+            (modifier)
+            (modifier)
+            (identifier)
+            (identifier)
+            (parameter_list)
+            (block))
+          (local_declaration_statement
+            (variable_declaration
+              (implicit_type)
+              (variable_declarator
+                (identifier)
+                (lambda_expression
+                  (modifier)
+                  (parameter_list)
+                  (integer_literal)))))
+          (local_declaration_statement
+            (variable_declaration
+              (implicit_type)
+              (variable_declarator
+                (identifier)
+                (lambda_expression
+                  (modifier)
+                  (implicit_parameter)
+                  (identifier)))))
+          (local_declaration_statement
+            (variable_declaration
+              (implicit_type)
+              (variable_declarator
+                (identifier)
+                (anonymous_method_expression
+                  (modifier)
+                  (block)))))
+          (local_declaration_statement
+            (variable_declaration
+              (implicit_type)
+              (variable_declarator
+                (identifier)
+                (lambda_expression
+                  (modifier)
+                  (parameter_list
+                    (parameter
+                      (predefined_type)
+                      (identifier)))
+                  (identifier)))))))))
+  (struct_declaration
+    (modifier)
+    (identifier)
+    (declaration_list))
+  (interface_declaration
+    (modifier)
+    (identifier)
+    (declaration_list))
+  (record_declaration
+    (modifier)
+    (identifier))
+  (record_declaration
+    (modifier)
+    (identifier)))
+
+================================================================================
+Extension as a local at statement start, and as a C# 14 extension block
+================================================================================
+
+static class E {
+  extension(string s) { public int L => s.Length; }
+  static void M(D extension) {
+    extension.X = null;
+    extension.Go();
+    extension(1);
+    extension[0] = 1;
+    extension = 2;
+  }
+}
+var extension = Get();
+extension.Uris = null;
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    (modifier)
+    (identifier)
+    (declaration_list
+      (extension_declaration
+        (receiver_parameter
+          (predefined_type)
+          (identifier))
+        (extension_body
+          (property_declaration
+            (modifier)
+            (predefined_type)
+            (identifier)
+            (arrow_expression_clause
+              (member_access_expression
+                (identifier)
+                (identifier))))))
+      (method_declaration
+        (modifier)
+        (predefined_type)
+        (identifier)
+        (parameter_list
+          (parameter
+            (identifier)
+            (identifier)))
+        (block
+          (expression_statement
+            (assignment_expression
+              (member_access_expression
+                (identifier)
+                (identifier))
+              (null_literal)))
+          (expression_statement
+            (invocation_expression
+              (member_access_expression
+                (identifier)
+                (identifier))
+              (argument_list)))
+          (expression_statement
+            (invocation_expression
+              (identifier)
+              (argument_list
+                (argument
+                  (integer_literal)))))
+          (expression_statement
+            (assignment_expression
+              (element_access_expression
+                (identifier)
+                (bracketed_argument_list
+                  (argument
+                    (integer_literal))))
+              (integer_literal)))
+          (expression_statement
+            (assignment_expression
+              (identifier)
+              (integer_literal)))))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        (implicit_type)
+        (variable_declarator
+          (identifier)
+          (invocation_expression
+            (identifier)
+            (argument_list))))))
+  (global_statement
+    (expression_statement
+      (assignment_expression
+        (member_access_expression
+          (identifier)
+          (identifier))
+        (null_literal)))))

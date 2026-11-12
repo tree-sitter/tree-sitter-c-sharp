@@ -599,6 +599,17 @@ bool tree_sitter_c_sharp_external_scanner_scan(void *payload, TSLexer *lexer, co
                         (brace_advanced == 0 || lexer->lookahead != '{')) {
                         return did_advance;
                     }
+                    // `{{` is an escaped brace, and both braces are content. Take the second one
+                    // here and start counting again, so a `{` straight after the escape can still
+                    // open a hole: in `$"{{{x}}}"` the third `{` starts `{x}`. Without the reset
+                    // `brace_advanced` stays at the limit, the third `{` is read as content too,
+                    // and the hole's expression becomes string text.
+                    if (lexer->lookahead == '{') {
+                        advance(lexer);
+                        brace_advanced = 0;
+                        did_advance = true;
+                        continue;
+                    }
                 }
             }
 
@@ -621,6 +632,13 @@ bool tree_sitter_c_sharp_external_scanner_scan(void *payload, TSLexer *lexer, co
                         (brace_advanced == 0 || lexer->lookahead != '{')) { // if we're in a brace we're not allowed to
                                                                             // collect more than the open_brace_count
                         return did_advance;
+                    }
+                    // An escaped `{{`: see the verbatim branch above.
+                    if (lexer->lookahead == '{') {
+                        advance(lexer);
+                        brace_advanced = 0;
+                        did_advance = true;
+                        continue;
                     }
                 }
             }

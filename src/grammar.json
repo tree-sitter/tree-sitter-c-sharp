@@ -1377,92 +1377,96 @@
       ]
     },
     "modifier": {
-      "type": "PREC_RIGHT",
-      "value": 0,
+      "type": "PREC_DYNAMIC",
+      "value": 1,
       "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "STRING",
-            "value": "abstract"
-          },
-          {
-            "type": "STRING",
-            "value": "async"
-          },
-          {
-            "type": "STRING",
-            "value": "const"
-          },
-          {
-            "type": "STRING",
-            "value": "extern"
-          },
-          {
-            "type": "STRING",
-            "value": "file"
-          },
-          {
-            "type": "STRING",
-            "value": "fixed"
-          },
-          {
-            "type": "STRING",
-            "value": "internal"
-          },
-          {
-            "type": "STRING",
-            "value": "new"
-          },
-          {
-            "type": "STRING",
-            "value": "override"
-          },
-          {
-            "type": "STRING",
-            "value": "partial"
-          },
-          {
-            "type": "STRING",
-            "value": "private"
-          },
-          {
-            "type": "STRING",
-            "value": "protected"
-          },
-          {
-            "type": "STRING",
-            "value": "public"
-          },
-          {
-            "type": "STRING",
-            "value": "readonly"
-          },
-          {
-            "type": "STRING",
-            "value": "required"
-          },
-          {
-            "type": "STRING",
-            "value": "sealed"
-          },
-          {
-            "type": "STRING",
-            "value": "static"
-          },
-          {
-            "type": "STRING",
-            "value": "unsafe"
-          },
-          {
-            "type": "STRING",
-            "value": "virtual"
-          },
-          {
-            "type": "STRING",
-            "value": "volatile"
-          }
-        ]
+        "type": "PREC_RIGHT",
+        "value": 0,
+        "content": {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "abstract"
+            },
+            {
+              "type": "STRING",
+              "value": "async"
+            },
+            {
+              "type": "STRING",
+              "value": "const"
+            },
+            {
+              "type": "STRING",
+              "value": "extern"
+            },
+            {
+              "type": "STRING",
+              "value": "file"
+            },
+            {
+              "type": "STRING",
+              "value": "fixed"
+            },
+            {
+              "type": "STRING",
+              "value": "internal"
+            },
+            {
+              "type": "STRING",
+              "value": "new"
+            },
+            {
+              "type": "STRING",
+              "value": "override"
+            },
+            {
+              "type": "STRING",
+              "value": "partial"
+            },
+            {
+              "type": "STRING",
+              "value": "private"
+            },
+            {
+              "type": "STRING",
+              "value": "protected"
+            },
+            {
+              "type": "STRING",
+              "value": "public"
+            },
+            {
+              "type": "STRING",
+              "value": "readonly"
+            },
+            {
+              "type": "STRING",
+              "value": "required"
+            },
+            {
+              "type": "STRING",
+              "value": "sealed"
+            },
+            {
+              "type": "STRING",
+              "value": "static"
+            },
+            {
+              "type": "STRING",
+              "value": "unsafe"
+            },
+            {
+              "type": "STRING",
+              "value": "virtual"
+            },
+            {
+              "type": "STRING",
+              "value": "volatile"
+            }
+          ]
+        }
       }
     },
     "type_parameter_list": {
@@ -5989,7 +5993,7 @@
     },
     "type_pattern": {
       "type": "PREC_RIGHT",
-      "value": 0,
+      "value": 1,
       "content": {
         "type": "FIELD",
         "name": "type",
@@ -9133,26 +9137,22 @@
           {
             "type": "REPEAT",
             "content": {
-              "type": "PREC",
-              "value": -1,
+              "type": "ALIAS",
               "content": {
-                "type": "ALIAS",
-                "content": {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "STRING",
-                      "value": "static"
-                    },
-                    {
-                      "type": "STRING",
-                      "value": "async"
-                    }
-                  ]
-                },
-                "named": true,
-                "value": "modifier"
-              }
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "static"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "async"
+                  }
+                ]
+              },
+              "named": true,
+              "value": "modifier"
             }
           },
           {
@@ -9399,26 +9399,22 @@
         {
           "type": "REPEAT",
           "content": {
-            "type": "PREC",
-            "value": -1,
+            "type": "ALIAS",
             "content": {
-              "type": "ALIAS",
-              "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "static"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "async"
-                  }
-                ]
-              },
-              "named": true,
-              "value": "modifier"
-            }
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "static"
+                },
+                {
+                  "type": "STRING",
+                  "value": "async"
+                }
+              ]
+            },
+            "named": true,
+            "value": "modifier"
           }
         },
         {
@@ -10643,6 +10639,10 @@
         },
         {
           "type": "STRING",
+          "value": "async"
+        },
+        {
+          "type": "STRING",
           "value": "by"
         },
         {
@@ -10707,7 +10707,15 @@
         },
         {
           "type": "STRING",
+          "value": "partial"
+        },
+        {
+          "type": "STRING",
           "value": "property"
+        },
+        {
+          "type": "STRING",
+          "value": "required"
         },
         {
           "type": "STRING",
@@ -12493,10 +12501,6 @@
     ],
     [
       "tuple_element",
-      "type_pattern"
-    ],
-    [
-      "tuple_element",
       "using_variable_declarator"
     ],
     [
@@ -12616,6 +12620,38 @@
     [
       "_reserved_identifier",
       "modifier"
+    ],
+    [
+      "_lambda_expression_init",
+      "_reserved_identifier"
+    ],
+    [
+      "_reserved_identifier"
+    ],
+    [
+      "modifier",
+      "_lambda_expression_init"
+    ],
+    [
+      "_lambda_expression_init",
+      "anonymous_method_expression",
+      "_reserved_identifier"
+    ],
+    [
+      "modifier",
+      "_lambda_expression_init",
+      "anonymous_method_expression"
+    ],
+    [
+      "modifier",
+      "_lambda_expression_init",
+      "anonymous_method_expression",
+      "_reserved_identifier"
+    ],
+    [
+      "modifier",
+      "_lambda_expression_init",
+      "_reserved_identifier"
     ],
     [
       "_reserved_identifier",

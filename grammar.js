@@ -48,7 +48,6 @@ export default grammar({
     [$._simple_name, $.type_parameter],
     [$._simple_name, $.subpattern],
 
-    [$.tuple_element, $.type_pattern],
     [$.tuple_element, $.using_variable_declarator],
     [$.tuple_element, $.declaration_expression],
 
@@ -91,6 +90,17 @@ export default grammar({
     [$.collection_expression, $.list_pattern],
 
     [$._reserved_identifier, $.modifier],
+    // `partial`, `async` and `required` are also plain identifiers (a local
+    // named `partial` can start a statement). `async` is a lambda /
+    // anonymous-method modifier too, so the lambda rules do not use `prec(-1)`
+    // on it and GLR picks between modifier and identifier.
+    [$._lambda_expression_init, $._reserved_identifier],
+    [$._reserved_identifier],
+    [$.modifier, $._lambda_expression_init],
+    [$._lambda_expression_init, $.anonymous_method_expression, $._reserved_identifier],
+    [$.modifier, $._lambda_expression_init, $.anonymous_method_expression],
+    [$.modifier, $._lambda_expression_init, $.anonymous_method_expression, $._reserved_identifier],
+    [$.modifier, $._lambda_expression_init, $._reserved_identifier],
     [$._reserved_identifier, $.scoped_type],
     [$._reserved_identifier, $.implicit_type],
     [$._reserved_identifier, $.from_clause],
@@ -414,7 +424,7 @@ export default grammar({
       $.argument_list,
     ),
 
-    modifier: _ => prec.right(choice(
+    modifier: _ => prec.dynamic(1, prec.right(choice(
       'abstract',
       'async',
       'const',
@@ -438,7 +448,7 @@ export default grammar({
       'virtual',
       'volatile',
 
-    )),
+    ))),
 
     type_parameter_list: $ => seq('<', commaSep1($.type_parameter), '>'),
 
@@ -1284,7 +1294,9 @@ export default grammar({
 
     var_pattern: $ => seq('var', $._variable_designation),
 
-    type_pattern: $ => prec.right(field('type', $.type)),
+    // Precedence 1 keeps `case int when x:` reading `when` as the clause
+    // keyword, since `async` is also a `_reserved_identifier`.
+    type_pattern: $ => prec.right(1, field('type', $.type)),
 
     list_pattern: $ => prec.right(seq(
       '[',
@@ -1825,7 +1837,7 @@ export default grammar({
 
     _lambda_expression_init: $ => prec(-1, seq(
       repeat($._attribute_list),
-      repeat(prec(-1, alias(choice('static', 'async'), $.modifier))),
+      repeat(alias(choice('static', 'async'), $.modifier)),
       optional(field('type', $.type)),
       field('parameters', $._lambda_parameters),
     ),
@@ -1867,7 +1879,7 @@ export default grammar({
     )),
 
     anonymous_method_expression: $ => seq(
-      repeat(prec(-1, alias(choice('static', 'async'), $.modifier))),
+      repeat(alias(choice('static', 'async'), $.modifier)),
       'delegate',
       optional(field('parameters', $.parameter_list)),
       $.block,
@@ -2125,6 +2137,7 @@ export default grammar({
     _reserved_identifier: _ => choice(
       'alias',
       'ascending',
+      'async',
       'by',
       'descending',
       'equals',
@@ -2148,7 +2161,9 @@ export default grammar({
       'on',
       'orderby',
       'param',
+      'partial',
       'property',
+      'required',
       'scoped',
       'select',
       'type',

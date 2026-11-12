@@ -218,3 +218,534 @@ Shebang directive
 
 (compilation_unit
   (shebang_directive))
+
+================================================================================
+A block comment opener is text on a directive line
+================================================================================
+
+class C {
+#region /*
+  void A() {}
+#endregion // */
+#region a /* b
+  void B() {}
+#endregion
+#pragma warning disable CS0168 /*
+  void D() {}
+#warning /*
+  void E() {}
+// */
+#region // still a comment
+#endregion
+}
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    (identifier)
+    (declaration_list
+      (preproc_region
+        (preproc_arg))
+      (method_declaration
+        (predefined_type)
+        (identifier)
+        (parameter_list)
+        (block))
+      (preproc_endregion
+        (comment))
+      (preproc_region
+        (preproc_arg))
+      (method_declaration
+        (predefined_type)
+        (identifier)
+        (parameter_list)
+        (block))
+      (preproc_endregion)
+      (preproc_pragma
+        (identifier)
+        (preproc_arg))
+      (method_declaration
+        (predefined_type)
+        (identifier)
+        (parameter_list)
+        (block))
+      (preproc_warning
+        (preproc_arg))
+      (method_declaration
+        (predefined_type)
+        (identifier)
+        (parameter_list)
+        (block))
+      (comment)
+      (preproc_region
+        (comment))
+      (preproc_endregion))))
+
+================================================================================
+A comment holding a whole #if block is one comment
+================================================================================
+
+/*
+#if DEBUG
+  A();
+#else
+  B();
+#endif
+#region x
+*/
+class C {}
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (comment)
+  (class_declaration
+    (identifier)
+    (declaration_list)))
+
+================================================================================
+A comment holding an #endif it did not open is an error
+:error
+================================================================================
+
+class C {
+#if false
+/*
+#endif
+  void M() {}
+#if false
+*/
+#endif
+}
+--------------------------------------------------------------------------------
+
+
+
+================================================================================
+A comment inside #if holding an #else it did not open is an error
+:error
+================================================================================
+
+class C {
+#if X
+/*
+  #else
+*/
+  void M() {}
+#endif
+}
+--------------------------------------------------------------------------------
+
+
+
+================================================================================
+A comment in a statement holding an #elif it did not open is an error
+:error
+================================================================================
+
+class C {
+  void N() {
+#if false
+    /*
+#elif true
+    M();
+#endif
+#if false
+    */
+#endif
+  }
+}
+--------------------------------------------------------------------------------
+
+
+
+================================================================================
+A verbatim string holding an #endif it did not open is an error
+:error
+================================================================================
+
+class C {
+#if false
+  string s = @"
+#endif
+  void M() {}
+#if false
+";
+#endif
+}
+--------------------------------------------------------------------------------
+
+
+
+================================================================================
+A raw string holding an #endif it did not open is an error
+:error
+================================================================================
+
+class C {
+#if false
+  string s = """
+#endif
+  void M() {}
+#if false
+  """;
+#endif
+}
+--------------------------------------------------------------------------------
+
+
+
+================================================================================
+A comment on the line after a directive is its own node
+================================================================================
+
+#pragma warning disable A
+// a
+#region
+// b
+class C {
+#endregion
+// c
+#error x
+// d
+}
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (preproc_pragma
+    (identifier))
+  (comment)
+  (preproc_region)
+  (comment)
+  (class_declaration
+    (identifier)
+    (declaration_list
+      (preproc_endregion)
+      (comment)
+      (preproc_error
+        (preproc_arg))
+      (comment))))
+
+================================================================================
+Outside every #if, a token holding a directive line is what it looks like
+================================================================================
+
+class C {
+  /*
+#endif
+  */
+  string a = @"
+   #endif
+";
+  string b = """
+    #else
+    """;
+  int SENT1;
+}
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    (identifier)
+    (declaration_list
+      (comment)
+      (field_declaration
+        (variable_declaration
+          (predefined_type)
+          (variable_declarator
+            (identifier)
+            (verbatim_string_literal))))
+      (field_declaration
+        (variable_declaration
+          (predefined_type)
+          (variable_declarator
+            (identifier)
+            (raw_string_literal
+              (raw_string_start)
+              (raw_string_content)
+              (raw_string_end)))))
+      (field_declaration
+        (variable_declaration
+          (predefined_type)
+          (variable_declarator
+            (identifier)))))))
+
+================================================================================
+An interpolated verbatim string holding an #else in a skipped branch is an error
+:error
+================================================================================
+
+class C {
+  void M(int t) {
+#if false
+    var s = $@"
+#else
+    int SENT1; // ";
+#endif
+  }
+}
+--------------------------------------------------------------------------------
+
+
+
+================================================================================
+An interpolated raw string holding an #else in a skipped branch is an error
+:error
+================================================================================
+
+class C {
+  void M(int t) {
+#if false
+    var s = $"""
+#else
+    int SENT1; // """;
+#endif
+  }
+}
+--------------------------------------------------------------------------------
+
+
+
+================================================================================
+An interpolated verbatim string after a hole holding an #else in a skipped branch is an error
+:error
+================================================================================
+
+class C {
+  void M(int t) {
+#if false
+    var s = $@"{t}
+#else
+    int SENT1; // ";
+#endif
+  }
+}
+--------------------------------------------------------------------------------
+
+
+
+================================================================================
+A comment in a hole holding an #else in a skipped branch is an error
+:error
+================================================================================
+
+class C {
+  void M(int t) {
+#if false
+    var s = $"{t /*
+#else
+    int SENT1; // */}";
+#endif
+  }
+}
+--------------------------------------------------------------------------------
+
+
+
+================================================================================
+A comment inside #if leaving an #if open is an error
+:error
+================================================================================
+
+class C {
+#if X
+  /*
+#if Y
+  */
+  int SENT1;
+#endif
+}
+--------------------------------------------------------------------------------
+
+
+
+================================================================================
+Directive text ends at the line: no continuation, and bare #warning and #error
+================================================================================
+
+class C {
+#region a\
+  int A;
+#endregion
+  void M() {
+#warning
+  int B;
+#error
+  int C;
+  }
+}
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    (identifier)
+    (declaration_list
+      (preproc_region
+        (preproc_arg))
+      (field_declaration
+        (variable_declaration
+          (predefined_type)
+          (variable_declarator
+            (identifier))))
+      (preproc_endregion)
+      (method_declaration
+        (predefined_type)
+        (identifier)
+        (parameter_list)
+        (block
+          (preproc_warning)
+          (local_declaration_statement
+            (variable_declaration
+              (predefined_type)
+              (variable_declarator
+                (identifier))))
+          (preproc_error)
+          (local_declaration_statement
+            (variable_declaration
+              (predefined_type)
+              (variable_declarator
+                (identifier)))))))))
+
+================================================================================
+A line comment and directive text end at U+2028
+================================================================================
+
+class C {
+  // c   int SENT1;
+#region a   int SENT2;
+#endregion
+}
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    (identifier)
+    (declaration_list
+      (comment)
+      (field_declaration
+        (variable_declaration
+          (predefined_type)
+          (variable_declarator
+            (identifier))))
+      (preproc_region
+        (preproc_arg))
+      (field_declaration
+        (variable_declaration
+          (predefined_type)
+          (variable_declarator
+            (identifier))))
+      (preproc_endregion))))
+
+================================================================================
+An interpolated verbatim string leaving an #if open in a skipped branch is an error
+:error
+================================================================================
+
+class C {
+  void M(int t) {
+#if false
+    var s = $@"
+#if X
+";
+#endif
+    /*
+#endif
+    int SENT1 = 0; // */
+  }
+}
+--------------------------------------------------------------------------------
+
+
+
+================================================================================
+An interpolated raw string leaving an #if open in a skipped branch is an error
+:error
+================================================================================
+
+class C {
+  void M(int t) {
+#if false
+    var s = $"""
+#if X
+""";
+#endif
+    /*
+#endif
+    int SENT1 = 0; // */
+  }
+}
+--------------------------------------------------------------------------------
+
+
+
+================================================================================
+Interpolated content split by holes leaving an #if open in a skipped branch is an error
+:error
+================================================================================
+
+class C {
+  void M(int t) {
+#if false
+    var s = $@"{t}
+#if X
+{t}";
+#endif
+    /*
+#endif
+    int SENT1 = 0; // */
+  }
+}
+--------------------------------------------------------------------------------
+
+
+
+================================================================================
+An #if block split by a hole in interpolated content is balanced
+================================================================================
+
+class C {
+  void M(int t) {
+#if DEBUG
+    var s = $@"
+#if A
+{t}
+#endif
+";
+#endif
+    int SENT1 = 0;
+  }
+}
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    (identifier)
+    (declaration_list
+      (method_declaration
+        (predefined_type)
+        (identifier)
+        (parameter_list
+          (parameter
+            (predefined_type)
+            (identifier)))
+        (block
+          (preproc_if
+            (identifier)
+            (local_declaration_statement
+              (variable_declaration
+                (implicit_type)
+                (variable_declarator
+                  (identifier)
+                  (interpolated_string_expression
+                    (interpolation_start)
+                    (string_content)
+                    (interpolation
+                      (interpolation_brace)
+                      (identifier)
+                      (interpolation_brace))
+                    (string_content))))))
+          (local_declaration_statement
+            (variable_declaration
+              (predefined_type)
+              (variable_declarator
+                (identifier)
+                (integer_literal)))))))))

@@ -134,10 +134,27 @@ export default grammar({
     // simple-lambda parameter list (at least one element has a parameter
     // modifier) closed by ')=>'.
     $._lambda_paren_open,
+    // The start of `_skipped_text`, which can never complete. The scanner returns it for a
+    // `/* */` comment, verbatim string or raw string spanning a line that is an `#else`,
+    // `#elif` or `#endif` the token itself did not open with an `#if`. In a branch the
+    // compiler skips, that line ends the branch and the text after it is code, so no single
+    // tree is right: the token would hide code that compiles.
+    $._skipped_text_hazard,
+    // Never returned: what makes `_skipped_text` an error wherever it starts.
+    $._skipped_text_never,
+    // `/*` to the end of a directive line: text, not a comment (`#pragma` warns, CS1696, and
+    // goes on). External because an internal token starting with `/` there changes how the
+    // lexer splits the next line: `#region` then `// c` lexed `\n// c` as one comment.
+    $._preproc_trailing_text,
+    // Zero-width, after an `#if` line and before its `#endif`: they keep the scanner's count of
+    // the `#if` blocks it is inside, which `_skipped_text_hazard` needs. At depth 0 no branch
+    // can be skipped.
+    $._preproc_if_open,
+    $._preproc_if_close,
   ],
 
   extras: $ => [
-    /[\s\u00A0\uFEFF\u3000]+/,
+    /[\s\u00A0\uFEFF\u3000\u0085\u2028\u2029]+/,
     $.comment,
     $.preproc_region,
     $.preproc_endregion,
@@ -148,6 +165,7 @@ export default grammar({
     $.preproc_warning,
     $.preproc_define,
     $.preproc_undef,
+    $._skipped_text,
   ],
 
   inline: $ => [
@@ -2168,7 +2186,16 @@ export default grammar({
     ...preprocIf('_in_enum_member_declaration', $ => $.enum_member_declaration, 0, false),
     ...preprocIf('_in_attribute_list', $ => $.attribute_list, -1, false),
 
-    preproc_arg: _ => token(prec(-1, /\S([^/\n]|\/[^*]|\\\r?\n)*/)),
+    // A directive's text runs to the end of the line, any C# line break (C# has no `\`
+    // continuation, so `#region C:\x\` ends there). C# has no `/* */` comment on a directive
+    // line, so `/*` there is text: as a comment it hid every line up to the next `*/` from the
+    // tree while the compiler builds them. The scanner takes text that starts with `/*`
+    // (`_preproc_trailing_text`); a `//` at the start is still a comment, as the first token ranks
+    // below it.
+    preproc_arg: $ => choice(
+      token(prec(-1, /\S[^\r\n\u0085\u2028\u2029]*/)),
+      $._preproc_trailing_text,
+    ),
     preproc_directive: _ => /#[ \t]*[a-zA-Z0-9]\w*/,
 
     _preproc_expression: $ => choice(
@@ -2213,13 +2240,13 @@ export default grammar({
     preproc_region: $ => seq(
       preprocessor('region'),
       optional(field('content', $.preproc_arg)),
-      /\n/,
+      /[\n\u0085\u2028\u2029]/,
     ),
 
     preproc_endregion: $ => seq(
       preprocessor('endregion'),
       optional(field('content', $.preproc_arg)),
-      /\n/,
+      /[\n\u0085\u2028\u2029]/,
     ),
 
     preproc_line: $ => seq(
@@ -2236,7 +2263,7 @@ export default grammar({
           $.string_literal,
         ),
       ),
-      /\n/,
+      /[\n\u0085\u2028\u2029]/,
     ),
 
     preproc_pragma: $ => seq(
@@ -2251,44 +2278,49 @@ export default grammar({
             ))),
         seq('checksum', $.string_literal, $.string_literal, $.string_literal),
       ),
-      /\n/,
+      optional(alias($._preproc_trailing_text, $.preproc_arg)),
+      /[\n\u0085\u2028\u2029]/,
     ),
 
     preproc_nullable: _ => seq(
       preprocessor('nullable'),
       choice('enable', 'disable', 'restore'),
       optional(choice('annotations', 'warnings')),
-      /\n/,
+      /[\n\u0085\u2028\u2029]/,
     ),
 
     preproc_error: $ => seq(
       preprocessor('error'),
-      $.preproc_arg,
-      /\n/,
+      optional($.preproc_arg),
+      /[\n\u0085\u2028\u2029]/,
     ),
 
     preproc_warning: $ => seq(
       preprocessor('warning'),
-      $.preproc_arg,
-      /\n/,
+      optional($.preproc_arg),
+      /[\n\u0085\u2028\u2029]/,
     ),
 
     preproc_define: $ => seq(
       preprocessor('define'),
       $.preproc_arg,
-      /\n/,
+      /[\n\u0085\u2028\u2029]/,
     ),
 
     preproc_undef: $ => seq(
       preprocessor('undef'),
       $.preproc_arg,
-      /\n/,
+      /[\n\u0085\u2028\u2029]/,
     ),
+
+    // An extra so the scanner is asked about it in every state, and one that cannot complete,
+    // so a token it starts is always an ERROR: see `_skipped_text_hazard`.
+    _skipped_text: $ => seq($._skipped_text_hazard, $._skipped_text_never),
 
     shebang_directive: _ => token(seq('#!', /.*/)),
 
     comment: _ => token(choice(
-      seq('//', /[^\n\r]*/),
+      seq('//', /[^\n\r\u0085\u2028\u2029]*/),
       seq(
         '/*',
         /[^*]*\*+([^/*][^*]*\*+)*/,
@@ -2339,9 +2371,11 @@ function preprocIf(suffix, content, precedence = 0, rep = true) {
     ['preproc_if' + suffix]: $ => prec(precedence, seq(
       preprocessor('if'),
       field('condition', $._preproc_expression),
-      /\n/,
+      /[\n\u0085\u2028\u2029]/,
+      $._preproc_if_open,
       rep ? repeat(content($)) : optional(content($)),
       field('alternative', optional(alternativeBlock($))),
+      $._preproc_if_close,
       preprocessor('endif'),
     )),
 
@@ -2353,7 +2387,7 @@ function preprocIf(suffix, content, precedence = 0, rep = true) {
     ['preproc_elif' + suffix]: $ => prec(precedence, seq(
       preprocessor('elif'),
       field('condition', $._preproc_expression),
-      /\n/,
+      /[\n\u0085\u2028\u2029]/,
       rep ? repeat(content($)) : optional(content($)),
       field('alternative', optional(alternativeBlock($))),
     )),

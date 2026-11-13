@@ -1730,6 +1730,10 @@
         {
           "type": "collection_element",
           "named": true
+        },
+        {
+          "type": "preproc_if",
+          "named": true
         }
       ]
     }
@@ -3364,6 +3368,10 @@
         {
           "type": "expression",
           "named": true
+        },
+        {
+          "type": "preproc_if",
+          "named": true
         }
       ]
     }
@@ -4884,6 +4892,10 @@
           "named": true
         },
         {
+          "type": "collection_element",
+          "named": true
+        },
+        {
           "type": "declaration",
           "named": true
         },
@@ -4947,6 +4959,10 @@
       "types": [
         {
           "type": "attribute_list",
+          "named": true
+        },
+        {
+          "type": "collection_element",
           "named": true
         },
         {
@@ -5092,6 +5108,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "collection_element",
+          "named": true
+        },
         {
           "type": "declaration",
           "named": true

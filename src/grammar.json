@@ -2985,42 +2985,61 @@
         {
           "type": "REPEAT",
           "content": {
-            "type": "PREC_LEFT",
-            "value": 0,
-            "content": {
-              "type": "ALIAS",
-              "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "this"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "PREC_LEFT",
+                "value": 0,
+                "content": {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": "this"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "scoped"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "ref"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "readonly"
+                      }
+                    ]
                   },
-                  {
-                    "type": "STRING",
-                    "value": "scoped"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "ref"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "out"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "in"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "readonly"
-                  }
-                ]
+                  "named": true,
+                  "value": "modifier"
+                }
               },
-              "named": true,
-              "value": "modifier"
-            }
+              {
+                "type": "PREC_LEFT",
+                "value": 1,
+                "content": {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": "out"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "in"
+                      }
+                    ]
+                  },
+                  "named": true,
+                  "value": "modifier"
+                }
+              }
+            ]
           }
         },
         {

@@ -718,10 +718,12 @@ export default grammar({
     ),
 
     _parameter_type_with_modifiers: $ => seq(
-      repeat(prec.left(alias(
-        choice('this', 'scoped', 'ref', 'out', 'in', 'readonly'),
-        $.modifier,
-      ))),
+      repeat(choice(
+        prec.left(alias(choice('this', 'scoped', 'ref', 'readonly'), $.modifier)),
+        // `in`/`out` also start an `argument` (prec 1), which won the shift/reduce
+        // against this reduction and sent `(in T x) => ...` to ERROR.
+        prec.left(1, alias(choice('out', 'in'), $.modifier)),
+      )),
       field('type', $.type),
     ),
 

@@ -218,3 +218,366 @@ Shebang directive
 
 (compilation_unit
   (shebang_directive))
+
+================================================================================
+Else clause inside a preprocessor block
+================================================================================
+
+class C {
+  void M(object arg, bool hadHandler) {
+    if (!hadHandler) {
+      Refresh();
+    }
+#if DEBUG
+    else if (arg is not null) {
+      Log();
+    }
+#endif
+    if (a) { x = 1; }
+#if !NETFRAMEWORK
+    else if (Try(arg, out var v)) { x = v; }
+#else
+    else if (arg is double d) { x = 2; }
+    else if (arg is float f) { x = 3; }
+#endif
+    else if (arg is string s) { x = 4; }
+  }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list
+          (parameter
+            type: (predefined_type)
+            name: (identifier))
+          (parameter
+            type: (predefined_type)
+            name: (identifier)))
+        body: (block
+          (if_statement
+            condition: (prefix_unary_expression
+              (identifier))
+            consequence: (block
+              (expression_statement
+                (invocation_expression
+                  function: (identifier)
+                  arguments: (argument_list))))
+            (preproc_if
+              condition: (identifier)
+              (if_statement
+                condition: (is_pattern_expression
+                  expression: (identifier)
+                  pattern: (negated_pattern
+                    (constant_pattern
+                      (null_literal))))
+                consequence: (block
+                  (expression_statement
+                    (invocation_expression
+                      function: (identifier)
+                      arguments: (argument_list)))))))
+          (if_statement
+            condition: (identifier)
+            consequence: (block
+              (expression_statement
+                (assignment_expression
+                  left: (identifier)
+                  right: (integer_literal))))
+            (preproc_if
+              condition: (unary_expression
+                argument: (identifier))
+              (if_statement
+                condition: (invocation_expression
+                  function: (identifier)
+                  arguments: (argument_list
+                    (argument
+                      (identifier))
+                    (argument
+                      (declaration_expression
+                        type: (implicit_type)
+                        name: (identifier)))))
+                consequence: (block
+                  (expression_statement
+                    (assignment_expression
+                      left: (identifier)
+                      right: (identifier)))))
+              alternative: (preproc_else
+                (if_statement
+                  condition: (is_pattern_expression
+                    expression: (identifier)
+                    pattern: (declaration_pattern
+                      type: (predefined_type)
+                      name: (identifier)))
+                  consequence: (block
+                    (expression_statement
+                      (assignment_expression
+                        left: (identifier)
+                        right: (integer_literal))))
+                  alternative: (if_statement
+                    condition: (is_pattern_expression
+                      expression: (identifier)
+                      pattern: (declaration_pattern
+                        type: (predefined_type)
+                        name: (identifier)))
+                    consequence: (block
+                      (expression_statement
+                        (assignment_expression
+                          left: (identifier)
+                          right: (integer_literal))))))))
+            alternative: (if_statement
+              condition: (is_pattern_expression
+                expression: (identifier)
+                pattern: (declaration_pattern
+                  type: (predefined_type)
+                  name: (identifier)))
+              consequence: (block
+                (expression_statement
+                  (assignment_expression
+                    left: (identifier)
+                    right: (integer_literal)))))))))))
+
+================================================================================
+Statement-level #if after an if statement is not an else block
+================================================================================
+
+class C {
+  bool M(Type t) {
+    if (t == typeof(DateTime)) {
+      return true;
+    }
+#if HAVE_DATE_TIME_OFFSET
+    if (t == typeof(DateTimeOffset)) {
+      return true;
+    }
+#endif
+    if (a) b();
+    else c();
+    return false;
+  }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list
+          (parameter
+            type: (identifier)
+            name: (identifier)))
+        body: (block
+          (if_statement
+            condition: (binary_expression
+              left: (identifier)
+              right: (typeof_expression
+                type: (identifier)))
+            consequence: (block
+              (return_statement
+                (boolean_literal))))
+          (preproc_if
+            condition: (identifier)
+            (if_statement
+              condition: (binary_expression
+                left: (identifier)
+                right: (typeof_expression
+                  type: (identifier)))
+              consequence: (block
+                (return_statement
+                  (boolean_literal)))))
+          (if_statement
+            condition: (identifier)
+            consequence: (expression_statement
+              (invocation_expression
+                function: (identifier)
+                arguments: (argument_list)))
+            alternative: (expression_statement
+              (invocation_expression
+                function: (identifier)
+                arguments: (argument_list))))
+          (return_statement
+            (boolean_literal)))))))
+
+================================================================================
+Method body that differs per preprocessor branch
+================================================================================
+
+class C {
+  internal static T Convert<T>(object o)
+#if NETFRAMEWORK
+  {
+    return (T)o;
+  }
+#else
+      where T : INumber<T>
+  {
+    return T.CreateChecked(o);
+  }
+#endif
+
+  int Twice(int x)
+#if A
+    => x * 2;
+#else
+    { return x + x; }
+#endif
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (method_declaration
+        (modifier)
+        (modifier)
+        returns: (identifier)
+        name: (identifier)
+        type_parameters: (type_parameter_list
+          (type_parameter
+            name: (identifier)))
+        parameters: (parameter_list
+          (parameter
+            type: (predefined_type)
+            name: (identifier)))
+        (preproc_if
+          condition: (identifier)
+          body: (block
+            (return_statement
+              (cast_expression
+                type: (identifier)
+                value: (identifier))))
+          alternative: (preproc_else
+            (type_parameter_constraints_clause
+              (identifier)
+              (type_parameter_constraint
+                type: (generic_name
+                  (identifier)
+                  (type_argument_list
+                    (identifier)))))
+            body: (block
+              (return_statement
+                (invocation_expression
+                  function: (member_access_expression
+                    expression: (identifier)
+                    name: (identifier))
+                  arguments: (argument_list
+                    (argument
+                      (identifier)))))))))
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list
+          (parameter
+            type: (predefined_type)
+            name: (identifier)))
+        (preproc_if
+          condition: (identifier)
+          body: (arrow_expression_clause
+            (binary_expression
+              left: (identifier)
+              right: (integer_literal)))
+          alternative: (preproc_else
+            body: (block
+              (return_statement
+                (binary_expression
+                  left: (identifier)
+                  right: (identifier))))))))))
+
+================================================================================
+Return of a conditional whose arms end inside a preprocessor block
+================================================================================
+
+class C {
+  Task<int> ReadAsync(TextReader reader, CancellationToken ct) {
+    return ct.IsCancellationRequested ? FromCanceled<int>(ct) :
+#if NET6_0_OR_GREATER
+      reader.ReadAsync(buffer, ct).AsTask();
+#else
+      reader.ReadAsync(buffer);
+#endif
+  }
+  int Plain(bool a) {
+    return a ? 1 : 2;
+  }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (method_declaration
+        returns: (generic_name
+          (identifier)
+          (type_argument_list
+            (predefined_type)))
+        name: (identifier)
+        parameters: (parameter_list
+          (parameter
+            type: (identifier)
+            name: (identifier))
+          (parameter
+            type: (identifier)
+            name: (identifier)))
+        body: (block
+          (return_statement
+            (conditional_expression
+              condition: (member_access_expression
+                expression: (identifier)
+                name: (identifier))
+              consequence: (invocation_expression
+                function: (generic_name
+                  (identifier)
+                  (type_argument_list
+                    (predefined_type)))
+                arguments: (argument_list
+                  (argument
+                    (identifier))))
+              alternative: (preproc_if
+                condition: (identifier)
+                (invocation_expression
+                  function: (member_access_expression
+                    expression: (invocation_expression
+                      function: (member_access_expression
+                        expression: (identifier)
+                        name: (identifier))
+                      arguments: (argument_list
+                        (argument
+                          (identifier))
+                        (argument
+                          (identifier))))
+                    name: (identifier))
+                  arguments: (argument_list))
+                alternative: (preproc_else
+                  (invocation_expression
+                    function: (member_access_expression
+                      expression: (identifier)
+                      name: (identifier))
+                    arguments: (argument_list
+                      (argument
+                        (identifier))))))))))
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list
+          (parameter
+            type: (predefined_type)
+            name: (identifier)))
+        body: (block
+          (return_statement
+            (conditional_expression
+              condition: (identifier)
+              consequence: (integer_literal)
+              alternative: (integer_literal))))))))

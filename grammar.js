@@ -88,7 +88,7 @@ export default grammar({
 
     [$.expression_element, $.argument],
     [$.spread_element, $.range_expression],
-    [$.collection_expression, $.list_pattern],
+    [$._list_pattern_body, $.collection_expression],
 
     [$._reserved_identifier, $.modifier],
     [$._reserved_identifier, $.scoped_type],
@@ -1286,15 +1286,22 @@ export default grammar({
 
     type_pattern: $ => prec.right(field('type', $.type)),
 
-    list_pattern: $ => prec.right(seq(
+    // The designation-less form outranks the one with a designation so that, on
+    // `when`, the parser reduces here and lets `when_clause` take it instead of
+    // reading `when` as the designation: `[var a] when Is(a) => ...`.
+    list_pattern: $ => choice(
+      prec.right(2, $._list_pattern_body),
+      prec.right(1, seq($._list_pattern_body, $._variable_designation)),
+    ),
+
+    _list_pattern_body: $ => seq(
       '[',
       optional(seq(
         commaSep1(choice($.pattern, $.slice_pattern)),
         optional(','),
       )),
       ']',
-      optional($._variable_designation),
-    )),
+    ),
 
     // C# 11 slice pattern: `..` optionally followed by a subpattern that
     // binds the captured slice. `[a, .. var rest, z]`, `[..]` (bare),

@@ -4364,3 +4364,98 @@ class C { void M() {
                     type: (identifier))
                   value: (prefix_unary_expression
                     (integer_literal)))))))))))
+
+================================================================================
+List pattern followed by a when clause
+================================================================================
+
+class C {
+  void M(string[] path) {
+    var r = path switch {
+      [var background] when Is(background, "background") => 1,
+      [1, ..] when a.Is("b") => 2,
+      [var x, var y] => 3,
+      _ => 4,
+    };
+    var s = path is [1, 2] list;
+  }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list
+          (parameter
+            type: (array_type
+              type: (predefined_type)
+              rank: (array_rank_specifier))
+            name: (identifier)))
+        body: (block
+          (local_declaration_statement
+            (variable_declaration
+              type: (implicit_type)
+              (variable_declarator
+                name: (identifier)
+                (switch_expression
+                  (identifier)
+                  (switch_expression_arm
+                    (list_pattern
+                      (declaration_pattern
+                        type: (implicit_type)
+                        name: (identifier)))
+                    (when_clause
+                      (invocation_expression
+                        function: (identifier)
+                        arguments: (argument_list
+                          (argument
+                            (identifier))
+                          (argument
+                            (string_literal
+                              (string_literal_content))))))
+                    (integer_literal))
+                  (switch_expression_arm
+                    (list_pattern
+                      (constant_pattern
+                        (integer_literal))
+                      (slice_pattern))
+                    (when_clause
+                      (invocation_expression
+                        function: (member_access_expression
+                          expression: (identifier)
+                          name: (identifier))
+                        arguments: (argument_list
+                          (argument
+                            (string_literal
+                              (string_literal_content))))))
+                    (integer_literal))
+                  (switch_expression_arm
+                    (list_pattern
+                      (declaration_pattern
+                        type: (implicit_type)
+                        name: (identifier))
+                      (declaration_pattern
+                        type: (implicit_type)
+                        name: (identifier)))
+                    (integer_literal))
+                  (switch_expression_arm
+                    (discard)
+                    (integer_literal))))))
+          (local_declaration_statement
+            (variable_declaration
+              type: (implicit_type)
+              (variable_declarator
+                name: (identifier)
+                (is_pattern_expression
+                  expression: (identifier)
+                  pattern: (list_pattern
+                    (constant_pattern
+                      (integer_literal))
+                    (constant_pattern
+                      (integer_literal))
+                    name: (identifier)))))))))))

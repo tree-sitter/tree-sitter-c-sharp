@@ -134,6 +134,8 @@ export default grammar({
     // simple-lambda parameter list (at least one element has a parameter
     // modifier) closed by ')=>'.
     $._lambda_paren_open,
+    // `#if` immediately followed (after the condition line) by `else`.
+    $._preproc_else_if_start,
   ],
 
   extras: $ => [
@@ -771,6 +773,12 @@ export default grammar({
     arrow_expression_clause: $ => seq('=>', $.expression),
 
     _function_body: $ => choice(
+      $._plain_function_body,
+      // `void M() #if A { } #else => x; #endif`: the body differs per branch.
+      alias($.preproc_if_in_function_body, $.preproc_if),
+    ),
+
+    _plain_function_body: $ => choice(
       field('body', $.block),
       seq(field('body', $.arrow_expression_clause), ';'),
       ';',
@@ -1056,7 +1064,22 @@ export default grammar({
       ')',
     ),
 
-    return_statement: $ => seq('return', optional($.expression), ';'),
+    return_statement: $ => seq(
+      'return',
+      choice(
+        seq(optional($.expression), ';'),
+        // `return c ? a : #if X b; #else d; #endif`: the `;` is inside each branch.
+        alias($._conditional_ending_in_preproc, $.conditional_expression),
+      ),
+    ),
+
+    _conditional_ending_in_preproc: $ => seq(
+      field('condition', $.expression),
+      '?',
+      field('consequence', $.expression),
+      ':',
+      field('alternative', alias($.preproc_if_in_statement_tail, $.preproc_if)),
+    ),
 
     lock_statement: $ => seq('lock', '(', $.expression, ')', $.statement),
 
@@ -1179,9 +1202,20 @@ export default grammar({
       field('condition', $.expression),
       ')',
       field('consequence', $.statement),
-      optional(seq(
-        'else',
-        field('alternative', $.statement),
+      optional(choice(
+        seq(
+          'else',
+          field('alternative', $.statement),
+        ),
+        // `if (a) { } #if X else if (b) { } #endif`: the `else` lives in the block.
+        // A plain `else` may still follow `#endif` and continue the chain.
+        seq(
+          alias($.preproc_if_in_else, $.preproc_if),
+          optional(seq(
+            'else',
+            field('alternative', $.statement),
+          )),
+        ),
       )),
     )),
 
@@ -2165,6 +2199,12 @@ export default grammar({
     ...preprocIf('', $ => $.declaration),
     ...preprocIf('_in_top_level', $ => choice($._top_level_item_no_statement, $.statement)),
     ...preprocIf('_in_expression', $ => $.expression, -2, false),
+    ...preprocIf('_in_statement_tail', $ => seq($.expression, ';'), 0, false),
+    ...preprocIf('_in_function_body', $ => seq(repeat($.type_parameter_constraints_clause), $._plain_function_body), 0, false),
+    // The block opens with an external `#if` that the scanner only emits when the
+    // first thing inside is `else`, so a plain `#if` after an if-statement is
+    // still a statement-level block.
+    ...preprocIf('_in_else', $ => seq('else', $.statement), 0, false, $ => $._preproc_else_if_start),
     ...preprocIf('_in_enum_member_declaration', $ => $.enum_member_declaration, 0, false),
     ...preprocIf('_in_attribute_list', $ => $.attribute_list, -1, false),
 
@@ -2321,7 +2361,7 @@ function preprocessor(command) {
  *
  * @returns {RuleBuilders<string, string>}
  */
-function preprocIf(suffix, content, precedence = 0, rep = true) {
+function preprocIf(suffix, content, precedence = 0, rep = true, ifToken = null) {
   /**
    *
    * @param {GrammarSymbols<string>} $
@@ -2337,7 +2377,7 @@ function preprocIf(suffix, content, precedence = 0, rep = true) {
 
   return {
     ['preproc_if' + suffix]: $ => prec(precedence, seq(
-      preprocessor('if'),
+      ifToken ? alias(ifToken($), '#if') : preprocessor('if'),
       field('condition', $._preproc_expression),
       /\n/,
       rep ? repeat(content($)) : optional(content($)),

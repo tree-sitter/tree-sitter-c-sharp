@@ -218,3 +218,104 @@ Shebang directive
 
 (compilation_unit
   (shebang_directive))
+
+================================================================================
+Preprocessor block holding whole elements at the end of a list
+================================================================================
+
+class C {
+  object[] a = { (Half)42, Half.NaN,
+#if HAVE_INT128
+    (Int128)42, Int128.MinValue,
+#endif
+  };
+  object[] b = [
+    6, 5.001,
+#if !NETFRAMEWORK
+    (Half)6,
+    (UInt128)6,
+#else
+    (int)6,
+#endif
+  ];
+  object[] c = { 1,
+#if X
+    2,
+#endif
+    3 };
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (field_declaration
+        (variable_declaration
+          type: (array_type
+            type: (predefined_type)
+            rank: (array_rank_specifier))
+          (variable_declarator
+            name: (identifier)
+            (initializer_expression
+              (cast_expression
+                type: (identifier)
+                value: (integer_literal))
+              (member_access_expression
+                expression: (identifier)
+                name: (identifier))
+              (preproc_if
+                condition: (identifier)
+                (cast_expression
+                  type: (identifier)
+                  value: (integer_literal))
+                (member_access_expression
+                  expression: (identifier)
+                  name: (identifier)))))))
+      (field_declaration
+        (variable_declaration
+          type: (array_type
+            type: (predefined_type)
+            rank: (array_rank_specifier))
+          (variable_declarator
+            name: (identifier)
+            (collection_expression
+              (collection_element
+                (expression_element
+                  (integer_literal)))
+              (collection_element
+                (expression_element
+                  (real_literal)))
+              (preproc_if
+                condition: (unary_expression
+                  argument: (identifier))
+                (collection_element
+                  (expression_element
+                    (cast_expression
+                      type: (identifier)
+                      value: (integer_literal))))
+                (collection_element
+                  (expression_element
+                    (cast_expression
+                      type: (identifier)
+                      value: (integer_literal))))
+                alternative: (preproc_else
+                  (collection_element
+                    (expression_element
+                      (cast_expression
+                        type: (predefined_type)
+                        value: (integer_literal))))))))))
+      (field_declaration
+        (variable_declaration
+          type: (array_type
+            type: (predefined_type)
+            rank: (array_rank_specifier))
+          (variable_declarator
+            name: (identifier)
+            (initializer_expression
+              (integer_literal)
+              (preproc_if
+                condition: (identifier)
+                (integer_literal))
+              (integer_literal))))))))

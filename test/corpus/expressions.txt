@@ -4364,3 +4364,82 @@ class C { void M() {
                     type: (identifier))
                   value: (prefix_unary_expression
                     (integer_literal)))))))))))
+
+================================================================================
+Dereference of a pointer cast or a parenthesized expression
+================================================================================
+
+unsafe class C {
+  void M() {
+    var data = *(MsllHookStruct*)lParam;
+    *(int*)p = 1;
+    var a = *(byte*)p + 1;
+    var d = *(p + 1);
+    var m = (a) * (b + c);
+  }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    (modifier)
+    name: (identifier)
+    body: (declaration_list
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (block
+          (local_declaration_statement
+            (variable_declaration
+              type: (implicit_type)
+              (variable_declarator
+                name: (identifier)
+                (prefix_unary_expression
+                  (cast_expression
+                    type: (pointer_type
+                      type: (identifier))
+                    value: (identifier))))))
+          (expression_statement
+            (assignment_expression
+              left: (prefix_unary_expression
+                (cast_expression
+                  type: (pointer_type
+                    type: (predefined_type))
+                  value: (identifier)))
+              right: (integer_literal)))
+          (local_declaration_statement
+            (variable_declaration
+              type: (implicit_type)
+              (variable_declarator
+                name: (identifier)
+                (binary_expression
+                  left: (prefix_unary_expression
+                    (cast_expression
+                      type: (pointer_type
+                        type: (predefined_type))
+                      value: (identifier)))
+                  right: (integer_literal)))))
+          (local_declaration_statement
+            (variable_declaration
+              type: (implicit_type)
+              (variable_declarator
+                name: (identifier)
+                (prefix_unary_expression
+                  (parenthesized_expression
+                    (binary_expression
+                      left: (identifier)
+                      right: (integer_literal)))))))
+          (local_declaration_statement
+            (variable_declaration
+              type: (implicit_type)
+              (variable_declarator
+                name: (identifier)
+                (binary_expression
+                  left: (parenthesized_expression
+                    (identifier))
+                  right: (parenthesized_expression
+                    (binary_expression
+                      left: (identifier)
+                      right: (identifier))))))))))))

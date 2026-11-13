@@ -4689,6 +4689,10 @@
       "required": true,
       "types": [
         {
+          "type": "cast_expression",
+          "named": true
+        },
+        {
           "type": "expression",
           "named": true
         }

@@ -1561,7 +1561,28 @@ export default grammar({
 
     _pointer_indirection_expression: $ => prec.right(PREC.UNARY, seq(
       '*',
-      $.lvalue_expression,
+      choice(
+        $.lvalue_expression,
+        // `*(p + 1)` and `*(T*)p`. The operand is not an lvalue, so the #413
+        // restriction above shut them out. They stay legal here, but with a
+        // negative dynamic precedence so `(a) * (b + c)` still reads as a
+        // multiplication rather than a cast of a dereference.
+        prec.dynamic(-2, $.parenthesized_expression),
+        prec.dynamic(-2, alias($._pointer_cast_expression, $.cast_expression)),
+      ),
+    )),
+
+    _pointer_cast_expression: $ => prec(PREC.CAST, seq(
+      '(',
+      field('type', $.pointer_type),
+      ')',
+      // Not a full `expression`: `*(T*)p = 1` must stay an assignment to the
+      // dereference, not a cast of `p = 1`.
+      field('value', choice(
+        $.lvalue_expression,
+        $.parenthesized_expression,
+        alias($._address_of_expression, $.prefix_unary_expression),
+      )),
     )),
 
     // Address-of is split out from `prefix_unary_expression` so that

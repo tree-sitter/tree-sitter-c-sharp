@@ -522,21 +522,39 @@ bool tree_sitter_c_sharp_external_scanner_scan(void *payload, TSLexer *lexer, co
     if (valid_symbols[INTERPOLATION_END_QUOTE] && scanner->interpolation_stack.size > 0) {
         Interpolation *current_interpolation = array_back(&scanner->interpolation_stack);
 
-        while (lexer->lookahead == '"') {
+        if (is_raw(current_interpolation)) {
+            while (lexer->lookahead == '"') {
+                advance(lexer);
+                quote_count++;
+            }
+
+            if (quote_count == current_interpolation->quote_count) {
+                lexer->result_symbol = INTERPOLATION_END_QUOTE;
+                array_pop(&scanner->interpolation_stack);
+                return true;
+            }
+
+            did_advance = quote_count > 0;
+        } else if (lexer->lookahead == '"') {
+            // A regular or verbatim string ends at ONE quote. Counting the whole run of quotes
+            // (as a raw string must) misread a verbatim `""` escape that follows a hole or the
+            // start quote: in `$@"a ""{t}"""` the `"""` after `{t}` counted three, matched
+            // nothing, and the content then ran past the real end of the string.
             advance(lexer);
-            quote_count++;
+            if (!is_verbatim(current_interpolation) || lexer->lookahead != '"') {
+                lexer->result_symbol = INTERPOLATION_END_QUOTE;
+                array_pop(&scanner->interpolation_stack);
+                return true;
+            }
+            // `""` in a verbatim string is an escaped quote: both quotes are string content.
+            advance(lexer);
+            did_advance = true;
         }
-
-        if (quote_count == current_interpolation->quote_count) {
-            lexer->result_symbol = INTERPOLATION_END_QUOTE;
-            array_pop(&scanner->interpolation_stack);
-            return true;
-        }
-
-        did_advance = quote_count > 0;
     }
 
-    if (valid_symbols[INTERPOLATION_OPEN_BRACE] && scanner->interpolation_stack.size > 0) {
+    // A brace token never starts after quotes taken above: those quotes are string content, and a
+    // brace token here would span them (`$@"{a}""{b}"` read `""{` as the hole's brace).
+    if (valid_symbols[INTERPOLATION_OPEN_BRACE] && scanner->interpolation_stack.size > 0 && !did_advance) {
         Interpolation *current_interpolation = array_back(&scanner->interpolation_stack);
 
         while (lexer->lookahead == '{' && brace_advanced < current_interpolation->dollar_count) {
@@ -552,7 +570,7 @@ bool tree_sitter_c_sharp_external_scanner_scan(void *payload, TSLexer *lexer, co
         }
     }
 
-    if (valid_symbols[INTERPOLATION_CLOSE_BRACE] && scanner->interpolation_stack.size > 0) {
+    if (valid_symbols[INTERPOLATION_CLOSE_BRACE] && scanner->interpolation_stack.size > 0 && !did_advance) {
         uint8_t brace_advanced = 0;
         Interpolation *current_interpolation = array_back(&scanner->interpolation_stack);
 

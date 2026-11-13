@@ -5816,6 +5816,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "checked_expression"
+        },
+        {
+          "type": "SYMBOL",
           "name": "default_expression"
         },
         {

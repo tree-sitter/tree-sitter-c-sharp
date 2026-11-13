@@ -1861,6 +1861,10 @@
           "named": true
         },
         {
+          "type": "checked_expression",
+          "named": true
+        },
+        {
           "type": "default_expression",
           "named": true
         },

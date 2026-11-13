@@ -1246,6 +1246,7 @@ export default grammar({
 
     constant_pattern: $ => choice(
       $.binary_expression,
+      $.checked_expression,
       $.default_expression,
       $.interpolated_string_expression,
       $.parenthesized_expression,

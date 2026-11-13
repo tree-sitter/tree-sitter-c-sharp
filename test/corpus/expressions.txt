@@ -4364,3 +4364,71 @@ class C { void M() {
                     type: (identifier))
                   value: (prefix_unary_expression
                     (integer_literal)))))))))))
+
+================================================================================
+Checked and unchecked expressions as constant patterns
+================================================================================
+
+class C {
+  void M(Exception e) {
+    var a = e is ExternalException { HResult: unchecked((int)0x800401D0) };
+    var b = e is { HResult: checked(5) };
+    var c = e is unchecked(5);
+  }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list
+          (parameter
+            type: (identifier)
+            name: (identifier)))
+        body: (block
+          (local_declaration_statement
+            (variable_declaration
+              type: (implicit_type)
+              (variable_declarator
+                name: (identifier)
+                (is_pattern_expression
+                  expression: (identifier)
+                  pattern: (recursive_pattern
+                    type: (identifier)
+                    (property_pattern_clause
+                      (subpattern
+                        (identifier)
+                        (constant_pattern
+                          (checked_expression
+                            (cast_expression
+                              type: (predefined_type)
+                              value: (integer_literal)))))))))))
+          (local_declaration_statement
+            (variable_declaration
+              type: (implicit_type)
+              (variable_declarator
+                name: (identifier)
+                (is_pattern_expression
+                  expression: (identifier)
+                  pattern: (recursive_pattern
+                    (property_pattern_clause
+                      (subpattern
+                        (identifier)
+                        (constant_pattern
+                          (checked_expression
+                            (integer_literal))))))))))
+          (local_declaration_statement
+            (variable_declaration
+              type: (implicit_type)
+              (variable_declarator
+                name: (identifier)
+                (is_pattern_expression
+                  expression: (identifier)
+                  pattern: (constant_pattern
+                    (checked_expression
+                      (integer_literal))))))))))))

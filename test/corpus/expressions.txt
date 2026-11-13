@@ -4364,3 +4364,66 @@ class C { void M() {
                     type: (identifier))
                   value: (prefix_unary_expression
                     (integer_literal)))))))))))
+
+================================================================================
+Lambda whose first parameter has an in or out modifier
+================================================================================
+
+class C {
+  void M() {
+    F((in Q q, int i) => 1);
+    var f = (out int a) => 1;
+    var g = (in int a) => a;
+  }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (block
+          (expression_statement
+            (invocation_expression
+              function: (identifier)
+              arguments: (argument_list
+                (argument
+                  (lambda_expression
+                    parameters: (parameter_list
+                      (parameter
+                        (modifier)
+                        type: (identifier)
+                        name: (identifier))
+                      (parameter
+                        type: (predefined_type)
+                        name: (identifier)))
+                    body: (integer_literal))))))
+          (local_declaration_statement
+            (variable_declaration
+              type: (implicit_type)
+              (variable_declarator
+                name: (identifier)
+                (lambda_expression
+                  parameters: (parameter_list
+                    (parameter
+                      (modifier)
+                      type: (predefined_type)
+                      name: (identifier)))
+                  body: (integer_literal)))))
+          (local_declaration_statement
+            (variable_declaration
+              type: (implicit_type)
+              (variable_declarator
+                name: (identifier)
+                (lambda_expression
+                  parameters: (parameter_list
+                    (parameter
+                      (modifier)
+                      type: (predefined_type)
+                      name: (identifier)))
+                  body: (identifier))))))))))

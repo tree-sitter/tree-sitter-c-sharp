@@ -1,0 +1,74 @@
+================================================================================
+Contextual keywords as identifiers
+================================================================================
+
+class C {
+  void M(int p) {
+    var with = p with { };
+    var partial = 1;
+    partial = 2;
+    int required;
+    if (p > 0) required = 0;
+    else required = (int)p;
+  }
+  public required int R { get; init; }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    (identifier)
+    (declaration_list
+      (method_declaration
+        (predefined_type)
+        (identifier)
+        (parameter_list
+          (parameter
+            (predefined_type)
+            (identifier)))
+        (block
+          (local_declaration_statement
+            (variable_declaration
+              (implicit_type)
+              (variable_declarator
+                (identifier)
+                (with_expression
+                  (identifier)))))
+          (local_declaration_statement
+            (variable_declaration
+              (implicit_type)
+              (variable_declarator
+                (identifier)
+                (integer_literal))))
+          (expression_statement
+            (assignment_expression
+              (identifier)
+              (integer_literal)))
+          (local_declaration_statement
+            (variable_declaration
+              (predefined_type)
+              (variable_declarator
+                (identifier))))
+          (if_statement
+            (binary_expression
+              (identifier)
+              (integer_literal))
+            (expression_statement
+              (assignment_expression
+                (identifier)
+                (integer_literal)))
+            (expression_statement
+              (assignment_expression
+                (identifier)
+                (cast_expression
+                  (predefined_type)
+                  (identifier)))))))
+      (property_declaration
+        (modifier)
+        (modifier)
+        (predefined_type)
+        (identifier)
+        (accessor_list
+          (accessor_declaration)
+          (accessor_declaration))))))

@@ -10706,8 +10706,24 @@
           "value": "param"
         },
         {
+          "type": "PREC_DYNAMIC",
+          "value": -1,
+          "content": {
+            "type": "STRING",
+            "value": "partial"
+          }
+        },
+        {
           "type": "STRING",
           "value": "property"
+        },
+        {
+          "type": "PREC_DYNAMIC",
+          "value": -1,
+          "content": {
+            "type": "STRING",
+            "value": "required"
+          }
         },
         {
           "type": "STRING",
@@ -10740,6 +10756,10 @@
         {
           "type": "STRING",
           "value": "where"
+        },
+        {
+          "type": "STRING",
+          "value": "with"
         },
         {
           "type": "STRING",

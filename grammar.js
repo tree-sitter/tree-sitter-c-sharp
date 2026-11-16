@@ -2247,7 +2247,13 @@ export default grammar({
       'on',
       'orderby',
       'param',
+      // Contextual keywords that are ordinary names outside their construct:
+      // `var with = ...` (with-expressions), `var partial = ...` (partial types)
+      // and `required = 0;` (required members). Where both readings parse, as in
+      // `public partial C(int x);`, the modifier reading wins.
+      prec.dynamic(-1, 'partial'),
       'property',
+      prec.dynamic(-1, 'required'),
       'scoped',
       'select',
       'type',
@@ -2256,6 +2262,7 @@ export default grammar({
       'var',
       'when',
       'where',
+      'with',
       'yield',
     ),
 

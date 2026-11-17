@@ -2695,6 +2695,10 @@
       "required": false,
       "types": [
         {
+          "type": "indexer_declaration",
+          "named": true
+        },
+        {
           "type": "method_declaration",
           "named": true
         },

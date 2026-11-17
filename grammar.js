@@ -631,6 +631,9 @@ export default grammar({
       $.method_declaration,
       $.property_declaration,
       $.operator_declaration,
+      // C# 15 extension indexers.
+      // https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-15.0/extension-indexers
+      $.indexer_declaration,
     ),
 
     field_declaration: $ => seq(

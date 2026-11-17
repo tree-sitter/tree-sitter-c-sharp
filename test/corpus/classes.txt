@@ -688,3 +688,71 @@ class D { closed c; bool M() => closed; }
         parameters: (parameter_list)
         body: (arrow_expression_clause
           (identifier))))))
+
+================================================================================
+Extension indexers (C# 15)
+================================================================================
+
+public static class SequenceIndexer
+{
+    extension(IEnumerable<int> sequence)
+    {
+        public int this[int index] => sequence.ElementAt(index);
+    }
+
+    extension(int i)
+    {
+        public bool this[int index]
+        {
+            get => true;
+        }
+    }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    (modifier)
+    (modifier)
+    name: (identifier)
+    body: (declaration_list
+      (extension_declaration
+        (receiver_parameter
+          type: (generic_name
+            (identifier)
+            (type_argument_list
+              (predefined_type)))
+          name: (identifier))
+        (extension_body
+          (indexer_declaration
+            (modifier)
+            type: (predefined_type)
+            parameters: (bracketed_parameter_list
+              (parameter
+                type: (predefined_type)
+                name: (identifier)))
+            value: (arrow_expression_clause
+              (invocation_expression
+                function: (member_access_expression
+                  expression: (identifier)
+                  name: (identifier))
+                arguments: (argument_list
+                  (argument
+                    (identifier))))))))
+      (extension_declaration
+        (receiver_parameter
+          type: (predefined_type)
+          name: (identifier))
+        (extension_body
+          (indexer_declaration
+            (modifier)
+            type: (predefined_type)
+            parameters: (bracketed_parameter_list
+              (parameter
+                type: (predefined_type)
+                name: (identifier)))
+            accessors: (accessor_list
+              (accessor_declaration
+                body: (arrow_expression_clause
+                  (boolean_literal))))))))))

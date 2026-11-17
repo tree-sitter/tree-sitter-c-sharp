@@ -2387,6 +2387,10 @@
         {
           "type": "SYMBOL",
           "name": "operator_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "indexer_declaration"
         }
       ]
     },

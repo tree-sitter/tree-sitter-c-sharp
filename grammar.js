@@ -454,6 +454,7 @@ export default grammar({
     modifier: _ => prec.right(choice(
       'abstract',
       'async',
+      'closed', // C# 15 closed hierarchies (contextual)
       'const',
       'extern',
       'file',
@@ -2260,6 +2261,7 @@ export default grammar({
       'alias',
       'ascending',
       'by',
+      'closed',
       'descending',
       'equals',
       // attribute_target_specifier keywords — contextual only when followed

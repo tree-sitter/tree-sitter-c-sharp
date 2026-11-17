@@ -7232,6 +7232,10 @@
     "named": false
   },
   {
+    "type": "closed",
+    "named": false
+  },
+  {
     "type": "comment",
     "named": true,
     "extra": true

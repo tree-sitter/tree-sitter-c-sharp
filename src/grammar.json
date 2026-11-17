@@ -1528,6 +1528,10 @@
           },
           {
             "type": "STRING",
+            "value": "closed"
+          },
+          {
+            "type": "STRING",
             "value": "const"
           },
           {
@@ -11284,6 +11288,10 @@
         {
           "type": "STRING",
           "value": "by"
+        },
+        {
+          "type": "STRING",
+          "value": "closed"
         },
         {
           "type": "STRING",

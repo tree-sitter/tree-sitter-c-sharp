@@ -3,3 +3,6 @@ public union Pet(Cat, Dog);
 //           ^ type
 //               ^ type
 //                    ^ type
+
+public closed class GateState { }
+//     ^ keyword

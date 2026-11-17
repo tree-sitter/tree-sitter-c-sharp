@@ -645,3 +645,46 @@ public static class E
             parameters: (parameter_list)
             body: (arrow_expression_clause
               (identifier))))))))
+
+================================================================================
+Closed classes (C# 15)
+================================================================================
+
+public closed record class GateState;
+public closed class CC { }
+closed class C<T> { }
+class D { closed c; bool M() => closed; }
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (record_declaration
+    (modifier)
+    (modifier)
+    name: (identifier))
+  (class_declaration
+    (modifier)
+    (modifier)
+    name: (identifier)
+    body: (declaration_list))
+  (class_declaration
+    (modifier)
+    name: (identifier)
+    (type_parameter_list
+      (type_parameter
+        name: (identifier)))
+    body: (declaration_list))
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (field_declaration
+        (variable_declaration
+          type: (identifier)
+          (variable_declarator
+            name: (identifier))))
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (arrow_expression_clause
+          (identifier))))))

@@ -218,3 +218,101 @@ Shebang directive
 
 (compilation_unit
   (shebang_directive))
+
+================================================================================
+Ignored directives for file-based apps (C# 14)
+================================================================================
+
+#!/usr/bin/env dotnet
+#:package Humanizer@2.14.1
+#:package Microsoft.Build@17.0.0 ExcludeAssets=runtime PrivateAssets=all
+#:package Package @ 1.0.0
+#:package "Humanizer"@2.0
+#:sdk Microsoft.NET.Sdk.Web
+#:sdk Aspire.AppHost.Sdk@9.0.0
+#:property LangVersion=preview
+#:property Xyz = "abc "
+#:project ../Lib/Lib.csproj
+#:ref ../lib/lib.cs
+#:include ./**/*.cs
+#:exclude obj/**
+#:unknown // not a comment
+#:sdk
+#:
+#: package Malformed@1
+
+using System;
+
+var package = 1;
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (shebang_directive)
+  (ignored_directive
+    kind: (directive_kind)
+    name: (directive_name)
+    separator: (directive_separator)
+    value: (directive_value))
+  (ignored_directive
+    kind: (directive_kind)
+    name: (directive_name)
+    separator: (directive_separator)
+    value: (directive_value))
+  (ignored_directive
+    kind: (directive_kind)
+    name: (directive_name)
+    separator: (directive_separator)
+    value: (directive_value))
+  (ignored_directive
+    kind: (directive_kind)
+    name: (directive_name)
+    separator: (directive_separator)
+    value: (directive_value))
+  (ignored_directive
+    kind: (directive_kind)
+    name: (directive_name))
+  (ignored_directive
+    kind: (directive_kind)
+    name: (directive_name)
+    separator: (directive_separator)
+    value: (directive_value))
+  (ignored_directive
+    kind: (directive_kind)
+    name: (directive_name)
+    separator: (directive_separator)
+    value: (directive_value))
+  (ignored_directive
+    kind: (directive_kind)
+    name: (directive_name)
+    separator: (directive_separator)
+    value: (directive_value))
+  (ignored_directive
+    kind: (directive_kind)
+    value: (directive_value))
+  (ignored_directive
+    kind: (directive_kind)
+    value: (directive_value))
+  (ignored_directive
+    kind: (directive_kind)
+    value: (directive_value))
+  (ignored_directive
+    kind: (directive_kind)
+    value: (directive_value))
+  (ignored_directive
+    kind: (directive_kind)
+    value: (directive_value))
+  (ignored_directive
+    kind: (directive_kind))
+  (ignored_directive)
+  (ignored_directive
+    value: (directive_value))
+  (using_directive
+    (identifier))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (integer_literal))))))

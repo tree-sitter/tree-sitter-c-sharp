@@ -4992,3 +4992,84 @@ var d = p with { X = with };
             (with_initializer
               (identifier)
               (identifier))))))))
+
+================================================================================
+Unsafe expression (C# 15)
+================================================================================
+
+static readonly int Signature = unsafe(ReadSignature());
+await unsafe(DoWork());
+Console.WriteLine(unsafe(Add(1, 2)));
+unsafe(p).X = 1;
+unsafe (int, int) Local() => (1, 2);
+unsafe { M(); }
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (modifier)
+      (modifier)
+      (variable_declaration
+        type: (predefined_type)
+        (variable_declarator
+          name: (identifier)
+          (unsafe_expression
+            (invocation_expression
+              function: (identifier)
+              arguments: (argument_list)))))))
+  (global_statement
+    (expression_statement
+      (await_expression
+        (unsafe_expression
+          (invocation_expression
+            function: (identifier)
+            arguments: (argument_list))))))
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        function: (member_access_expression
+          expression: (identifier)
+          name: (identifier))
+        arguments: (argument_list
+          (argument
+            (unsafe_expression
+              (invocation_expression
+                function: (identifier)
+                arguments: (argument_list
+                  (argument
+                    (integer_literal))
+                  (argument
+                    (integer_literal))))))))))
+  (global_statement
+    (expression_statement
+      (assignment_expression
+        left: (member_access_expression
+          expression: (unsafe_expression
+            (identifier))
+          name: (identifier))
+        right: (integer_literal))))
+  (global_statement
+    (local_function_statement
+      (modifier)
+      type: (tuple_type
+        (tuple_element
+          type: (predefined_type))
+        (tuple_element
+          type: (predefined_type)))
+      name: (identifier)
+      parameters: (parameter_list)
+      body: (arrow_expression_clause
+        (tuple_expression
+          (argument
+            (integer_literal))
+          (argument
+            (integer_literal))))))
+  (global_statement
+    (unsafe_statement
+      (block
+        (expression_statement
+          (invocation_expression
+            function: (identifier)
+            arguments: (argument_list)))))))

@@ -6,3 +6,16 @@ public union Pet(Cat, Dog);
 
 public closed class GateState { }
 //     ^ keyword
+
+class C
+{
+    static safe extern void F();
+    //     ^ keyword
+
+    void M()
+    {
+        var x = unsafe(F());
+        //      ^ keyword
+        outer: while (true) { break outer; }
+    }
+}

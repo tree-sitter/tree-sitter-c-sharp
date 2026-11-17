@@ -352,6 +352,10 @@
         "named": true
       },
       {
+        "type": "unsafe_expression",
+        "named": true
+      },
+      {
         "type": "with_expression",
         "named": true
       }
@@ -6618,6 +6622,21 @@
     }
   },
   {
+    "type": "unsafe_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "unsafe_statement",
     "named": true,
     "fields": {},
@@ -7594,6 +7613,10 @@
   },
   {
     "type": "return",
+    "named": false
+  },
+  {
+    "type": "safe",
     "named": false
   },
   {

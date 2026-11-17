@@ -1037,11 +1037,13 @@ export default grammar({
       alias($.preproc_if_in_top_level, $.preproc_if),
     )),
 
-    break_statement: _ => seq('break', ';'),
+    // C# 15: `break label;` / `continue label;` target a labeled loop or switch.
+    // https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-15.0/labeled-break-continue
+    break_statement: $ => seq('break', optional(field('label', $.identifier)), ';'),
 
     checked_statement: $ => seq(choice('checked', 'unchecked'), $.block),
 
-    continue_statement: _ => seq('continue', ';'),
+    continue_statement: $ => seq('continue', optional(field('label', $.identifier)), ';'),
 
     do_statement: $ => seq(
       'do',

@@ -1094,3 +1094,61 @@ var r = o switch
             (switch_expression_arm
               (discard)
               (integer_literal))))))))
+
+================================================================================
+Labeled break and continue (C# 15)
+================================================================================
+
+outer: for (int row = 0; row < height; row++)
+{
+    for (int column = 0; column < width; column++)
+    {
+        if (blocked) continue outer;
+        if (goal) break outer;
+        if (done) break;
+        continue;
+    }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (labeled_statement
+      (identifier)
+      (for_statement
+        initializer: (variable_declaration
+          type: (predefined_type)
+          (variable_declarator
+            name: (identifier)
+            (integer_literal)))
+        condition: (binary_expression
+          left: (identifier)
+          right: (identifier))
+        update: (postfix_unary_expression
+          (identifier))
+        body: (block
+          (for_statement
+            initializer: (variable_declaration
+              type: (predefined_type)
+              (variable_declarator
+                name: (identifier)
+                (integer_literal)))
+            condition: (binary_expression
+              left: (identifier)
+              right: (identifier))
+            update: (postfix_unary_expression
+              (identifier))
+            body: (block
+              (if_statement
+                condition: (identifier)
+                consequence: (continue_statement
+                  label: (identifier)))
+              (if_statement
+                condition: (identifier)
+                consequence: (break_statement
+                  label: (identifier)))
+              (if_statement
+                condition: (identifier)
+                consequence: (break_statement))
+              (continue_statement))))))))

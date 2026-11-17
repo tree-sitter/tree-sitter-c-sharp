@@ -60,6 +60,8 @@ export default grammar({
     // `conditional_access_expression` to appear in both lvalue and
     // non-lvalue contexts. Tree-sitter needs GLR for the decision.
     [$.lvalue_expression, $.non_lvalue_expression],
+    // C# 15: `union` is contextual — `union Pet(...)` vs. an identifier named `union`.
+    [$.union_declaration, $._reserved_identifier],
 
     [$.type, $.attribute],
     [$.type, $.nullable_type],
@@ -299,6 +301,7 @@ export default grammar({
       $.interface_declaration,
       $.delegate_declaration,
       $.record_declaration,
+      $.union_declaration,
     ),
 
     class_declaration: $ => seq(
@@ -411,6 +414,27 @@ export default grammar({
       optional(alias($.record_base, $.base_list)),
       repeat($.type_parameter_constraints_clause),
     ),
+
+    // C# 15 union types.
+    // https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-15.0/unions
+    //
+    //   union_declaration
+    //     : attributes? struct_modifier* 'partial'? 'union' identifier type_parameter_list?
+    //       '(' case_types ')' struct_interfaces? type_parameter_constraints_clause*
+    //       ('{' struct_member_declaration* '}' | ';')
+    union_declaration: $ => prec.dynamic(1, seq(
+      repeat($._attribute_list),
+      repeat($.modifier),
+      'union',
+      field('name', $.identifier),
+      optional(field('type_parameters', $.type_parameter_list)),
+      field('cases', $.union_case_list),
+      optional($.base_list),
+      repeat($.type_parameter_constraints_clause),
+      $._declaration_list_body,
+    )),
+
+    union_case_list: $ => seq('(', commaSep1($.type), ')'),
 
     record_base: $ => choice(
       seq(':', commaSep1($._name)),
@@ -548,6 +572,7 @@ export default grammar({
       $.event_declaration,
       $.event_field_declaration,
       $.record_declaration,
+      $.union_declaration,
       $.constructor_declaration,
       $.destructor_declaration,
       $.indexer_declaration,
@@ -2268,6 +2293,7 @@ export default grammar({
       'select',
       'type',
       'typevar',
+      'union',
       'unmanaged',
       'var',
       'when',

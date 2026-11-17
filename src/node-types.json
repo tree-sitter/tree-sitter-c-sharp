@@ -80,6 +80,10 @@
         "named": true
       },
       {
+        "type": "union_declaration",
+        "named": true
+      },
+      {
         "type": "using_directive",
         "named": true
       }
@@ -597,6 +601,10 @@
       },
       {
         "type": "struct_declaration",
+        "named": true
+      },
+      {
+        "type": "union_declaration",
         "named": true
       }
     ]
@@ -6515,6 +6523,93 @@
     }
   },
   {
+    "type": "union_case_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "union_declaration",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "declaration_list",
+            "named": true
+          }
+        ]
+      },
+      "cases": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "union_case_list",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "type_parameters": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type_parameter_list",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "attribute_list",
+          "named": true
+        },
+        {
+          "type": "base_list",
+          "named": true
+        },
+        {
+          "type": "modifier",
+          "named": true
+        },
+        {
+          "type": "preproc_if_in_attribute_list",
+          "named": true
+        },
+        {
+          "type": "type_parameter_constraints_clause",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "unsafe_statement",
     "named": true,
     "fields": {},
@@ -7555,6 +7650,10 @@
   },
   {
     "type": "unchecked",
+    "named": false
+  },
+  {
+    "type": "union",
     "named": false
   },
   {

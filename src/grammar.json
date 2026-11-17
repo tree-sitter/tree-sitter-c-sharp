@@ -606,6 +606,10 @@
         {
           "type": "SYMBOL",
           "name": "record_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "union_declaration"
         }
       ]
     },
@@ -1248,6 +1252,126 @@
             "type": "SYMBOL",
             "name": "type_parameter_constraints_clause"
           }
+        }
+      ]
+    },
+    "union_declaration": {
+      "type": "PREC_DYNAMIC",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_attribute_list"
+            }
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "SYMBOL",
+              "name": "modifier"
+            }
+          },
+          {
+            "type": "STRING",
+            "value": "union"
+          },
+          {
+            "type": "FIELD",
+            "name": "name",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            }
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "type_parameters",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "type_parameter_list"
+                }
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "FIELD",
+            "name": "cases",
+            "content": {
+              "type": "SYMBOL",
+              "name": "union_case_list"
+            }
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "base_list"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "SYMBOL",
+              "name": "type_parameter_constraints_clause"
+            }
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_declaration_list_body"
+          }
+        ]
+      }
+    },
+    "union_case_list": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "type"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "type"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ")"
         }
       ]
     },
@@ -2075,6 +2199,10 @@
         {
           "type": "SYMBOL",
           "name": "record_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "union_declaration"
         },
         {
           "type": "SYMBOL",
@@ -11255,6 +11383,10 @@
         },
         {
           "type": "STRING",
+          "value": "union"
+        },
+        {
+          "type": "STRING",
           "value": "unmanaged"
         },
         {
@@ -14356,6 +14488,10 @@
     [
       "lvalue_expression",
       "non_lvalue_expression"
+    ],
+    [
+      "union_declaration",
+      "_reserved_identifier"
     ],
     [
       "type",

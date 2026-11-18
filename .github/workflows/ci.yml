@@ -79,7 +79,6 @@ jobs:
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/TraceJsonWriter.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Utilities/ReflectionUtils.cs
             !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.Common/Text/PrecomputedFuzzyMatcher.cs
-            !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI.ViewModels/Services/CmdPalProtocolActivation.cs
             !examples/PowerToys/src/modules/cmdpal/Tests/Microsoft.CmdPal.Ext.Bookmarks.UnitTests/BookmarkResolverTests.Common.cs
             !examples/nunit/src/NUnitFramework/framework/Internal/DisposeHelper.cs
             !examples/nunit/src/NUnitFramework/framework/Internal/ExceptionHelper.cs

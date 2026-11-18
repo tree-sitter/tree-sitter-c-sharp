@@ -1311,3 +1311,37 @@ class C {
               (variable_declarator
                 (identifier)
                 (integer_literal)))))))))
+
+================================================================================
+Ignored directives end at any C# line break
+================================================================================
+
+#:package Foo@1.0 class C { }
+#:property X=1class D { }
+#:sdk Bar class E { }
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (ignored_directive
+    kind: (directive_kind)
+    name: (directive_name)
+    separator: (directive_separator)
+    value: (directive_value))
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list))
+  (ignored_directive
+    kind: (directive_kind)
+    name: (directive_name)
+    separator: (directive_separator)
+    value: (directive_value))
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list))
+  (ignored_directive
+    kind: (directive_kind)
+    name: (directive_name))
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list)))

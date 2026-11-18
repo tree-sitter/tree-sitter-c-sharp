@@ -2453,14 +2453,15 @@ export default grammar({
         ),
         // Not a well-formed directive (e.g. `#: package X`): still ignored by
         // the compiler, so keep the rest of the line as an unstructured value.
-        field('value', alias(token.immediate(/[ \t]+[^\s]([^\r\n]*[^\s])?/), $.directive_value)),
+        field('value', alias(token.immediate(/[ \t]+[^\s\u0085\u2028\u2029]([^\r\n\u0085\u2028\u2029]*[^\s\u0085\u2028\u2029])?/), $.directive_value)),
       )),
-      /\n/,
+      // Like every directive line, it ends at any C# line break, not only `\n`.
+      /[\n\u0085\u2028\u2029]/,
     ),
 
     directive_name: _ => token(choice(
-      /[^\s@="]+/,
-      /"([^"\\\n]|\\.)*"/,
+      /[^\s@="\u0085\u2028\u2029]+/,
+      /"([^"\\\n\u0085\u2028\u2029]|\\.)*"/,
     )),
 
     // `@` for package/sdk versions, `=` for property values. A dedicated
@@ -2468,7 +2469,7 @@ export default grammar({
     // directives from perturbing GLR tie-breaks elsewhere in the grammar.
     directive_separator: _ => token(/[@=]/),
 
-    directive_value: _ => token(/[^\s@=]([^\r\n]*[^\s])?/),
+    directive_value: _ => token(/[^\s@=\u0085\u2028\u2029]([^\r\n\u0085\u2028\u2029]*[^\s\u0085\u2028\u2029])?/),
 
     comment: _ => token(choice(
       seq('//', /[^\n\r\u0085\u2028\u2029]*/),

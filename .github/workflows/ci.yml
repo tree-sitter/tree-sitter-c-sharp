@@ -86,7 +86,4 @@ jobs:
             !examples/nunit/src/NUnitFramework/framework/Internal/OverloadResolutionPriorityAttribute.cs
             !examples/nunit/src/NUnitFramework/framework/Internal/Reflect.cs
             !examples/nunit/src/NUnitFramework/framework/Internal/TestExecutionContext.cs
-            !examples/nunit/src/NUnitFramework/testdata/TestCaseAttributeFixture.cs
-            !examples/nunit/src/NUnitFramework/tests/Api/TestAssemblyRunnerTests.cs
-            !examples/nunit/src/NUnitFramework/tests/Assertions/WarningTests.cs
             !examples/nunit/src/NUnitFramework/tests/Internal/EventQueueTests.cs

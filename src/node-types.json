@@ -3146,6 +3146,53 @@
     }
   },
   {
+    "type": "ignored_directive",
+    "named": true,
+    "extra": true,
+    "fields": {
+      "kind": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "directive_kind",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "directive_name",
+            "named": true
+          }
+        ]
+      },
+      "separator": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "directive_separator",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "directive_value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "implicit_array_creation_expression",
     "named": true,
     "fields": {},
@@ -6599,6 +6646,10 @@
     "named": false
   },
   {
+    "type": "#:",
+    "named": false
+  },
+  {
     "type": "#define",
     "named": false
   },
@@ -6958,6 +7009,22 @@
   {
     "type": "descending",
     "named": false
+  },
+  {
+    "type": "directive_kind",
+    "named": true
+  },
+  {
+    "type": "directive_name",
+    "named": true
+  },
+  {
+    "type": "directive_separator",
+    "named": true
+  },
+  {
+    "type": "directive_value",
+    "named": true
   },
   {
     "type": "disable",

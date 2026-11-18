@@ -1032,3 +1032,65 @@ ref T Choice(bool condition, ref T a, ref T b)
                       (identifier))
                     alternative: (ref_expression
                       (identifier))))))))))))
+
+================================================================================
+Case guard after a bare type
+================================================================================
+
+switch (o)
+{
+    case int when o is > 5:
+        break;
+}
+
+var r = o switch
+{
+    int when flag => 1,
+    string s when s.Length > 0 => 2,
+    _ => 0,
+};
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (switch_statement
+      value: (identifier)
+      body: (switch_body
+        (switch_section
+          (type_pattern
+            type: (predefined_type))
+          (when_clause
+            (is_pattern_expression
+              expression: (identifier)
+              pattern: (relational_pattern
+                (integer_literal))))
+          (break_statement)))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (switch_expression
+            (identifier)
+            (switch_expression_arm
+              (type_pattern
+                type: (predefined_type))
+              (when_clause
+                (identifier))
+              (integer_literal))
+            (switch_expression_arm
+              (declaration_pattern
+                type: (predefined_type)
+                name: (identifier))
+              (when_clause
+                (binary_expression
+                  left: (member_access_expression
+                    expression: (identifier)
+                    name: (identifier))
+                  right: (integer_literal)))
+              (integer_literal))
+            (switch_expression_arm
+              (discard)
+              (integer_literal))))))))

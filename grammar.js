@@ -147,6 +147,7 @@ export default grammar({
     $.preproc_warning,
     $.preproc_define,
     $.preproc_undef,
+    $.ignored_directive,
   ],
 
   inline: $ => [
@@ -2287,6 +2288,55 @@ export default grammar({
     ),
 
     shebang_directive: _ => token(seq('#!', /.*/)),
+
+    // C# 14 / .NET 10 file-based apps directives. The compiler ignores them;
+    // the .NET SDK reads them. Structure follows the SDK spec:
+    // https://github.com/dotnet/sdk/blob/main/documentation/general/dotnet-run-file.md
+    //
+    //   #:package Name@Version     #:sdk Name@Version     #:property Name=Value
+    //   #:project path             #:ref path             #:include glob    ...
+    //
+    // `package`, `sdk` and `property` split into name, separator and value.
+    // Any other kind (including unknown ones) takes the rest of the line as
+    // its value. Kinds are immediate tokens only valid right after `#:`, so
+    // they never reserve these words elsewhere.
+    ignored_directive: $ => seq(
+      '#:',
+      optional(choice(
+        seq(
+          field('kind', choice(
+            alias(token.immediate('package'), $.directive_kind),
+            alias(token.immediate('sdk'), $.directive_kind),
+            alias(token.immediate('property'), $.directive_kind),
+          )),
+          optional(seq(
+            field('name', $.directive_name),
+            optional(field('separator', $.directive_separator)),
+            optional(field('value', $.directive_value)),
+          )),
+        ),
+        seq(
+          field('kind', alias(token.immediate(/[A-Za-z_][A-Za-z0-9_-]*/), $.directive_kind)),
+          optional(field('value', $.directive_value)),
+        ),
+        // Not a well-formed directive (e.g. `#: package X`): still ignored by
+        // the compiler, so keep the rest of the line as an unstructured value.
+        field('value', alias(token.immediate(/[ \t]+[^\s]([^\r\n]*[^\s])?/), $.directive_value)),
+      )),
+      /\n/,
+    ),
+
+    directive_name: _ => token(choice(
+      /[^\s@="]+/,
+      /"([^"\\\n]|\\.)*"/,
+    )),
+
+    // `@` for package/sdk versions, `=` for property values. A dedicated
+    // token (rather than reusing the C# `@`/`=` literals) keeps these
+    // directives from perturbing GLR tie-breaks elsewhere in the grammar.
+    directive_separator: _ => token(/[@=]/),
+
+    directive_value: _ => token(/[^\s@=]([^\r\n]*[^\s])?/),
 
     comment: _ => token(choice(
       seq('//', /[^\n\r]*/),

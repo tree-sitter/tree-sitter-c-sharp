@@ -1044057,8 +1044057,8 @@ TS_PUBLIC const TSLanguage *tree_sitter_c_sharp(void) {
     .max_reserved_word_set_size = 0,
     .metadata = {
       .major_version = 0,
-      .minor_version = 23,
-      .patch_version = 5,
+      .minor_version = 24,
+      .patch_version = 0,
     },
   };
   return &language;

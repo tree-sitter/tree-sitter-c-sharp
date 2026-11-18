@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 
 project(tree-sitter-c-sharp
-        VERSION "0.23.5"
+        VERSION "0.24.0"
         DESCRIPTION "C# grammar for tree-sitter"
         HOMEPAGE_URL "https://github.com/tree-sitter/tree-sitter-c-sharp"
         LANGUAGES C)

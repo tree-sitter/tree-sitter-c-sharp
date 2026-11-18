@@ -116,6 +116,11 @@ export default grammar({
     // reserved identifier (when there's no further type). Keep all
     // three alive until later tokens disambiguate.
     [$.receiver_parameter, $.scoped_type, $._reserved_identifier],
+
+    // An `#if` block can hold several attribute lists, or a declaration whose
+    // own attribute lists start the same way; the `#endif` decides.
+    [$._attribute_list, $.preproc_if_in_attribute_list],
+    [$._attribute_list, $.preproc_else_in_attribute_list],
   ],
 
   externals: $ => [
@@ -2268,7 +2273,7 @@ export default grammar({
     ...preprocIf('_in_collection', $ => $._collection_items, -2, false),
     ...preprocIf('_in_initializer', $ => $._initializer_items, -2, false),
     ...preprocIf('_in_enum_member_declaration', $ => $.enum_member_declaration, 0, false),
-    ...preprocIf('_in_attribute_list', $ => $.attribute_list, -1, false),
+    ...preprocIf('_in_attribute_list', $ => $.attribute_list, -1),
 
     preproc_arg: _ => token(prec(-1, /\S([^/\n]|\/[^*]|\\\r?\n)*/)),
     preproc_directive: _ => /#[ \t]*[a-zA-Z0-9]\w*/,

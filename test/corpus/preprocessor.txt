@@ -839,3 +839,30 @@ class C {
                 condition: (identifier)
                 (integer_literal))
               (integer_literal))))))))
+
+================================================================================
+#line file names with backslashes
+================================================================================
+
+#line 10 "C:\dir\file.cs"
+#line 20 "C:\dir\"
+#line (1,1)-(5,60) "C:\span\file.cs"
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (preproc_line
+    (integer_literal)
+    (string_literal
+      (string_literal_content)))
+  (preproc_line
+    (integer_literal)
+    (string_literal
+      (string_literal_content)))
+  (preproc_line
+    (integer_literal)
+    (integer_literal)
+    (integer_literal)
+    (integer_literal)
+    (string_literal
+      (string_literal_content))))

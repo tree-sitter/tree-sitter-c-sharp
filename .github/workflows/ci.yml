@@ -49,16 +49,9 @@ jobs:
           files: |
             examples/**/*.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Linq/DynamicTests.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Linq/JsonPath/JPathExecuteTests.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Serialization/ModernNumericTests.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Serialization/SerializationErrorHandlingTests.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/TestFixtureBase.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Utilities/DateTimeUtilsTests.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Bson/BsonBinaryWriter.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Bson/BsonWriter.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Converters/IsoDateTimeConverter.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Converters/JavaScriptDateTimeConverter.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Converters/UnixDateTimeConverter.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Converters/XmlNodeConverter.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/JsonConvert.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/JsonReader.Async.cs
@@ -81,48 +74,20 @@ jobs:
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Schema/JsonSchemaNode.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/DefaultContractResolver.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/DefaultSerializationBinder.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/JsonArrayContract.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/JsonDictionaryContract.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/JsonPrimitiveContract.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/JsonSerializerInternalReader.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/JsonSerializerInternalWriter.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/TraceJsonWriter.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Utilities/AsyncUtils.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Utilities/ConvertUtils.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Utilities/DictionaryWrapper.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Utilities/ReflectionUtils.cs
-            !examples/PowerToys/src/modules/AdvancedPaste/AdvancedPaste.UITests.Next/AdvancedPasteTestBase.cs
-            !examples/PowerToys/src/modules/MouseWithoutBorders/App/Class/InputHook.cs
             !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.Common/Text/PrecomputedFuzzyMatcher.cs
-            !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI.ViewModels/Commands/MainListPage.cs
             !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI.ViewModels/Services/CmdPalProtocolActivation.cs
-            !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI/Controls/IconBox.cs
             !examples/PowerToys/src/modules/cmdpal/Tests/Microsoft.CmdPal.Ext.Bookmarks.UnitTests/BookmarkResolverTests.Common.cs
-            !examples/PowerToys/src/modules/cmdpal/Tests/Microsoft.CmdPal.Ext.Bookmarks.UnitTests/BookmarkResolverTests.Quoted.cs
-            !examples/PowerToys/src/modules/cmdpal/Tests/Microsoft.CmdPal.UI.ViewModels.UnitTests/EarlyFrameRelevanceTests.cs
-            !examples/PowerToys/src/modules/cmdpal/Tests/Microsoft.CmdPal.UI.ViewModels.UnitTests/FastFirstPaintTests.cs
-            !examples/PowerToys/src/modules/cmdpal/Tests/Microsoft.CmdPal.UI.ViewModels.UnitTests/ScoringParallelEquivalenceTests.cs
-            !examples/PowerToys/src/modules/cmdpal/Tests/Microsoft.CmdPal.UI.ViewModels.UnitTests/ScoringThroughputHarnessTests.cs
-            !examples/PowerToys/src/modules/cmdpal/ext/Microsoft.CmdPal.Ext.PerformanceMonitor/DevHome/Helpers/ProcessCpuSampler.cs
-            !examples/PowerToys/src/modules/cmdpal/extensionsdk/Microsoft.CommandPalette.Extensions.Toolkit/ShellThreadErrorModeScope.cs
-            !examples/PowerToys/src/modules/powerdisplay/PowerDisplay/Helpers/TrayIconMouseWheelListener.cs
-            !examples/nunit/src/NUnitFramework/framework/Constraints/Numerics.cs
-            !examples/nunit/src/NUnitFramework/framework/Internal/DisplayName.cs
             !examples/nunit/src/NUnitFramework/framework/Internal/DisposeHelper.cs
             !examples/nunit/src/NUnitFramework/framework/Internal/ExceptionHelper.cs
             !examples/nunit/src/NUnitFramework/framework/Internal/OSPlatform.cs
             !examples/nunit/src/NUnitFramework/framework/Internal/OverloadResolutionPriorityAttribute.cs
             !examples/nunit/src/NUnitFramework/framework/Internal/Reflect.cs
             !examples/nunit/src/NUnitFramework/framework/Internal/TestExecutionContext.cs
-            !examples/nunit/src/NUnitFramework/nunitlite.tests/MakeRunSettingsTests.cs
             !examples/nunit/src/NUnitFramework/testdata/TestCaseAttributeFixture.cs
             !examples/nunit/src/NUnitFramework/tests/Api/TestAssemblyRunnerTests.cs
             !examples/nunit/src/NUnitFramework/tests/Assertions/WarningTests.cs
-            !examples/nunit/src/NUnitFramework/tests/Attributes/UnhandledExceptionHandlingAttributeTests.cs
-            !examples/nunit/src/NUnitFramework/tests/Constraints/GreaterThanConstraintTests.cs
-            !examples/nunit/src/NUnitFramework/tests/Constraints/GreaterThanOrEqualConstraintTests.cs
-            !examples/nunit/src/NUnitFramework/tests/Constraints/LessThanConstraintTests.cs
-            !examples/nunit/src/NUnitFramework/tests/Constraints/LessThanOrEqualConstraintTests.cs
-            !examples/nunit/src/NUnitFramework/tests/Constraints/NumericsTest.cs
             !examples/nunit/src/NUnitFramework/tests/Internal/EventQueueTests.cs
-            !examples/nunit/src/NUnitFramework/tests/Internal/TestNameGeneratorTests.cs

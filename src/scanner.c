@@ -19,6 +19,7 @@ enum TokenType {
     RAW_STRING_END,
     RAW_STRING_CONTENT,
     LAMBDA_PAREN_OPEN,
+    PREPROC_ELSE_IF_START,
 };
 
 typedef enum {
@@ -306,6 +307,37 @@ static LambdaScanResult scan_lambda_paren_open(TSLexer *lexer) {
 }
 #undef BAIL
 
+
+// `#if <condition>` whose first content, after the condition line and any blank
+// lines or comments, is the keyword `else`. Only `#if` is consumed (mark_end);
+// the rest is read ahead and handed back so the normal tokens lex it. Lets an
+// `else` branch live inside a directive without a parser conflict on `#if`.
+static bool scan_preproc_else_if_start(TSLexer *lexer) {
+    while (iswspace(lexer->lookahead)) {
+        skip(lexer);
+    }
+    if (lexer->lookahead != '#') return false;
+    advance(lexer);
+    while (lexer->lookahead == ' ' || lexer->lookahead == '\t') advance(lexer);
+    if (lexer->lookahead != 'i') return false;
+    advance(lexer);
+    if (lexer->lookahead != 'f') return false;
+    advance(lexer);
+    if (is_id_continue(lexer->lookahead)) return false;
+    lexer->mark_end(lexer);
+    // rest of the condition line
+    while (lexer->lookahead != 0 && lexer->lookahead != '\n') advance(lexer);
+    skip_ws_and_comments(lexer);
+    const char *kw = "else";
+    for (int i = 0; kw[i]; i++) {
+        if (lexer->lookahead != (int32_t)kw[i]) return false;
+        advance(lexer);
+    }
+    if (is_id_continue(lexer->lookahead)) return false;
+    lexer->result_symbol = PREPROC_ELSE_IF_START;
+    return true;
+}
+
 bool tree_sitter_c_sharp_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
     Scanner *scanner = (Scanner *)payload;
 
@@ -331,6 +363,11 @@ bool tree_sitter_c_sharp_external_scanner_scan(void *payload, TSLexer *lexer, co
             case LAMBDA_SCAN_NO_PAREN:
                 break;  // lexer untouched; fall through
         }
+    }
+
+    if (valid_symbols[PREPROC_ELSE_IF_START]) {
+        if (scan_preproc_else_if_start(lexer)) return true;
+        return false;
     }
 
     // error recovery, gives better trees this way

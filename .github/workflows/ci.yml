@@ -43,7 +43,7 @@ jobs:
       - name: Run tests
         uses: tree-sitter/parser-test-action@v3
       - name: Parse examples
-        uses: tree-sitter/parse-action@v4
+        uses: tree-sitter/parse-action@v5
         id: test
         with:
           files: |

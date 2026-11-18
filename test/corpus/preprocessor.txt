@@ -103,6 +103,65 @@ If conditions
       right: (identifier))))
 
 ================================================================================
+Several attribute lists inside an #if block
+================================================================================
+
+#if X
+[A]
+[B]
+#endif
+class C
+{
+#if NET5_0_OR_GREATER
+  [A]
+  [B(1)]
+#else
+  [C]
+  [D]
+#endif
+  int R() => 0;
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    (preproc_if_in_attribute_list
+      condition: (identifier)
+      (attribute_list
+        (attribute
+          name: (identifier)))
+      (attribute_list
+        (attribute
+          name: (identifier))))
+    name: (identifier)
+    body: (declaration_list
+      (method_declaration
+        (preproc_if_in_attribute_list
+          condition: (identifier)
+          (attribute_list
+            (attribute
+              name: (identifier)))
+          (attribute_list
+            (attribute
+              name: (identifier)
+              (attribute_argument_list
+                (attribute_argument
+                  (integer_literal)))))
+          alternative: (preproc_else
+            (attribute_list
+              (attribute
+                name: (identifier)))
+            (attribute_list
+              (attribute
+                name: (identifier)))))
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (arrow_expression_clause
+          (integer_literal))))))
+
+================================================================================
 Define and undefine directives
 ================================================================================
 

@@ -12879,16 +12879,11 @@
             "value": "\\n"
           },
           {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "attribute_list"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
+            "type": "REPEAT",
+            "content": {
+              "type": "SYMBOL",
+              "name": "attribute_list"
+            }
           },
           {
             "type": "FIELD",
@@ -12953,16 +12948,11 @@
             "value": "#else"
           },
           {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "attribute_list"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
+            "type": "REPEAT",
+            "content": {
+              "type": "SYMBOL",
+              "name": "attribute_list"
+            }
           }
         ]
       }
@@ -12995,16 +12985,11 @@
             "value": "\\n"
           },
           {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "attribute_list"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
+            "type": "REPEAT",
+            "content": {
+              "type": "SYMBOL",
+              "name": "attribute_list"
+            }
           },
           {
             "type": "FIELD",
@@ -14257,6 +14242,14 @@
       "receiver_parameter",
       "scoped_type",
       "_reserved_identifier"
+    ],
+    [
+      "_attribute_list",
+      "preproc_if_in_attribute_list"
+    ],
+    [
+      "_attribute_list",
+      "preproc_else_in_attribute_list"
     ]
   ],
   "precedences": [

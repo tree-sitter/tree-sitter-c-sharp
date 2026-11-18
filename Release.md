@@ -16,7 +16,7 @@ Pushing a tag publishes the release. Published versions cannot be reused, so do 
 
 ## What a tag publishes
 
-`.github/workflows/publish.yml` runs on **any** tag and calls the shared workflows in [tree-sitter/workflows](https://github.com/tree-sitter/workflows).
+`.github/workflows/publish.yml` runs on **any** tag and calls the shared workflows in [tree-sitter/workflows](https://github.com/tree-sitter/workflows). It first checks that the tag matches the version in `Cargo.toml`, `package.json`, `pyproject.toml` and `tree-sitter.json`, and publishes nothing if any differ.
 
 | Target | What is published | Credential |
 |---|---|---|

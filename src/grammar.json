@@ -5989,7 +5989,7 @@
     },
     "type_pattern": {
       "type": "PREC_RIGHT",
-      "value": 0,
+      "value": 2,
       "content": {
         "type": "FIELD",
         "name": "type",
@@ -12490,10 +12490,6 @@
     [
       "_simple_name",
       "subpattern"
-    ],
-    [
-      "tuple_element",
-      "type_pattern"
     ],
     [
       "tuple_element",

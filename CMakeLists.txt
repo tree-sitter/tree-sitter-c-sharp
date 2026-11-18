@@ -9,7 +9,7 @@ project(tree-sitter-c-sharp
 option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
 option(TREE_SITTER_REUSE_ALLOCATOR "Reuse the library allocator" OFF)
 
-set(TREE_SITTER_ABI_VERSION 14 CACHE STRING "Tree-sitter ABI version")
+set(TREE_SITTER_ABI_VERSION 15 CACHE STRING "Tree-sitter ABI version")
 if(NOT ${TREE_SITTER_ABI_VERSION} MATCHES "^[0-9]+$")
     unset(TREE_SITTER_ABI_VERSION CACHE)
     message(FATAL_ERROR "TREE_SITTER_ABI_VERSION must be an integer")

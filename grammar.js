@@ -48,7 +48,6 @@ export default grammar({
     [$._simple_name, $.type_parameter],
     [$._simple_name, $.subpattern],
 
-    [$.tuple_element, $.type_pattern],
     [$.tuple_element, $.using_variable_declarator],
     [$.tuple_element, $.declaration_expression],
 
@@ -1284,7 +1283,9 @@ export default grammar({
 
     var_pattern: $ => seq('var', $._variable_designation),
 
-    type_pattern: $ => prec.right(field('type', $.type)),
+    // Precedence above _variable_designation so `case int when x:` reduces
+    // to a type pattern before `when` instead of using `when` as a name.
+    type_pattern: $ => prec.right(2, field('type', $.type)),
 
     list_pattern: $ => prec.right(seq(
       '[',

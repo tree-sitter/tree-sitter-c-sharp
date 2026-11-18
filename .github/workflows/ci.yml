@@ -28,7 +28,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-14]
+        os: [ubuntu-latest, windows-latest, macos-latest]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
@@ -64,6 +64,7 @@ jobs:
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Schema/JsonSchemaSpecTests.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Serialization/ContractResolverTests.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Serialization/JsonSerializerTest.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Serialization/ModernNumericTests.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Serialization/SerializationErrorHandlingTests.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Serialization/WebApiIntegrationTests.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/TestFixtureBase.cs
@@ -113,9 +114,11 @@ jobs:
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/JsonSerializerInternalWriter.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/JsonTypeReflector.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/TraceJsonWriter.cs
+            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Utilities/AsyncUtils.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Utilities/ConvertUtils.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Utilities/DictionaryWrapper.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Utilities/ReflectionUtils.cs
+            !examples/PowerToys/src/modules/AdvancedPaste/AdvancedPaste.UITests.Next/AdvancedPasteTestBase.cs
             !examples/PowerToys/src/modules/AdvancedPaste/AdvancedPaste/Services/KernelServiceBase.cs
             !examples/PowerToys/src/modules/MouseWithoutBorders/App/Class/InputHook.cs
             !examples/PowerToys/src/modules/cmdpal/Core/Microsoft.CmdPal.Core.Common/Services/Sanitizer/SecretKeyValueRulesProvider.cs
@@ -129,15 +132,24 @@ jobs:
             !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI.ViewModels/Commands/NewExtensionPage.cs
             !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI.ViewModels/ContentTreeViewModel.cs
             !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI.ViewModels/ListViewModel.cs
+            !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI.ViewModels/Services/CmdPalProtocolActivation.cs
+            !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI/Controls/IconBox.cs
             !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI/Dock/DockWindow.xaml.cs
             !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI/Helpers/GlobalErrorHandler.cs
             !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI/MainWindow.xaml.cs
             !examples/PowerToys/src/modules/cmdpal/Tests/Microsoft.CmdPal.Ext.Bookmarks.UnitTests/BookmarkResolverTests.Common.cs
             !examples/PowerToys/src/modules/cmdpal/Tests/Microsoft.CmdPal.Ext.Bookmarks.UnitTests/BookmarkResolverTests.Quoted.cs
             !examples/PowerToys/src/modules/cmdpal/Tests/Microsoft.CmdPal.Ext.Bookmarks.UnitTests/MockBookmarkManager.cs
+            !examples/PowerToys/src/modules/cmdpal/Tests/Microsoft.CmdPal.UI.ViewModels.UnitTests/EarlyFrameRelevanceTests.cs
+            !examples/PowerToys/src/modules/cmdpal/Tests/Microsoft.CmdPal.UI.ViewModels.UnitTests/FastFirstPaintTests.cs
+            !examples/PowerToys/src/modules/cmdpal/Tests/Microsoft.CmdPal.UI.ViewModels.UnitTests/ScoringParallelEquivalenceTests.cs
+            !examples/PowerToys/src/modules/cmdpal/Tests/Microsoft.CmdPal.UI.ViewModels.UnitTests/ScoringThroughputHarnessTests.cs
             !examples/PowerToys/src/modules/cmdpal/ext/Microsoft.CmdPal.Ext.Apps/Helpers/AppxIconLoader.cs
+            !examples/PowerToys/src/modules/cmdpal/ext/Microsoft.CmdPal.Ext.PerformanceMonitor/DevHome/Helpers/ProcessCpuSampler.cs
             !examples/PowerToys/src/modules/cmdpal/ext/Microsoft.CmdPal.Ext.PerformanceMonitor/PerformanceWidgetsPage.cs
             !examples/PowerToys/src/modules/cmdpal/ext/Microsoft.CmdPal.Ext.Shell/Pages/ShellListPage.cs
+            !examples/PowerToys/src/modules/cmdpal/extensionsdk/Microsoft.CommandPalette.Extensions.Toolkit/ShellThreadErrorModeScope.cs
+            !examples/PowerToys/src/modules/powerdisplay/PowerDisplay/Helpers/TrayIconMouseWheelListener.cs
             !examples/PowerToys/src/settings-ui/Settings.UI.Library/Attributes/CmdConfigureIgnoreAttribute.cs
             !examples/PowerToys/src/settings-ui/Settings.UI/SettingsXAML/App.xaml.cs
             !examples/nunit/src/NUnitFramework/benchmarks/nunit.framework.benchmarks/ParamAttributeTypeConversionsBenchmark.cs
@@ -146,6 +158,8 @@ jobs:
             !examples/nunit/src/NUnitFramework/framework/Compatibility/LongLivedMarshalByRefObject.cs
             !examples/nunit/src/NUnitFramework/framework/Compatibility/System.Threading/SpinWait.cs
             !examples/nunit/src/NUnitFramework/framework/Constraints/MsgUtils.cs
+            !examples/nunit/src/NUnitFramework/framework/Constraints/Numerics.cs
+            !examples/nunit/src/NUnitFramework/framework/Internal/DisplayName.cs
             !examples/nunit/src/NUnitFramework/framework/Internal/DisposeHelper.cs
             !examples/nunit/src/NUnitFramework/framework/Internal/ExceptionHelper.cs
             !examples/nunit/src/NUnitFramework/framework/Internal/OSPlatform.cs
@@ -172,7 +186,13 @@ jobs:
             !examples/nunit/src/NUnitFramework/tests/Attributes/TimeoutTests.cs
             !examples/nunit/src/NUnitFramework/tests/Attributes/UnhandledExceptionHandlingAttributeTests.cs
             !examples/nunit/src/NUnitFramework/tests/AwaitableReturnTypeTests.cs
+            !examples/nunit/src/NUnitFramework/tests/Constraints/GreaterThanConstraintTests.cs
+            !examples/nunit/src/NUnitFramework/tests/Constraints/GreaterThanOrEqualConstraintTests.cs
+            !examples/nunit/src/NUnitFramework/tests/Constraints/LessThanConstraintTests.cs
+            !examples/nunit/src/NUnitFramework/tests/Constraints/LessThanOrEqualConstraintTests.cs
+            !examples/nunit/src/NUnitFramework/tests/Constraints/NumericsTest.cs
             !examples/nunit/src/NUnitFramework/tests/Internal/EventQueueTests.cs
+            !examples/nunit/src/NUnitFramework/tests/Internal/TestNameGeneratorTests.cs
             !examples/nunit/src/NUnitFramework/tests/NonVoidResultAwaitableReturnTypeTests.cs
             !examples/nunit/src/NUnitFramework/tests/SynchronizationContextTests.cs
             !examples/nunit/src/NUnitFramework/tests/Syntax/PathConstraintTests.cs

@@ -3328,19 +3328,98 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "CHOICE",
+                "type": "SEQ",
                 "members": [
-                  {
-                    "type": "STRING",
-                    "value": "ref"
-                  },
                   {
                     "type": "STRING",
                     "value": "out"
                   },
                   {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "expression"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "declaration_expression"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "STRING",
+                            "value": "ref"
+                          },
+                          {
+                            "type": "STRING",
+                            "value": "in"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "expression"
+                      },
+                      {
+                        "type": "PREC_DYNAMIC",
+                        "value": -21,
+                        "content": {
+                          "type": "SYMBOL",
+                          "name": "declaration_expression"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "_tuple_argument": {
+      "type": "PREC",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "FIELD",
+                    "name": "name",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "identifier"
+                    }
+                  },
+                  {
                     "type": "STRING",
-                    "value": "in"
+                    "value": ":"
                   }
                 ]
               },
@@ -3353,12 +3432,69 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "expression"
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "out"
+                  },
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "expression"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "declaration_expression"
+                      }
+                    ]
+                  }
+                ]
               },
               {
-                "type": "SYMBOL",
-                "name": "declaration_expression"
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "STRING",
+                            "value": "ref"
+                          },
+                          {
+                            "type": "STRING",
+                            "value": "in"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "expression"
+                      },
+                      {
+                        "type": "PREC_DYNAMIC",
+                        "value": -1,
+                        "content": {
+                          "type": "SYMBOL",
+                          "name": "declaration_expression"
+                        }
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           }
@@ -10496,8 +10632,13 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "argument"
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_tuple_argument"
+              },
+              "named": true,
+              "value": "argument"
             },
             {
               "type": "REPEAT1",
@@ -10509,8 +10650,13 @@
                     "value": ","
                   },
                   {
-                    "type": "SYMBOL",
-                    "name": "argument"
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "_tuple_argument"
+                    },
+                    "named": true,
+                    "value": "argument"
                   }
                 ]
               }

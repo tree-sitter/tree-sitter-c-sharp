@@ -48,31 +48,12 @@ jobs:
         with:
           files: |
             examples/**/*.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/JsonTextReaderTests/ExceptionHandlingAsyncTests.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/JsonTextReaderTests/ExceptionHandlingTests.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/JsonTextReaderTests/FloatAsyncTests.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/JsonTextReaderTests/FloatTests.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/JsonTextReaderTests/MiscAsyncTests.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/JsonTextReaderTests/MiscTests.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/JsonTextReaderTests/ParseAsyncTests.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/JsonTextReaderTests/ParseTests.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/JsonTextReaderTests/ReadAsyncTests.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/JsonTextReaderTests/ReadTests.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Linq/DynamicTests.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Linq/JTokenTests.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Linq/JsonPath/JPathExecuteTests.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Schema/JsonSchemaSpecTests.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Serialization/ContractResolverTests.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Serialization/JsonSerializerTest.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Serialization/ModernNumericTests.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Serialization/SerializationErrorHandlingTests.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Serialization/WebApiIntegrationTests.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/TestFixtureBase.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/TestObjects/DefaultValueAttributeTestClass.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/TestObjects/Organization/Person.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/TestObjects/Pair.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Utilities/DateTimeUtilsTests.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json.Tests/Utilities/EnumUtilsTests.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Bson/BsonBinaryWriter.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Bson/BsonWriter.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Converters/IsoDateTimeConverter.cs
@@ -80,112 +61,64 @@ jobs:
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Converters/UnixDateTimeConverter.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Converters/XmlNodeConverter.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/JsonConvert.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/JsonException.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/JsonReader.Async.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/JsonReader.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/JsonReaderException.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/JsonSerializationException.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/JsonTextReader.Async.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/JsonTextReader.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/JsonTextWriter.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/JsonValidatingReader.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/JsonWriter.Async.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/JsonWriter.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/JsonWriterException.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Linq/IJEnumerable.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Linq/JArray.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Linq/JContainer.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Linq/JObject.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Linq/JToken.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Linq/JTokenWriter.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Linq/JValue.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Linq/JsonPath/FieldMultipleFilter.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Linq/JsonPath/QueryExpression.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Schema/JsonSchemaException.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Schema/JsonSchemaGenerator.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Schema/JsonSchemaNode.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/DefaultContractResolver.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/DefaultSerializationBinder.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/JsonArrayContract.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/JsonDictionaryContract.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/JsonObjectContract.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/JsonPrimitiveContract.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/JsonSerializerInternalReader.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/JsonSerializerInternalWriter.cs
-            !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/JsonTypeReflector.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Serialization/TraceJsonWriter.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Utilities/AsyncUtils.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Utilities/ConvertUtils.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Utilities/DictionaryWrapper.cs
             !examples/Newtonsoft.Json/Src/Newtonsoft.Json/Utilities/ReflectionUtils.cs
             !examples/PowerToys/src/modules/AdvancedPaste/AdvancedPaste.UITests.Next/AdvancedPasteTestBase.cs
-            !examples/PowerToys/src/modules/AdvancedPaste/AdvancedPaste/Services/KernelServiceBase.cs
             !examples/PowerToys/src/modules/MouseWithoutBorders/App/Class/InputHook.cs
-            !examples/PowerToys/src/modules/cmdpal/Core/Microsoft.CmdPal.Core.Common/Services/Sanitizer/SecretKeyValueRulesProvider.cs
-            !examples/PowerToys/src/modules/cmdpal/Core/Microsoft.CmdPal.Core.Common/Text/PrecomputedFuzzyMatcher.cs
-            !examples/PowerToys/src/modules/cmdpal/Core/Microsoft.CmdPal.Core.ViewModels/CommandItemViewModel.cs
-            !examples/PowerToys/src/modules/cmdpal/Core/Microsoft.CmdPal.Core.ViewModels/ListViewModel.cs
-            !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.Common/Services/Sanitizer/SecretKeyValueRulesProvider.cs
             !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.Common/Text/PrecomputedFuzzyMatcher.cs
-            !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI.ViewModels/CommandItemViewModel.cs
             !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI.ViewModels/Commands/MainListPage.cs
-            !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI.ViewModels/Commands/NewExtensionPage.cs
-            !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI.ViewModels/ContentTreeViewModel.cs
-            !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI.ViewModels/ListViewModel.cs
             !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI.ViewModels/Services/CmdPalProtocolActivation.cs
             !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI/Controls/IconBox.cs
-            !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI/Dock/DockWindow.xaml.cs
-            !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI/Helpers/GlobalErrorHandler.cs
-            !examples/PowerToys/src/modules/cmdpal/Microsoft.CmdPal.UI/MainWindow.xaml.cs
             !examples/PowerToys/src/modules/cmdpal/Tests/Microsoft.CmdPal.Ext.Bookmarks.UnitTests/BookmarkResolverTests.Common.cs
             !examples/PowerToys/src/modules/cmdpal/Tests/Microsoft.CmdPal.Ext.Bookmarks.UnitTests/BookmarkResolverTests.Quoted.cs
-            !examples/PowerToys/src/modules/cmdpal/Tests/Microsoft.CmdPal.Ext.Bookmarks.UnitTests/MockBookmarkManager.cs
             !examples/PowerToys/src/modules/cmdpal/Tests/Microsoft.CmdPal.UI.ViewModels.UnitTests/EarlyFrameRelevanceTests.cs
             !examples/PowerToys/src/modules/cmdpal/Tests/Microsoft.CmdPal.UI.ViewModels.UnitTests/FastFirstPaintTests.cs
             !examples/PowerToys/src/modules/cmdpal/Tests/Microsoft.CmdPal.UI.ViewModels.UnitTests/ScoringParallelEquivalenceTests.cs
             !examples/PowerToys/src/modules/cmdpal/Tests/Microsoft.CmdPal.UI.ViewModels.UnitTests/ScoringThroughputHarnessTests.cs
-            !examples/PowerToys/src/modules/cmdpal/ext/Microsoft.CmdPal.Ext.Apps/Helpers/AppxIconLoader.cs
             !examples/PowerToys/src/modules/cmdpal/ext/Microsoft.CmdPal.Ext.PerformanceMonitor/DevHome/Helpers/ProcessCpuSampler.cs
-            !examples/PowerToys/src/modules/cmdpal/ext/Microsoft.CmdPal.Ext.PerformanceMonitor/PerformanceWidgetsPage.cs
-            !examples/PowerToys/src/modules/cmdpal/ext/Microsoft.CmdPal.Ext.Shell/Pages/ShellListPage.cs
             !examples/PowerToys/src/modules/cmdpal/extensionsdk/Microsoft.CommandPalette.Extensions.Toolkit/ShellThreadErrorModeScope.cs
             !examples/PowerToys/src/modules/powerdisplay/PowerDisplay/Helpers/TrayIconMouseWheelListener.cs
-            !examples/PowerToys/src/settings-ui/Settings.UI.Library/Attributes/CmdConfigureIgnoreAttribute.cs
-            !examples/PowerToys/src/settings-ui/Settings.UI/SettingsXAML/App.xaml.cs
-            !examples/nunit/src/NUnitFramework/benchmarks/nunit.framework.benchmarks/ParamAttributeTypeConversionsBenchmark.cs
-            !examples/nunit/src/NUnitFramework/framework/Attributes/TestCaseAttribute.cs
-            !examples/nunit/src/NUnitFramework/framework/Attributes/TimeoutAttribute.cs
-            !examples/nunit/src/NUnitFramework/framework/Compatibility/LongLivedMarshalByRefObject.cs
-            !examples/nunit/src/NUnitFramework/framework/Compatibility/System.Threading/SpinWait.cs
-            !examples/nunit/src/NUnitFramework/framework/Constraints/MsgUtils.cs
             !examples/nunit/src/NUnitFramework/framework/Constraints/Numerics.cs
             !examples/nunit/src/NUnitFramework/framework/Internal/DisplayName.cs
             !examples/nunit/src/NUnitFramework/framework/Internal/DisposeHelper.cs
             !examples/nunit/src/NUnitFramework/framework/Internal/ExceptionHelper.cs
             !examples/nunit/src/NUnitFramework/framework/Internal/OSPlatform.cs
             !examples/nunit/src/NUnitFramework/framework/Internal/OverloadResolutionPriorityAttribute.cs
-            !examples/nunit/src/NUnitFramework/framework/Internal/PlatformHelper.cs
             !examples/nunit/src/NUnitFramework/framework/Internal/Reflect.cs
-            !examples/nunit/src/NUnitFramework/framework/Internal/Results/TestResult.cs
             !examples/nunit/src/NUnitFramework/framework/Internal/TestExecutionContext.cs
-            !examples/nunit/src/NUnitFramework/framework/Internal/TestParameters.cs
-            !examples/nunit/src/NUnitFramework/framework/Internal/TypeHelper.cs
             !examples/nunit/src/NUnitFramework/nunitlite.tests/MakeRunSettingsTests.cs
-            !examples/nunit/src/NUnitFramework/nunitlite/Options.cs
             !examples/nunit/src/NUnitFramework/testdata/TestCaseAttributeFixture.cs
             !examples/nunit/src/NUnitFramework/tests/Api/TestAssemblyRunnerTests.cs
-            !examples/nunit/src/NUnitFramework/tests/Assertions/AssertMultipleTests.cs
-            !examples/nunit/src/NUnitFramework/tests/Assertions/AssertThatTests.cs
-            !examples/nunit/src/NUnitFramework/tests/Assertions/AssumeThatTests.cs
             !examples/nunit/src/NUnitFramework/tests/Assertions/WarningTests.cs
-            !examples/nunit/src/NUnitFramework/tests/AsyncExecutionApiAdapter.cs
-            !examples/nunit/src/NUnitFramework/tests/Attributes/ApartmentAttributeTests.cs
-            !examples/nunit/src/NUnitFramework/tests/Attributes/DerivedPropertyAttributeTests.cs
-            !examples/nunit/src/NUnitFramework/tests/Attributes/RequiresThreadAttributeTests.cs
-            !examples/nunit/src/NUnitFramework/tests/Attributes/SingleThreadedFixtureTests.cs
-            !examples/nunit/src/NUnitFramework/tests/Attributes/TimeoutTests.cs
             !examples/nunit/src/NUnitFramework/tests/Attributes/UnhandledExceptionHandlingAttributeTests.cs
-            !examples/nunit/src/NUnitFramework/tests/AwaitableReturnTypeTests.cs
             !examples/nunit/src/NUnitFramework/tests/Constraints/GreaterThanConstraintTests.cs
             !examples/nunit/src/NUnitFramework/tests/Constraints/GreaterThanOrEqualConstraintTests.cs
             !examples/nunit/src/NUnitFramework/tests/Constraints/LessThanConstraintTests.cs
@@ -193,8 +126,3 @@ jobs:
             !examples/nunit/src/NUnitFramework/tests/Constraints/NumericsTest.cs
             !examples/nunit/src/NUnitFramework/tests/Internal/EventQueueTests.cs
             !examples/nunit/src/NUnitFramework/tests/Internal/TestNameGeneratorTests.cs
-            !examples/nunit/src/NUnitFramework/tests/NonVoidResultAwaitableReturnTypeTests.cs
-            !examples/nunit/src/NUnitFramework/tests/SynchronizationContextTests.cs
-            !examples/nunit/src/NUnitFramework/tests/Syntax/PathConstraintTests.cs
-            !examples/nunit/src/NUnitFramework/tests/TestUtilities/StressUtility.cs
-            !examples/nunit/src/NUnitFramework/windows-tests/SynchronizationContextTests.cs

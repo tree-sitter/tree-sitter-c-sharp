@@ -1,0 +1,335 @@
+================================================================================
+Multiplication in an argument
+================================================================================
+
+Math.Atan(t * pow_es);
+M(a * b + c * d);
+M(n: a * b, ref c * d);
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        function: (member_access_expression
+          expression: (identifier)
+          name: (identifier))
+        arguments: (argument_list
+          (argument
+            (binary_expression
+              left: (identifier)
+              right: (identifier)))))))
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        function: (identifier)
+        arguments: (argument_list
+          (argument
+            (binary_expression
+              left: (binary_expression
+                left: (identifier)
+                right: (identifier))
+              right: (binary_expression
+                left: (identifier)
+                right: (identifier))))))))
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        function: (identifier)
+        arguments: (argument_list
+          (argument
+            name: (identifier)
+            (binary_expression
+              left: (identifier)
+              right: (identifier)))
+          (argument
+            (binary_expression
+              left: (identifier)
+              right: (identifier))))))))
+
+================================================================================
+Multiplication beside an out declaration
+================================================================================
+
+M(out var x, t * y);
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        function: (identifier)
+        arguments: (argument_list
+          (argument
+            (declaration_expression
+              type: (implicit_type)
+              name: (identifier)))
+          (argument
+            (binary_expression
+              left: (identifier)
+              right: (identifier))))))))
+
+================================================================================
+Pointer declarations after out
+================================================================================
+
+M(out T* p);
+M(out T** q);
+M(out int* r);
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        function: (identifier)
+        arguments: (argument_list
+          (argument
+            (declaration_expression
+              type: (pointer_type
+                type: (identifier))
+              name: (identifier)))))))
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        function: (identifier)
+        arguments: (argument_list
+          (argument
+            (declaration_expression
+              type: (pointer_type
+                type: (pointer_type
+                  type: (identifier)))
+              name: (identifier)))))))
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        function: (identifier)
+        arguments: (argument_list
+          (argument
+            (declaration_expression
+              type: (pointer_type
+                type: (predefined_type))
+              name: (identifier))))))))
+
+================================================================================
+Declarations after out
+================================================================================
+
+Stream.TryRead(buffer, out byte count);
+M(out List<int> x, out A<B> c);
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        function: (member_access_expression
+          expression: (identifier)
+          name: (identifier))
+        arguments: (argument_list
+          (argument
+            (identifier))
+          (argument
+            (declaration_expression
+              type: (predefined_type)
+              name: (identifier)))))))
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        function: (identifier)
+        arguments: (argument_list
+          (argument
+            (declaration_expression
+              type: (generic_name
+                (identifier)
+                (type_argument_list
+                  (predefined_type)))
+              name: (identifier)))
+          (argument
+            (declaration_expression
+              type: (generic_name
+                (identifier)
+                (type_argument_list
+                  (identifier)))
+              name: (identifier))))))))
+
+================================================================================
+Comparisons shaped like generic declarations
+================================================================================
+
+M(a < b > c);
+M(a < b, c > d);
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        function: (identifier)
+        arguments: (argument_list
+          (argument
+            (binary_expression
+              left: (binary_expression
+                left: (identifier)
+                right: (identifier))
+              right: (identifier)))))))
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        function: (identifier)
+        arguments: (argument_list
+          (argument
+            (binary_expression
+              left: (identifier)
+              right: (identifier)))
+          (argument
+            (binary_expression
+              left: (identifier)
+              right: (identifier))))))))
+
+================================================================================
+Generic invocation in an argument
+================================================================================
+
+M(F<A, B>(7));
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        function: (identifier)
+        arguments: (argument_list
+          (argument
+            (invocation_expression
+              function: (generic_name
+                (identifier)
+                (type_argument_list
+                  (identifier)
+                  (identifier)))
+              arguments: (argument_list
+                (argument
+                  (integer_literal))))))))))
+
+================================================================================
+Declaration without out
+================================================================================
+
+M(int x);
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        function: (identifier)
+        arguments: (argument_list
+          (argument
+            (declaration_expression
+              type: (predefined_type)
+              name: (identifier))))))))
+
+================================================================================
+Multiplication in a tuple
+================================================================================
+
+var z = (a * b, c * d);
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (tuple_expression
+            (argument
+              (binary_expression
+                left: (identifier)
+                right: (identifier)))
+            (argument
+              (binary_expression
+                left: (identifier)
+                right: (identifier)))))))))
+
+================================================================================
+Deconstruction into new variables
+================================================================================
+
+(int a, T b) = t;
+(A<B> c, A<D> e) = t;
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (expression_statement
+      (assignment_expression
+        left: (tuple_expression
+          (argument
+            (declaration_expression
+              type: (predefined_type)
+              name: (identifier)))
+          (argument
+            (declaration_expression
+              type: (identifier)
+              name: (identifier))))
+        right: (identifier))))
+  (global_statement
+    (expression_statement
+      (assignment_expression
+        left: (tuple_expression
+          (argument
+            (declaration_expression
+              type: (generic_name
+                (identifier)
+                (type_argument_list
+                  (identifier)))
+              name: (identifier)))
+          (argument
+            (declaration_expression
+              type: (generic_name
+                (identifier)
+                (type_argument_list
+                  (identifier)))
+              name: (identifier))))
+        right: (identifier)))))
+
+================================================================================
+Tuple type as a type argument
+================================================================================
+
+var l = new List<(string Name, Key[] Keys)>();
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (object_creation_expression
+            type: (generic_name
+              (identifier)
+              (type_argument_list
+                (tuple_type
+                  (tuple_element
+                    type: (predefined_type)
+                    name: (identifier))
+                  (tuple_element
+                    type: (array_type
+                      type: (identifier)
+                      rank: (array_rank_specifier))
+                    name: (identifier)))))
+            arguments: (argument_list)))))))

@@ -772,14 +772,14 @@ export default grammar({
       ')',
     ),
 
-    argument: $ => prec(1, seq(
-      optional(seq(field('name', $.identifier), ':')),
-      optional(choice('ref', 'out', 'in')),
-      choice(
-        $.expression,
-        $.declaration_expression,
-      ),
-    )),
+    // A declaration is only valid after `out`, so `M(t * x)` multiplies and
+    // `M(a < b, c > d)` compares. Without `out` it stays available for error
+    // tolerance, below every expression, including a `generic_name`.
+    argument: $ => argumentRule($, -(PREC.GENERIC + 2)),
+
+    // `(A<B> a, C b) = t` declares variables, so a generic type still wins here,
+    // while `(a * b, c)` remains a multiplication.
+    _tuple_argument: $ => argumentRule($, -1),
 
     block: $ => seq('{', repeat($.statement), '}'),
 
@@ -2120,7 +2120,7 @@ export default grammar({
 
     tuple_expression: $ => seq(
       '(',
-      commaSep2($.argument),
+      commaSep2(alias($._tuple_argument, $.argument)),
       ')',
     ),
 
@@ -2529,6 +2529,29 @@ function preprocIf(suffix, content, precedence = 0, rep = true, ifToken = null) 
       field('alternative', optional(alternativeBlock($))),
     )),
   };
+}
+
+/**
+ * Creates an argument, which may declare a variable after `out`
+ *
+ * @param {GrammarSymbols<string>} $
+ *
+ * @param {number} declarationPrecedence dynamic precedence of a declaration
+ * that does not follow `out`
+ *
+ * @returns {PrecRule}
+ */
+function argumentRule($, declarationPrecedence) {
+  return prec(1, seq(
+    optional(seq(field('name', $.identifier), ':')),
+    choice(
+      seq('out', choice($.expression, $.declaration_expression)),
+      seq(
+        optional(choice('ref', 'in')),
+        choice($.expression, prec.dynamic(declarationPrecedence, $.declaration_expression)),
+      ),
+    ),
+  ));
 }
 
 /**

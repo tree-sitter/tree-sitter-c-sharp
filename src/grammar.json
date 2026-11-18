@@ -13539,6 +13539,46 @@
         }
       ]
     },
+    "_preproc_file_name": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "\""
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "IMMEDIATE_TOKEN",
+                "content": {
+                  "type": "PREC",
+                  "value": 1,
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "[^\"\\r\\n]+"
+                  }
+                }
+              },
+              "named": true,
+              "value": "string_literal_content"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": "\""
+          }
+        }
+      ]
+    },
     "preproc_line": {
       "type": "SEQ",
       "members": [
@@ -13573,8 +13613,13 @@
                   "type": "CHOICE",
                   "members": [
                     {
-                      "type": "SYMBOL",
-                      "name": "string_literal"
+                      "type": "ALIAS",
+                      "content": {
+                        "type": "SYMBOL",
+                        "name": "_preproc_file_name"
+                      },
+                      "named": true,
+                      "value": "string_literal"
                     },
                     {
                       "type": "BLANK"
@@ -13643,8 +13688,13 @@
                   ]
                 },
                 {
-                  "type": "SYMBOL",
-                  "name": "string_literal"
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_preproc_file_name"
+                  },
+                  "named": true,
+                  "value": "string_literal"
                 }
               ]
             }

@@ -2344,18 +2344,25 @@ export default grammar({
       /\n/,
     ),
 
+    // A file name has no escape sequences: `"C:\dir\"` is complete.
+    _preproc_file_name: $ => seq(
+      '"',
+      optional(alias(token.immediate(prec(1, /[^"\r\n]+/)), $.string_literal_content)),
+      token.immediate('"'),
+    ),
+
     preproc_line: $ => seq(
       preprocessor('line'),
       choice(
         'default',
         'hidden',
-        seq($.integer_literal, optional($.string_literal)),
+        seq($.integer_literal, optional(alias($._preproc_file_name, $.string_literal))),
         seq(
           '(', $.integer_literal, ',', $.integer_literal, ')',
           '-',
           '(', $.integer_literal, ',', $.integer_literal, ')',
           optional($.integer_literal),
-          $.string_literal,
+          alias($._preproc_file_name, $.string_literal),
         ),
       ),
       /\n/,

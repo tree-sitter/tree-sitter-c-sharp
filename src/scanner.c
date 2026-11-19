@@ -365,10 +365,11 @@ static size_t read_directive_word(TSLexer *lexer, char *buf, size_t max) {
     return n;
 }
 
-// Advances past the rest of the line, newline included.
+// Advances past the rest of the line, newline included. A NUL is ordinary text:
+// only `eof` ends the input, so the skipped-section loop always moves forward.
 static void advance_line(TSLexer *lexer) {
-    while (lexer->lookahead != 0 && lexer->lookahead != '\n') advance(lexer);
-    if (lexer->lookahead == '\n') advance(lexer);
+    while (!lexer->eof(lexer) && lexer->lookahead != '\n') advance(lexer);
+    if (!lexer->eof(lexer)) advance(lexer);
 }
 
 // 1: token found. 0: no '#' (only blanks skipped). -1: read past a '#' without a token.

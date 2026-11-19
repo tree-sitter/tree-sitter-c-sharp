@@ -62,6 +62,8 @@ export default grammar({
     [$.lvalue_expression, $.non_lvalue_expression],
     // C# 15: `union` is contextual — `union Pet(...)` vs. an identifier named `union`.
     [$.union_declaration, $._reserved_identifier],
+    // C# 15: `[with(...), ...]` (with_element) vs. an identifier named `with`.
+    [$.with_element, $._reserved_identifier],
 
     [$.type, $.attribute],
     [$.type, $.nullable_type],
@@ -2025,9 +2027,17 @@ export default grammar({
 
     collection_expression: $ => seq(
       '[',
-      optional($._collection_items),
+      optional(choice(
+        // C# 15 collection expression arguments: `with(...)` is only valid
+        // as the first element.
+        // https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-15.0/collection-expression-arguments
+        seq($.with_element, optional(seq(',', optional($._collection_items)))),
+        $._collection_items,
+      )),
       ']',
     ),
+
+    with_element: $ => prec.dynamic(2, seq('with', field('arguments', $.argument_list))),
 
     // A list of elements in which `#if` blocks may hold whole comma-terminated
     // elements: `[ 1, #if X 2, 3, #endif ]`. Roslyn treats a directive as

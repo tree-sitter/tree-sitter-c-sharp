@@ -4832,3 +4832,163 @@ var a = new List<PointUi>(points) { point };
                 (identifier)))
             initializer: (initializer_expression
               (identifier))))))))
+
+================================================================================
+Collection expression arguments (C# 15)
+================================================================================
+
+List<string> names = [with(capacity: values.Length * 2), .. values];
+HashSet<string> set = [with(StringComparer.OrdinalIgnoreCase), "Hello", "hello"];
+l = [with([1, 2]), 3];
+l = [with()];
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (generic_name
+          (identifier)
+          (type_argument_list
+            (predefined_type)))
+        (variable_declarator
+          name: (identifier)
+          (collection_expression
+            (with_element
+              arguments: (argument_list
+                (argument
+                  name: (identifier)
+                  (binary_expression
+                    left: (member_access_expression
+                      expression: (identifier)
+                      name: (identifier))
+                    right: (integer_literal)))))
+            (collection_element
+              (spread_element
+                (identifier))))))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (generic_name
+          (identifier)
+          (type_argument_list
+            (predefined_type)))
+        (variable_declarator
+          name: (identifier)
+          (collection_expression
+            (with_element
+              arguments: (argument_list
+                (argument
+                  (member_access_expression
+                    expression: (identifier)
+                    name: (identifier)))))
+            (collection_element
+              (expression_element
+                (string_literal
+                  (string_literal_content))))
+            (collection_element
+              (expression_element
+                (string_literal
+                  (string_literal_content)))))))))
+  (global_statement
+    (expression_statement
+      (assignment_expression
+        left: (identifier)
+        right: (collection_expression
+          (with_element
+            arguments: (argument_list
+              (argument
+                (collection_expression
+                  (collection_element
+                    (expression_element
+                      (integer_literal)))
+                  (collection_element
+                    (expression_element
+                      (integer_literal)))))))
+          (collection_element
+            (expression_element
+              (integer_literal)))))))
+  (global_statement
+    (expression_statement
+      (assignment_expression
+        left: (identifier)
+        right: (collection_expression
+          (with_element
+            arguments: (argument_list)))))))
+
+================================================================================
+Contextual with in collection expressions (C# 15)
+================================================================================
+
+var a = [with, other];
+var b = [a, with(1)];
+var c = [@with(1)];
+int with = 2;
+var d = p with { X = with };
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (collection_expression
+            (collection_element
+              (expression_element
+                (identifier)))
+            (collection_element
+              (expression_element
+                (identifier))))))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (collection_expression
+            (collection_element
+              (expression_element
+                (identifier)))
+            (collection_element
+              (expression_element
+                (invocation_expression
+                  function: (identifier)
+                  arguments: (argument_list
+                    (argument
+                      (integer_literal)))))))))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (collection_expression
+            (collection_element
+              (expression_element
+                (invocation_expression
+                  function: (identifier)
+                  arguments: (argument_list
+                    (argument
+                      (integer_literal)))))))))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (predefined_type)
+        (variable_declarator
+          name: (identifier)
+          (integer_literal)))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (with_expression
+            (identifier)
+            (with_initializer
+              (identifier)
+              (identifier))))))))

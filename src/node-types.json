@@ -1753,6 +1753,10 @@
         {
           "type": "preproc_if",
           "named": true
+        },
+        {
+          "type": "with_element",
+          "named": true
         }
       ]
     }
@@ -6824,6 +6828,22 @@
         "types": [
           {
             "type": "expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "with_element",
+    "named": true,
+    "fields": {
+      "arguments": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "argument_list",
             "named": true
           }
         ]

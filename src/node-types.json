@@ -64,10 +64,6 @@
         "named": true
       },
       {
-        "type": "preproc_if",
-        "named": true
-      },
-      {
         "type": "property_declaration",
         "named": true
       },
@@ -304,10 +300,6 @@
         "named": true
       },
       {
-        "type": "preproc_if",
-        "named": true
-      },
-      {
         "type": "query_expression",
         "named": true
       },
@@ -473,10 +465,6 @@
       },
       {
         "type": "lock_statement",
-        "named": true
-      },
-      {
-        "type": "preproc_if",
         "named": true
       },
       {
@@ -660,14 +648,6 @@
         },
         {
           "type": "modifier",
-          "named": true
-        },
-        {
-          "type": "preproc_if",
-          "named": true
-        },
-        {
-          "type": "preproc_if_in_attribute_list",
           "named": true
         }
       ]
@@ -1466,10 +1446,6 @@
         {
           "type": "parameter",
           "named": true
-        },
-        {
-          "type": "preproc_if_in_attribute_list",
-          "named": true
         }
       ]
     }
@@ -1686,10 +1662,6 @@
           "named": true
         },
         {
-          "type": "preproc_if_in_attribute_list",
-          "named": true
-        },
-        {
           "type": "type_parameter_constraints_clause",
           "named": true
         },
@@ -1730,10 +1702,6 @@
         {
           "type": "collection_element",
           "named": true
-        },
-        {
-          "type": "preproc_if",
-          "named": true
         }
       ]
     }
@@ -1765,10 +1733,6 @@
         },
         {
           "type": "namespace_declaration",
-          "named": true
-        },
-        {
-          "type": "preproc_if",
           "named": true
         },
         {
@@ -1826,10 +1790,6 @@
         "types": [
           {
             "type": "expression",
-            "named": true
-          },
-          {
-            "type": "preproc_if",
             "named": true
           }
         ]
@@ -1990,14 +1950,6 @@
         {
           "type": "modifier",
           "named": true
-        },
-        {
-          "type": "preproc_if",
-          "named": true
-        },
-        {
-          "type": "preproc_if_in_attribute_list",
-          "named": true
         }
       ]
     }
@@ -2075,14 +2027,6 @@
         },
         {
           "type": "modifier",
-          "named": true
-        },
-        {
-          "type": "preproc_if",
-          "named": true
-        },
-        {
-          "type": "preproc_if_in_attribute_list",
           "named": true
         }
       ]
@@ -2243,10 +2187,6 @@
           "named": true
         },
         {
-          "type": "preproc_if_in_attribute_list",
-          "named": true
-        },
-        {
           "type": "type_parameter_constraints_clause",
           "named": true
         }
@@ -2298,14 +2238,6 @@
       "types": [
         {
           "type": "attribute_list",
-          "named": true
-        },
-        {
-          "type": "preproc_if",
-          "named": true
-        },
-        {
-          "type": "preproc_if_in_attribute_list",
           "named": true
         }
       ]
@@ -2423,10 +2355,6 @@
         {
           "type": "modifier",
           "named": true
-        },
-        {
-          "type": "preproc_if_in_attribute_list",
-          "named": true
         }
       ]
     }
@@ -2463,10 +2391,6 @@
         {
           "type": "attribute_list",
           "named": true
-        },
-        {
-          "type": "preproc_if_in_attribute_list",
-          "named": true
         }
       ]
     }
@@ -2481,10 +2405,6 @@
       "types": [
         {
           "type": "enum_member_declaration",
-          "named": true
-        },
-        {
-          "type": "preproc_if",
           "named": true
         }
       ]
@@ -2540,10 +2460,6 @@
         {
           "type": "modifier",
           "named": true
-        },
-        {
-          "type": "preproc_if_in_attribute_list",
-          "named": true
         }
       ]
     }
@@ -2562,10 +2478,6 @@
         },
         {
           "type": "modifier",
-          "named": true
-        },
-        {
-          "type": "preproc_if_in_attribute_list",
           "named": true
         },
         {
@@ -2696,10 +2608,6 @@
           "named": true
         },
         {
-          "type": "preproc_if_in_attribute_list",
-          "named": true
-        },
-        {
           "type": "receiver_parameter",
           "named": true
         },
@@ -2744,10 +2652,6 @@
         },
         {
           "type": "modifier",
-          "named": true
-        },
-        {
-          "type": "preproc_if_in_attribute_list",
           "named": true
         },
         {
@@ -3171,22 +3075,11 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "preproc_if",
-          "named": true
-        }
-      ]
     }
   },
   {
     "type": "ignored_directive",
     "named": true,
-    "extra": true,
     "fields": {
       "kind": {
         "multiple": false,
@@ -3349,10 +3242,6 @@
         {
           "type": "modifier",
           "named": true
-        },
-        {
-          "type": "preproc_if_in_attribute_list",
-          "named": true
         }
       ]
     }
@@ -3367,10 +3256,6 @@
       "types": [
         {
           "type": "expression",
-          "named": true
-        },
-        {
-          "type": "preproc_if",
           "named": true
         }
       ]
@@ -3425,10 +3310,6 @@
         },
         {
           "type": "modifier",
-          "named": true
-        },
-        {
-          "type": "preproc_if_in_attribute_list",
           "named": true
         },
         {
@@ -3778,10 +3659,6 @@
         {
           "type": "modifier",
           "named": true
-        },
-        {
-          "type": "preproc_if_in_attribute_list",
-          "named": true
         }
       ]
     }
@@ -3927,14 +3804,6 @@
         },
         {
           "type": "modifier",
-          "named": true
-        },
-        {
-          "type": "preproc_if",
-          "named": true
-        },
-        {
-          "type": "preproc_if_in_attribute_list",
           "named": true
         },
         {
@@ -4121,14 +3990,6 @@
         },
         {
           "type": "modifier",
-          "named": true
-        },
-        {
-          "type": "preproc_if",
-          "named": true
-        },
-        {
-          "type": "preproc_if_in_attribute_list",
           "named": true
         },
         {
@@ -4468,14 +4329,6 @@
         {
           "type": "modifier",
           "named": true
-        },
-        {
-          "type": "preproc_if",
-          "named": true
-        },
-        {
-          "type": "preproc_if_in_attribute_list",
-          "named": true
         }
       ]
     }
@@ -4571,10 +4424,6 @@
         {
           "type": "modifier",
           "named": true
-        },
-        {
-          "type": "preproc_if_in_attribute_list",
-          "named": true
         }
       ]
     }
@@ -4614,10 +4463,6 @@
         },
         {
           "type": "parameter",
-          "named": true
-        },
-        {
-          "type": "preproc_if_in_attribute_list",
           "named": true
         }
       ]
@@ -4803,7 +4648,6 @@
   {
     "type": "preproc_define",
     "named": true,
-    "extra": true,
     "fields": {},
     "children": {
       "multiple": false,
@@ -4817,197 +4661,13 @@
     }
   },
   {
-    "type": "preproc_elif",
+    "type": "preproc_endif",
     "named": true,
-    "fields": {
-      "alternative": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "preproc_elif",
-            "named": true
-          },
-          {
-            "type": "preproc_else",
-            "named": true
-          }
-        ]
-      },
-      "body": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "arrow_expression_clause",
-            "named": true
-          },
-          {
-            "type": "block",
-            "named": true
-          }
-        ]
-      },
-      "condition": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "binary_expression",
-            "named": true
-          },
-          {
-            "type": "boolean_literal",
-            "named": true
-          },
-          {
-            "type": "character_literal",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "integer_literal",
-            "named": true
-          },
-          {
-            "type": "parenthesized_expression",
-            "named": true
-          },
-          {
-            "type": "unary_expression",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "attribute_list",
-          "named": true
-        },
-        {
-          "type": "collection_element",
-          "named": true
-        },
-        {
-          "type": "declaration",
-          "named": true
-        },
-        {
-          "type": "enum_member_declaration",
-          "named": true
-        },
-        {
-          "type": "expression",
-          "named": true
-        },
-        {
-          "type": "extern_alias_directive",
-          "named": true
-        },
-        {
-          "type": "file_scoped_namespace_declaration",
-          "named": true
-        },
-        {
-          "type": "global_attribute",
-          "named": true
-        },
-        {
-          "type": "statement",
-          "named": true
-        },
-        {
-          "type": "type_declaration",
-          "named": true
-        },
-        {
-          "type": "type_parameter_constraints_clause",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "preproc_else",
-    "named": true,
-    "fields": {
-      "body": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "arrow_expression_clause",
-            "named": true
-          },
-          {
-            "type": "block",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "attribute_list",
-          "named": true
-        },
-        {
-          "type": "collection_element",
-          "named": true
-        },
-        {
-          "type": "declaration",
-          "named": true
-        },
-        {
-          "type": "enum_member_declaration",
-          "named": true
-        },
-        {
-          "type": "expression",
-          "named": true
-        },
-        {
-          "type": "extern_alias_directive",
-          "named": true
-        },
-        {
-          "type": "file_scoped_namespace_declaration",
-          "named": true
-        },
-        {
-          "type": "global_attribute",
-          "named": true
-        },
-        {
-          "type": "statement",
-          "named": true
-        },
-        {
-          "type": "type_declaration",
-          "named": true
-        },
-        {
-          "type": "type_parameter_constraints_clause",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "preproc_endregion",
     "named": true,
-    "extra": true,
     "fields": {
       "content": {
         "multiple": false,
@@ -5024,7 +4684,6 @@
   {
     "type": "preproc_error",
     "named": true,
-    "extra": true,
     "fields": {},
     "children": {
       "multiple": false,
@@ -5041,34 +4700,6 @@
     "type": "preproc_if",
     "named": true,
     "fields": {
-      "alternative": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "preproc_elif",
-            "named": true
-          },
-          {
-            "type": "preproc_else",
-            "named": true
-          }
-        ]
-      },
-      "body": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "arrow_expression_clause",
-            "named": true
-          },
-          {
-            "type": "block",
-            "named": true
-          }
-        ]
-      },
       "condition": {
         "multiple": false,
         "required": true,
@@ -5103,122 +4734,11 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "collection_element",
-          "named": true
-        },
-        {
-          "type": "declaration",
-          "named": true
-        },
-        {
-          "type": "enum_member_declaration",
-          "named": true
-        },
-        {
-          "type": "expression",
-          "named": true
-        },
-        {
-          "type": "extern_alias_directive",
-          "named": true
-        },
-        {
-          "type": "file_scoped_namespace_declaration",
-          "named": true
-        },
-        {
-          "type": "global_attribute",
-          "named": true
-        },
-        {
-          "type": "statement",
-          "named": true
-        },
-        {
-          "type": "type_declaration",
-          "named": true
-        },
-        {
-          "type": "type_parameter_constraints_clause",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "preproc_if_in_attribute_list",
-    "named": true,
-    "fields": {
-      "alternative": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "preproc_elif",
-            "named": true
-          },
-          {
-            "type": "preproc_else",
-            "named": true
-          }
-        ]
-      },
-      "condition": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "binary_expression",
-            "named": true
-          },
-          {
-            "type": "boolean_literal",
-            "named": true
-          },
-          {
-            "type": "character_literal",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "integer_literal",
-            "named": true
-          },
-          {
-            "type": "parenthesized_expression",
-            "named": true
-          },
-          {
-            "type": "unary_expression",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "attribute_list",
-          "named": true
-        }
-      ]
     }
   },
   {
     "type": "preproc_line",
     "named": true,
-    "extra": true,
     "fields": {},
     "children": {
       "multiple": true,
@@ -5238,13 +4758,11 @@
   {
     "type": "preproc_nullable",
     "named": true,
-    "extra": true,
     "fields": {}
   },
   {
     "type": "preproc_pragma",
     "named": true,
-    "extra": true,
     "fields": {},
     "children": {
       "multiple": true,
@@ -5268,7 +4786,6 @@
   {
     "type": "preproc_region",
     "named": true,
-    "extra": true,
     "fields": {
       "content": {
         "multiple": false,
@@ -5285,7 +4802,6 @@
   {
     "type": "preproc_undef",
     "named": true,
-    "extra": true,
     "fields": {},
     "children": {
       "multiple": false,
@@ -5301,7 +4817,6 @@
   {
     "type": "preproc_warning",
     "named": true,
-    "extra": true,
     "fields": {},
     "children": {
       "multiple": false,
@@ -5415,10 +4930,6 @@
         },
         {
           "type": "modifier",
-          "named": true
-        },
-        {
-          "type": "preproc_if_in_attribute_list",
           "named": true
         }
       ]
@@ -5598,10 +5109,6 @@
         {
           "type": "modifier",
           "named": true
-        },
-        {
-          "type": "preproc_if_in_attribute_list",
-          "named": true
         }
       ]
     }
@@ -5649,10 +5156,6 @@
         },
         {
           "type": "parameter_list",
-          "named": true
-        },
-        {
-          "type": "preproc_if_in_attribute_list",
           "named": true
         },
         {
@@ -5809,10 +5312,6 @@
       "multiple": false,
       "required": false,
       "types": [
-        {
-          "type": "conditional_expression",
-          "named": true
-        },
         {
           "type": "expression",
           "named": true
@@ -6005,10 +5504,6 @@
         },
         {
           "type": "parameter_list",
-          "named": true
-        },
-        {
-          "type": "preproc_if_in_attribute_list",
           "named": true
         },
         {
@@ -6341,10 +5836,6 @@
       "types": [
         {
           "type": "attribute_list",
-          "named": true
-        },
-        {
-          "type": "preproc_if_in_attribute_list",
           "named": true
         }
       ]
@@ -6775,59 +6266,7 @@
     "named": false
   },
   {
-    "type": "#:",
-    "named": false
-  },
-  {
-    "type": "#define",
-    "named": false
-  },
-  {
-    "type": "#elif",
-    "named": false
-  },
-  {
-    "type": "#else",
-    "named": false
-  },
-  {
-    "type": "#endif",
-    "named": false
-  },
-  {
-    "type": "#endregion",
-    "named": false
-  },
-  {
-    "type": "#error",
-    "named": false
-  },
-  {
-    "type": "#if",
-    "named": false
-  },
-  {
-    "type": "#line",
-    "named": false
-  },
-  {
-    "type": "#nullable",
-    "named": false
-  },
-  {
-    "type": "#pragma",
-    "named": false
-  },
-  {
-    "type": "#region",
-    "named": false
-  },
-  {
-    "type": "#undef",
-    "named": false
-  },
-  {
-    "type": "#warning",
+    "type": "#",
     "named": false
   },
   {
@@ -7132,6 +6571,10 @@
     "named": false
   },
   {
+    "type": "define",
+    "named": false
+  },
+  {
     "type": "delegate",
     "named": false
   },
@@ -7176,11 +6619,23 @@
     "named": false
   },
   {
+    "type": "endif",
+    "named": false
+  },
+  {
+    "type": "endregion",
+    "named": false
+  },
+  {
     "type": "enum",
     "named": false
   },
   {
     "type": "equals",
+    "named": false
+  },
+  {
+    "type": "error",
     "named": false
   },
   {
@@ -7312,6 +6767,10 @@
     "named": false
   },
   {
+    "type": "line",
+    "named": false
+  },
+  {
     "type": "lock",
     "named": false
   },
@@ -7346,6 +6805,10 @@
   {
     "type": "null_literal",
     "named": true
+  },
+  {
+    "type": "nullable",
+    "named": false
   },
   {
     "type": "on",
@@ -7384,12 +6847,21 @@
     "named": false
   },
   {
+    "type": "pragma",
+    "named": false
+  },
+  {
     "type": "predefined_type",
     "named": true
   },
   {
     "type": "preproc_arg",
     "named": true
+  },
+  {
+    "type": "preproc_else",
+    "named": true,
+    "extra": true
   },
   {
     "type": "private",
@@ -7433,6 +6905,10 @@
   },
   {
     "type": "ref",
+    "named": false
+  },
+  {
+    "type": "region",
     "named": false
   },
   {
@@ -7533,6 +7009,10 @@
   },
   {
     "type": "unchecked",
+    "named": false
+  },
+  {
+    "type": "undef",
     "named": false
   },
   {

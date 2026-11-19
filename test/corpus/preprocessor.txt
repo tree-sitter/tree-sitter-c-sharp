@@ -866,3 +866,131 @@ class C {
     (integer_literal)
     (string_literal
       (string_literal_content))))
+
+================================================================================
+Region text starting a delimited comment
+================================================================================
+
+class C {
+#region /*
+  void A() {}
+#endregion // */
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (preproc_region
+        content: (preproc_arg))
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (block))
+      (preproc_endregion
+        (comment)))))
+
+================================================================================
+Region text ending in a backslash
+================================================================================
+
+class C {
+#region C:\x\
+  void A() {}
+#endregion
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (preproc_region
+        content: (preproc_arg))
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (block))
+      (preproc_endregion))))
+
+================================================================================
+Pragma followed by a delimited comment start
+================================================================================
+
+class C {
+#pragma warning disable CS1, CS2 /* x
+  void A() {}
+#pragma warning restore CS1 // */
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (preproc_pragma
+        (identifier)
+        (identifier)
+        (preproc_arg))
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (block))
+      (preproc_pragma
+        (identifier)
+        (comment)))))
+
+================================================================================
+Error and warning directives with and without text
+================================================================================
+
+class C {
+#warning
+  void A() {}
+#error /* not a comment
+  void B() {}
+#warning   Something   
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (preproc_warning)
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (block))
+      (preproc_error
+        (preproc_arg))
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (block))
+      (preproc_warning
+        (preproc_arg)))))
+
+================================================================================
+Directive on the last line without a newline
+================================================================================
+
+class C {}
+#pragma warning restore
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list))
+  (preproc_pragma))

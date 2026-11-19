@@ -11,6 +11,7 @@
 
 const PREC = {
   GENERIC: 19,
+  CONDITIONAL_BINDING: 19,
   DOT: 18,
   INVOCATION: 18,
   POSTFIX: 18,
@@ -40,6 +41,11 @@ const decimalDigitSequence = /([0-9][0-9_]*[0-9]|[0-9])/;
 
 const stringEncoding = /(u|U)8/;
 
+// The end of a single-line directive. C# treats a file that does not end in a
+// newline as if it did, so a directive on the last line may end at the end of
+// the file instead (`\0` matches there).
+const directiveLineEnd = choice(/\n/, '\0');
+
 export default grammar({
   name: 'c_sharp',
 
@@ -61,6 +67,14 @@ export default grammar({
     // non-lvalue contexts. Tree-sitter needs GLR for the decision.
     [$.lvalue_expression, $.non_lvalue_expression],
 
+    // After `a?.b`, a `?` either continues the access (`a?.b?[0]`) or starts
+    // the branches of a conditional expression (`a?.b ? [0] : c`).
+    [$.conditional_access_expression, $._conditional_binding_conditional_access],
+    [$._conditional_binding_conditional_access],
+    // After `a?.b`, a `!` stays in the chain only if another access follows it.
+    [$.conditional_access_expression, $._conditional_binding_null_forgiving],
+    [$._conditional_binding_conditional_access, $._conditional_binding_null_forgiving],
+
     [$.type, $.attribute],
     [$.type, $.nullable_type],
     [$.type, $.nullable_type, $.array_creation_expression],
@@ -74,11 +88,13 @@ export default grammar({
 
     [$._array_base_type, $.stackalloc_expression],
 
+    [$.binary_expression, $.constant_pattern],
     [$.constant_pattern, $.non_lvalue_expression],
     [$.constant_pattern, $._expression_statement_expression],
     [$.constant_pattern, $.lvalue_expression],
     [$.constant_pattern, $._name],
     [$.constant_pattern, $.lvalue_expression, $._name],
+    [$.constant_pattern, $.non_lvalue_expression, $.lvalue_expression],
 
     [$.type, $._name_invocation_pattern, $.recursive_pattern],
     [$.attribute, $.type, $._name_invocation_pattern, $.recursive_pattern],
@@ -143,6 +159,12 @@ export default grammar({
     // `#if` immediately followed (after the condition line) by `else`.
     $._preproc_else_if_start,
     $._conditional_member_question,
+    // The rest of a directive line. C# has no delimited comment on a
+    // directive line, so `/*` is plain text here and must not start a
+    // comment that hides the lines after it.
+    $.preproc_arg,
+    // Text after a complete `#pragma`, read only when it starts with `/*`.
+    $._preproc_trailing_text,
   ],
 
   extras: $ => [
@@ -166,6 +188,7 @@ export default grammar({
     $._nullable_base_type,
     $._parameter_type_with_modifiers,
     $._top_level_item_no_statement,
+    $._conditional_binding_operand,
   ],
 
   precedences: $ => [
@@ -556,6 +579,9 @@ export default grammar({
       $.operator_declaration,
       $.conversion_operator_declaration,
       $.property_declaration,
+      // Valid only at the start of a namespace body, but listed here so that
+      // `extern alias A;` there is not read as a field of type `alias`.
+      $.extern_alias_directive,
       $.using_directive,
       $.preproc_if,
       $.extension_declaration,
@@ -1055,7 +1081,14 @@ export default grammar({
 
     empty_statement: _ => ';',
 
-    expression_statement: $ => seq($._expression_statement_expression, ';'),
+    expression_statement: $ => seq(
+      choice(
+        $._expression_statement_expression,
+        // `a?.b();` is a call statement, with the call inside the access.
+        $.conditional_access_expression,
+      ),
+      ';',
+    ),
 
     fixed_statement: $ => seq('fixed', '(', $.variable_declaration, ')', $.statement),
 
@@ -1125,7 +1158,7 @@ export default grammar({
         seq(
           'case',
           choice(
-            $.expression,
+            $._case_expression,
             seq($.pattern, optional($.when_clause)),
           ),
         ),
@@ -1134,6 +1167,10 @@ export default grammar({
       ':',
       repeat($.statement),
     )),
+
+    // Only for what a pattern cannot express: `case A | B:` is a pattern. A rule
+    // of its own settles this at the `:` rather than at the end of the section.
+    _case_expression: $ => prec.dynamic(-2, $.expression),
 
     throw_statement: $ => seq('throw', optional($.expression), ';'),
 
@@ -1288,23 +1325,52 @@ export default grammar({
       $._variable_designation,
     ),
 
+    // After `is`, a bare name is read as a type (see `is_expression`). Anything
+    // binding tighter than `is` keeps the name inside the constant, so these
+    // alternatives outrank `is_expression`: `x is A + 1`, `x is A.B()`, `x is A!`,
+    // `x is a?.B()`.
+    // A looser operator is only part of the constant when it cannot apply to the
+    // whole `is` expression: `case A | B:`, but `(x is null) || y`.
     constant_pattern: $ => choice(
-      $.binary_expression,
+      prec.dynamic(-1, alias($._loose_binary_expression, $.binary_expression)),
+      prec.dynamic(2, alias($._tight_binary_expression, $.binary_expression)),
       $.checked_expression,
       $.default_expression,
       $.interpolated_string_expression,
       $.parenthesized_expression,
-      $.postfix_unary_expression,
+      prec.dynamic(2, $.postfix_unary_expression),
       $.prefix_unary_expression,
       $.sizeof_expression,
       $.tuple_expression,
       $.typeof_expression,
       $.member_access_expression,
-      alias($._name_invocation_pattern, $.invocation_expression),
-      alias($._complex_invocation_expression, $.invocation_expression),
+      prec.dynamic(2, $.conditional_access_expression),
+      prec.dynamic(2, alias($._name_invocation_pattern, $.invocation_expression)),
+      prec.dynamic(2, alias($._complex_invocation_expression, $.invocation_expression)),
       $.cast_expression,
       $._simple_name,
       $.literal,
+    ),
+
+    // The binary operators that bind tighter than `is`.
+    _tight_binary_expression: $ => choice(
+      ...[
+        ['>>', PREC.SHIFT],
+        ['>>>', PREC.SHIFT],
+        ['<<', PREC.SHIFT],
+        ['+', PREC.ADD],
+        ['-', PREC.ADD],
+        ['*', PREC.MULT],
+        ['/', PREC.MULT],
+        ['%', PREC.MULT],
+      ].map(([operator, precedence]) =>
+        prec.left(precedence, seq(
+          field('left', $.expression),
+          // @ts-ignore
+          field('operator', operator),
+          field('right', $.expression),
+        )),
+      ),
     ),
 
     // Invocation with name - creates conflict with recursive_pattern's Name(positional_pattern_clause)
@@ -1320,7 +1386,6 @@ export default grammar({
         $.element_access_expression,
         $.invocation_expression,
         $.parenthesized_expression,
-        $.conditional_access_expression,
         $.cast_expression,
       )),
       field('arguments', $.argument_list),
@@ -1430,12 +1495,14 @@ export default grammar({
       $.pattern,
     )),
 
-    relational_pattern: $ => choice(
+    // The operand ends at the first operator that does not bind tighter than a
+    // comparison: `x is > 1 && y` is `(x is > 1) && y`.
+    relational_pattern: $ => prec.left(PREC.REL, choice(
       seq('<', $.expression),
       seq('<=', $.expression),
       seq('>', $.expression),
       seq('>=', $.expression),
-    ),
+    )),
 
     negated_pattern: $ => seq('not', $.pattern),
 
@@ -1522,7 +1589,8 @@ export default grammar({
       $.tuple_expression,
       $._simple_name,
       $.element_access_expression,
-      alias($.bracketed_argument_list, $.element_binding_expression),
+      // Yields to a collection expression: `a ? [1] : [2]`.
+      prec.dynamic(-1, alias($.bracketed_argument_list, $.element_binding_expression)),
       alias($._pointer_indirection_expression, $.prefix_unary_expression),
       alias($._parenthesized_lvalue_expression, $.parenthesized_expression),
       // C# 14 null-conditional assignment: `obj?.x = v`, `obj?[i] = v`.
@@ -1564,20 +1632,18 @@ export default grammar({
     ),
 
     binary_expression: $ => choice(
+      $._tight_binary_expression,
+      $._loose_binary_expression,
+    ),
+
+    // The binary operators that do not bind tighter than `is`.
+    _loose_binary_expression: $ => choice(
       ...[
         ['&&', PREC.LOGICAL_AND],
         ['||', PREC.LOGICAL_OR],
-        ['>>', PREC.SHIFT],
-        ['>>>', PREC.SHIFT],
-        ['<<', PREC.SHIFT],
         ['&', PREC.AND],
         ['^', PREC.XOR],
         ['|', PREC.OR],
-        ['+', PREC.ADD],
-        ['-', PREC.ADD],
-        ['*', PREC.MULT],
-        ['/', PREC.MULT],
-        ['%', PREC.MULT],
         ['<', PREC.REL],
         ['<=', PREC.REL],
         ['==', PREC.EQUAL],
@@ -1733,20 +1799,58 @@ export default grammar({
       field('alternative', $.expression),
     )),
 
-    conditional_access_expression: $ => choice(
-      prec.right(PREC.DOT, seq(
-        field('condition', $.expression),
-        alias($._conditional_member_question, '?'),
-        $.member_binding_expression,
-      )),
-      prec.right(PREC.CONDITIONAL, seq(
-        field('condition', $.expression),
-        '?',
-        choice(
-          $.member_binding_expression,
-          alias($.bracketed_argument_list, $.element_binding_expression),
-        ),
-      )),
+    conditional_access_expression: $ => conditionalAccessRule(
+      $,
+      $.expression,
+      PREC.DOT,
+      PREC.CONDITIONAL,
+    ),
+
+    // Everything after the `?` is skipped when the condition is null, so the
+    // whole chain belongs to the conditional access: `a?.b.c()` applies `.c()`
+    // to the binding `.b`, not to the result of `a?.b`.
+    _conditional_binding: $ => choice(
+      $.member_binding_expression,
+      prec(PREC.DOT, alias($.bracketed_argument_list, $.element_binding_expression)),
+      alias($._conditional_binding_member_access, $.member_access_expression),
+      alias($._conditional_binding_invocation, $.invocation_expression),
+      alias($._conditional_binding_element_access, $.element_access_expression),
+      alias($._conditional_binding_conditional_access, $.conditional_access_expression),
+    ),
+
+    // A `!` is only part of the chain when the chain continues after it:
+    // `a?.b!.c` keeps it inside, while `a?.b!` applies it to the whole access.
+    _conditional_binding_operand: $ => choice(
+      $._conditional_binding,
+      alias($._conditional_binding_null_forgiving, $.postfix_unary_expression),
+    ),
+
+    _conditional_binding_member_access: $ => prec(PREC.CONDITIONAL_BINDING, seq(
+      field('expression', $._conditional_binding_operand),
+      '.',
+      field('name', $._simple_name),
+    )),
+
+    _conditional_binding_invocation: $ => prec(PREC.CONDITIONAL_BINDING, seq(
+      field('function', $._conditional_binding_operand),
+      field('arguments', $.argument_list),
+    )),
+
+    _conditional_binding_element_access: $ => prec(PREC.CONDITIONAL_BINDING, seq(
+      field('expression', $._conditional_binding_operand),
+      field('subscript', $.bracketed_argument_list),
+    )),
+
+    _conditional_binding_null_forgiving: $ => prec.dynamic(1, prec(PREC.DOT, seq(
+      $._conditional_binding_operand,
+      '!',
+    ))),
+
+    _conditional_binding_conditional_access: $ => conditionalAccessRule(
+      $,
+      $._conditional_binding_operand,
+      PREC.CONDITIONAL_BINDING,
+      PREC.DOT,
     ),
 
     as_expression: $ => prec(PREC.REL, seq(
@@ -1755,11 +1859,13 @@ export default grammar({
       field('right', $.type),
     )),
 
-    is_expression: $ => prec(PREC.REL, seq(
+    // Outranks a constant pattern so that `x is A`, `x is A.B` and `x is A<T>` are
+    // type tests. As in Roslyn, a name that is really a constant parses this way too.
+    is_expression: $ => prec(PREC.REL, prec.dynamic(1, seq(
       field('left', $.expression),
       field('operator', 'is'),
       field('right', $.type),
-    )),
+    ))),
 
     is_pattern_expression: $ => prec(PREC.REL, seq(
       field('expression', $.expression),
@@ -2290,7 +2396,6 @@ export default grammar({
     ...preprocIf('_in_enum_member_declaration', $ => $.enum_member_declaration, 0, false),
     ...preprocIf('_in_attribute_list', $ => $.attribute_list, -1),
 
-    preproc_arg: _ => token(prec(-1, /\S([^/\n]|\/[^*]|\\\r?\n)*/)),
     preproc_directive: _ => /#[ \t]*[a-zA-Z0-9]\w*/,
 
     _preproc_expression: $ => choice(
@@ -2335,13 +2440,13 @@ export default grammar({
     preproc_region: $ => seq(
       preprocessor('region'),
       optional(field('content', $.preproc_arg)),
-      /\n/,
+      directiveLineEnd,
     ),
 
     preproc_endregion: $ => seq(
       preprocessor('endregion'),
       optional(field('content', $.preproc_arg)),
-      /\n/,
+      directiveLineEnd,
     ),
 
     // A file name has no escape sequences: `"C:\dir\"` is complete.
@@ -2365,7 +2470,7 @@ export default grammar({
           alias($._preproc_file_name, $.string_literal),
         ),
       ),
-      /\n/,
+      directiveLineEnd,
     ),
 
     preproc_pragma: $ => seq(
@@ -2380,38 +2485,40 @@ export default grammar({
             ))),
         seq('checksum', $.string_literal, $.string_literal, $.string_literal),
       ),
-      /\n/,
+      // The compiler warns about trailing text (CS1696) but keeps the pragma.
+      optional(alias($._preproc_trailing_text, $.preproc_arg)),
+      directiveLineEnd,
     ),
 
     preproc_nullable: _ => seq(
       preprocessor('nullable'),
       choice('enable', 'disable', 'restore'),
       optional(choice('annotations', 'warnings')),
-      /\n/,
+      directiveLineEnd,
     ),
 
     preproc_error: $ => seq(
       preprocessor('error'),
-      $.preproc_arg,
-      /\n/,
+      optional($.preproc_arg),
+      directiveLineEnd,
     ),
 
     preproc_warning: $ => seq(
       preprocessor('warning'),
-      $.preproc_arg,
-      /\n/,
+      optional($.preproc_arg),
+      directiveLineEnd,
     ),
 
     preproc_define: $ => seq(
       preprocessor('define'),
       $.preproc_arg,
-      /\n/,
+      directiveLineEnd,
     ),
 
     preproc_undef: $ => seq(
       preprocessor('undef'),
       $.preproc_arg,
-      /\n/,
+      directiveLineEnd,
     ),
 
     shebang_directive: _ => token(seq('#!', /.*/)),
@@ -2450,7 +2557,7 @@ export default grammar({
         // the compiler, so keep the rest of the line as an unstructured value.
         field('value', alias(token.immediate(/[ \t]+[^\s]([^\r\n]*[^\s])?/), $.directive_value)),
       )),
-      /\n/,
+      directiveLineEnd,
     ),
 
     directive_name: _ => token(choice(
@@ -2559,6 +2666,37 @@ function argumentRule($, declarationPrecedence) {
       ),
     ),
   ));
+}
+
+/**
+ * Creates a conditional access on `condition`
+ *
+ * @param {GrammarSymbols<string>} $
+ *
+ * @param {Rule} condition
+ *
+ * @param {number} memberQuestionPrecedence precedence of a `?` that can only
+ * start a member binding
+ *
+ * @param {number} questionPrecedence precedence of a `?` that could also start
+ * the branches of a conditional expression
+ *
+ * @returns {ChoiceRule}
+ */
+function conditionalAccessRule($, condition, memberQuestionPrecedence, questionPrecedence) {
+  return choice(
+    seq(
+      prec(memberQuestionPrecedence, seq(
+        field('condition', condition),
+        alias($._conditional_member_question, '?'),
+      )),
+      prec(PREC.DOT, $._conditional_binding),
+    ),
+    seq(
+      prec(questionPrecedence, seq(field('condition', condition), '?')),
+      prec(PREC.DOT, $._conditional_binding),
+    ),
+  );
 }
 
 /**

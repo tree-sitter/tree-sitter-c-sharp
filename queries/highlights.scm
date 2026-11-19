@@ -221,3 +221,4 @@
 ;; Method calls
 
 (invocation_expression (member_access_expression name: (identifier) @function))
+(invocation_expression (member_binding_expression name: (identifier) @function))

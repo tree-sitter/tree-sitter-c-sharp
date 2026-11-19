@@ -106,6 +106,9 @@ export default grammar({
     [$.event_declaration, $.variable_declarator],
 
     [$.base_list],
+    // `#if` after an `if` statement either opens a block holding its `else` or
+    // starts the next statement. The token after the condition line decides.
+    [$.if_statement],
     [$.using_directive, $.modifier],
     [$.using_directive],
 
@@ -140,8 +143,6 @@ export default grammar({
     // simple-lambda parameter list (at least one element has a parameter
     // modifier) closed by ')=>'.
     $._lambda_paren_open,
-    // `#if` immediately followed (after the condition line) by `else`.
-    $._preproc_else_if_start,
     $._conditional_member_question,
   ],
 
@@ -166,6 +167,25 @@ export default grammar({
     $._nullable_base_type,
     $._parameter_type_with_modifiers,
     $._top_level_item_no_statement,
+    // Every hidden rule is a column in the parse table, so these are inlined to
+    // reduce the size of the generated parser.
+    $._scoped_base_type,
+    $._query_body,
+    $._switch_expression_body,
+    $._with_body,
+    $._select_or_group_clause,
+    $._top_level_item,
+    $._extension_member_declaration,
+    $._query_clause,
+    $._interpolated_string_content,
+    $._interpolated_unescaped_string_content,
+    $._join_body,
+    $._implicit_parameter_list_with_modifiers,
+    $._join_header,
+    $._lambda_parameters,
+    $._ref_base_type,
+    $._preproc_expression,
+    $._ordering,
   ],
 
   precedences: $ => [
@@ -1209,27 +1229,31 @@ export default grammar({
       $.statement,
     ),
 
-    if_statement: $ => prec.right(seq(
-      'if',
-      '(',
-      field('condition', $.expression),
-      ')',
-      field('consequence', $.statement),
-      optional(choice(
-        seq(
-          'else',
-          field('alternative', $.statement),
-        ),
-        // `if (a) { } #if X else if (b) { } #endif`: the `else` lives in the block.
-        // A plain `else` may still follow `#endif` and continue the chain.
-        seq(
-          alias($.preproc_if_in_else, $.preproc_if),
-          optional(seq(
-            'else',
-            field('alternative', $.statement),
-          )),
-        ),
-      )),
+    // Only `else` outranks ending the statement. `#if` must stay a real conflict
+    // (see `conflicts`), so this cannot be `prec.right`.
+    if_statement: $ => {
+      const head = seq(
+        'if',
+        '(',
+        field('condition', $.expression),
+        ')',
+        field('consequence', $.statement),
+      );
+
+      return choice(
+        head,
+        prec(1, seq(head, 'else', field('alternative', $.statement))),
+        seq(head, $._preproc_else_chain),
+      );
+    },
+
+    // `if (a) { } #if X else if (b) { } #endif`: the `else` lives in the block.
+    // A plain `else` may still follow `#endif` and continue the chain. This is a
+    // rule of its own so that its `else` does not outrank ending the `if_statement`
+    // when the next token is `#if`.
+    _preproc_else_chain: $ => prec.right(seq(
+      alias($.preproc_if_in_else, $.preproc_if),
+      optional(seq('else', field('alternative', $.statement))),
     )),
 
     while_statement: $ => seq(
@@ -1830,13 +1854,13 @@ export default grammar({
       seq(
         alias($.interpolation_verbatim_start, $.interpolation_start),
         alias($.interpolation_start_quote, '"'),
-        repeat($._interpolated_verbatim_string_content),
+        repeat($._interpolated_unescaped_string_content),
         alias($.interpolation_end_quote, '"'),
       ),
       seq(
         alias($.interpolation_raw_start, $.interpolation_start),
         alias($.interpolation_start_quote, $.interpolation_quote),
-        repeat($._interpolated_raw_string_content),
+        repeat($._interpolated_unescaped_string_content),
         alias($.interpolation_end_quote, $.interpolation_quote),
       ),
     ),
@@ -1847,12 +1871,8 @@ export default grammar({
       $.interpolation,
     ),
 
-    _interpolated_verbatim_string_content: $ => choice(
-      alias($.interpolation_string_content, $.string_content),
-      $.interpolation,
-    ),
-
-    _interpolated_raw_string_content: $ => choice(
+    // Verbatim and raw strings have no escape sequences.
+    _interpolated_unescaped_string_content: $ => choice(
       alias($.interpolation_string_content, $.string_content),
       $.interpolation,
     ),
@@ -2281,10 +2301,9 @@ export default grammar({
     ...preprocIf('_in_expression', $ => $.expression, -2, false),
     ...preprocIf('_in_statement_tail', $ => seq($.expression, ';'), 0, false),
     ...preprocIf('_in_function_body', $ => seq(repeat($.type_parameter_constraints_clause), $._plain_function_body), 0, false),
-    // The block opens with an external `#if` that the scanner only emits when the
-    // first thing inside is `else`, so a plain `#if` after an if-statement is
-    // still a statement-level block.
-    ...preprocIf('_in_else', $ => seq('else', $.statement), 0, false, $ => $._preproc_else_if_start),
+    // The `#if` branch must start with `else`, so a plain `#if` after an
+    // if-statement is still a statement-level block.
+    ...preprocIf('_in_else', $ => seq('else', $.statement), 0, false, true),
     ...preprocIf('_in_collection', $ => $._collection_items, -2, false),
     ...preprocIf('_in_initializer', $ => $._initializer_items, -2, false),
     ...preprocIf('_in_enum_member_declaration', $ => $.enum_member_declaration, 0, false),
@@ -2431,11 +2450,7 @@ export default grammar({
       '#:',
       optional(choice(
         seq(
-          field('kind', choice(
-            alias(token.immediate('package'), $.directive_kind),
-            alias(token.immediate('sdk'), $.directive_kind),
-            alias(token.immediate('property'), $.directive_kind),
-          )),
+          field('kind', alias(token.immediate(prec(1, /package|sdk|property/)), $.directive_kind)),
           optional(seq(
             field('name', $.directive_name),
             optional(field('separator', $.directive_separator)),
@@ -2497,9 +2512,11 @@ function preprocessor(command) {
  *
  * @param {boolean} rep
  *
+ * @param {boolean} requireBody whether the `#if` branch must have content
+ *
  * @returns {RuleBuilders<string, string>}
  */
-function preprocIf(suffix, content, precedence = 0, rep = true, ifToken = null) {
+function preprocIf(suffix, content, precedence = 0, rep = true, requireBody = false) {
   /**
    *
    * @param {GrammarSymbols<string>} $
@@ -2515,10 +2532,10 @@ function preprocIf(suffix, content, precedence = 0, rep = true, ifToken = null) 
 
   return {
     ['preproc_if' + suffix]: $ => prec(precedence, seq(
-      ifToken ? alias(ifToken($), '#if') : preprocessor('if'),
+      preprocessor('if'),
       field('condition', $._preproc_expression),
       /\n/,
-      rep ? repeat(content($)) : optional(content($)),
+      requireBody ? content($) : rep ? repeat(content($)) : optional(content($)),
       field('alternative', optional(alternativeBlock($))),
       preprocessor('endif'),
     )),

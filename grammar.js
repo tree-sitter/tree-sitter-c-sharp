@@ -41,10 +41,18 @@ const decimalDigitSequence = /([0-9][0-9_]*[0-9]|[0-9])/;
 
 const stringEncoding = /(u|U)8/;
 
-// The end of a single-line directive. C# treats a file that does not end in a
-// newline as if it did, so a directive on the last line may end at the end of
-// the file instead (`\0` matches there).
-const directiveLineEnd = choice(/\n/, '\0');
+/**
+ * The end of a single-line directive. C# treats a file that does not end in a
+ * newline as if it did, so a directive on the last line may end at the end of
+ * the file instead.
+ *
+ * @param {GrammarSymbols<string>} $
+ *
+ * @returns {ChoiceRule}
+ */
+function directiveLineEnd($) {
+  return choice(/\n/, $._preproc_end_of_file);
+}
 
 export default grammar({
   name: 'c_sharp',
@@ -165,6 +173,9 @@ export default grammar({
     $.preproc_arg,
     // Text after a complete `#pragma`, read only when it starts with `/*`.
     $._preproc_trailing_text,
+    // The end of the file after a directive with no final newline. An
+    // internal token cannot match there in every lexer state.
+    $._preproc_end_of_file,
   ],
 
   extras: $ => [
@@ -189,6 +200,7 @@ export default grammar({
     $._parameter_type_with_modifiers,
     $._top_level_item_no_statement,
     $._conditional_binding_operand,
+    $._conditional_binding,
   ],
 
   precedences: $ => [
@@ -305,8 +317,18 @@ export default grammar({
     namespace_declaration: $ => seq(
       'namespace',
       field('name', $._name),
-      field('body', $.declaration_list),
+      field('body', alias($._namespace_body, $.declaration_list)),
       $._optional_semi,
+    ),
+
+    // A namespace body may start with `extern alias` directives. In a type body
+    // `extern alias A();` is a method returning a type named `alias`, so the
+    // directive is not a `declaration`.
+    _namespace_body: $ => seq(
+      '{',
+      repeat($.extern_alias_directive),
+      repeat($.declaration),
+      '}',
     ),
 
     file_scoped_namespace_declaration: $ => seq(
@@ -579,9 +601,6 @@ export default grammar({
       $.operator_declaration,
       $.conversion_operator_declaration,
       $.property_declaration,
-      // Valid only at the start of a namespace body, but listed here so that
-      // `extern alias A;` there is not read as a field of type `alias`.
-      $.extern_alias_directive,
       $.using_directive,
       $.preproc_if,
       $.extension_declaration,
@@ -1809,19 +1828,25 @@ export default grammar({
     // Everything after the `?` is skipped when the condition is null, so the
     // whole chain belongs to the conditional access: `a?.b.c()` applies `.c()`
     // to the binding `.b`, not to the result of `a?.b`.
+    // A further `?` nests to the right, so a conditional access is only ever the
+    // last part of a chain: `a?[0]?[1].c()` is `a?([0]?([1].c()))`.
     _conditional_binding: $ => choice(
+      $._conditional_binding_chain,
+      alias($._conditional_binding_conditional_access, $.conditional_access_expression),
+    ),
+
+    _conditional_binding_chain: $ => choice(
       $.member_binding_expression,
       prec(PREC.DOT, alias($.bracketed_argument_list, $.element_binding_expression)),
       alias($._conditional_binding_member_access, $.member_access_expression),
       alias($._conditional_binding_invocation, $.invocation_expression),
       alias($._conditional_binding_element_access, $.element_access_expression),
-      alias($._conditional_binding_conditional_access, $.conditional_access_expression),
     ),
 
     // A `!` is only part of the chain when the chain continues after it:
     // `a?.b!.c` keeps it inside, while `a?.b!` applies it to the whole access.
     _conditional_binding_operand: $ => choice(
-      $._conditional_binding,
+      $._conditional_binding_chain,
       alias($._conditional_binding_null_forgiving, $.postfix_unary_expression),
     ),
 
@@ -1846,12 +1871,14 @@ export default grammar({
       '!',
     ))),
 
-    _conditional_binding_conditional_access: $ => conditionalAccessRule(
+    // `a?[0]?[1]` could also end the access after `[0]` and use it as the
+    // condition of the next one. Continuing the chain wins.
+    _conditional_binding_conditional_access: $ => prec.dynamic(1, conditionalAccessRule(
       $,
       $._conditional_binding_operand,
       PREC.CONDITIONAL_BINDING,
       PREC.DOT,
-    ),
+    )),
 
     as_expression: $ => prec(PREC.REL, seq(
       field('left', $.expression),
@@ -2440,13 +2467,13 @@ export default grammar({
     preproc_region: $ => seq(
       preprocessor('region'),
       optional(field('content', $.preproc_arg)),
-      directiveLineEnd,
+      directiveLineEnd($),
     ),
 
     preproc_endregion: $ => seq(
       preprocessor('endregion'),
       optional(field('content', $.preproc_arg)),
-      directiveLineEnd,
+      directiveLineEnd($),
     ),
 
     // A file name has no escape sequences: `"C:\dir\"` is complete.
@@ -2470,7 +2497,7 @@ export default grammar({
           alias($._preproc_file_name, $.string_literal),
         ),
       ),
-      directiveLineEnd,
+      directiveLineEnd($),
     ),
 
     preproc_pragma: $ => seq(
@@ -2487,38 +2514,38 @@ export default grammar({
       ),
       // The compiler warns about trailing text (CS1696) but keeps the pragma.
       optional(alias($._preproc_trailing_text, $.preproc_arg)),
-      directiveLineEnd,
+      directiveLineEnd($),
     ),
 
-    preproc_nullable: _ => seq(
+    preproc_nullable: $ => seq(
       preprocessor('nullable'),
       choice('enable', 'disable', 'restore'),
       optional(choice('annotations', 'warnings')),
-      directiveLineEnd,
+      directiveLineEnd($),
     ),
 
     preproc_error: $ => seq(
       preprocessor('error'),
       optional($.preproc_arg),
-      directiveLineEnd,
+      directiveLineEnd($),
     ),
 
     preproc_warning: $ => seq(
       preprocessor('warning'),
       optional($.preproc_arg),
-      directiveLineEnd,
+      directiveLineEnd($),
     ),
 
     preproc_define: $ => seq(
       preprocessor('define'),
       $.preproc_arg,
-      directiveLineEnd,
+      directiveLineEnd($),
     ),
 
     preproc_undef: $ => seq(
       preprocessor('undef'),
       $.preproc_arg,
-      directiveLineEnd,
+      directiveLineEnd($),
     ),
 
     shebang_directive: _ => token(seq('#!', /.*/)),
@@ -2557,7 +2584,7 @@ export default grammar({
         // the compiler, so keep the rest of the line as an unstructured value.
         field('value', alias(token.immediate(/[ \t]+[^\s]([^\r\n]*[^\s])?/), $.directive_value)),
       )),
-      directiveLineEnd,
+      directiveLineEnd($),
     ),
 
     directive_name: _ => token(choice(

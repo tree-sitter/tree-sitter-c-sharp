@@ -23,6 +23,7 @@ enum TokenType {
     CONDITIONAL_MEMBER_QUESTION,
     PREPROC_ARG,
     PREPROC_TRAILING_TEXT,
+    PREPROC_END_OF_FILE,
 };
 
 typedef enum {
@@ -436,6 +437,18 @@ bool tree_sitter_c_sharp_external_scanner_scan(void *payload, TSLexer *lexer, co
     // error recovery, gives better trees this way
     if (valid_symbols[OPT_SEMI] && valid_symbols[INTERPOLATION_REGULAR_START]) {
         return false;
+    }
+
+    // A directive on the last line of a file may end without a newline. The token is empty, so
+    // tree-sitter does not accept it right after a syntax error, when every token is valid.
+    if (valid_symbols[PREPROC_END_OF_FILE]) {
+        while (lexer->lookahead == ' ' || lexer->lookahead == '\t' || lexer->lookahead == '\r') {
+            skip(lexer);
+        }
+        if (lexer->eof(lexer)) {
+            lexer->result_symbol = PREPROC_END_OF_FILE;
+            return true;
+        }
     }
 
     if (valid_symbols[PREPROC_ARG] || valid_symbols[PREPROC_TRAILING_TEXT]) {

@@ -994,3 +994,66 @@ class C {}
     name: (identifier)
     body: (declaration_list))
   (preproc_pragma))
+
+================================================================================
+Nullable directive on the last line without a newline
+================================================================================
+
+class C {}
+#nullable enable
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list))
+  (preproc_nullable))
+
+================================================================================
+Pragma checksum on the last line without a newline
+================================================================================
+
+class C {}
+#pragma checksum "a.cs" "{00000000-0000-0000-0000-000000000000}" "00"
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list))
+  (preproc_pragma
+    (string_literal
+      (string_literal_content))
+    (string_literal
+      (string_literal_content))
+    (string_literal
+      (string_literal_content))))
+
+================================================================================
+Define directive on the last line without a newline
+================================================================================
+
+#define A
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (preproc_define
+    (preproc_arg)))
+
+================================================================================
+Endregion directive on the last line without a newline
+================================================================================
+
+#region R
+class C {}
+#endregion R
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (preproc_region
+    content: (preproc_arg))
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list))
+  (preproc_endregion
+    content: (preproc_arg)))

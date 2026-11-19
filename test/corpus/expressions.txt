@@ -3892,6 +3892,54 @@ var e = f?.G?[0];
                   (integer_literal))))))))))
 
 ================================================================================
+Conditional access with element bindings nests to the right
+================================================================================
+
+var a = b?[0]?[1]?[2];
+var c = d?[0]?[1].E();
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (conditional_access_expression
+            condition: (identifier)
+            (conditional_access_expression
+              condition: (element_binding_expression
+                (argument
+                  (integer_literal)))
+              (conditional_access_expression
+                condition: (element_binding_expression
+                  (argument
+                    (integer_literal)))
+                (element_binding_expression
+                  (argument
+                    (integer_literal))))))))))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (conditional_access_expression
+            condition: (identifier)
+            (conditional_access_expression
+              condition: (element_binding_expression
+                (argument
+                  (integer_literal)))
+              (invocation_expression
+                function: (member_access_expression
+                  expression: (element_binding_expression
+                    (argument
+                      (integer_literal)))
+                  name: (identifier))
+                arguments: (argument_list)))))))))
+
+================================================================================
 Parentheses end a conditional access chain
 ================================================================================
 

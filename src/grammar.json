@@ -1685,6 +1685,10 @@
           "value": "unmanaged"
         },
         {
+          "type": "STRING",
+          "value": "default"
+        },
+        {
           "type": "SYMBOL",
           "name": "constructor_constraint"
         },

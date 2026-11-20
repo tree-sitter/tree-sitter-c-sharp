@@ -360,3 +360,33 @@ class C {
               (predefined_type)))
           name: (identifier))
         body: (block)))))
+
+================================================================================
+Default constraint on an override method
+================================================================================
+
+class C : B
+{
+    override void M<T>() where T : default { }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    (identifier)
+    (base_list
+      (identifier))
+    (declaration_list
+      (method_declaration
+        (modifier)
+        (predefined_type)
+        (identifier)
+        (type_parameter_list
+          (type_parameter
+            (identifier)))
+        (parameter_list)
+        (type_parameter_constraints_clause
+          (identifier)
+          (type_parameter_constraint))
+        (block)))))

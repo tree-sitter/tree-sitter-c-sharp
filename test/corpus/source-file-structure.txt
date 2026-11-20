@@ -186,3 +186,37 @@ class Z {
         type: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)))))
+
+================================================================================
+Extern alias in a block-scoped namespace
+================================================================================
+
+namespace N {
+  extern alias A;
+  using AT = A::NS.T;
+
+  namespace M {
+    extern alias B;
+  }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (namespace_declaration
+    name: (identifier)
+    body: (declaration_list
+      (extern_alias_directive
+        name: (identifier))
+      (using_directive
+        name: (identifier)
+        (qualified_name
+          qualifier: (alias_qualified_name
+            alias: (identifier)
+            name: (identifier))
+          name: (identifier)))
+      (namespace_declaration
+        name: (identifier)
+        body: (declaration_list
+          (extern_alias_directive
+            name: (identifier)))))))

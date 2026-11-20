@@ -1076,3 +1076,35 @@ var f = $"""{a}""{b}""";
               (identifier)
               (interpolation_brace))
             (interpolation_quote)))))))
+
+================================================================================
+Raw interpolated string with braces next to a hole
+================================================================================
+
+var a = $$"""The point {{{X}}, {{Y}}} is { near }""";
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (interpolated_string_expression
+            (interpolation_start)
+            (interpolation_quote)
+            (string_content)
+            (string_content)
+            (interpolation
+              (interpolation_brace)
+              (identifier)
+              (interpolation_brace))
+            (string_content)
+            (interpolation
+              (interpolation_brace)
+              (identifier)
+              (interpolation_brace))
+            (string_content)
+            (interpolation_quote)))))))

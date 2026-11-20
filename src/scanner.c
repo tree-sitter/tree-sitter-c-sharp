@@ -22,6 +22,8 @@ enum TokenType {
     CONDITIONAL_MEMBER_QUESTION,
     PREPROC_ELSE,
     PREPROC_NEWLINE,
+    PREPROC_ARG,
+    PREPROC_TRAILING_TEXT,
 };
 
 typedef enum {
@@ -417,6 +419,35 @@ static int scan_preproc_else(TSLexer *lexer) {
     return 1;
 }
 
+static inline bool is_directive_line_end(int32_t c) { return c == '\n' || c == '\r'; }
+
+// The rest of a directive line, from its first non-blank character to its last.
+// C# has no delimited comment on a directive line, so `/*` is ordinary text
+// here. A `//` at the start is left to the internal lexer as a `comment`.
+// With `only_after_comment_start`, only text that starts with `/*` is read.
+static bool scan_preproc_arg(TSLexer *lexer, bool only_after_comment_start) {
+    while (!lexer->eof(lexer) && iswspace(lexer->lookahead) && !is_directive_line_end(lexer->lookahead)) {
+        skip(lexer);
+    }
+    if (lexer->eof(lexer) || is_directive_line_end(lexer->lookahead)) return false;
+    if (lexer->lookahead == '/') {
+        advance(lexer);
+        if (lexer->lookahead == '/') return false;
+        if (only_after_comment_start && lexer->lookahead != '*') return false;
+    } else if (only_after_comment_start) {
+        return false;
+    } else {
+        advance(lexer);
+    }
+    lexer->mark_end(lexer);
+    while (!lexer->eof(lexer) && !is_directive_line_end(lexer->lookahead)) {
+        bool blank = iswspace(lexer->lookahead);
+        advance(lexer);
+        if (!blank) lexer->mark_end(lexer);
+    }
+    return true;
+}
+
 bool tree_sitter_c_sharp_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
     Scanner *scanner = (Scanner *)payload;
 
@@ -461,7 +492,7 @@ bool tree_sitter_c_sharp_external_scanner_scan(void *payload, TSLexer *lexer, co
             lexer->result_symbol = PREPROC_NEWLINE;
             return true;
         }
-        return false;
+        if (!valid_symbols[PREPROC_ARG] && !valid_symbols[PREPROC_TRAILING_TEXT]) return false;
     }
 
     // Not inside string content, and not where the zero-width OPT_SEMI is due:
@@ -476,6 +507,11 @@ bool tree_sitter_c_sharp_external_scanner_scan(void *payload, TSLexer *lexer, co
     // error recovery, gives better trees this way
     if (valid_symbols[OPT_SEMI] && valid_symbols[INTERPOLATION_REGULAR_START]) {
         return false;
+    }
+
+    if (valid_symbols[PREPROC_ARG] || valid_symbols[PREPROC_TRAILING_TEXT]) {
+        lexer->result_symbol = valid_symbols[PREPROC_ARG] ? PREPROC_ARG : PREPROC_TRAILING_TEXT;
+        return scan_preproc_arg(lexer, !valid_symbols[PREPROC_ARG]);
     }
 
     if (valid_symbols[CONDITIONAL_MEMBER_QUESTION]) {
@@ -679,7 +715,33 @@ bool tree_sitter_c_sharp_external_scanner_scan(void *payload, TSLexer *lexer, co
     if (valid_symbols[INTERPOLATION_OPEN_BRACE] && scanner->interpolation_stack.size > 0 && !did_advance) {
         Interpolation *current_interpolation = array_back(&scanner->interpolation_stack);
 
-        while (lexer->lookahead == '{' && brace_advanced < current_interpolation->dollar_count) {
+        // In a raw string, a hole opens with the LAST `$`-count braces of a run, and any braces
+        // before them are content: in `$$"""{{{x}}}"""` the first `{` is text and `{{x}}` is the
+        // hole. A shorter run is all content.
+        if (is_raw(current_interpolation) && lexer->lookahead == '{') {
+            uint8_t run = 0;
+            while (lexer->lookahead == '{') {
+                advance(lexer);
+                if (run < UINT8_MAX) run++;
+                if (run == 1) lexer->mark_end(lexer);
+            }
+            if (run == current_interpolation->dollar_count) {
+                lexer->mark_end(lexer);
+                current_interpolation->open_brace_count = run;
+                lexer->result_symbol = INTERPOLATION_OPEN_BRACE;
+                return true;
+            }
+            if (!valid_symbols[INTERPOLATION_STRING_CONTENT]) return false;
+            if (run > current_interpolation->dollar_count) {
+                // Just the first brace, which was marked above; the next scan starts one brace on.
+                lexer->result_symbol = INTERPOLATION_STRING_CONTENT;
+                return true;
+            }
+            // Too few braces for a hole: carry on reading content after them.
+            did_advance = true;
+        }
+
+        while (!did_advance && lexer->lookahead == '{' && brace_advanced < current_interpolation->dollar_count) {
             advance(lexer);
             brace_advanced++;
         }
@@ -738,17 +800,19 @@ bool tree_sitter_c_sharp_external_scanner_scan(void *payload, TSLexer *lexer, co
                 }
 
                 if (lexer->lookahead == '{') {
+                    // Content ends before a run of braces long enough to open a hole (see the
+                    // brace token above, which splits such a run); a shorter run is content.
                     lexer->mark_end(lexer);
-
-                    while (lexer->lookahead == '{' && brace_advanced < current_interpolation->open_brace_count) {
+                    uint8_t run = 0;
+                    while (lexer->lookahead == '{') {
                         advance(lexer);
-                        brace_advanced++;
+                        if (run < UINT8_MAX) run++;
                     }
-
-                    if (brace_advanced == current_interpolation->open_brace_count &&
-                        (brace_advanced == 0 || lexer->lookahead != '{')) {
+                    if (run >= current_interpolation->dollar_count) {
                         return did_advance;
                     }
+                    did_advance = true;
+                    continue;
                 }
             }
 

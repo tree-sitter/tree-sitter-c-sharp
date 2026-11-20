@@ -1,0 +1,84 @@
+name: Grammar size comment
+
+# Posts the "Grammar size" measurements as a comment on the pull request.
+#
+# This runs separately so that pull requests from forks get a comment too: it
+# has write access, but it never checks out or runs pull request code. It only
+# reads the measurements artifact, and the report script validates every value.
+#
+# GitHub only runs workflow_run workflows from the default branch, so this file
+# takes effect once it is on master.
+
+on:
+  workflow_run:
+    workflows: [Grammar size]
+    types: [completed]
+
+permissions:
+  contents: read
+  actions: read
+  pull-requests: write
+
+jobs:
+  comment:
+    name: Post grammar size report
+    if: >-
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout report script
+        uses: actions/checkout@v7
+        with:
+          sparse-checkout: .github/scripts
+          persist-credentials: false
+      - name: Download measurements
+        uses: actions/download-artifact@v4
+        with:
+          name: grammar-size
+          path: ${{runner.temp}}/grammar-size
+          run-id: ${{github.event.workflow_run.id}}
+          github-token: ${{github.token}}
+      - name: Post or update comment
+        uses: actions/github-script@v8
+        env:
+          RUN_HEAD_SHA: ${{github.event.workflow_run.head_sha}}
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const { MARKER, render } = require(path.resolve('.github/scripts/grammar-size-report.cjs'));
+            const file = path.join(process.env.RUNNER_TEMP, 'grammar-size', 'metrics.json');
+            const data = JSON.parse(fs.readFileSync(file, 'utf8'));
+
+            // The artifact names the pull request, so check that it really is
+            // the one this run measured before writing to it.
+            const issue_number = data.pr;
+            if (!Number.isSafeInteger(issue_number) || issue_number <= 0) {
+              throw new Error(`Invalid pull request number: ${JSON.stringify(issue_number)}`);
+            }
+            const { data: pull } = await github.rest.pulls.get({ ...context.repo, pull_number: issue_number });
+            if (pull.head.sha !== process.env.RUN_HEAD_SHA) {
+              core.notice(`#${issue_number} has moved on from ${process.env.RUN_HEAD_SHA}; not commenting.`);
+              return;
+            }
+
+            const { markdown, changed } = render(data.base, data.head, {
+              baseSha: String(data.baseSha ?? ''),
+              headSha: process.env.RUN_HEAD_SHA,
+            });
+
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              ...context.repo,
+              issue_number,
+              per_page: 100,
+            });
+            const existing = comments.find(c => c.user?.login === 'github-actions[bot]' && c.body?.includes(MARKER));
+
+            if (existing) {
+              await github.rest.issues.updateComment({ ...context.repo, comment_id: existing.id, body: markdown });
+            } else if (changed) {
+              await github.rest.issues.createComment({ ...context.repo, issue_number, body: markdown });
+            } else {
+              core.info('The grammar size did not change; not adding a comment.');
+            }

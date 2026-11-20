@@ -1,0 +1,62 @@
+name: Grammar size
+
+# Measures the generated parser for the base branch and for the pull request.
+# This workflow runs pull request code, so it has read-only access. The
+# "Grammar size comment" workflow posts the result on the pull request.
+
+on:
+  pull_request:
+
+concurrency:
+  group: ${{github.workflow}}-${{github.ref}}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  measure:
+    name: Measure grammar size
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout pull request
+        uses: actions/checkout@v7
+        with:
+          # The merge commit and its first parent, which is the base branch.
+          fetch-depth: 2
+          persist-credentials: false
+      - name: Set up tree-sitter
+        uses: tree-sitter/setup-action/cli@v2
+      - name: Check out base
+        run: git worktree add --detach "$RUNNER_TEMP/base" HEAD^1
+      - name: Measure base
+        run: |
+          mkdir -p "$RUNNER_TEMP/grammar-size"
+          bash .github/scripts/grammar-size.sh "$RUNNER_TEMP/base" > "$RUNNER_TEMP/grammar-size/base.json"
+      - name: Measure pull request
+        run: bash .github/scripts/grammar-size.sh . > "$RUNNER_TEMP/grammar-size/head.json"
+      - name: Write report
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const { render } = require(path.resolve('.github/scripts/grammar-size-report.cjs'));
+            const dir = path.join(process.env.RUNNER_TEMP, 'grammar-size');
+            const read = name => JSON.parse(fs.readFileSync(path.join(dir, name), 'utf8'));
+            const base = read('base.json');
+            const head = read('head.json');
+            const pr = context.payload.pull_request;
+            const baseSha = (await exec.getExecOutput('git', ['rev-parse', 'HEAD^1'])).stdout.trim();
+            const headSha = pr.head.sha;
+            const { markdown } = render(base, head, { baseSha, headSha });
+            await core.summary.addRaw(markdown).write();
+            fs.writeFileSync(
+              path.join(dir, 'metrics.json'),
+              JSON.stringify({ pr: pr.number, baseSha, headSha, base, head }, null, 2));
+      - name: Upload measurements
+        uses: actions/upload-artifact@v4
+        with:
+          name: grammar-size
+          path: ${{runner.temp}}/grammar-size/metrics.json
+          retention-days: 7

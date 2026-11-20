@@ -220,3 +220,29 @@ namespace N {
         body: (declaration_list
           (extern_alias_directive
             name: (identifier)))))))
+
+================================================================================
+Extern alias in a type body is a member
+================================================================================
+
+class C {
+  extern alias A();
+  extern alias B;
+}
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (method_declaration
+        (modifier)
+        returns: (identifier)
+        name: (identifier)
+        parameters: (parameter_list))
+      (field_declaration
+        (modifier)
+        (variable_declaration
+          type: (identifier)
+          (variable_declarator
+            name: (identifier)))))))

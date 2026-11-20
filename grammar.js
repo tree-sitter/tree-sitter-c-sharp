@@ -171,6 +171,7 @@ export default grammar({
     $._parameter_type_with_modifiers,
     $._top_level_item_no_statement,
     $._conditional_binding_operand,
+    $._conditional_binding,
   ],
 
   precedences: $ => [
@@ -284,8 +285,18 @@ export default grammar({
     namespace_declaration: $ => seq(
       'namespace',
       field('name', $._name),
-      field('body', $.declaration_list),
+      field('body', alias($._namespace_body, $.declaration_list)),
       $._optional_semi,
+    ),
+
+    // A namespace body may start with `extern alias` directives. In a type body
+    // `extern alias A();` is a method returning a type named `alias`, so the
+    // directive is not a `declaration`.
+    _namespace_body: $ => seq(
+      '{',
+      repeat($.extern_alias_directive),
+      repeat($.declaration),
+      '}',
     ),
 
     file_scoped_namespace_declaration: $ => seq(
@@ -555,9 +566,6 @@ export default grammar({
       $.operator_declaration,
       $.conversion_operator_declaration,
       $.property_declaration,
-      // Valid only at the start of a namespace body, but listed here so that
-      // `extern alias A;` there is not read as a field of type `alias`.
-      $.extern_alias_directive,
       $.using_directive,
       $.extension_declaration,
     ),
@@ -1756,19 +1764,25 @@ export default grammar({
     // Everything after the `?` is skipped when the condition is null, so the
     // whole chain belongs to the conditional access: `a?.b.c()` applies `.c()`
     // to the binding `.b`, not to the result of `a?.b`.
+    // A further `?` nests to the right, so a conditional access is only ever the
+    // last part of a chain: `a?[0]?[1].c()` is `a?([0]?([1].c()))`.
     _conditional_binding: $ => choice(
+      $._conditional_binding_chain,
+      alias($._conditional_binding_conditional_access, $.conditional_access_expression),
+    ),
+
+    _conditional_binding_chain: $ => choice(
       $.member_binding_expression,
       prec(PREC.DOT, alias($.bracketed_argument_list, $.element_binding_expression)),
       alias($._conditional_binding_member_access, $.member_access_expression),
       alias($._conditional_binding_invocation, $.invocation_expression),
       alias($._conditional_binding_element_access, $.element_access_expression),
-      alias($._conditional_binding_conditional_access, $.conditional_access_expression),
     ),
 
     // A `!` is only part of the chain when the chain continues after it:
     // `a?.b!.c` keeps it inside, while `a?.b!` applies it to the whole access.
     _conditional_binding_operand: $ => choice(
-      $._conditional_binding,
+      $._conditional_binding_chain,
       alias($._conditional_binding_null_forgiving, $.postfix_unary_expression),
     ),
 
@@ -1793,12 +1807,14 @@ export default grammar({
       '!',
     ))),
 
-    _conditional_binding_conditional_access: $ => conditionalAccessRule(
+    // `a?[0]?[1]` could also end the access after `[0]` and use it as the
+    // condition of the next one. Continuing the chain wins.
+    _conditional_binding_conditional_access: $ => prec.dynamic(1, conditionalAccessRule(
       $,
       $._conditional_binding_operand,
       PREC.CONDITIONAL_BINDING,
       PREC.DOT,
-    ),
+    )),
 
     as_expression: $ => prec(PREC.REL, seq(
       field('left', $.expression),

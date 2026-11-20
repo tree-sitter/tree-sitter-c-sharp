@@ -162,10 +162,23 @@ export default grammar({
     // Text in place of a `#pragma warning` action, read only when it does not
     // start with `disable` or `restore`.
     $._preproc_pragma_warning_text,
+    // The newlines that end an `#if` and an `#endif` line. The scanner counts the
+    // `#if` blocks it is inside from them, which `_skipped_text_hazard` needs.
+    $._preproc_if_newline,
+    $._preproc_endif_newline,
+    // The start of a `_skipped_text`, which can never complete. Inside the first
+    // branch of an `#if`, the scanner returns it for a `/* */` comment, a verbatim or
+    // raw string, or the content of an interpolated verbatim or raw string that holds
+    // an `#else`, `#elif` or `#endif` line it did not open, or leaves an `#if` open.
+    // When the compiler skips that branch it reads only directive lines, so that line
+    // ends the branch and the text after it is code: no single tree is right.
+    $._skipped_text_hazard,
+    // Never returned: what makes `_skipped_text` an error wherever it starts.
+    $._skipped_text_never,
   ],
 
   extras: $ => [
-    /[\s\u00A0\uFEFF\u3000]+/,
+    /[\s\u00A0\uFEFF\u3000\u0085\u2028\u2029]+/,
     $.comment,
     $._preproc_directive,
     $.preproc_else,
@@ -2255,6 +2268,9 @@ export default grammar({
       repeat(choice(
         $.string_literal_content,
         $.escape_sequence,
+        // Never returned. Valid only inside a string (and after `_skipped_text_hazard`), so
+        // the scanner knows that a `/*` here is string content, not a comment to check.
+        $._skipped_text_never,
       )),
       '"',
       optional($.string_literal_encoding),
@@ -2351,31 +2367,37 @@ export default grammar({
     // the matching `#endif` as one `preproc_else` token, so only the first branch
     // of a conditional is parsed as code.
 
-    _preproc_directive: $ => seq(alias(token(prec(-1, '#')), '#'), choice(
-      $.preproc_region,
-      $.preproc_endregion,
-      $.preproc_line,
-      $.preproc_pragma,
-      $.preproc_nullable,
-      $.preproc_error,
-      $.preproc_warning,
-      $.preproc_define,
-      $.preproc_undef,
-      $.ignored_directive,
-      $.preproc_if,
-      $.preproc_endif,
-    )),
+    _preproc_directive: $ => choice(
+      seq(alias(token(prec(-1, '#')), '#'), choice(
+        $.preproc_region,
+        $.preproc_endregion,
+        $.preproc_line,
+        $.preproc_pragma,
+        $.preproc_nullable,
+        $.preproc_error,
+        $.preproc_warning,
+        $.preproc_define,
+        $.preproc_undef,
+        $.ignored_directive,
+        $.preproc_if,
+        $.preproc_endif,
+      )),
+      // Text that hides a branch-ending directive line: see `_skipped_text_hazard`.
+      // Under this extra rather than an extra of its own, which would add an entry to
+      // every parse state; it can never complete, so it is always an ERROR.
+      seq($._skipped_text_hazard, $._skipped_text_never),
+    ),
 
     // The `#if` line. The code after it is parsed as ordinary code.
     preproc_if: $ => seq(
       'if',
       field('condition', $._preproc_expression),
-      $._preproc_newline,
+      $._preproc_if_newline,
     ),
 
     preproc_endif: $ => seq(
       'endif',
-      $._preproc_newline,
+      $._preproc_endif_newline,
     ),
 
 
@@ -2433,7 +2455,8 @@ export default grammar({
     // A file name has no escape sequences: `"C:\dir\"` is complete.
     _preproc_file_name: $ => seq(
       '"',
-      optional(alias(token.immediate(prec(1, /[^"\r\n]+/)), $.string_literal_content)),
+      // `_skipped_text_never` tells the scanner it is inside a string: see `string_literal`.
+      optional(choice(alias(token.immediate(prec(1, /[^"\r\n]+/)), $.string_literal_content), $._skipped_text_never)),
       token.immediate('"'),
     ),
 
@@ -2546,14 +2569,15 @@ export default grammar({
         ),
         // Not a well-formed directive (e.g. `#: package X`): still ignored by
         // the compiler, so keep the rest of the line as an unstructured value.
-        field('value', alias(token.immediate(/[ \t]+[^\s]([^\r\n]*[^\s])?/), $.directive_value)),
+        field('value', alias(token.immediate(/[ \t]+[^\s\u0085\u2028\u2029]([^\r\n\u0085\u2028\u2029]*[^\s\u0085\u2028\u2029])?/), $.directive_value)),
       )),
+      // Like every directive line, it ends at any C# line break, not only `\n`.
       $._preproc_newline,
     ),
 
     directive_name: _ => token(choice(
-      /[^\s@="]+/,
-      /"([^"\\\n]|\\.)*"/,
+      /[^\s@="\u0085\u2028\u2029]+/,
+      /"([^"\\\n\u0085\u2028\u2029]|\\.)*"/,
     )),
 
     // `@` for package/sdk versions, `=` for property values. A dedicated
@@ -2561,10 +2585,10 @@ export default grammar({
     // directives from perturbing GLR tie-breaks elsewhere in the grammar.
     directive_separator: _ => token(/[@=]/),
 
-    directive_value: _ => token(/[^\s@=]([^\r\n]*[^\s])?/),
+    directive_value: _ => token(/[^\s@=\u0085\u2028\u2029]([^\r\n\u0085\u2028\u2029]*[^\s\u0085\u2028\u2029])?/),
 
     comment: _ => token(choice(
-      seq('//', /[^\n\r]*/),
+      seq('//', /[^\n\r\u0085\u2028\u2029]*/),
       seq(
         '/*',
         /[^*]*\*+([^/*][^*]*\*+)*/,

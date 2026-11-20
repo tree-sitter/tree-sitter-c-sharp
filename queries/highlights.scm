@@ -13,6 +13,12 @@
 (struct_declaration (identifier) @type)
 (record_declaration (identifier) @type)
 (namespace_declaration name: (identifier) @module)
+(file_scoped_namespace_declaration name: (identifier) @module)
+
+;; Fields and properties
+
+(field_declaration (variable_declaration (variable_declarator name: (identifier) @property)))
+(property_declaration name: (identifier) @property)
 
 (generic_name (identifier) @type)
 (type_parameter (identifier) @property.definition)
@@ -221,5 +227,6 @@
 
 ;; Method calls
 
+(invocation_expression function: (identifier) @function)
 (invocation_expression (member_access_expression name: (identifier) @function))
 (invocation_expression (member_binding_expression name: (identifier) @function))

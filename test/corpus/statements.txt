@@ -772,10 +772,11 @@ class A {
                 left: (identifier)
                 right: (identifier))))
           (foreach_statement
-            type: (implicit_type)
-            left: (tuple_pattern
-              name: (identifier)
-              name: (identifier))
+            left: (declaration_expression
+              type: (implicit_type)
+              (parenthesized_variable_designation
+                name: (identifier)
+                name: (identifier)))
             right: (identifier)
             body: (expression_statement
               (assignment_expression
@@ -874,14 +875,14 @@ class A {
                     type: (implicit_type)
                     name: (identifier))))
               right: (identifier)))
-          (local_declaration_statement
-            (variable_declaration
-              type: (implicit_type)
-              (variable_declarator
-                (tuple_pattern
+          (expression_statement
+            (assignment_expression
+              left: (declaration_expression
+                type: (implicit_type)
+                (parenthesized_variable_designation
                   name: (identifier)
-                  name: (identifier))
-                (identifier))))
+                  name: (identifier)))
+              right: (identifier)))
           (expression_statement
             (assignment_expression
               left: (tuple_expression
@@ -900,24 +901,96 @@ class A {
                 (argument
                   (identifier)))
               right: (identifier)))
-          (local_declaration_statement
-            (variable_declaration
-              type: (implicit_type)
-              (variable_declarator
-                (tuple_pattern
+          (expression_statement
+            (assignment_expression
+              left: (declaration_expression
+                type: (implicit_type)
+                (parenthesized_variable_designation
                   name: (identifier)
-                  (discard))
-                (identifier))))
-          (local_declaration_statement
-            (variable_declaration
-              type: (implicit_type)
-              (variable_declarator
-                (tuple_pattern
+                  (discard)))
+              right: (identifier)))
+          (expression_statement
+            (assignment_expression
+              left: (declaration_expression
+                type: (implicit_type)
+                (parenthesized_variable_designation
                   name: (identifier)
-                  (tuple_pattern
+                  (parenthesized_variable_designation
                     name: (identifier)
-                    (discard)))
-                (identifier)))))))))
+                    (discard))))
+              right: (identifier))))))))
+
+================================================================================
+Deconstruction with var in for and foreach, and calls to var
+================================================================================
+
+class A {
+  async void Sample() {
+    for (var (i, j) = (0, 0); i < j; i++) {}
+    await foreach (var (k, v) in e) {}
+    var(a, b);
+    var f = var(a, b);
+  }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (method_declaration
+        (modifier)
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (block
+          (for_statement
+            initializer: (assignment_expression
+              left: (declaration_expression
+                type: (implicit_type)
+                (parenthesized_variable_designation
+                  name: (identifier)
+                  name: (identifier)))
+              right: (tuple_expression
+                (argument
+                  (integer_literal))
+                (argument
+                  (integer_literal))))
+            condition: (binary_expression
+              left: (identifier)
+              right: (identifier))
+            update: (postfix_unary_expression
+              (identifier))
+            body: (block))
+          (foreach_statement
+            left: (declaration_expression
+              type: (implicit_type)
+              (parenthesized_variable_designation
+                name: (identifier)
+                name: (identifier)))
+            right: (identifier)
+            body: (block))
+          (expression_statement
+            (invocation_expression
+              function: (identifier)
+              arguments: (argument_list
+                (argument
+                  (identifier))
+                (argument
+                  (identifier)))))
+          (local_declaration_statement
+            (variable_declaration
+              type: (implicit_type)
+              (variable_declarator
+                name: (identifier)
+                (invocation_expression
+                  function: (identifier)
+                  arguments: (argument_list
+                    (argument
+                      (identifier))
+                    (argument
+                      (identifier))))))))))))
 
 ================================================================================
 Function with contextually reserved identifiers

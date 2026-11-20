@@ -391,6 +391,89 @@ var x = new A
         right: (integer_literal)))))
 
 ================================================================================
+Assignment to a call that returns by reference
+================================================================================
+
+Get(a) = 1;
+this.Get(a, 1) = 1;
+Unsafe.Add(ref x, i) = 2;
+Unsafe.Add(ref x, i) += 2;
+Get(out var y)++;
+x = var(a, b);
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (expression_statement
+      (assignment_expression
+        left: (invocation_expression
+          function: (identifier)
+          arguments: (argument_list
+            (argument
+              (identifier))))
+        right: (integer_literal))))
+  (global_statement
+    (expression_statement
+      (assignment_expression
+        left: (invocation_expression
+          function: (member_access_expression
+            name: (identifier))
+          arguments: (argument_list
+            (argument
+              (identifier))
+            (argument
+              (integer_literal))))
+        right: (integer_literal))))
+  (global_statement
+    (expression_statement
+      (assignment_expression
+        left: (invocation_expression
+          function: (member_access_expression
+            expression: (identifier)
+            name: (identifier))
+          arguments: (argument_list
+            (argument
+              (identifier))
+            (argument
+              (identifier))))
+        right: (integer_literal))))
+  (global_statement
+    (expression_statement
+      (assignment_expression
+        left: (invocation_expression
+          function: (member_access_expression
+            expression: (identifier)
+            name: (identifier))
+          arguments: (argument_list
+            (argument
+              (identifier))
+            (argument
+              (identifier))))
+        right: (integer_literal))))
+  (global_statement
+    (expression_statement
+      (postfix_unary_expression
+        (invocation_expression
+          function: (identifier)
+          arguments: (argument_list
+            (argument
+              (declaration_expression
+                type: (implicit_type)
+                name: (identifier))))))))
+  (global_statement
+    (expression_statement
+      (assignment_expression
+        left: (identifier)
+        right: (invocation_expression
+          function: (identifier)
+          arguments: (argument_list
+            (argument
+              (identifier))
+            (argument
+              (identifier))))))))
+
+================================================================================
 Ternary Expression
 ================================================================================
 
@@ -5490,3 +5573,160 @@ var a = new List<PointUi>(points) { point };
                 (identifier)))
             initializer: (initializer_expression
               (identifier))))))))
+
+================================================================================
+A type argument list ruled out by the token after it is comparisons
+================================================================================
+
+var r = A < X >> B;
+x = F < A > +y;
+b = a < c > 1;
+b = a < c.d > -e;
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (binary_expression
+            left: (identifier)
+            right: (binary_expression
+              left: (identifier)
+              right: (identifier)))))))
+  (global_statement
+    (expression_statement
+      (assignment_expression
+        left: (identifier)
+        right: (binary_expression
+          left: (binary_expression
+            left: (identifier)
+            right: (identifier))
+          right: (prefix_unary_expression
+            (identifier))))))
+  (global_statement
+    (expression_statement
+      (assignment_expression
+        left: (identifier)
+        right: (binary_expression
+          left: (binary_expression
+            left: (identifier)
+            right: (identifier))
+          right: (integer_literal)))))
+  (global_statement
+    (expression_statement
+      (assignment_expression
+        left: (identifier)
+        right: (binary_expression
+          left: (binary_expression
+            left: (identifier)
+            right: (member_access_expression
+              expression: (identifier)
+              name: (identifier)))
+          right: (prefix_unary_expression
+            (identifier)))))))
+
+
+================================================================================
+A type argument list kept by the token after it
+================================================================================
+
+F(G<A, B>(7));
+x = A<B>.C;
+x = nameof(List<int>);
+x = A<B> == c;
+x = F<A, B>[0];
+x = typeof(Dictionary<string, List<int>>);
+x = y as IList<T> ?? z;
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (global_statement
+    (expression_statement
+      (invocation_expression
+        function: (identifier)
+        arguments: (argument_list
+          (argument
+            (invocation_expression
+              function: (generic_name
+                (identifier)
+                (type_argument_list
+                  (identifier)
+                  (identifier)))
+              arguments: (argument_list
+                (argument
+                  (integer_literal)))))))))
+  (global_statement
+    (expression_statement
+      (assignment_expression
+        left: (identifier)
+        right: (member_access_expression
+          expression: (generic_name
+            (identifier)
+            (type_argument_list
+              (identifier)))
+          name: (identifier)))))
+  (global_statement
+    (expression_statement
+      (assignment_expression
+        left: (identifier)
+        right: (invocation_expression
+          function: (identifier)
+          arguments: (argument_list
+            (argument
+              (generic_name
+                (identifier)
+                (type_argument_list
+                  (predefined_type)))))))))
+  (global_statement
+    (expression_statement
+      (assignment_expression
+        left: (identifier)
+        right: (binary_expression
+          left: (generic_name
+            (identifier)
+            (type_argument_list
+              (identifier)))
+          right: (identifier)))))
+  (global_statement
+    (expression_statement
+      (assignment_expression
+        left: (identifier)
+        right: (element_access_expression
+          expression: (generic_name
+            (identifier)
+            (type_argument_list
+              (identifier)
+              (identifier)))
+          subscript: (bracketed_argument_list
+            (argument
+              (integer_literal)))))))
+  (global_statement
+    (expression_statement
+      (assignment_expression
+        left: (identifier)
+        right: (typeof_expression
+          type: (generic_name
+            (identifier)
+            (type_argument_list
+              (predefined_type)
+              (generic_name
+                (identifier)
+                (type_argument_list
+                  (predefined_type)))))))))
+  (global_statement
+    (expression_statement
+      (assignment_expression
+        left: (identifier)
+        right: (binary_expression
+          left: (as_expression
+            left: (identifier)
+            right: (generic_name
+              (identifier)
+              (type_argument_list
+                (identifier))))
+          right: (identifier))))))

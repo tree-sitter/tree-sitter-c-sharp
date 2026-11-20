@@ -22,4 +22,6 @@
 
 (namespace_declaration name: (identifier) @name) @definition.module
 
+(file_scoped_namespace_declaration name: (identifier) @name) @definition.module
+
 (namespace_declaration name: (identifier) @name) @module

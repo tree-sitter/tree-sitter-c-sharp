@@ -51,9 +51,7 @@ export default grammar({
 
     [$.tuple_element, $.using_variable_declarator],
     [$.tuple_element, $.declaration_expression],
-
-    [$.tuple_pattern, $.parameter],
-    [$.tuple_pattern, $._simple_name],
+    [$.type, $._var_deconstruction],
 
     [$.lvalue_expression, $._name],
     [$.parameter, $.lvalue_expression],
@@ -108,6 +106,7 @@ export default grammar({
     [$._reserved_identifier, $.type_parameter_constraint],
     [$._reserved_identifier, $.parameter, $.scoped_type],
     [$._reserved_identifier, $.parameter],
+    [$._record_declaration_initializer, $._reserved_identifier],
     [$._simple_name, $.parameter],
     [$.tuple_element, $.parameter, $.declaration_expression],
     [$.parameter, $.tuple_element],
@@ -117,8 +116,6 @@ export default grammar({
     [$.base_list],
     [$.using_directive, $.modifier],
     [$.using_directive],
-
-    [$._constructor_declaration_initializer, $._simple_name],
 
     // For C# 14 extension declarations: `extension(scoped X x)` —
     // `scoped` can be a parameter modifier, a scoped_type, or a
@@ -175,6 +172,12 @@ export default grammar({
     $._skipped_text_hazard,
     // Never returned: what makes `_skipped_text` an error wherever it starts.
     $._skipped_text_never,
+    // A `<` that can only be less-than. Where `<` could also start type arguments, the scanner
+    // reads ahead (C# spec, "Grammar ambiguities"): when the list is well-formed but is followed
+    // by another `>` or by the start of an operand the spec does not let follow a type argument
+    // list (a literal, unary `+`, `-`, `!`, `~` or `*`), the compiler reads `<` and `>` as
+    // operators. So `A < X >> B` is `A < (X >> B)`, not `(A<X>) > B`.
+    $._less_than,
   ],
 
   extras: $ => [
@@ -217,6 +220,7 @@ export default grammar({
     compilation_unit: $ => seq(
       optional($.shebang_directive),
       repeat($._top_level_item),
+      optional($.file_scoped_namespace_declaration),
     ),
 
     _top_level_item: $ => prec(2, choice(
@@ -229,7 +233,6 @@ export default grammar({
       $.using_directive,
       $.global_attribute,
       $._namespace_member_declaration,
-      $.file_scoped_namespace_declaration,
     ),
 
     global_statement: $ => prec(1, $.statement),
@@ -319,10 +322,13 @@ export default grammar({
       '}',
     ),
 
+    // Like Roslyn, the namespace holds every member that follows it, so its
+    // range covers the types it declares.
     file_scoped_namespace_declaration: $ => seq(
       'namespace',
       field('name', $._name),
       ';',
+      repeat($._top_level_item_no_statement),
     ),
 
     type_declaration: $ => choice(
@@ -792,16 +798,6 @@ export default grammar({
 
     argument_list: $ => seq('(', commaSep($.argument), ')'),
 
-    tuple_pattern: $ => seq(
-      '(',
-      commaSep1(choice(
-        field('name', $.identifier),
-        $.discard,
-        $.tuple_pattern,
-      )),
-      ')',
-    ),
-
     // A declaration is only valid after `out`, so `M(t * x)` multiplies and
     // `M(a < b, c > d)` compares. Without `out` it stays available for error
     // tolerance, below every expression, including a `generic_name`.
@@ -832,7 +828,7 @@ export default grammar({
     ),
 
     variable_declarator: $ => seq(
-      choice(field('name', $.identifier), $.tuple_pattern),
+      field('name', $.identifier),
       optional($.bracketed_argument_list),
       optional(seq('=', $.expression)),
     ),
@@ -1081,6 +1077,8 @@ export default grammar({
     expression_statement: $ => seq(
       choice(
         $._expression_statement_expression,
+        $.invocation_expression,
+        alias($._var_deconstruction_assignment, $.assignment_expression),
         // `a?.b();` is a call statement, with the call inside the access.
         $.conditional_access_expression,
       ),
@@ -1098,7 +1096,11 @@ export default grammar({
     _for_statement_conditions: $ => seq(
       '(',
       field('initializer', optional(
-        choice($.variable_declaration, commaSep1($.expression)),
+        choice(
+          $.variable_declaration,
+          alias($._var_deconstruction_assignment, $.assignment_expression),
+          commaSep1($.expression),
+        ),
       )),
       ';',
       field('condition', optional($.expression)),
@@ -1210,8 +1212,10 @@ export default grammar({
       choice(
         seq(
           field('type', $.type),
-          field('left', choice($.identifier, $.tuple_pattern)),
+          field('left', $.identifier),
         ),
+        // `foreach (var (k, v) in d)` declares, unlike the call `var(k, v)`.
+        field('left', prec.dynamic(2, alias($._var_deconstruction, $.declaration_expression))),
         field('left', $.expression),
       ),
       'in',
@@ -1569,6 +1573,8 @@ export default grammar({
       prec.dynamic(-1, alias($.bracketed_argument_list, $.element_binding_expression)),
       alias($._pointer_indirection_expression, $.prefix_unary_expression),
       alias($._parenthesized_lvalue_expression, $.parenthesized_expression),
+      // A method that returns by reference can be assigned to: `Unsafe.Add(ref x, i) = v`.
+      $.invocation_expression,
       // C# 14 null-conditional assignment: `obj?.x = v`, `obj?[i] = v`.
       // https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-14#null-conditional-assignment
       $.conditional_access_expression,
@@ -1577,7 +1583,6 @@ export default grammar({
     // Covers error CS0201: Only assignment, call, increment, decrement, await, and new object expressions can be used as a statement
     _expression_statement_expression: $ => choice(
       $.assignment_expression,
-      $.invocation_expression,
       $.postfix_unary_expression,
       $.prefix_unary_expression,
       $.await_expression,
@@ -1620,7 +1625,7 @@ export default grammar({
         ['&', PREC.AND],
         ['^', PREC.XOR],
         ['|', PREC.OR],
-        ['<', PREC.REL],
+        [choice('<', alias($._less_than, '<')), PREC.REL],
         ['<=', PREC.REL],
         ['==', PREC.EQUAL],
         ['!=', PREC.EQUAL],
@@ -2124,6 +2129,22 @@ export default grammar({
       field('name', $.identifier),
     )),
 
+    // Roslyn reads `var (a, b)` as a declaration expression whose designation
+    // lists the new variables.
+    // `var (a, b) = t` declares new variables. It is only read this way as a
+    // whole statement, a `for` initializer or a `foreach` target, so in any
+    // other expression `var(a, b)` stays a call to a method named `var`.
+    _var_deconstruction_assignment: $ => prec.dynamic(3, seq(
+      field('left', alias($._var_deconstruction, $.declaration_expression)),
+      field('operator', '='),
+      field('right', $.expression),
+    )),
+
+    _var_deconstruction: $ => seq(
+      field('type', $.implicit_type),
+      $.parenthesized_variable_designation,
+    ),
+
     default_expression: $ => prec.right(seq(
       'default',
       optional(seq(
@@ -2339,11 +2360,13 @@ export default grammar({
       'orderby',
       'param',
       // Contextual keywords that are ordinary names outside their construct:
-      // `var with = ...` (with-expressions), `var partial = ...` (partial types)
-      // and `required = 0;` (required members). Where both readings parse, as in
-      // `public partial C(int x);`, the modifier reading wins.
+      // `var with = ...` (with-expressions), `var partial = ...` (partial types),
+      // `required = 0;` (required members) and `record r = new record();`
+      // (records). Where both readings parse, as in `public partial C(int x);`,
+      // the modifier or declaration reading wins.
       prec.dynamic(-1, 'partial'),
       'property',
+      prec.dynamic(-1, 'record'),
       prec.dynamic(-1, 'required'),
       'scoped',
       'select',

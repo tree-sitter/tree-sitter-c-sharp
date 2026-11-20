@@ -30,6 +30,7 @@ enum TokenType {
     PREPROC_ENDIF_NEWLINE,
     SKIPPED_TEXT_HAZARD,
     SKIPPED_TEXT_NEVER,
+    LESS_THAN,
 };
 
 typedef enum {
@@ -496,6 +497,102 @@ static bool skip_member_access_trivia(TSLexer *lexer) {
     }
 }
 
+// ---- `<`: type arguments or less-than ----
+//
+// C# spec, "Grammar ambiguities": when tokens can be read as a name ending in a type argument
+// list, the token after the closing `>` decides. If it is one of `( ) ] } : ; , . ? == != | ^ &&
+// || & [` or `< <= >= is as` (or a query keyword), the list is type arguments; otherwise `<` and
+// `>` are operators. So `F<A, B>(c)` calls a generic method, while `A < X >> B` compares `A` with
+// `X >> B`.
+//
+// Here only the tokens that make the operator reading possible rule the list out: a `>` that is
+// not `>=` (a shift or a second comparison, as in `A < X >> B`), or a token that starts the right
+// operand of `>` and is not in that list: a literal, or unary `+`, `-`, `!`, `~` or `*`. Any other
+// token is left to the grammar. A name keeps the list after `out`, `is` or `case` or in a tuple
+// (`out A<B> c`) and is a comparison elsewhere (`M(a < b, c > d)`), which the grammar already
+// tells apart. A token that cannot start an operand, such as `??`, leaves no operator reading at
+// all, and after `as` or `is` the compiler reads a type without this check: `x as IList<T> ?? y`.
+
+// After the closing `>`. True if the next token rules the list out.
+static bool type_argument_list_ruled_out_by_next(TSLexer *lexer) {
+    if (!skip_member_access_trivia(lexer) || lexer->eof(lexer)) return false;
+    int32_t c = lexer->lookahead;
+    switch (c) {
+        case '>':
+            advance(lexer);
+            return lexer->lookahead != '=';  // not `>=`, which keeps the list
+        case '!':
+            advance(lexer);
+            return lexer->lookahead != '=';  // not `!=`, which keeps the list
+        case '+':
+        case '-':
+        case '~':
+        case '*':
+        case '"':
+        case '\'':
+            return true;
+        case '$':
+        case '@':
+            advance(lexer);
+            return lexer->lookahead == '"' || lexer->lookahead == '$' || lexer->lookahead == '@';  // a string
+        default:
+            return c >= '0' && c <= '9';
+    }
+}
+
+// After `<`. True if what follows reads as a type argument list (names, `.`, `::`, `,`, `?`,
+// `*`, array ranks, tuples, nested lists) that the token after it rules out, so `<` is less-than.
+static bool type_argument_list_is_ruled_out(TSLexer *lexer) {
+    unsigned angles = 1;
+    unsigned parens = 0;
+    unsigned brackets = 0;
+    for (;;) {
+        if (!skip_member_access_trivia(lexer) || lexer->eof(lexer)) return false;
+        int32_t c = lexer->lookahead;
+        if (is_id_start(c) || c == '@') {
+            advance(lexer);
+            while (is_id_continue(lexer->lookahead)) advance(lexer);
+            continue;
+        }
+        switch (c) {
+            case '<':
+                angles++;
+                break;
+            case '>':
+                advance(lexer);
+                if (lexer->lookahead == '=') return false;  // `>=` is one token: not a list
+                if (--angles > 0) continue;
+                return parens == 0 && brackets == 0 && type_argument_list_ruled_out_by_next(lexer);
+            case '(':
+                parens++;
+                break;
+            case ')':
+                if (parens == 0) return false;
+                parens--;
+                break;
+            case '[':
+                brackets++;
+                break;
+            case ']':
+                if (brackets == 0) return false;
+                brackets--;
+                break;
+            case ':':
+                advance(lexer);
+                if (lexer->lookahead != ':') return false;  // `::` only
+                break;
+            case ',':
+            case '.':
+            case '?':
+            case '*':
+                break;
+            default:
+                return false;
+        }
+        advance(lexer);
+    }
+}
+
 // ---- #elif / #else, after tree-sitter-haskell's cpp handling ----
 //
 // Directive lines are extras parsed by the grammar, `#if` and `#endif` included.
@@ -694,6 +791,24 @@ bool tree_sitter_c_sharp_external_scanner_scan(void *payload, TSLexer *lexer, co
                      valid_symbols[INTERPOLATION_START_QUOTE] || valid_symbols[INTERPOLATION_END_QUOTE] ||
                      valid_symbols[INTERPOLATION_OPEN_BRACE] || valid_symbols[INTERPOLATION_CLOSE_BRACE] ||
                      valid_symbols[INTERPOLATION_STRING_CONTENT];
+
+    // A `<` that can only be less-than: see `type_argument_list_is_ruled_out`. Any other `<` is
+    // left to the grammar. Not where the zero-width OPT_SEMI is due (it comes first), and
+    // whitespace is skipped only outside string holes, whose closing brace token takes the
+    // whitespace before it.
+    if (valid_symbols[LESS_THAN] && !error_recovery && !valid_symbols[OPT_SEMI]) {
+        if (!in_string) {
+            while (iswspace(lexer->lookahead)) skip(lexer);
+        }
+        if (lexer->lookahead == '<') {
+            advance(lexer);
+            if (lexer->lookahead == '<' || lexer->lookahead == '=') return false;
+            lexer->mark_end(lexer);
+            if (!type_argument_list_is_ruled_out(lexer)) return false;
+            lexer->result_symbol = LESS_THAN;
+            return true;
+        }
+    }
     // The newline that ends a directive line: any C# line break, `\r\n` as one. A comment before
     // it is left to the grammar. The newlines of `#if` and `#endif` lines keep `if_depth`.
     bool newline_valid = valid_symbols[PREPROC_NEWLINE] || valid_symbols[PREPROC_IF_NEWLINE] ||

@@ -102,10 +102,59 @@ class B {
 
 (compilation_unit
   (file_scoped_namespace_declaration
-    name: (identifier))
-  (class_declaration
     name: (identifier)
-    body: (declaration_list)))
+    (class_declaration
+      name: (identifier)
+      body: (declaration_list))))
+
+================================================================================
+File scoped namespace contains its members
+================================================================================
+
+using System;
+
+namespace A.B;
+
+extern alias X;
+using C;
+
+[Serializable]
+class D {
+}
+
+record E(int F);
+
+namespace G {
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (using_directive
+    (identifier))
+  (file_scoped_namespace_declaration
+    name: (qualified_name
+      qualifier: (identifier)
+      name: (identifier))
+    (extern_alias_directive
+      name: (identifier))
+    (using_directive
+      (identifier))
+    (class_declaration
+      (attribute_list
+        (attribute
+          name: (identifier)))
+      name: (identifier)
+      body: (declaration_list))
+    (record_declaration
+      name: (identifier)
+      (parameter_list
+        (parameter
+          type: (predefined_type)
+          name: (identifier))))
+    (namespace_declaration
+      name: (identifier)
+      body: (declaration_list))))
 
 ================================================================================
 Delegates

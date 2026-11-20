@@ -587,3 +587,61 @@ class nameof { }
   (class_declaration
     name: (identifier)
     body: (declaration_list)))
+
+================================================================================
+Record contextual keyword
+================================================================================
+
+class C {
+  record field = new record();
+  void M(record r) {
+    record local = r;
+    var record = 1;
+    record++;
+  }
+}
+record R(int A);
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (field_declaration
+        (variable_declaration
+          type: (identifier)
+          (variable_declarator
+            name: (identifier)
+            (object_creation_expression
+              type: (identifier)
+              arguments: (argument_list)))))
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list
+          (parameter
+            type: (identifier)
+            name: (identifier)))
+        body: (block
+          (local_declaration_statement
+            (variable_declaration
+              type: (identifier)
+              (variable_declarator
+                name: (identifier)
+                (identifier))))
+          (local_declaration_statement
+            (variable_declaration
+              type: (implicit_type)
+              (variable_declarator
+                name: (identifier)
+                (integer_literal))))
+          (expression_statement
+            (postfix_unary_expression
+              (identifier)))))))
+  (record_declaration
+    name: (identifier)
+    (parameter_list
+      (parameter
+        type: (predefined_type)
+        name: (identifier)))))

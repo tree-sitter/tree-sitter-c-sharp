@@ -68,7 +68,7 @@ namespace Namespace
     // <- punctuation.bracket
         int Age { get; init; }
         // <- type.builtin
-        //  ^ variable
+        //  ^ property
         //      ^ punctuation.bracket
         //        ^ keyword
         //           ^ punctuation.delimiter
@@ -190,18 +190,18 @@ namespace Namespace
         // <- keyword
         //     ^ keyword
         //              ^ type.builtin
-        //                  ^ variable
-        //                   ^ variable
+        //                  ^ property
+        //                   ^ property
         //                    ^ punctuation.delimiter
         Int64 D_e_f, g;
         // <- type
-        //    ^ variable
-        //     ^ variable
-        //      ^ variable
-        //       ^ variable
-        //        ^ variable
+        //    ^ property
+        //     ^ property
+        //      ^ property
+        //       ^ property
+        //        ^ property
         //         ^ punctuation.delimiter
-        //           ^ variable
+        //           ^ property
         //            ^ punctuation.delimiter
         Tuple<char, Nullable<int>> z;
         // <- type
@@ -212,7 +212,7 @@ namespace Namespace
         //                  ^ operator
         //                   ^ type.builtin
         //                      ^ operator
-        //                         ^ variable
+        //                         ^ property
         //                          ^ punctuation.delimiter
 
         [SomeAttribute]
@@ -236,7 +236,7 @@ namespace Namespace
 
         uint GetSet { get; set; }
         // <- type.builtin
-        //   ^ variable
+        //   ^ property
         //          ^ punctuation.bracket
         //            ^ keyword
         //               ^ punctuation.delimiter

@@ -1759,7 +1759,31 @@
         "required": true,
         "types": [
           {
+            "type": "element_access_expression",
+            "named": true
+          },
+          {
+            "type": "element_binding_expression",
+            "named": true
+          },
+          {
             "type": "expression",
+            "named": true
+          },
+          {
+            "type": "invocation_expression",
+            "named": true
+          },
+          {
+            "type": "member_access_expression",
+            "named": true
+          },
+          {
+            "type": "member_binding_expression",
+            "named": true
+          },
+          {
+            "type": "postfix_unary_expression",
             "named": true
           }
         ]
@@ -1770,7 +1794,23 @@
       "required": true,
       "types": [
         {
+          "type": "conditional_access_expression",
+          "named": true
+        },
+        {
+          "type": "element_access_expression",
+          "named": true
+        },
+        {
           "type": "element_binding_expression",
+          "named": true
+        },
+        {
+          "type": "invocation_expression",
+          "named": true
+        },
+        {
+          "type": "member_access_expression",
           "named": true
         },
         {
@@ -1834,6 +1874,10 @@
         },
         {
           "type": "checked_expression",
+          "named": true
+        },
+        {
+          "type": "conditional_access_expression",
           "named": true
         },
         {
@@ -2069,6 +2113,10 @@
         {
           "type": "declaration",
           "named": true
+        },
+        {
+          "type": "extern_alias_directive",
+          "named": true
         }
       ]
     }
@@ -2278,7 +2326,31 @@
         "required": true,
         "types": [
           {
+            "type": "element_access_expression",
+            "named": true
+          },
+          {
+            "type": "element_binding_expression",
+            "named": true
+          },
+          {
             "type": "expression",
+            "named": true
+          },
+          {
+            "type": "invocation_expression",
+            "named": true
+          },
+          {
+            "type": "member_access_expression",
+            "named": true
+          },
+          {
+            "type": "member_binding_expression",
+            "named": true
+          },
+          {
+            "type": "postfix_unary_expression",
             "named": true
           }
         ]
@@ -2543,6 +2615,10 @@
         },
         {
           "type": "await_expression",
+          "named": true
+        },
+        {
+          "type": "conditional_access_expression",
           "named": true
         },
         {
@@ -3424,11 +3500,11 @@
             "named": true
           },
           {
-            "type": "conditional_access_expression",
+            "type": "element_access_expression",
             "named": true
           },
           {
-            "type": "element_access_expression",
+            "type": "element_binding_expression",
             "named": true
           },
           {
@@ -3452,7 +3528,15 @@
             "named": true
           },
           {
+            "type": "member_binding_expression",
+            "named": true
+          },
+          {
             "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "postfix_unary_expression",
             "named": true
           },
           {
@@ -3860,6 +3944,14 @@
             "named": true
           },
           {
+            "type": "element_access_expression",
+            "named": true
+          },
+          {
+            "type": "element_binding_expression",
+            "named": true
+          },
+          {
             "type": "expression",
             "named": true
           },
@@ -3869,6 +3961,22 @@
           },
           {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "invocation_expression",
+            "named": true
+          },
+          {
+            "type": "member_access_expression",
+            "named": true
+          },
+          {
+            "type": "member_binding_expression",
+            "named": true
+          },
+          {
+            "type": "postfix_unary_expression",
             "named": true
           },
           {
@@ -4620,7 +4728,31 @@
       "required": true,
       "types": [
         {
+          "type": "element_access_expression",
+          "named": true
+        },
+        {
+          "type": "element_binding_expression",
+          "named": true
+        },
+        {
           "type": "expression",
+          "named": true
+        },
+        {
+          "type": "invocation_expression",
+          "named": true
+        },
+        {
+          "type": "member_access_expression",
+          "named": true
+        },
+        {
+          "type": "member_binding_expression",
+          "named": true
+        },
+        {
+          "type": "postfix_unary_expression",
           "named": true
         }
       ]
@@ -4687,7 +4819,7 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "preproc_arg",
@@ -4777,6 +4909,10 @@
           "named": true
         },
         {
+          "type": "preproc_arg",
+          "named": true
+        },
+        {
           "type": "string_literal",
           "named": true
         }
@@ -4820,7 +4956,7 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "preproc_arg",

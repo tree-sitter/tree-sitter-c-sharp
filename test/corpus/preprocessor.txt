@@ -891,6 +891,99 @@ class C {
         (comment)))))
 
 ================================================================================
+Pragmas the compiler skips with a warning
+================================================================================
+
+#pragma warning disable 1     // Okay
+#pragma warning disable CS1   // Okay
+#pragma warning disable 1,2   // Okay
+
+#pragma warning disable 1;2     // CS1696
+#pragma warning suppress 1      // CS1634
+#pragma                         // CS1633
+#pragma anything can come here  // CS1633
+
+;
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (preproc_pragma
+    (integer_literal)
+    (comment))
+  (preproc_pragma
+    (identifier)
+    (comment))
+  (preproc_pragma
+    (integer_literal)
+    (integer_literal)
+    (comment))
+  (preproc_pragma
+    (integer_literal)
+    (preproc_arg)
+    (comment))
+  (preproc_pragma
+    (preproc_arg)
+    (comment))
+  (preproc_pragma
+    (comment))
+  (preproc_pragma
+    (preproc_arg)
+    (comment))
+  (global_statement
+    (empty_statement)))
+
+================================================================================
+Pragmas the compiler skips inside a class
+================================================================================
+
+class C {
+#pragma warning
+  void A() {}
+#pragma warning restore CS1, CS2; more text
+#pragma disable warning 1
+  void B() {}
+#pragma warnings disable
+#pragma checksum "a.cs" "{406EA660-64CF-4C82-B6F0-42D48172A799}" "ab" ; extra
+#pragma
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (preproc_pragma)
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (block))
+      (preproc_pragma
+        (identifier)
+        (identifier)
+        (preproc_arg))
+      (preproc_pragma
+        (preproc_arg))
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (block))
+      (preproc_pragma
+        (preproc_arg))
+      (preproc_pragma
+        (string_literal
+          (string_literal_content))
+        (string_literal
+          (string_literal_content))
+        (string_literal
+          (string_literal_content))
+        (preproc_arg))
+      (preproc_pragma))))
+
+================================================================================
 Error and warning directives with and without text
 ================================================================================
 

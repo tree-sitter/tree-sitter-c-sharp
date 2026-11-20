@@ -24,6 +24,8 @@ enum TokenType {
     PREPROC_NEWLINE,
     PREPROC_ARG,
     PREPROC_TRAILING_TEXT,
+    PREPROC_PRAGMA_TEXT,
+    PREPROC_PRAGMA_WARNING_TEXT,
 };
 
 typedef enum {
@@ -424,8 +426,7 @@ static inline bool is_directive_line_end(int32_t c) { return c == '\n' || c == '
 // The rest of a directive line, from its first non-blank character to its last.
 // C# has no delimited comment on a directive line, so `/*` is ordinary text
 // here. A `//` at the start is left to the internal lexer as a `comment`.
-// With `only_after_comment_start`, only text that starts with `/*` is read.
-static bool scan_preproc_arg(TSLexer *lexer, bool only_after_comment_start) {
+static bool scan_preproc_arg(TSLexer *lexer) {
     while (!lexer->eof(lexer) && iswspace(lexer->lookahead) && !is_directive_line_end(lexer->lookahead)) {
         skip(lexer);
     }
@@ -433,14 +434,72 @@ static bool scan_preproc_arg(TSLexer *lexer, bool only_after_comment_start) {
     if (lexer->lookahead == '/') {
         advance(lexer);
         if (lexer->lookahead == '/') return false;
-        if (only_after_comment_start && lexer->lookahead != '*') return false;
-    } else if (only_after_comment_start) {
-        return false;
     } else {
         advance(lexer);
     }
     lexer->mark_end(lexer);
     while (!lexer->eof(lexer) && !is_directive_line_end(lexer->lookahead)) {
+        bool blank = iswspace(lexer->lookahead);
+        advance(lexer);
+        if (!blank) lexer->mark_end(lexer);
+    }
+    return true;
+}
+
+// The words the grammar reads after `#pragma` and after `#pragma warning`.
+static const char *const PRAGMA_KINDS[] = {"warning", "checksum"};
+static const char *const PRAGMA_WARNING_ACTIONS[] = {"disable", "restore"};
+
+// Text in a `#pragma` line that the compiler skips with a warning, read up to a
+// `//` comment or the end of the line.
+// With `keywords` (after `#pragma` or `#pragma warning`), the text may start
+// with a word, but not one of the two the grammar expects there, so
+// `#pragma warning disable` still parses. Without them (after a complete
+// pragma), it may not start with a word, number or `,`, which belong to the
+// warning list.
+static bool scan_pragma_text(TSLexer *lexer, const char *const *keywords) {
+    while (!lexer->eof(lexer) && iswspace(lexer->lookahead) && !is_directive_line_end(lexer->lookahead)) {
+        skip(lexer);
+    }
+    if (lexer->eof(lexer) || is_directive_line_end(lexer->lookahead)) return false;
+
+    int32_t first = lexer->lookahead;
+    if (first == '/') {
+        advance(lexer);
+        if (lexer->lookahead == '/') return false;
+    } else if (is_id_continue(first) || first == '@') {
+        if (!keywords) return false;
+        // Every keyword is ASCII and shorter than the buffer; any other word is text.
+        char word[16];
+        size_t length = 0;
+        bool may_be_keyword = first != '@';
+        while (is_id_continue(lexer->lookahead) || (length == 0 && lexer->lookahead == '@')) {
+            if (lexer->lookahead > 0x7F || length + 1 >= sizeof(word)) {
+                may_be_keyword = false;
+            } else if (may_be_keyword) {
+                word[length] = (char)lexer->lookahead;
+            }
+            length++;
+            advance(lexer);
+        }
+        if (may_be_keyword) {
+            word[length] = '\0';
+            if (strcmp(word, keywords[0]) == 0 || strcmp(word, keywords[1]) == 0) return false;
+        }
+    } else if (first == ',' && !keywords) {
+        return false;
+    } else {
+        advance(lexer);
+    }
+    lexer->mark_end(lexer);
+
+    while (!lexer->eof(lexer) && !is_directive_line_end(lexer->lookahead)) {
+        if (lexer->lookahead == '/') {
+            advance(lexer);
+            if (lexer->lookahead == '/') break;
+            lexer->mark_end(lexer);
+            continue;
+        }
         bool blank = iswspace(lexer->lookahead);
         advance(lexer);
         if (!blank) lexer->mark_end(lexer);
@@ -492,7 +551,10 @@ bool tree_sitter_c_sharp_external_scanner_scan(void *payload, TSLexer *lexer, co
             lexer->result_symbol = PREPROC_NEWLINE;
             return true;
         }
-        if (!valid_symbols[PREPROC_ARG] && !valid_symbols[PREPROC_TRAILING_TEXT]) return false;
+        if (!valid_symbols[PREPROC_ARG] && !valid_symbols[PREPROC_TRAILING_TEXT] &&
+            !valid_symbols[PREPROC_PRAGMA_TEXT] && !valid_symbols[PREPROC_PRAGMA_WARNING_TEXT]) {
+            return false;
+        }
     }
 
     // Not inside string content, and not where the zero-width OPT_SEMI is due:
@@ -509,9 +571,24 @@ bool tree_sitter_c_sharp_external_scanner_scan(void *payload, TSLexer *lexer, co
         return false;
     }
 
-    if (valid_symbols[PREPROC_ARG] || valid_symbols[PREPROC_TRAILING_TEXT]) {
-        lexer->result_symbol = valid_symbols[PREPROC_ARG] ? PREPROC_ARG : PREPROC_TRAILING_TEXT;
-        return scan_preproc_arg(lexer, !valid_symbols[PREPROC_ARG]);
+    if (valid_symbols[PREPROC_ARG]) {
+        lexer->result_symbol = PREPROC_ARG;
+        return scan_preproc_arg(lexer);
+    }
+
+    if (valid_symbols[PREPROC_PRAGMA_TEXT]) {
+        lexer->result_symbol = PREPROC_PRAGMA_TEXT;
+        return scan_pragma_text(lexer, PRAGMA_KINDS);
+    }
+
+    if (valid_symbols[PREPROC_PRAGMA_WARNING_TEXT]) {
+        lexer->result_symbol = PREPROC_PRAGMA_WARNING_TEXT;
+        return scan_pragma_text(lexer, PRAGMA_WARNING_ACTIONS);
+    }
+
+    if (valid_symbols[PREPROC_TRAILING_TEXT]) {
+        lexer->result_symbol = PREPROC_TRAILING_TEXT;
+        return scan_pragma_text(lexer, NULL);
     }
 
     if (valid_symbols[CONDITIONAL_MEMBER_QUESTION]) {

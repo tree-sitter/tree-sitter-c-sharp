@@ -153,8 +153,15 @@ export default grammar({
     // directive line, so `/*` is plain text here and must not start a
     // comment that hides the lines after it.
     $.preproc_arg,
-    // Text after a complete `#pragma`, read only when it starts with `/*`.
+    // Text after a complete `#pragma`, read only when it cannot start the
+    // warning list: not a word, number or `,`.
     $._preproc_trailing_text,
+    // Text in place of a `#pragma` kind, read only when it does not start
+    // with `warning` or `checksum`.
+    $._preproc_pragma_text,
+    // Text in place of a `#pragma warning` action, read only when it does not
+    // start with `disable` or `restore`.
+    $._preproc_pragma_warning_text,
   ],
 
   extras: $ => [
@@ -2446,20 +2453,30 @@ export default grammar({
       $._preproc_newline,
     ),
 
+    // The compiler warns about, and skips, a pragma it does not know (CS1633),
+    // a `warning` without `disable` or `restore` (CS1634) and trailing text
+    // (CS1696). That text is kept as `preproc_arg`.
     preproc_pragma: $ => seq(
       'pragma',
-      choice(
-        seq('warning',
-          choice('disable', 'restore'),
-          commaSep(
-            choice(
-              $.identifier,
-              $.integer_literal,
-            ))),
-        seq('checksum', $.string_literal, $.string_literal, $.string_literal),
-      ),
-      // The compiler warns about trailing text (CS1696) but keeps the pragma.
-      optional(alias($._preproc_trailing_text, $.preproc_arg)),
+      optional(choice(
+        seq('warning', optional(choice(
+          seq(
+            choice('disable', 'restore'),
+            commaSep(
+              choice(
+                $.identifier,
+                $.integer_literal,
+              )),
+            optional(alias($._preproc_trailing_text, $.preproc_arg)),
+          ),
+          alias($._preproc_pragma_warning_text, $.preproc_arg),
+        ))),
+        seq(
+          'checksum', $.string_literal, $.string_literal, $.string_literal,
+          optional(alias($._preproc_trailing_text, $.preproc_arg)),
+        ),
+        alias($._preproc_pragma_text, $.preproc_arg),
+      )),
       $._preproc_newline,
     ),
 

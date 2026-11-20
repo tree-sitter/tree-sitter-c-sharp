@@ -492,6 +492,7 @@ export default grammar({
       'struct',
       'notnull',
       'unmanaged',
+      'default',
       $.constructor_constraint,
       field('type', $.type),
     ),

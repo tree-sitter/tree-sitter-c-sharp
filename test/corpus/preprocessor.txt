@@ -14,31 +14,17 @@ If, elif and else directives
 
 (compilation_unit
   (preproc_if
-    condition: (identifier)
+    condition: (identifier))
+  (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
           (string_literal
-            (string_literal_content)))))
-    alternative: (preproc_elif
-      condition: (identifier)
-      (local_declaration_statement
-        (variable_declaration
-          type: (predefined_type)
-          (variable_declarator
-            name: (identifier)
-            (string_literal
-              (string_literal_content)))))
-      alternative: (preproc_else
-        (local_declaration_statement
-          (variable_declaration
-            type: (predefined_type)
-            (variable_declarator
-              name: (identifier)
-              (string_literal
-                (string_literal_content)))))))))
+            (string_literal_content))))))
+  (preproc_else)
+  (preproc_endif))
 
 ================================================================================
 If conditions
@@ -71,36 +57,43 @@ If conditions
   (preproc_if
     condition: (unary_expression
       argument: (identifier)))
+  (preproc_endif)
   (preproc_if
     condition: (binary_expression
       left: (identifier)
       right: (boolean_literal)))
+  (preproc_endif)
   (preproc_if
     condition: (binary_expression
       left: (unary_expression
         argument: (identifier))
       right: (boolean_literal)))
+  (preproc_endif)
   (preproc_if
     condition: (binary_expression
       left: (binary_expression
         left: (identifier)
         right: (identifier))
       right: (identifier)))
+  (preproc_endif)
   (preproc_if
     condition: (parenthesized_expression
       (identifier)))
+  (preproc_endif)
   (preproc_if
     condition: (parenthesized_expression
       (binary_expression
         left: (identifier)
         right: (identifier))))
+  (preproc_endif)
   (preproc_if
     condition: (binary_expression
       left: (parenthesized_expression
         (binary_expression
           left: (identifier)
           right: (identifier)))
-      right: (identifier))))
+      right: (identifier)))
+  (preproc_endif))
 
 ================================================================================
 Several attribute lists inside an #if block
@@ -125,36 +118,32 @@ class C
 --------------------------------------------------------------------------------
 
 (compilation_unit
+  (preproc_if
+    condition: (identifier))
   (class_declaration
-    (preproc_if_in_attribute_list
-      condition: (identifier)
-      (attribute_list
-        (attribute
-          name: (identifier)))
-      (attribute_list
-        (attribute
-          name: (identifier))))
+    (attribute_list
+      (attribute
+        name: (identifier)))
+    (attribute_list
+      (attribute
+        name: (identifier)))
+    (preproc_endif)
     name: (identifier)
     body: (declaration_list
+      (preproc_if
+        condition: (identifier))
       (method_declaration
-        (preproc_if_in_attribute_list
-          condition: (identifier)
-          (attribute_list
-            (attribute
-              name: (identifier)))
-          (attribute_list
-            (attribute
-              name: (identifier)
-              (attribute_argument_list
-                (attribute_argument
-                  (integer_literal)))))
-          alternative: (preproc_else
-            (attribute_list
-              (attribute
-                name: (identifier)))
-            (attribute_list
-              (attribute
-                name: (identifier)))))
+        (attribute_list
+          (attribute
+            name: (identifier)))
+        (attribute_list
+          (attribute
+            name: (identifier)
+            (attribute_argument_list
+              (attribute_argument
+                (integer_literal)))))
+        (preproc_else)
+        (preproc_endif)
         returns: (predefined_type)
         name: (identifier)
         parameters: (parameter_list)
@@ -427,18 +416,19 @@ class C {
                   function: (identifier)
                   arguments: (argument_list))))
             (preproc_if
-              condition: (identifier)
-              (if_statement
-                condition: (is_pattern_expression
-                  expression: (identifier)
-                  pattern: (negated_pattern
-                    (constant_pattern
-                      (null_literal))))
-                consequence: (block
-                  (expression_statement
-                    (invocation_expression
-                      function: (identifier)
-                      arguments: (argument_list)))))))
+              condition: (identifier))
+            alternative: (if_statement
+              condition: (is_pattern_expression
+                expression: (identifier)
+                pattern: (negated_pattern
+                  (constant_pattern
+                    (null_literal))))
+              consequence: (block
+                (expression_statement
+                  (invocation_expression
+                    function: (identifier)
+                    arguments: (argument_list))))))
+          (preproc_endif)
           (if_statement
             condition: (identifier)
             consequence: (block
@@ -448,56 +438,35 @@ class C {
                   right: (integer_literal))))
             (preproc_if
               condition: (unary_expression
-                argument: (identifier))
-              (if_statement
-                condition: (invocation_expression
-                  function: (identifier)
-                  arguments: (argument_list
-                    (argument
-                      (identifier))
-                    (argument
-                      (declaration_expression
-                        type: (implicit_type)
-                        name: (identifier)))))
-                consequence: (block
-                  (expression_statement
-                    (assignment_expression
-                      left: (identifier)
-                      right: (identifier)))))
-              alternative: (preproc_else
-                (if_statement
-                  condition: (is_pattern_expression
-                    expression: (identifier)
-                    pattern: (declaration_pattern
-                      type: (predefined_type)
-                      name: (identifier)))
-                  consequence: (block
-                    (expression_statement
-                      (assignment_expression
-                        left: (identifier)
-                        right: (integer_literal))))
-                  alternative: (if_statement
-                    condition: (is_pattern_expression
-                      expression: (identifier)
-                      pattern: (declaration_pattern
-                        type: (predefined_type)
-                        name: (identifier)))
-                    consequence: (block
-                      (expression_statement
-                        (assignment_expression
-                          left: (identifier)
-                          right: (integer_literal))))))))
+                argument: (identifier)))
             alternative: (if_statement
-              condition: (is_pattern_expression
-                expression: (identifier)
-                pattern: (declaration_pattern
-                  type: (predefined_type)
-                  name: (identifier)))
+              condition: (invocation_expression
+                function: (identifier)
+                arguments: (argument_list
+                  (argument
+                    (identifier))
+                  (argument
+                    (declaration_expression
+                      type: (implicit_type)
+                      name: (identifier)))))
               consequence: (block
                 (expression_statement
                   (assignment_expression
                     left: (identifier)
-                    right: (integer_literal)))))))))))
+                    right: (identifier))))
+              (preproc_else)
+              (preproc_endif)
+              alternative: (if_statement
+                condition: (is_pattern_expression
+                  expression: (identifier)
+                  pattern: (declaration_pattern
+                    type: (predefined_type)
+                    name: (identifier)))
+                consequence: (block
+                  (expression_statement
+                    (assignment_expression
+                      left: (identifier)
+                      right: (integer_literal))))))))))))
 
 ================================================================================
 Statement-level #if after an if statement is not an else block
@@ -542,15 +511,16 @@ class C {
               (return_statement
                 (boolean_literal))))
           (preproc_if
-            condition: (identifier)
-            (if_statement
-              condition: (binary_expression
-                left: (identifier)
-                right: (typeof_expression
-                  type: (identifier)))
-              consequence: (block
-                (return_statement
-                  (boolean_literal)))))
+            condition: (identifier))
+          (if_statement
+            condition: (binary_expression
+              left: (identifier)
+              right: (typeof_expression
+                type: (identifier)))
+            consequence: (block
+              (return_statement
+                (boolean_literal))))
+          (preproc_endif)
           (if_statement
             condition: (identifier)
             consequence: (expression_statement
@@ -608,29 +578,14 @@ class C {
             type: (predefined_type)
             name: (identifier)))
         (preproc_if
-          condition: (identifier)
-          body: (block
-            (return_statement
-              (cast_expression
-                type: (identifier)
-                value: (identifier))))
-          alternative: (preproc_else
-            (type_parameter_constraints_clause
-              (identifier)
-              (type_parameter_constraint
-                type: (generic_name
-                  (identifier)
-                  (type_argument_list
-                    (identifier)))))
-            body: (block
-              (return_statement
-                (invocation_expression
-                  function: (member_access_expression
-                    expression: (identifier)
-                    name: (identifier))
-                  arguments: (argument_list
-                    (argument
-                      (identifier)))))))))
+          condition: (identifier))
+        body: (block
+          (return_statement
+            (cast_expression
+              type: (identifier)
+              value: (identifier)))))
+      (preproc_else)
+      (preproc_endif)
       (method_declaration
         returns: (predefined_type)
         name: (identifier)
@@ -639,17 +594,13 @@ class C {
             type: (predefined_type)
             name: (identifier)))
         (preproc_if
-          condition: (identifier)
-          body: (arrow_expression_clause
-            (binary_expression
-              left: (identifier)
-              right: (integer_literal)))
-          alternative: (preproc_else
-            body: (block
-              (return_statement
-                (binary_expression
-                  left: (identifier)
-                  right: (identifier))))))))))
+          condition: (identifier))
+        body: (arrow_expression_clause
+          (binary_expression
+            left: (identifier)
+            right: (integer_literal))))
+      (preproc_else)
+      (preproc_endif))))
 
 ================================================================================
 Return of a conditional whose arms end inside a preprocessor block
@@ -702,29 +653,23 @@ class C {
                 arguments: (argument_list
                   (argument
                     (identifier))))
-              alternative: (preproc_if
-                condition: (identifier)
-                (invocation_expression
-                  function: (member_access_expression
-                    expression: (invocation_expression
-                      function: (member_access_expression
-                        expression: (identifier)
-                        name: (identifier))
-                      arguments: (argument_list
-                        (argument
-                          (identifier))
-                        (argument
-                          (identifier))))
-                    name: (identifier))
-                  arguments: (argument_list))
-                alternative: (preproc_else
-                  (invocation_expression
+              (preproc_if
+                condition: (identifier))
+              alternative: (invocation_expression
+                function: (member_access_expression
+                  expression: (invocation_expression
                     function: (member_access_expression
                       expression: (identifier)
                       name: (identifier))
                     arguments: (argument_list
                       (argument
-                        (identifier))))))))))
+                        (identifier))
+                      (argument
+                        (identifier))))
+                  name: (identifier))
+                arguments: (argument_list))))
+          (preproc_else)
+          (preproc_endif)))
       (method_declaration
         returns: (predefined_type)
         name: (identifier)
@@ -786,13 +731,14 @@ class C {
                 expression: (identifier)
                 name: (identifier))
               (preproc_if
-                condition: (identifier)
-                (cast_expression
-                  type: (identifier)
-                  value: (integer_literal))
-                (member_access_expression
-                  expression: (identifier)
-                  name: (identifier)))))))
+                condition: (identifier))
+              (cast_expression
+                type: (identifier)
+                value: (integer_literal))
+              (member_access_expression
+                expression: (identifier)
+                name: (identifier))
+              (preproc_endif)))))
       (field_declaration
         (variable_declaration
           type: (array_type
@@ -809,23 +755,19 @@ class C {
                   (real_literal)))
               (preproc_if
                 condition: (unary_expression
-                  argument: (identifier))
-                (collection_element
-                  (expression_element
-                    (cast_expression
-                      type: (identifier)
-                      value: (integer_literal))))
-                (collection_element
-                  (expression_element
-                    (cast_expression
-                      type: (identifier)
-                      value: (integer_literal))))
-                alternative: (preproc_else
-                  (collection_element
-                    (expression_element
-                      (cast_expression
-                        type: (predefined_type)
-                        value: (integer_literal))))))))))
+                  argument: (identifier)))
+              (collection_element
+                (expression_element
+                  (cast_expression
+                    type: (identifier)
+                    value: (integer_literal))))
+              (collection_element
+                (expression_element
+                  (cast_expression
+                    type: (identifier)
+                    value: (integer_literal))))
+              (preproc_else)
+              (preproc_endif)))))
       (field_declaration
         (variable_declaration
           type: (array_type
@@ -836,8 +778,9 @@ class C {
             (initializer_expression
               (integer_literal)
               (preproc_if
-                condition: (identifier)
-                (integer_literal))
+                condition: (identifier))
+              (integer_literal)
+              (preproc_endif)
               (integer_literal))))))))
 
 ================================================================================
@@ -866,3 +809,101 @@ class C {
     (integer_literal)
     (string_literal
       (string_literal_content))))
+
+================================================================================
+Directive lines anywhere
+================================================================================
+
+#region Fields
+#nullable enable warnings
+#pragma warning disable CS0618, 612
+#pragma warning restore
+#error Not supported
+#warning Check this
+class C {
+  #region Inner
+  int a;
+  #endregion
+}
+#endregion
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (preproc_region
+    content: (preproc_arg))
+  (preproc_nullable)
+  (preproc_pragma
+    (identifier)
+    (integer_literal))
+  (preproc_pragma)
+  (preproc_error
+    (preproc_arg))
+  (preproc_warning
+    (preproc_arg))
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (preproc_region
+        content: (preproc_arg))
+      (field_declaration
+        (variable_declaration
+          type: (predefined_type)
+          (variable_declarator
+            name: (identifier))))
+      (preproc_endregion)))
+  (preproc_endregion))
+
+================================================================================
+Directive line before #elif, and # in literals
+================================================================================
+
+class C {
+  void M() {
+#if A
+    x = 1;
+#pragma warning restore 618, 612
+#elif B
+    x = 2;
+#endif
+    var c = '#';
+    var s = "#";
+  }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (block
+          (preproc_if
+            condition: (identifier))
+          (expression_statement
+            (assignment_expression
+              left: (identifier)
+              right: (integer_literal)))
+          (preproc_pragma
+            (integer_literal)
+            (integer_literal))
+          (preproc_else)
+          (preproc_endif)
+          (local_declaration_statement
+            (variable_declaration
+              type: (implicit_type)
+              (variable_declarator
+                name: (identifier)
+                (character_literal
+                  (character_literal_content)))))
+          (local_declaration_statement
+            (variable_declaration
+              type: (implicit_type)
+              (variable_declarator
+                name: (identifier)
+                (string_literal
+                  (string_literal_content))))))))))

@@ -19,8 +19,9 @@ enum TokenType {
     RAW_STRING_END,
     RAW_STRING_CONTENT,
     LAMBDA_PAREN_OPEN,
-    PREPROC_ELSE_IF_START,
     CONDITIONAL_MEMBER_QUESTION,
+    PREPROC_ELSE,
+    PREPROC_NEWLINE,
 };
 
 typedef enum {
@@ -309,36 +310,6 @@ static LambdaScanResult scan_lambda_paren_open(TSLexer *lexer) {
 #undef BAIL
 
 
-// `#if <condition>` whose first content, after the condition line and any blank
-// lines or comments, is the keyword `else`. Only `#if` is consumed (mark_end);
-// the rest is read ahead and handed back so the normal tokens lex it. Lets an
-// `else` branch live inside a directive without a parser conflict on `#if`.
-static bool scan_preproc_else_if_start(TSLexer *lexer) {
-    while (iswspace(lexer->lookahead)) {
-        skip(lexer);
-    }
-    if (lexer->lookahead != '#') return false;
-    advance(lexer);
-    while (lexer->lookahead == ' ' || lexer->lookahead == '\t') advance(lexer);
-    if (lexer->lookahead != 'i') return false;
-    advance(lexer);
-    if (lexer->lookahead != 'f') return false;
-    advance(lexer);
-    if (is_id_continue(lexer->lookahead)) return false;
-    lexer->mark_end(lexer);
-    // rest of the condition line
-    while (lexer->lookahead != 0 && lexer->lookahead != '\n') advance(lexer);
-    skip_ws_and_comments(lexer);
-    const char *kw = "else";
-    for (int i = 0; kw[i]; i++) {
-        if (lexer->lookahead != (int32_t)kw[i]) return false;
-        advance(lexer);
-    }
-    if (is_id_continue(lexer->lookahead)) return false;
-    lexer->result_symbol = PREPROC_ELSE_IF_START;
-    return true;
-}
-
 // Match the grammar extras independently of the process locale.
 static bool is_member_access_space(int32_t c) {
     return (c >= '\t' && c <= '\r') || c == ' ' || c == 0xA0 || c == 0x3000 || c == 0xFEFF;
@@ -370,6 +341,82 @@ static bool skip_member_access_trivia(TSLexer *lexer) {
     }
 }
 
+// ---- #elif / #else, after tree-sitter-haskell's cpp handling ----
+//
+// Directive lines are extras parsed by the grammar, `#if` and `#endif` included.
+// An `#elif` or `#else` starts one opaque PREPROC_ELSE token that runs up to, but
+// not including, the line of the matching `#endif` (nested `#if`s counted), so
+// only the first branch of each conditional is parsed as code. As in the C#
+// compiler, a skipped section is read line by line and only directive lines
+// count; strings and comments inside it are not lexed.
+
+// Reads `#` [ \t]* word; returns the word length (0 if none). The lexer is left after the word.
+static size_t read_directive_word(TSLexer *lexer, char *buf, size_t max) {
+    if (lexer->lookahead != '#') return 0;
+    advance(lexer);
+    while (lexer->lookahead == ' ' || lexer->lookahead == '\t') advance(lexer);
+    size_t n = 0;
+    while (lexer->lookahead >= 'a' && lexer->lookahead <= 'z') {
+        if (n < max) buf[n] = (char)lexer->lookahead;
+        n++;
+        advance(lexer);
+    }
+    if (is_id_continue(lexer->lookahead)) return 0;
+    return n;
+}
+
+// Advances past the rest of the line, newline included. A NUL is ordinary text:
+// only `eof` ends the input, so the skipped-section loop always moves forward.
+static void advance_line(TSLexer *lexer) {
+    while (!lexer->eof(lexer) && lexer->lookahead != '\n') advance(lexer);
+    if (!lexer->eof(lexer)) advance(lexer);
+}
+
+// 1: token found. 0: no '#' (only blanks skipped). -1: read past a '#' without a token.
+static int scan_preproc_else(TSLexer *lexer) {
+    // Only at the first non-blank character of a line.
+    bool saw_newline = false;
+    uint32_t blanks = 0;
+    while (iswspace(lexer->lookahead)) {
+        if (lexer->lookahead == '\n') {
+            saw_newline = true;
+            blanks = 0;
+        } else {
+            blanks++;
+        }
+        skip(lexer);
+    }
+    if (lexer->lookahead != '#') return 0;
+    if (!saw_newline && lexer->get_column(lexer) != blanks) return -1;
+
+    char word[8];
+    size_t n = read_directive_word(lexer, word, sizeof word);
+    if (!buf_equals(word, n, "elif") && !buf_equals(word, n, "else")) return -1;
+
+    advance_line(lexer);
+    unsigned depth = 0;
+    for (;;) {
+        lexer->mark_end(lexer);
+        if (lexer->eof(lexer)) break;
+        while (lexer->lookahead == ' ' || lexer->lookahead == '\t' || lexer->lookahead == '\r' ||
+               lexer->lookahead == '\f' || lexer->lookahead == '\v') {
+            advance(lexer);
+        }
+        if (lexer->lookahead == '#') {
+            n = read_directive_word(lexer, word, sizeof word);
+            if (buf_equals(word, n, "if")) {
+                depth++;
+            } else if (buf_equals(word, n, "endif")) {
+                if (depth == 0) break;
+                depth--;
+            }
+        }
+        advance_line(lexer);
+    }
+    lexer->result_symbol = PREPROC_ELSE;
+    return 1;
+}
+
 bool tree_sitter_c_sharp_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
     Scanner *scanner = (Scanner *)payload;
 
@@ -397,9 +444,33 @@ bool tree_sitter_c_sharp_external_scanner_scan(void *payload, TSLexer *lexer, co
         }
     }
 
-    if (valid_symbols[PREPROC_ELSE_IF_START]) {
-        if (scan_preproc_else_if_start(lexer)) return true;
+    bool error_recovery = valid_symbols[OPT_SEMI] && valid_symbols[INTERPOLATION_REGULAR_START];
+    bool in_string = valid_symbols[RAW_STRING_END] || valid_symbols[RAW_STRING_CONTENT] ||
+                     valid_symbols[INTERPOLATION_START_QUOTE] || valid_symbols[INTERPOLATION_END_QUOTE] ||
+                     valid_symbols[INTERPOLATION_OPEN_BRACE] || valid_symbols[INTERPOLATION_CLOSE_BRACE] ||
+                     valid_symbols[INTERPOLATION_STRING_CONTENT];
+    // The newline that ends a directive line. A comment before it is left to the grammar.
+    if (valid_symbols[PREPROC_NEWLINE] && !error_recovery) {
+        while (lexer->lookahead == ' ' || lexer->lookahead == '\t' || lexer->lookahead == '\r' ||
+               lexer->lookahead == '\f' || lexer->lookahead == '\v') {
+            skip(lexer);
+        }
+        if (lexer->lookahead == '\n' || lexer->eof(lexer)) {
+            if (lexer->lookahead == '\n') advance(lexer);
+            lexer->mark_end(lexer);
+            lexer->result_symbol = PREPROC_NEWLINE;
+            return true;
+        }
         return false;
+    }
+
+    // Not inside string content, and not where the zero-width OPT_SEMI is due:
+    // skipping blanks first would stretch the node before it. The directive is
+    // then scanned on the next call.
+    if (valid_symbols[PREPROC_ELSE] && (error_recovery || (!in_string && !valid_symbols[OPT_SEMI]))) {
+        int found = scan_preproc_else(lexer);
+        if (found > 0) return true;
+        if (found < 0) return false;
     }
 
     // error recovery, gives better trees this way

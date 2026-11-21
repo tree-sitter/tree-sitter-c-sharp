@@ -192,15 +192,68 @@
   "when"
   "out"
   "ref"
-  "from"
-  "where"
-  "select"
   "record"
   "init"
   "with"
-  "let"
   "unsafe"
 ] @keyword
+
+;; Query expressions (LINQ). Each keyword is matched only inside its own clause:
+;; these words are ordinary identifiers elsewhere (`var from = 1;`), and an
+;; identifier named `from` holds a "from" token too.
+
+(from_clause "from" @keyword)
+(let_clause "let" @keyword)
+(where_clause "where" @keyword)
+(join_clause ["join" "on" "equals"] @keyword)
+(join_into_clause "into" @keyword)
+(order_by_clause ["orderby" "ascending" "descending"] @keyword)
+(group_clause ["group" "by"] @keyword)
+(select_clause "select" @keyword)
+(query_expression "into" @keyword)
+
+(type_parameter_constraints_clause "where" @keyword)
+
+;; Preprocessor directives. The `#` is its own token, matched below with the
+;; file-based app directives; each directive's name and options are matched here.
+
+(preproc_if "if" @keyword)
+(preproc_endif "endif" @keyword)
+(preproc_region "region" @keyword)
+(preproc_endregion "endregion" @keyword)
+(preproc_define "define" @keyword)
+(preproc_undef "undef" @keyword)
+(preproc_error "error" @keyword)
+(preproc_warning "warning" @keyword)
+(preproc_line ["line" "hidden"] @keyword)
+(preproc_pragma ["pragma" "warning" "disable" "restore" "checksum"] @keyword)
+(preproc_nullable ["nullable" "enable" "disable" "restore" "annotations" "warnings"] @keyword)
+
+; Everything from `#elif` or `#else` up to the matching `#endif` is one token
+; that is not parsed, so it reads as inactive code.
+(preproc_else) @comment
+
+; Conditional compilation symbols, as defined and as tested in `#if`.
+; Queries can't match a descendant at any depth, so conditions are covered
+; down to five levels of operators and parentheses.
+(preproc_define (preproc_arg) @constant)
+(preproc_undef (preproc_arg) @constant)
+(preproc_if condition: (identifier) @constant)
+(preproc_if condition: (_ (identifier) @constant))
+(preproc_if condition: (_ (_ (identifier) @constant)))
+(preproc_if condition: (_ (_ (_ (identifier) @constant))))
+(preproc_if condition: (_ (_ (_ (_ (identifier) @constant)))))
+(preproc_if condition: (_ (_ (_ (_ (_ (identifier) @constant))))))
+
+; Warning IDs in `#pragma warning disable CS0168, 414`
+(preproc_pragma (identifier) @constant)
+
+; Free text: messages, region names, and text a pragma ignores.
+(preproc_error (preproc_arg) @string)
+(preproc_warning (preproc_arg) @string)
+(preproc_region content: (preproc_arg) @comment)
+(preproc_endregion content: (preproc_arg) @comment)
+(preproc_pragma (preproc_arg) @comment)
 
 ;; File-based app directives (#!, #:package Name@Version, #:property Name=Value, ...)
 

@@ -6662,6 +6662,40 @@
             }
           },
           {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "FIELD",
+                    "name": "type",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "type"
+                    }
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_recursive_pattern_clauses"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "_recursive_pattern_clauses": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
             "type": "PREC_DYNAMIC",
             "value": 1,
             "content": {
@@ -6686,81 +6720,20 @@
             "type": "SEQ",
             "members": [
               {
-                "type": "FIELD",
-                "name": "type",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "type"
-                }
-              },
-              {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "SEQ",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "positional_pattern_clause"
-                      },
-                      {
-                        "type": "CHOICE",
-                        "members": [
-                          {
-                            "type": "SYMBOL",
-                            "name": "property_pattern_clause"
-                          },
-                          {
-                            "type": "BLANK"
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "property_pattern_clause"
-                  }
-                ]
-              },
-              {
                 "type": "CHOICE",
                 "members": [
                   {
                     "type": "SYMBOL",
-                    "name": "_variable_designation"
+                    "name": "positional_pattern_clause"
                   },
                   {
                     "type": "BLANK"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "type": "SEQ",
-            "members": [
+              },
               {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "SEQ",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "positional_pattern_clause"
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "property_pattern_clause"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "property_pattern_clause"
-                  }
-                ]
+                "type": "SYMBOL",
+                "name": "property_pattern_clause"
               },
               {
                 "type": "CHOICE",
@@ -10781,6 +10754,19 @@
             ]
           },
           {
+            "type": "SYMBOL",
+            "name": "_range_tail"
+          }
+        ]
+      }
+    },
+    "_range_tail": {
+      "type": "PREC_RIGHT",
+      "value": 16,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
             "type": "STRING",
             "value": ".."
           },
@@ -12774,7 +12760,7 @@
     ],
     [
       "spread_element",
-      "range_expression"
+      "_range_tail"
     ],
     [
       "_list_pattern_body",

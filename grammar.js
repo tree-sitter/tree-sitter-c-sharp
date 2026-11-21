@@ -95,7 +95,7 @@ export default grammar({
     [$.parenthesized_pattern, $._parenthesized_pattern_with_designation],
 
     [$.expression_element, $.argument],
-    [$.spread_element, $.range_expression],
+    [$.spread_element, $._range_tail],
     [$._list_pattern_body, $.collection_expression],
 
     [$._reserved_identifier, $.modifier],
@@ -1459,34 +1459,22 @@ export default grammar({
         $.positional_pattern_clause,
         optional($.property_pattern_clause),
       )),
-      // positional pattern with variable designation (no type prefix)
+      // pattern clauses, with an optional type before them
+      seq(
+        optional(field('type', $.type)),
+        $._recursive_pattern_clauses,
+      ),
+    )),
+
+    _recursive_pattern_clauses: $ => prec.left(choice(
       prec.dynamic(1, seq(
         $.positional_pattern_clause,
         $._variable_designation,
       )),
-      // positional pattern without variable designation (no type prefix)
       $.positional_pattern_clause,
-      // other type followed by pattern clauses (type is required here to avoid ambiguity)
       seq(
-        field('type', $.type),
-        choice(
-          seq(
-            $.positional_pattern_clause,
-            optional($.property_pattern_clause),
-          ),
-          $.property_pattern_clause,
-        ),
-        optional($._variable_designation),
-      ),
-      // no type, just pattern clauses (no variable designation to avoid conflict with above)
-      seq(
-        choice(
-          seq(
-            $.positional_pattern_clause,
-            $.property_pattern_clause,
-          ),
-          $.property_pattern_clause,
-        ),
+        optional($.positional_pattern_clause),
+        $.property_pattern_clause,
         optional($._variable_designation),
       ),
     )),
@@ -2248,6 +2236,10 @@ export default grammar({
 
     range_expression: $ => prec.right(PREC.RANGE, seq(
       optional($.expression),
+      $._range_tail,
+    )),
+
+    _range_tail: $ => prec.right(PREC.RANGE, seq(
       '..',
       optional($.expression),
     )),

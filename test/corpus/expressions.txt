@@ -4578,6 +4578,123 @@ class C {
                   (identifier))))))))))
 
 ================================================================================
+Address-of binds looser than member and element access
+================================================================================
+
+unsafe class C {
+  void M() {
+    int* a = &b[0];
+    int* c = &d.e;
+    fixed (byte* f = &g[0]) { }
+    fixed (char* h = &MemoryMarshal.GetReference(i)) { }
+    var j = &k.l[m].n;
+    var o = *(int*)&p;
+    var q = *&r[0];
+  }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    (modifier)
+    (identifier)
+    (declaration_list
+      (method_declaration
+        (predefined_type)
+        (identifier)
+        (parameter_list)
+        (block
+          (local_declaration_statement
+            (variable_declaration
+              (pointer_type
+                (predefined_type))
+              (variable_declarator
+                (identifier)
+                (prefix_unary_expression
+                  (element_access_expression
+                    (identifier)
+                    (bracketed_argument_list
+                      (argument
+                        (integer_literal))))))))
+          (local_declaration_statement
+            (variable_declaration
+              (pointer_type
+                (predefined_type))
+              (variable_declarator
+                (identifier)
+                (prefix_unary_expression
+                  (member_access_expression
+                    (identifier)
+                    (identifier))))))
+          (fixed_statement
+            (variable_declaration
+              (pointer_type
+                (predefined_type))
+              (variable_declarator
+                (identifier)
+                (prefix_unary_expression
+                  (element_access_expression
+                    (identifier)
+                    (bracketed_argument_list
+                      (argument
+                        (integer_literal)))))))
+            (block))
+          (fixed_statement
+            (variable_declaration
+              (pointer_type
+                (predefined_type))
+              (variable_declarator
+                (identifier)
+                (prefix_unary_expression
+                  (invocation_expression
+                    (member_access_expression
+                      (identifier)
+                      (identifier))
+                    (argument_list
+                      (argument
+                        (identifier)))))))
+            (block))
+          (local_declaration_statement
+            (variable_declaration
+              (implicit_type)
+              (variable_declarator
+                (identifier)
+                (prefix_unary_expression
+                  (member_access_expression
+                    (element_access_expression
+                      (member_access_expression
+                        (identifier)
+                        (identifier))
+                      (bracketed_argument_list
+                        (argument
+                          (identifier))))
+                    (identifier))))))
+          (local_declaration_statement
+            (variable_declaration
+              (implicit_type)
+              (variable_declarator
+                (identifier)
+                (prefix_unary_expression
+                  (cast_expression
+                    (pointer_type
+                      (predefined_type))
+                    (prefix_unary_expression
+                      (identifier)))))))
+          (local_declaration_statement
+            (variable_declaration
+              (implicit_type)
+              (variable_declarator
+                (identifier)
+                (prefix_unary_expression
+                  (prefix_unary_expression
+                    (element_access_expression
+                      (identifier)
+                      (bracketed_argument_list
+                        (argument
+                          (integer_literal))))))))))))))
+
+================================================================================
 With expression typical basic form
 ================================================================================
 

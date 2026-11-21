@@ -1673,6 +1673,7 @@ export default grammar({
         // multiplication rather than a cast of a dereference.
         prec.dynamic(-2, $.parenthesized_expression),
         prec.dynamic(-2, alias($._pointer_cast_expression, $.cast_expression)),
+        prec.dynamic(-2, alias($._address_of_expression, $.prefix_unary_expression)),
       ),
     )),
 
@@ -1700,6 +1701,12 @@ export default grammar({
     // `(b > 0)` is not — so the cast interpretation can no longer
     // consume the trailing parenthesized expression and `&&` must
     // be emitted as a single token for the binary path to succeed.
+    //
+    // Member access, element access and invocation bind tighter than `&`:
+    // `&a[0]` is `&(a[0])`, not `(&a)[0]`. After `& a`, ending the operand and
+    // continuing the access both need a reduction, and the `&` reduction
+    // would win on precedence. So those accesses also take an lvalue operand
+    // directly, which makes `.`, `[` and `(` a shift that outranks `&`.
     _address_of_expression: $ => prec.right(PREC.UNARY, seq(
       '&',
       $.lvalue_expression,
@@ -1877,7 +1884,8 @@ export default grammar({
     ),
 
     invocation_expression: $ => prec(PREC.INVOCATION, seq(
-      field('function', $.expression),
+      // An lvalue operand continues the access after `&`: see `_address_of_expression`.
+      field('function', choice($.expression, $.lvalue_expression)),
       field('arguments', $.argument_list),
     )),
 
@@ -1911,7 +1919,8 @@ export default grammar({
     throw_expression: $ => seq('throw', $.expression),
 
     element_access_expression: $ => prec(PREC.POSTFIX, seq(
-      field('expression', $.expression),
+      // An lvalue operand continues the access after `&`: see `_address_of_expression`.
+      field('expression', choice($.expression, $.lvalue_expression)),
       field('subscript', $.bracketed_argument_list),
     )),
 
@@ -1965,7 +1974,8 @@ export default grammar({
     interpolation_format_clause: _ => seq(':', /[^}"]+/),
 
     member_access_expression: $ => prec(PREC.DOT, seq(
-      field('expression', choice($.expression, $.predefined_type, $._name)),
+      // An lvalue operand continues the access after `&`: see `_address_of_expression`.
+      field('expression', choice($.expression, $.lvalue_expression, $.predefined_type, $._name)),
       choice('.', '->'),
       field('name', $._simple_name),
     )),

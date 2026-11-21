@@ -2460,15 +2460,8 @@
           }
         },
         {
-          "type": "REPEAT",
-          "content": {
-            "type": "SYMBOL",
-            "name": "type_parameter_constraints_clause"
-          }
-        },
-        {
           "type": "SYMBOL",
-          "name": "_function_body"
+          "name": "_method_body"
         }
       ]
     },
@@ -3406,6 +3399,39 @@
           }
         ]
       }
+    },
+    "_parenthesized_operand": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "_method_body": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "type_parameter_constraints_clause"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_function_body"
+        }
+      ]
     },
     "block": {
       "type": "SEQ",
@@ -9031,16 +9057,8 @@
           ]
         },
         {
-          "type": "STRING",
-          "value": "("
-        },
-        {
           "type": "SYMBOL",
-          "name": "expression"
-        },
-        {
-          "type": "STRING",
-          "value": ")"
+          "name": "_parenthesized_operand"
         }
       ]
     },
@@ -10643,16 +10661,8 @@
           "value": "__makeref"
         },
         {
-          "type": "STRING",
-          "value": "("
-        },
-        {
           "type": "SYMBOL",
-          "name": "expression"
-        },
-        {
-          "type": "STRING",
-          "value": ")"
+          "name": "_parenthesized_operand"
         }
       ]
     },
@@ -10677,16 +10687,8 @@
           "value": "__reftype"
         },
         {
-          "type": "STRING",
-          "value": "("
-        },
-        {
           "type": "SYMBOL",
-          "name": "expression"
-        },
-        {
-          "type": "STRING",
-          "value": ")"
+          "name": "_parenthesized_operand"
         }
       ]
     },

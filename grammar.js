@@ -696,8 +696,7 @@ export default grammar({
       field('name', $.identifier),
       field('type_parameters', optional($.type_parameter_list)),
       field('parameters', $.parameter_list),
-      repeat($.type_parameter_constraints_clause),
-      $._function_body,
+      $._method_body,
     ),
 
     event_declaration: $ => seq(
@@ -826,6 +825,17 @@ export default grammar({
     // `(A<B> a, C b) = t` declares variables, so a generic type still wins here,
     // while `(a * b, c)` remains a multiplication.
     _tuple_argument: $ => argumentRule($, -1),
+
+    _parenthesized_operand: $ => seq(
+      '(',
+      $.expression,
+      ')',
+    ),
+
+    _method_body: $ => seq(
+      repeat($.type_parameter_constraints_clause),
+      $._function_body,
+    ),
 
     block: $ => seq('{', repeat($.statement), '}'),
 
@@ -1901,9 +1911,7 @@ export default grammar({
 
     checked_expression: $ => seq(
       choice('checked', 'unchecked'),
-      '(',
-      $.expression,
-      ')',
+      $._parenthesized_operand,
     ),
 
     invocation_expression: $ => prec(PREC.INVOCATION, seq(
@@ -2213,18 +2221,14 @@ export default grammar({
 
     makeref_expression: $ => seq(
       '__makeref',
-      '(',
-      $.expression,
-      ')',
+      $._parenthesized_operand,
     ),
 
     ref_expression: $ => seq('ref', $.expression),
 
     reftype_expression: $ => seq(
       '__reftype',
-      '(',
-      $.expression,
-      ')',
+      $._parenthesized_operand,
     ),
 
     refvalue_expression: $ => seq(

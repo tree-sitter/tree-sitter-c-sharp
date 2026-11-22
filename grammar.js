@@ -95,7 +95,7 @@ export default grammar({
     [$.parenthesized_pattern, $._parenthesized_pattern_with_designation],
 
     [$.expression_element, $.argument],
-    [$.spread_element, $.range_expression],
+    [$.spread_element, $._range_tail],
     [$._list_pattern_body, $.collection_expression],
 
     [$._reserved_identifier, $.modifier],
@@ -188,6 +188,22 @@ export default grammar({
   ],
 
   inline: $ => [
+    $._expression_statement_expression,
+    $._join_body,
+    $._preproc_expression,
+    $._interpolated_string_content,
+    $._interpolated_unescaped_string_content,
+    $._extension_member_declaration,
+    $._query_clause,
+    $._top_level_item,
+    $._switch_expression_body,
+    $._ref_base_type,
+    $._scoped_base_type,
+    $._query_body,
+    $._lambda_parameters,
+    $._implicit_parameter_list_with_modifiers,
+    $._select_or_group_clause,
+    $._with_body,
     $._namespace_member_declaration,
     $._object_creation_type,
     $._nullable_base_type,
@@ -680,8 +696,7 @@ export default grammar({
       field('name', $.identifier),
       field('type_parameters', optional($.type_parameter_list)),
       field('parameters', $.parameter_list),
-      repeat($.type_parameter_constraints_clause),
-      $._function_body,
+      $._method_body,
     ),
 
     event_declaration: $ => seq(
@@ -746,7 +761,7 @@ export default grammar({
       choice(
         seq(
           field('accessors', $.accessor_list),
-          optional(seq('=', field('value', $.expression), ';')),
+          optional($._property_default),
         ),
         seq(
           field('value', $.arrow_expression_clause),
@@ -754,6 +769,8 @@ export default grammar({
         ),
       ),
     ),
+
+    _property_default: $ => seq('=', field('value', $.expression), ';'),
 
     explicit_interface_specifier: $ => prec(PREC.DOT, seq(
       $._name,
@@ -780,7 +797,7 @@ export default grammar({
       repeat($.attribute_list),
       optional($._parameter_type_with_modifiers),
       field('name', $.identifier),
-      optional(seq('=', $.expression)),
+      optional($._variable_initializer),
     ),
 
     _parameter_array: $ => seq(
@@ -796,6 +813,8 @@ export default grammar({
       $.argument_list,
     ),
 
+    _out_argument: $ => seq('out', choice($.expression, $.declaration_expression)),
+
     argument_list: $ => seq('(', commaSep($.argument), ')'),
 
     // A declaration is only valid after `out`, so `M(t * x)` multiplies and
@@ -806,6 +825,17 @@ export default grammar({
     // `(A<B> a, C b) = t` declares variables, so a generic type still wins here,
     // while `(a * b, c)` remains a multiplication.
     _tuple_argument: $ => argumentRule($, -1),
+
+    _parenthesized_operand: $ => seq(
+      '(',
+      $.expression,
+      ')',
+    ),
+
+    _method_body: $ => seq(
+      repeat($.type_parameter_constraints_clause),
+      $._function_body,
+    ),
 
     block: $ => seq('{', repeat($.statement), '}'),
 
@@ -830,13 +860,15 @@ export default grammar({
     variable_declarator: $ => seq(
       field('name', $.identifier),
       optional($.bracketed_argument_list),
-      optional(seq('=', $.expression)),
+      optional($._variable_initializer),
     ),
 
     using_variable_declarator: $ => seq(
       field('name', $.identifier),
-      optional(seq('=', $.expression)),
+      optional($._variable_initializer),
     ),
+
+    _variable_initializer: $ => seq('=', $.expression),
 
     bracketed_argument_list: $ => seq(
       '[',
@@ -1066,9 +1098,7 @@ export default grammar({
       'do',
       field('body', $.statement),
       'while',
-      '(',
-      field('condition', $.expression),
-      ')',
+      $._parenthesized_condition,
       ';',
     ),
 
@@ -1095,18 +1125,22 @@ export default grammar({
 
     _for_statement_conditions: $ => seq(
       '(',
-      field('initializer', optional(
-        choice(
-          $.variable_declaration,
-          alias($._var_deconstruction_assignment, $.assignment_expression),
-          commaSep1($.expression),
-        ),
-      )),
+      field('initializer', optional($._for_statement_initializer)),
       ';',
       field('condition', optional($.expression)),
       ';',
+      $._for_update,
+    ),
+
+    _for_update: $ => seq(
       field('update', optional(commaSep1($.expression))),
       ')',
+    ),
+
+    _for_statement_initializer: $ => choice(
+      $.variable_declaration,
+      alias($._var_deconstruction_assignment, $.assignment_expression),
+      commaSep1($.expression),
     ),
 
     return_statement: $ => seq(
@@ -1209,18 +1243,20 @@ export default grammar({
       optional('await'),
       'foreach',
       '(',
-      choice(
-        seq(
-          field('type', $.type),
-          field('left', $.identifier),
-        ),
-        // `foreach (var (k, v) in d)` declares, unlike the call `var(k, v)`.
-        field('left', prec.dynamic(2, alias($._var_deconstruction, $.declaration_expression))),
-        field('left', $.expression),
-      ),
+      $._foreach_target,
       'in',
       field('right', $.expression),
       ')',
+    ),
+
+    _foreach_target: $ => choice(
+      seq(
+        field('type', $.type),
+        field('left', $.identifier),
+      ),
+      // `foreach (var (k, v) in d)` declares, unlike the call `var(k, v)`.
+      field('left', prec.dynamic(2, alias($._var_deconstruction, $.declaration_expression))),
+      field('left', $.expression),
     ),
 
     goto_statement: $ => seq(
@@ -1238,9 +1274,7 @@ export default grammar({
 
     if_statement: $ => prec.right(seq(
       'if',
-      '(',
-      field('condition', $.expression),
-      ')',
+      $._parenthesized_condition,
       field('consequence', $.statement),
       optional(choice(
         seq(
@@ -1250,11 +1284,15 @@ export default grammar({
       )),
     )),
 
-    while_statement: $ => seq(
-      'while',
+    _parenthesized_condition: $ => seq(
       '(',
       field('condition', $.expression),
       ')',
+    ),
+
+    while_statement: $ => seq(
+      'while',
+      $._parenthesized_condition,
       field('body', $.statement),
     ),
 
@@ -1421,34 +1459,22 @@ export default grammar({
         $.positional_pattern_clause,
         optional($.property_pattern_clause),
       )),
-      // positional pattern with variable designation (no type prefix)
+      // pattern clauses, with an optional type before them
+      seq(
+        optional(field('type', $.type)),
+        $._recursive_pattern_clauses,
+      ),
+    )),
+
+    _recursive_pattern_clauses: $ => prec.left(choice(
       prec.dynamic(1, seq(
         $.positional_pattern_clause,
         $._variable_designation,
       )),
-      // positional pattern without variable designation (no type prefix)
       $.positional_pattern_clause,
-      // other type followed by pattern clauses (type is required here to avoid ambiguity)
       seq(
-        field('type', $.type),
-        choice(
-          seq(
-            $.positional_pattern_clause,
-            optional($.property_pattern_clause),
-          ),
-          $.property_pattern_clause,
-        ),
-        optional($._variable_designation),
-      ),
-      // no type, just pattern clauses (no variable designation to avoid conflict with above)
-      seq(
-        choice(
-          seq(
-            $.positional_pattern_clause,
-            $.property_pattern_clause,
-          ),
-          $.property_pattern_clause,
-        ),
+        optional($.positional_pattern_clause),
+        $.property_pattern_clause,
         optional($._variable_designation),
       ),
     )),
@@ -1775,10 +1801,12 @@ export default grammar({
     conditional_expression: $ => prec.right(PREC.CONDITIONAL, seq(
       field('condition', $.expression),
       '?',
-      field('consequence', $.expression),
+      field('consequence', $._conditional_consequence),
       ':',
       field('alternative', $.expression),
     )),
+
+    _conditional_consequence: $ => $.expression,
 
     conditional_access_expression: $ => conditionalAccessRule(
       $,
@@ -1871,9 +1899,7 @@ export default grammar({
 
     checked_expression: $ => seq(
       choice('checked', 'unchecked'),
-      '(',
-      $.expression,
-      ')',
+      $._parenthesized_operand,
     ),
 
     invocation_expression: $ => prec(PREC.INVOCATION, seq(
@@ -1897,6 +1923,10 @@ export default grammar({
     switch_expression_arm: $ => seq(
       $.pattern,
       optional($.when_clause),
+      $._switch_expression_arm_tail,
+    ),
+
+    _switch_expression_arm_tail: $ => seq(
       '=>',
       $.expression,
     ),
@@ -1925,13 +1955,13 @@ export default grammar({
       seq(
         alias($.interpolation_verbatim_start, $.interpolation_start),
         alias($.interpolation_start_quote, '"'),
-        repeat($._interpolated_verbatim_string_content),
+        repeat($._interpolated_unescaped_string_content),
         alias($.interpolation_end_quote, '"'),
       ),
       seq(
         alias($.interpolation_raw_start, $.interpolation_start),
         alias($.interpolation_start_quote, $.interpolation_quote),
-        repeat($._interpolated_raw_string_content),
+        repeat($._interpolated_unescaped_string_content),
         alias($.interpolation_end_quote, $.interpolation_quote),
       ),
     ),
@@ -1942,12 +1972,7 @@ export default grammar({
       $.interpolation,
     ),
 
-    _interpolated_verbatim_string_content: $ => choice(
-      alias($.interpolation_string_content, $.string_content),
-      $.interpolation,
-    ),
-
-    _interpolated_raw_string_content: $ => choice(
+    _interpolated_unescaped_string_content: $ => choice(
       alias($.interpolation_string_content, $.string_content),
       $.interpolation,
     ),
@@ -2166,7 +2191,7 @@ export default grammar({
       '}',
     ),
 
-    with_initializer: $ => seq($.identifier, '=', $.expression),
+    with_initializer: $ => seq($.identifier, $._variable_initializer),
 
     sizeof_expression: $ => seq(
       'sizeof',
@@ -2184,18 +2209,14 @@ export default grammar({
 
     makeref_expression: $ => seq(
       '__makeref',
-      '(',
-      $.expression,
-      ')',
+      $._parenthesized_operand,
     ),
 
     ref_expression: $ => seq('ref', $.expression),
 
     reftype_expression: $ => seq(
       '__reftype',
-      '(',
-      $.expression,
-      ')',
+      $._parenthesized_operand,
     ),
 
     refvalue_expression: $ => seq(
@@ -2215,6 +2236,10 @@ export default grammar({
 
     range_expression: $ => prec.right(PREC.RANGE, seq(
       optional($.expression),
+      $._range_tail,
+    )),
+
+    _range_tail: $ => prec.right(PREC.RANGE, seq(
       '..',
       optional($.expression),
     )),
@@ -2635,7 +2660,7 @@ function argumentRule($, declarationPrecedence) {
   return prec(1, seq(
     optional(seq(field('name', $.identifier), ':')),
     choice(
-      seq('out', choice($.expression, $.declaration_expression)),
+      $._out_argument,
       seq(
         optional(choice('ref', 'in')),
         choice($.expression, prec.dynamic(declarationPrecedence, $.declaration_expression)),

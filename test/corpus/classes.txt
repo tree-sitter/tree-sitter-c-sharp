@@ -645,3 +645,114 @@ public static class E
             parameters: (parameter_list)
             body: (arrow_expression_clause
               (identifier))))))))
+
+================================================================================
+Closed classes (C# 15)
+================================================================================
+
+public closed record class GateState;
+public closed class CC { }
+closed class C<T> { }
+class D { closed c; bool M() => closed; }
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (record_declaration
+    (modifier)
+    (modifier)
+    name: (identifier))
+  (class_declaration
+    (modifier)
+    (modifier)
+    name: (identifier)
+    body: (declaration_list))
+  (class_declaration
+    (modifier)
+    name: (identifier)
+    (type_parameter_list
+      (type_parameter
+        name: (identifier)))
+    body: (declaration_list))
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (field_declaration
+        (variable_declaration
+          type: (identifier)
+          (variable_declarator
+            name: (identifier))))
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (arrow_expression_clause
+          (identifier))))))
+
+================================================================================
+Extension indexers (C# 15)
+================================================================================
+
+public static class SequenceIndexer
+{
+    extension(IEnumerable<int> sequence)
+    {
+        public int this[int index] => sequence.ElementAt(index);
+    }
+
+    extension(int i)
+    {
+        public bool this[int index]
+        {
+            get => true;
+        }
+    }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    (modifier)
+    (modifier)
+    name: (identifier)
+    body: (declaration_list
+      (extension_declaration
+        (receiver_parameter
+          type: (generic_name
+            (identifier)
+            (type_argument_list
+              (predefined_type)))
+          name: (identifier))
+        (extension_body
+          (indexer_declaration
+            (modifier)
+            type: (predefined_type)
+            parameters: (bracketed_parameter_list
+              (parameter
+                type: (predefined_type)
+                name: (identifier)))
+            value: (arrow_expression_clause
+              (invocation_expression
+                function: (member_access_expression
+                  expression: (identifier)
+                  name: (identifier))
+                arguments: (argument_list
+                  (argument
+                    (identifier))))))))
+      (extension_declaration
+        (receiver_parameter
+          type: (predefined_type)
+          name: (identifier))
+        (extension_body
+          (indexer_declaration
+            (modifier)
+            type: (predefined_type)
+            parameters: (bracketed_parameter_list
+              (parameter
+                type: (predefined_type)
+                name: (identifier)))
+            accessors: (accessor_list
+              (accessor_declaration
+                body: (arrow_expression_clause
+                  (boolean_literal))))))))))

@@ -8233,6 +8233,19 @@
                   "named": true,
                   "value": "cast_expression"
                 }
+              },
+              {
+                "type": "PREC_DYNAMIC",
+                "value": -2,
+                "content": {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_address_of_expression"
+                  },
+                  "named": true,
+                  "value": "prefix_unary_expression"
+                }
               }
             ]
           }
@@ -9247,8 +9260,17 @@
             "type": "FIELD",
             "name": "function",
             "content": {
-              "type": "SYMBOL",
-              "name": "expression"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "expression"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "lvalue_expression"
+                }
+              ]
             }
           },
           {
@@ -9432,8 +9454,17 @@
             "type": "FIELD",
             "name": "expression",
             "content": {
-              "type": "SYMBOL",
-              "name": "expression"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "expression"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "lvalue_expression"
+                }
+              ]
             }
           },
           {
@@ -9701,6 +9732,10 @@
                 {
                   "type": "SYMBOL",
                   "name": "expression"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "lvalue_expression"
                 },
                 {
                   "type": "SYMBOL",

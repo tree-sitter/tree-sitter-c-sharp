@@ -1023,9 +1023,12 @@ bool tree_sitter_c_sharp_external_scanner_scan(void *payload, TSLexer *lexer, co
                     lexer->result_symbol = INTERPOLATION_RAW_START;
                     interpolation.string_type |= RAW;
                     array_push(&scanner->interpolation_stack, interpolation);
+                } else {
+                    // Exactly two quotes: an empty regular interpolated string, `$""`. It still
+                    // needs an interpolation on the stack for the start and end quotes to use.
+                    interpolation.string_type |= REGULAR;
+                    array_push(&scanner->interpolation_stack, interpolation);
                 }
-                // If we find 1 or 3 quotes, we push an interpolation.
-                // If there's only two quotes, that's just an empty string
             } else {
                 interpolation.string_type |= REGULAR;
                 array_push(&scanner->interpolation_stack, interpolation);

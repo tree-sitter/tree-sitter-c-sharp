@@ -2340,23 +2340,7 @@
         "required": true,
         "types": [
           {
-            "type": "element_access_expression",
-            "named": true
-          },
-          {
-            "type": "element_binding_expression",
-            "named": true
-          },
-          {
             "type": "expression",
-            "named": true
-          },
-          {
-            "type": "invocation_expression",
-            "named": true
-          },
-          {
-            "type": "member_access_expression",
             "named": true
           },
           {
@@ -3544,39 +3528,11 @@
             "named": true
           },
           {
-            "type": "element_access_expression",
-            "named": true
-          },
-          {
-            "type": "element_binding_expression",
-            "named": true
-          },
-          {
             "type": "expression",
             "named": true
           },
           {
-            "type": "generic_name",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "invocation_expression",
-            "named": true
-          },
-          {
-            "type": "member_access_expression",
-            "named": true
-          },
-          {
             "type": "member_binding_expression",
-            "named": true
-          },
-          {
-            "type": "parenthesized_expression",
             "named": true
           },
           {
@@ -3988,31 +3944,7 @@
             "named": true
           },
           {
-            "type": "element_access_expression",
-            "named": true
-          },
-          {
-            "type": "element_binding_expression",
-            "named": true
-          },
-          {
             "type": "expression",
-            "named": true
-          },
-          {
-            "type": "generic_name",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "invocation_expression",
-            "named": true
-          },
-          {
-            "type": "member_access_expression",
             "named": true
           },
           {

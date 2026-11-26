@@ -59,6 +59,12 @@ export default grammar({
     // `conditional_access_expression` to appear in both lvalue and
     // non-lvalue contexts. Tree-sitter needs GLR for the decision.
     [$.lvalue_expression, $.non_lvalue_expression],
+    // C# 15: `union` is contextual — `union Pet(...)` vs. an identifier named `union`.
+    [$.union_declaration, $._reserved_identifier],
+    // C# 15: `unsafe (int, int) Local()` (modifier) vs. `unsafe(expr)`.
+    [$.modifier, $.unsafe_expression],
+    // C# 15: `[with(...), ...]` (with_element) vs. an identifier named `with`.
+    [$.with_element, $._reserved_identifier],
 
     // After `a?.b`, a `?` either continues the access (`a?.b?[0]`) or starts
     // the branches of a conditional expression (`a?.b ? [0] : c`).
@@ -83,7 +89,6 @@ export default grammar({
 
     [$.binary_expression, $.constant_pattern],
     [$.constant_pattern, $.non_lvalue_expression],
-    [$.constant_pattern, $._expression_statement_expression],
     [$.constant_pattern, $.lvalue_expression],
     [$.constant_pattern, $._name],
     [$.constant_pattern, $.lvalue_expression, $._name],
@@ -354,6 +359,7 @@ export default grammar({
       $.interface_declaration,
       $.delegate_declaration,
       $.record_declaration,
+      $.union_declaration,
     ),
 
     class_declaration: $ => seq(
@@ -464,6 +470,27 @@ export default grammar({
       repeat($.type_parameter_constraints_clause),
     ),
 
+    // C# 15 union types.
+    // https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-15.0/unions
+    //
+    //   union_declaration
+    //     : attributes? struct_modifier* 'partial'? 'union' identifier type_parameter_list?
+    //       '(' case_types ')' struct_interfaces? type_parameter_constraints_clause*
+    //       ('{' struct_member_declaration* '}' | ';')
+    union_declaration: $ => prec.dynamic(1, seq(
+      repeat($.attribute_list),
+      repeat($.modifier),
+      'union',
+      field('name', $.identifier),
+      optional(field('type_parameters', $.type_parameter_list)),
+      field('cases', $.union_case_list),
+      optional($.base_list),
+      repeat($.type_parameter_constraints_clause),
+      $._declaration_list_body,
+    )),
+
+    union_case_list: $ => seq('(', commaSep1($.type), ')'),
+
     record_base: $ => choice(
       seq(':', commaSep1($._name)),
       seq(':', $.primary_constructor_base_type, optional(seq(',', commaSep1($._name)))),
@@ -479,31 +506,36 @@ export default grammar({
       $.argument_list,
     ),
 
-    modifier: _ => prec.right(choice(
-      'abstract',
-      'async',
-      'const',
-      'extern',
-      'file',
-      'fixed',
-      'internal',
-      'new',
-      'override',
-      'partial',
-      'private',
-      'protected',
-      'public',
-      'readonly',
-      'required',
-      // 'ref',     // `ref` as a modifier can only be used on struct declarations. Other than that it's a ref type or a ref parameter in a declaration.
-      // 'scoped',  // `scoped` is either part of a scoped type or a scoped parameter. Both of which are handled outside of `modifier`.
-      'sealed',
-      'static',
+    modifier: _ => choice(
+      // Outside prec.right so the `unsafe (` shift/reduce stays a GLR
+      // conflict with C# 15 `unsafe_expression` (see conflicts).
       'unsafe',
-      'virtual',
-      'volatile',
-
-    )),
+      prec.right(choice(
+        'abstract',
+        'async',
+        'closed', // C# 15 closed hierarchies (contextual)
+        'const',
+        'extern',
+        'file',
+        'fixed',
+        'internal',
+        'new',
+        'override',
+        'partial',
+        'private',
+        'protected',
+        'public',
+        'readonly',
+        'required',
+        'safe', // C# 15 memory safety (preview, contextual)
+        // 'ref',     // `ref` as a modifier can only be used on struct declarations. Other than that it's a ref type or a ref parameter in a declaration.
+        // 'scoped',  // `scoped` is either part of a scoped type or a scoped parameter. Both of which are handled outside of `modifier`.
+        'sealed',
+        'static',
+        'virtual',
+        'volatile',
+      )),
+    ),
 
     type_parameter_list: $ => seq('<', commaSep1($.type_parameter), '>'),
 
@@ -601,6 +633,7 @@ export default grammar({
       $.event_declaration,
       $.event_field_declaration,
       $.record_declaration,
+      $.union_declaration,
       $.constructor_declaration,
       $.destructor_declaration,
       $.indexer_declaration,
@@ -657,6 +690,9 @@ export default grammar({
       $.method_declaration,
       $.property_declaration,
       $.operator_declaration,
+      // C# 15 extension indexers.
+      // https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-15.0/extension-indexers
+      $.indexer_declaration,
     ),
 
     field_declaration: $ => seq(
@@ -1088,11 +1124,13 @@ export default grammar({
       $.local_function_statement,
     )),
 
-    break_statement: _ => seq('break', ';'),
+    // C# 15: `break label;` / `continue label;` target a labeled loop or switch.
+    // https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-15.0/labeled-break-continue
+    break_statement: $ => seq('break', optional(field('label', $.identifier)), ';'),
 
     checked_statement: $ => seq(choice('checked', 'unchecked'), $.block),
 
-    continue_statement: _ => seq('continue', ';'),
+    continue_statement: $ => seq('continue', optional(field('label', $.identifier)), ';'),
 
     do_statement: $ => seq(
       'do',
@@ -1221,6 +1259,10 @@ export default grammar({
     finally_clause: $ => seq('finally', $.block),
 
     unsafe_statement: $ => seq('unsafe', $.block),
+
+    // C# 15 memory safety (preview): `unsafe(expression)`.
+    // https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/unsafe-evolution
+    unsafe_expression: $ => seq('unsafe', '(', $.expression, ')'),
 
     using_statement: $ => seq(
       optional('await'),
@@ -1560,6 +1602,7 @@ export default grammar({
       $.as_expression,
       $.cast_expression,
       $.checked_expression,
+      $.unsafe_expression,
       $.collection_expression,
       $.switch_expression,
       $.throw_expression,
@@ -2124,9 +2167,17 @@ export default grammar({
 
     collection_expression: $ => seq(
       '[',
-      optional($._collection_items),
+      optional(choice(
+        // C# 15 collection expression arguments: `with(...)` is only valid
+        // as the first element.
+        // https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-15.0/collection-expression-arguments
+        seq($.with_element, optional(seq(',', optional($._collection_items)))),
+        $._collection_items,
+      )),
       ']',
     ),
+
+    with_element: $ => prec.dynamic(2, seq('with', field('arguments', $.argument_list))),
 
     _collection_items: $ => choice(
       seq(
@@ -2372,6 +2423,7 @@ export default grammar({
       'alias',
       'ascending',
       'by',
+      'closed',
       'descending',
       'equals',
       // attribute_target_specifier keywords — contextual only when followed
@@ -2403,10 +2455,12 @@ export default grammar({
       'property',
       prec.dynamic(-1, 'record'),
       prec.dynamic(-1, 'required'),
+      'safe',
       'scoped',
       'select',
       'type',
       'typevar',
+      'union',
       'unmanaged',
       'var',
       'when',

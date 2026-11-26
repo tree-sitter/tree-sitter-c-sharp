@@ -12,6 +12,8 @@
 (enum_declaration name: (identifier) @type)
 (struct_declaration (identifier) @type)
 (record_declaration (identifier) @type)
+(union_declaration name: (identifier) @type)
+(union_case_list (identifier) @type)
 (namespace_declaration name: (identifier) @module)
 (file_scoped_namespace_declaration name: (identifier) @module)
 
@@ -193,6 +195,7 @@
   "out"
   "ref"
   "record"
+  "union"
   "init"
   "with"
   "unsafe"

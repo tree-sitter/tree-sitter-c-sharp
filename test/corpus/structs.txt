@@ -133,3 +133,178 @@ ref struct Plain { }
   (struct_declaration
     (identifier)
     (declaration_list)))
+
+================================================================================
+Union declarations (C# 15)
+================================================================================
+
+public union Pet(Cat, Dog, Bird);
+
+public union OneOrMore<T>(T, IEnumerable<T>)
+{
+    public IEnumerable<T> AsEnumerable() => Value;
+}
+
+public partial union Option<T>(None, Some<T>) : IOption where T : class;
+
+union U1(int?, bool, DateTime);
+
+var union = a.Union(b);
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (union_declaration
+    (modifier)
+    name: (identifier)
+    cases: (union_case_list
+      (identifier)
+      (identifier)
+      (identifier)))
+  (union_declaration
+    (modifier)
+    name: (identifier)
+    type_parameters: (type_parameter_list
+      (type_parameter
+        name: (identifier)))
+    cases: (union_case_list
+      (identifier)
+      (generic_name
+        (identifier)
+        (type_argument_list
+          (identifier))))
+    body: (declaration_list
+      (method_declaration
+        (modifier)
+        returns: (generic_name
+          (identifier)
+          (type_argument_list
+            (identifier)))
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (arrow_expression_clause
+          (identifier)))))
+  (union_declaration
+    (modifier)
+    (modifier)
+    name: (identifier)
+    type_parameters: (type_parameter_list
+      (type_parameter
+        name: (identifier)))
+    cases: (union_case_list
+      (identifier)
+      (generic_name
+        (identifier)
+        (type_argument_list
+          (identifier))))
+    (base_list
+      (identifier))
+    (type_parameter_constraints_clause
+      (identifier)
+      (type_parameter_constraint)))
+  (union_declaration
+    name: (identifier)
+    cases: (union_case_list
+      (nullable_type
+        type: (predefined_type))
+      (predefined_type)
+      (identifier)))
+  (global_statement
+    (local_declaration_statement
+      (variable_declaration
+        type: (implicit_type)
+        (variable_declarator
+          name: (identifier)
+          (invocation_expression
+            function: (member_access_expression
+              expression: (identifier)
+              name: (identifier))
+            arguments: (argument_list
+              (argument
+                (identifier)))))))))
+
+================================================================================
+Union declaration without cases (Roslyn Union_10, C# 15)
+================================================================================
+
+union U1;
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (union_declaration
+    name: (identifier)))
+
+================================================================================
+Union bodies without cases (Roslyn RefStructs.ModifierParsing_Union_CSharp15_Readonly)
+================================================================================
+
+readonly union R { } class C { readonly union R { } }
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (union_declaration
+    (modifier)
+    name: (identifier)
+    body: (declaration_list))
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (union_declaration
+        (modifier)
+        name: (identifier)
+        body: (declaration_list)))))
+
+================================================================================
+Partial union declarations without repeated cases (C# 15)
+================================================================================
+
+partial union U1(int);
+partial union U1;
+
+class C
+{
+    partial union Option<T>(T, int);
+    partial union Option<T>
+    {
+        public int Count => 1;
+    }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (union_declaration
+    (modifier)
+    name: (identifier)
+    cases: (union_case_list
+      (predefined_type)))
+  (union_declaration
+    (modifier)
+    name: (identifier))
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (union_declaration
+        (modifier)
+        name: (identifier)
+        type_parameters: (type_parameter_list
+          (type_parameter
+            name: (identifier)))
+        cases: (union_case_list
+          (identifier)
+          (predefined_type)))
+      (union_declaration
+        (modifier)
+        name: (identifier)
+        type_parameters: (type_parameter_list
+          (type_parameter
+            name: (identifier)))
+        body: (declaration_list
+          (property_declaration
+            (modifier)
+            type: (predefined_type)
+            name: (identifier)
+            value: (arrow_expression_clause
+              (integer_literal))))))))

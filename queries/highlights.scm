@@ -12,6 +12,8 @@
 (enum_declaration name: (identifier) @type)
 (struct_declaration (identifier) @type)
 (record_declaration (identifier) @type)
+(union_declaration name: (identifier) @type)
+(union_case_list (identifier) @type)
 (namespace_declaration name: (identifier) @module)
 
 (generic_name (identifier) @type)
@@ -190,6 +192,7 @@
   "where"
   "select"
   "record"
+  "union"
   "init"
   "with"
   "let"

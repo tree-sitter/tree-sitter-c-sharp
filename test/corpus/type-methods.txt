@@ -360,3 +360,53 @@ class C {
               (predefined_type)))
           name: (identifier))
         body: (block)))))
+
+================================================================================
+Safe modifier (C# 15)
+================================================================================
+
+class C
+{
+    [LibraryImport("lib")]
+    public static safe extern int F();
+    safe extern static void G();
+    int M(int safe) => safe;
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (method_declaration
+        (attribute_list
+          (attribute
+            name: (identifier)
+            (attribute_argument_list
+              (attribute_argument
+                (string_literal
+                  (string_literal_content))))))
+        (modifier)
+        (modifier)
+        (modifier)
+        (modifier)
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list))
+      (method_declaration
+        (modifier)
+        (modifier)
+        (modifier)
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list))
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list
+          (parameter
+            type: (predefined_type)
+            name: (identifier)))
+        body: (arrow_expression_clause
+          (identifier))))))

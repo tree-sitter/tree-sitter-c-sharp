@@ -12,7 +12,7 @@ class C
     {
         Declared(param);
         // <- function
-        //       ^ variable
+        //       ^ variable.parameter
         this.Declared(param);
         //   ^ function
         member = Prop;

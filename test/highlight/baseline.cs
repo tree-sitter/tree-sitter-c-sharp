@@ -668,7 +668,7 @@ namespace Namespace
             // <- punctuation.bracket
                 return a;
                 // <- keyword
-                //     ^ variable
+                //     ^ variable.parameter
                 //      ^ punctuation.delimiter
             };
             // <- punctuation.bracket
@@ -687,11 +687,11 @@ namespace Namespace
             //                 ^ operator
             //                    ^ punctuation.bracket
             //                      ^ keyword
-            //                             ^ variable
+            //                             ^ variable.parameter
             //                              ^ punctuation.delimiter
             //                               ^ function
             //                                ^ punctuation.bracket
-            //                                 ^ variable
+            //                                 ^ variable.parameter
             //                                  ^ punctuation.bracket
             //                                     ^ punctuation.bracket
 
@@ -961,7 +961,7 @@ namespace Namespace
         //                       ^ punctuation.bracket
         //                         ^ operator
             operation switch
-            // <- variable
+            // <- variable.parameter
             //        ^ keyword
             {
             // <- punctuation.bracket

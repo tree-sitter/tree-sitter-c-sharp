@@ -421,6 +421,8 @@ export default grammar({
 
     // C# 15 union types.
     // https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-15.0/unions
+    // Unlike the proposal's grammar, Roslyn permits an omitted case list.
+    // See UnionParsingTests.Union_10; partial declarations can also omit repeated cases.
     //
     //   union_declaration
     //     : attributes? struct_modifier* 'partial'? 'union' identifier type_parameter_list?

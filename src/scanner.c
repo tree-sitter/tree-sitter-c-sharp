@@ -31,6 +31,9 @@ enum TokenType {
     SKIPPED_TEXT_HAZARD,
     SKIPPED_TEXT_NEVER,
     LESS_THAN,
+    DOCUMENTATION_COMMENT_TEXT,
+    DOCUMENTATION_COMMENT_CONTINUE,
+    DOCUMENTATION_COMMENT_END,
 };
 
 typedef enum {
@@ -765,6 +768,35 @@ bool tree_sitter_c_sharp_external_scanner_scan(void *payload, TSLexer *lexer, co
     uint8_t brace_advanced = 0;
     uint8_t quote_count = 0;
     bool did_advance = false;
+
+    // Inside a `documentation_comment`: the rest of a `///` line, then its line break, which
+    // continues the comment when the next line starts with `///` and ends it otherwise. A line
+    // starting `////` is an ordinary comment, so it ends the documentation comment too.
+    if (valid_symbols[DOCUMENTATION_COMMENT_END] &&
+        !(valid_symbols[OPT_SEMI] && valid_symbols[INTERPOLATION_REGULAR_START])) {
+        if (valid_symbols[DOCUMENTATION_COMMENT_TEXT] && !lexer->eof(lexer) && !is_line_break(lexer->lookahead)) {
+            while (!lexer->eof(lexer) && !is_line_break(lexer->lookahead)) advance(lexer);
+            lexer->mark_end(lexer);
+            lexer->result_symbol = DOCUMENTATION_COMMENT_TEXT;
+            return true;
+        }
+        lexer->result_symbol = DOCUMENTATION_COMMENT_END;
+        if (lexer->eof(lexer)) return true;
+        if (lexer->lookahead == '\r') {
+            advance(lexer);
+            if (lexer->lookahead == '\n') advance(lexer);
+        } else {
+            advance(lexer);
+        }
+        lexer->mark_end(lexer);
+        while (is_line_space(lexer->lookahead) || lexer->lookahead == 0xFEFF) advance(lexer);
+        for (int i = 0; i < 3; i++) {
+            if (lexer->lookahead != '/') return true;
+            advance(lexer);
+        }
+        if (lexer->lookahead != '/') lexer->result_symbol = DOCUMENTATION_COMMENT_CONTINUE;
+        return true;
+    }
 
     // Lambda-paren scanning advances forward speculatively past the
     // opening `(`. If it consumes input and then bails, the lexer

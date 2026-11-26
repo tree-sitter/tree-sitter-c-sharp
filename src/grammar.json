@@ -12871,6 +12871,59 @@
         "value": "[^\\s@=\\u0085\\u2028\\u2029]([^\\r\\n\\u0085\\u2028\\u2029]*[^\\s\\u0085\\u2028\\u2029])?"
       }
     },
+    "documentation_comment": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "///"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_documentation_comment_text"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_documentation_comment_continue"
+              },
+              {
+                "type": "STRING",
+                "value": "///"
+              },
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_documentation_comment_text"
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_documentation_comment_end"
+        }
+      ]
+    },
     "comment": {
       "type": "TOKEN",
       "content": {
@@ -12882,6 +12935,36 @@
               {
                 "type": "STRING",
                 "value": "//"
+              },
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "PATTERN",
+                        "value": "[^/\\n\\r\\u0085\\u2028\\u2029]"
+                      },
+                      {
+                        "type": "PATTERN",
+                        "value": "[^\\n\\r\\u0085\\u2028\\u2029]*"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "////"
               },
               {
                 "type": "PATTERN",
@@ -12918,6 +13001,10 @@
     {
       "type": "SYMBOL",
       "name": "comment"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "documentation_comment"
     },
     {
       "type": "SYMBOL",
@@ -13280,6 +13367,18 @@
     {
       "type": "SYMBOL",
       "name": "_less_than"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_documentation_comment_text"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_documentation_comment_continue"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_documentation_comment_end"
     }
   ],
   "inline": [

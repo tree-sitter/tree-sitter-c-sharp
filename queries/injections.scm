@@ -18,6 +18,15 @@
 ((comment) @injection.content
   (#set! injection.language "comment"))
 
+; XML documentation comments. A `documentation_comment` holds consecutive `///`
+; lines and only its `///` markers are child nodes, so without
+; `injection.include-children` the XML sees the text between them, line breaks
+; included. The comment usually holds several elements (`<summary>`, `<param>`,
+; ...) where an XML document has one root, so expect the XML parser to recover
+; rather than parse it cleanly.
+((documentation_comment) @injection.content
+  (#set! injection.language "xml"))
+
 ; Regular expressions
 ; -------------------
 

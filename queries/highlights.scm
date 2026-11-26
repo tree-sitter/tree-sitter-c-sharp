@@ -69,6 +69,8 @@
 
 (comment) @comment
 
+(documentation_comment) @comment.documentation
+
 ;; Tokens
 
 [

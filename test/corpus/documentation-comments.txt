@@ -1,0 +1,68 @@
+================================================================================
+Documentation comments group consecutive /// lines
+================================================================================
+
+/// <summary>
+///   Says <c>hi</c>.
+/// </summary>
+///
+class C
+{
+  ///<param name="x">X.</param>
+  void M(int x) { }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (documentation_comment)
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (documentation_comment)
+      (method_declaration
+        returns: (predefined_type)
+        name: (identifier)
+        parameters: (parameter_list
+          (parameter
+            type: (predefined_type)
+            name: (identifier)))
+        body: (block)))))
+
+================================================================================
+Four slashes and a blank line end a documentation comment
+================================================================================
+
+/// <summary>One.</summary>
+//// Not documentation.
+/// <summary>Two.</summary>
+
+/// <summary>Three.</summary>
+// plain
+class C { }
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (documentation_comment)
+  (comment)
+  (documentation_comment)
+  (documentation_comment)
+  (comment)
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list)))
+
+================================================================================
+Documentation comment at the end of the file without a line break
+================================================================================
+
+class C { }
+/// <summary>Last.</summary>
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list))
+  (documentation_comment))

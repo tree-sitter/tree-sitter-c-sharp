@@ -2370,6 +2370,12 @@
     }
   },
   {
+    "type": "documentation_comment",
+    "named": true,
+    "extra": true,
+    "fields": {}
+  },
+  {
     "type": "element_access_expression",
     "named": true,
     "fields": {
@@ -6585,6 +6591,10 @@
   },
   {
     "type": "/",
+    "named": false
+  },
+  {
+    "type": "///",
     "named": false
   },
   {

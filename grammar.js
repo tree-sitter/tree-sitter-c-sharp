@@ -183,11 +183,19 @@ export default grammar({
     // list (a literal, unary `+`, `-`, `!`, `~` or `*`), the compiler reads `<` and `>` as
     // operators. So `A < X >> B` is `A < (X >> B)`, not `(A<X>) > B`.
     $._less_than,
+    // The rest of a `///` line, up to but not including its line break.
+    $._documentation_comment_text,
+    // The line break between two `///` lines, given only when the next line starts with `///`
+    // and not `////`.
+    $._documentation_comment_continue,
+    // The line break after the last `///` line, or nothing at the end of the file.
+    $._documentation_comment_end,
   ],
 
   extras: $ => [
     /[\s\u00A0\uFEFF\u3000\u0085\u2028\u2029]+/,
     $.comment,
+    $.documentation_comment,
     $._preproc_directive,
     $.preproc_else,
   ],
@@ -2699,8 +2707,23 @@ export default grammar({
 
     directive_value: _ => token(/[^\s@=\u0085\u2028\u2029]([^\r\n\u0085\u2028\u2029]*[^\s\u0085\u2028\u2029])?/),
 
+    // Consecutive `///` lines as one node. Only the `///` markers are child nodes, so an
+    // injection of the node (without `injection.include-children`) sees just the XML between them.
+    documentation_comment: $ => seq(
+      '///',
+      optional($._documentation_comment_text),
+      repeat(seq(
+        $._documentation_comment_continue,
+        '///',
+        optional($._documentation_comment_text),
+      )),
+      $._documentation_comment_end,
+    ),
+
+    // `///` followed by anything but another `/` starts a `documentation_comment` instead.
     comment: _ => token(choice(
-      seq('//', /[^\n\r\u0085\u2028\u2029]*/),
+      seq('//', optional(seq(/[^/\n\r\u0085\u2028\u2029]/, /[^\n\r\u0085\u2028\u2029]*/))),
+      seq('////', /[^\n\r\u0085\u2028\u2029]*/),
       seq(
         '/*',
         /[^*]*\*+([^/*][^*]*\*+)*/,

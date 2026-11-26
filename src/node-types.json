@@ -6565,7 +6565,7 @@
       },
       "cases": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "union_case_list",

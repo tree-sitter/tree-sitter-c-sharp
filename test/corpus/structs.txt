@@ -222,3 +222,68 @@ var union = a.Union(b);
             arguments: (argument_list
               (argument
                 (identifier)))))))))
+
+================================================================================
+Union declaration without cases (Roslyn Union_10, C# 15)
+================================================================================
+
+union U1;
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (union_declaration
+    name: (identifier)))
+
+================================================================================
+Partial union declarations without repeated cases (C# 15)
+================================================================================
+
+partial union U1(int);
+partial union U1;
+
+class C
+{
+    partial union Option<T>(T, int);
+    partial union Option<T>
+    {
+        public int Count => 1;
+    }
+}
+
+--------------------------------------------------------------------------------
+
+(compilation_unit
+  (union_declaration
+    (modifier)
+    name: (identifier)
+    cases: (union_case_list
+      (predefined_type)))
+  (union_declaration
+    (modifier)
+    name: (identifier))
+  (class_declaration
+    name: (identifier)
+    body: (declaration_list
+      (union_declaration
+        (modifier)
+        name: (identifier)
+        type_parameters: (type_parameter_list
+          (type_parameter
+            name: (identifier)))
+        cases: (union_case_list
+          (identifier)
+          (predefined_type)))
+      (union_declaration
+        (modifier)
+        name: (identifier)
+        type_parameters: (type_parameter_list
+          (type_parameter
+            name: (identifier)))
+        body: (declaration_list
+          (property_declaration
+            (modifier)
+            type: (predefined_type)
+            name: (identifier)
+            value: (arrow_expression_clause
+              (integer_literal))))))))

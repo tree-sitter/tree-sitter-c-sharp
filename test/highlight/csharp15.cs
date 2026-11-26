@@ -4,6 +4,11 @@ public union Pet(Cat, Dog);
 //               ^ type
 //                    ^ type
 
+partial union Value(int);
+partial union Value;
+//      ^ keyword
+//            ^ type
+
 public closed class GateState { }
 //     ^ keyword
 

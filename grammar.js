@@ -424,7 +424,7 @@ export default grammar({
     //
     //   union_declaration
     //     : attributes? struct_modifier* 'partial'? 'union' identifier type_parameter_list?
-    //       '(' case_types ')' struct_interfaces? type_parameter_constraints_clause*
+    //       ('(' case_types ')')? struct_interfaces? type_parameter_constraints_clause*
     //       ('{' struct_member_declaration* '}' | ';')
     union_declaration: $ => prec.dynamic(1, seq(
       repeat($._attribute_list),
@@ -432,7 +432,7 @@ export default grammar({
       'union',
       field('name', $.identifier),
       optional(field('type_parameters', $.type_parameter_list)),
-      field('cases', $.union_case_list),
+      optional(field('cases', $.union_case_list)),
       optional($.base_list),
       repeat($.type_parameter_constraints_clause),
       $._declaration_list_body,

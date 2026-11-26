@@ -1304,12 +1304,20 @@
             ]
           },
           {
-            "type": "FIELD",
-            "name": "cases",
-            "content": {
-              "type": "SYMBOL",
-              "name": "union_case_list"
-            }
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "cases",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "union_case_list"
+                }
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
           },
           {
             "type": "CHOICE",

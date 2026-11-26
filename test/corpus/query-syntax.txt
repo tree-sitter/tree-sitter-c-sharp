@@ -146,7 +146,7 @@ var x = from a in sourceA
               name: (identifier)
               (identifier))
             (let_clause
-              (identifier)
+              name: (identifier)
               (anonymous_object_creation_expression
                 (member_access_expression
                   expression: (identifier)
@@ -167,7 +167,7 @@ var x = from a in sourceA
               name: (identifier)
               (identifier))
             (join_clause
-              (identifier)
+              name: (identifier)
               (identifier)
               (member_access_expression
                 expression: (identifier)
@@ -227,7 +227,7 @@ var x = from a in sourceA
               (member_access_expression
                 expression: (identifier)
                 name: (identifier)))
-            (identifier)
+            name: (identifier)
             (select_clause
               (anonymous_object_creation_expression
                 (identifier)

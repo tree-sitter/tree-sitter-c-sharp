@@ -1804,7 +1804,7 @@ export default grammar({
         repeat($._query_clause),
         $._select_or_group_clause,
       ),
-      seq('into', $.identifier),
+      seq('into', field('name', $.identifier)),
     )),
 
     _query_clause: $ => choice(
@@ -1822,15 +1822,15 @@ export default grammar({
       optional($.join_into_clause),
     ),
 
-    _join_header: $ => seq(optional(field('type', $.type)), $.identifier, 'in', $.expression),
+    _join_header: $ => seq(optional(field('type', $.type)), field('name', $.identifier), 'in', $.expression),
 
     _join_body: $ => seq('on', $.expression, 'equals', $.expression),
 
-    join_into_clause: $ => seq('into', $.identifier),
+    join_into_clause: $ => seq('into', field('name', $.identifier)),
 
     let_clause: $ => seq(
       'let',
-      $.identifier,
+      field('name', $.identifier),
       '=',
       $.expression,
     ),

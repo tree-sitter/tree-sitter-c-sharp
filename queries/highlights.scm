@@ -23,7 +23,7 @@
 (property_declaration name: (identifier) @property)
 
 (generic_name (identifier) @type)
-(type_parameter (identifier) @property.definition)
+(type_parameter name: (identifier) @type)
 (parameter type: (identifier) @type)
 (type_argument_list (identifier) @type)
 (as_expression right: (identifier) @type)
@@ -33,6 +33,7 @@
 (destructor_declaration name: (identifier) @constructor)
 
 (_ type: (identifier) @type)
+(_ returns: (identifier) @type)
 
 (base_list (identifier) @type)
 
@@ -279,9 +280,12 @@
 (parameter
   name: (identifier) @variable.parameter)
 
+; `x => ...` and C# 14 `(ref x, out y) => ...`
+(implicit_parameter) @variable.parameter
+
 ;; Type constraints
 
-(type_parameter_constraints_clause (identifier) @property.definition)
+(type_parameter_constraints_clause (identifier) @type)
 
 ;; Method calls
 

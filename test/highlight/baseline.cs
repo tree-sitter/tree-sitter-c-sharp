@@ -51,10 +51,10 @@ namespace Namespace
     //     ^ keyword
     //            ^ type
     //             ^ operator
-    //              ^ property.definition
+    //              ^ type
     //               ^ operator
     //                 ^ keyword
-    //                       ^ property.definition
+    //                       ^ type
     //                         ^ operator
     //                           ^ keyword
     //                                  ^ punctuation.bracket
@@ -87,12 +87,12 @@ namespace Namespace
     //      ^ keyword
     //             ^ type
     //              ^ operator
-    //               ^ property.definition
+    //               ^ type
     //                 ^ punctuation.delimiter
-    //                   ^ property.definition
+    //                   ^ type
     //                     ^ operator
     //                       ^ keyword
-    //                             ^ property.definition
+    //                             ^ type
     //                                ^ operator
     //                                  ^ type
     //                                    ^ punctuation.delimiter
@@ -101,7 +101,7 @@ namespace Namespace
     //                                          ^ keyword
     //                                             ^ punctuation.bracket
     //                                                ^ keyword
-    //                                                      ^ property.definition
+    //                                                      ^ type
     //                                                         ^ operator
     //                                                           ^ type
     //                                                              ^ punctuation.bracket
@@ -158,10 +158,10 @@ namespace Namespace
     //                   ^ type
     //                        ^ operator
     //                         ^ keyword
-    //                            ^ property.definition
+    //                            ^ type
     //                                  ^ operator
     //                                    ^ keyword
-    //                                          ^ property.definition
+    //                                          ^ type
     //                                                 ^ operator
     //                                                   ^ keyword
     //                                                        ^ operator

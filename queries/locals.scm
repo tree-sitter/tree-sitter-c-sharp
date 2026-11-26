@@ -58,8 +58,7 @@
 (receiver_parameter
   name: (identifier) @local.definition)
 
-; Type parameters are only referenced from type positions, which the
-; reference patterns below leave out (see there).
+; Type parameters, referenced from type positions (see the references below).
 (type_parameter
   name: (identifier) @local.definition)
 
@@ -119,25 +118,21 @@
 (from_clause
   name: (identifier) @local.definition)
 
-; `join o in orders` - the range variable is the identifier just before `in`,
-; after an optional type.
+; `join o in orders`
 (join_clause
-  (identifier) @local.definition
-  .
-  "in")
+  name: (identifier) @local.definition)
 
 ; `let total = ...`
 (let_clause
-  .
-  (identifier) @local.definition)
+  name: (identifier) @local.definition)
 
 ; `join ... into placed`
 (join_into_clause
-  (identifier) @local.definition)
+  name: (identifier) @local.definition)
 
 ; `select ... into g` / `group ... into g` query continuation
 (query_expression
-  (identifier) @local.definition)
+  name: (identifier) @local.definition)
 
 ;; References
 ;; ----------
@@ -149,11 +144,10 @@
 ; resolve to a local of the same name.
 (lvalue_expression/identifier) @local.reference
 
-; Identifiers in type position would let uses of a type parameter resolve to
-; its definition. This stays off while highlights.scm captures
-; `(type_parameter (identifier))` as @property.definition: tree-sitter-highlight
-; gives a resolved reference its definition's highlight, so every `T` in a
-; type position would turn from @type to @property.definition. Enable it once
-; type parameter names are highlighted as @type.
-;
-; (type/identifier) @local.reference
+; Identifiers in type position, so uses of a type parameter resolve to its
+; definition. A type name with no matching type parameter in scope is left
+; alone. `where T :` targets are bare identifiers in the constraints clause.
+(type/identifier) @local.reference
+
+(type_parameter_constraints_clause
+  (identifier) @local.reference)

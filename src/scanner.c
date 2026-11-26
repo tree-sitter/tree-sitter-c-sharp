@@ -872,8 +872,10 @@ bool tree_sitter_c_sharp_external_scanner_scan(void *payload, TSLexer *lexer, co
 
     // Not inside string content, and not where the zero-width OPT_SEMI is due:
     // skipping blanks first would stretch the node before it. The directive is
-    // then scanned on the next call.
-    if (valid_symbols[PREPROC_ELSE] && (error_recovery || (!in_string && !valid_symbols[OPT_SEMI]))) {
+    // then scanned on the next call. SKIPPED_TEXT_NEVER is valid inside a plain or verbatim
+    // string, whose content the grammar lexes itself: an `#else` line there is text.
+    if (valid_symbols[PREPROC_ELSE] &&
+        (error_recovery || (!in_string && !valid_symbols[OPT_SEMI] && !valid_symbols[SKIPPED_TEXT_NEVER]))) {
         int found = scan_preproc_else(lexer);
         if (found > 0) return true;
         if (found < 0) return false;

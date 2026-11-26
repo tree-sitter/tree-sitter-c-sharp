@@ -6369,6 +6369,29 @@
     }
   },
   {
+    "type": "verbatim_string_literal",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_sequence",
+          "named": true
+        },
+        {
+          "type": "string_literal_content",
+          "named": true
+        },
+        {
+          "type": "string_literal_encoding",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "when_clause",
     "named": true,
     "fields": {},
@@ -6675,6 +6698,10 @@
   },
   {
     "type": "??=",
+    "named": false
+  },
+  {
+    "type": "@\"",
     "named": false
   },
   {
@@ -7286,10 +7313,6 @@
   {
     "type": "var",
     "named": false
-  },
-  {
-    "type": "verbatim_string_literal",
-    "named": true
   },
   {
     "type": "virtual",

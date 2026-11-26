@@ -253,7 +253,8 @@ class Of1879 {
               type: (implicit_type)
               (variable_declarator
                 name: (identifier)
-                (verbatim_string_literal))))
+                (verbatim_string_literal
+                  (string_literal_content)))))
           (comment))))))
 
 ================================================================================
@@ -1426,7 +1427,8 @@ class C {
           (predefined_type)
           (variable_declarator
             (identifier)
-            (verbatim_string_literal))))
+            (verbatim_string_literal
+              (string_literal_content)))))
       (field_declaration
         (variable_declaration
           (predefined_type)

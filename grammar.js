@@ -2402,15 +2402,19 @@ export default grammar({
 
     string_literal_encoding: _ => token.immediate(stringEncoding),
 
-    verbatim_string_literal: _ => token(seq(
+    // Split like `string_literal`, so a query can take the text between the quotes. A `""`
+    // (an escaped quote) is an `escape_sequence`.
+    verbatim_string_literal: $ => seq(
       '@"',
       repeat(choice(
-        /[^"]/,
-        '""',
+        alias(token.immediate(prec(1, /[^"]+/)), $.string_literal_content),
+        alias(token.immediate('""'), $.escape_sequence),
+        // Never returned: tells the scanner it is inside a string, as in `string_literal`.
+        $._skipped_text_never,
       )),
-      '"',
-      optional(stringEncoding),
-    )),
+      token.immediate('"'),
+      optional($.string_literal_encoding),
+    ),
 
     raw_string_literal: $ => seq(
       $.raw_string_start,

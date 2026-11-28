@@ -51,10 +51,10 @@ namespace Namespace
     //     ^ keyword
     //            ^ type
     //             ^ operator
-    //              ^ property.definition
+    //              ^ type
     //               ^ operator
     //                 ^ keyword
-    //                       ^ property.definition
+    //                       ^ type
     //                         ^ operator
     //                           ^ keyword
     //                                  ^ punctuation.bracket
@@ -87,12 +87,12 @@ namespace Namespace
     //      ^ keyword
     //             ^ type
     //              ^ operator
-    //               ^ property.definition
+    //               ^ type
     //                 ^ punctuation.delimiter
-    //                   ^ property.definition
+    //                   ^ type
     //                     ^ operator
     //                       ^ keyword
-    //                             ^ property.definition
+    //                             ^ type
     //                                ^ operator
     //                                  ^ type
     //                                    ^ punctuation.delimiter
@@ -101,7 +101,7 @@ namespace Namespace
     //                                          ^ keyword
     //                                             ^ punctuation.bracket
     //                                                ^ keyword
-    //                                                      ^ property.definition
+    //                                                      ^ type
     //                                                         ^ operator
     //                                                           ^ type
     //                                                              ^ punctuation.bracket
@@ -158,10 +158,10 @@ namespace Namespace
     //                   ^ type
     //                        ^ operator
     //                         ^ keyword
-    //                            ^ property.definition
+    //                            ^ type
     //                                  ^ operator
     //                                    ^ keyword
-    //                                          ^ property.definition
+    //                                          ^ type
     //                                                 ^ operator
     //                                                   ^ keyword
     //                                                        ^ operator
@@ -668,7 +668,7 @@ namespace Namespace
             // <- punctuation.bracket
                 return a;
                 // <- keyword
-                //     ^ variable
+                //     ^ variable.parameter
                 //      ^ punctuation.delimiter
             };
             // <- punctuation.bracket
@@ -687,11 +687,11 @@ namespace Namespace
             //                 ^ operator
             //                    ^ punctuation.bracket
             //                      ^ keyword
-            //                             ^ variable
+            //                             ^ variable.parameter
             //                              ^ punctuation.delimiter
             //                               ^ function
             //                                ^ punctuation.bracket
-            //                                 ^ variable
+            //                                 ^ variable.parameter
             //                                  ^ punctuation.bracket
             //                                     ^ punctuation.bracket
 
@@ -961,7 +961,7 @@ namespace Namespace
         //                       ^ punctuation.bracket
         //                         ^ operator
             operation switch
-            // <- variable
+            // <- variable.parameter
             //        ^ keyword
             {
             // <- punctuation.bracket

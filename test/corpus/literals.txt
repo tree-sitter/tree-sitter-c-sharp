@@ -419,21 +419,32 @@ var s = $$"""
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (verbatim_string_literal)))))
+          (verbatim_string_literal
+            (string_literal_content))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (verbatim_string_literal)))))
+          (verbatim_string_literal
+            (string_literal_content)
+            (escape_sequence)
+            (string_literal_content)
+            (escape_sequence)
+            (string_literal_content)
+            (escape_sequence)
+            (string_literal_content)
+            (escape_sequence)
+            (string_literal_content))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (identifier)
         (variable_declarator
           name: (identifier)
-          (verbatim_string_literal)))))
+          (verbatim_string_literal
+            (string_literal_content))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
@@ -462,7 +473,8 @@ var s = $$"""
         type: (predefined_type)
         (variable_declarator
           name: (identifier)
-          (verbatim_string_literal)))))
+          (verbatim_string_literal
+            (string_literal_content))))))
   (comment)
   (global_statement
     (local_declaration_statement
@@ -488,14 +500,18 @@ var s = $$"""
         type: (implicit_type)
         (variable_declarator
           name: (identifier)
-          (verbatim_string_literal)))))
+          (verbatim_string_literal
+            (string_literal_content)
+            (string_literal_encoding))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration
         type: (implicit_type)
         (variable_declarator
           name: (identifier)
-          (verbatim_string_literal)))))
+          (verbatim_string_literal
+            (string_literal_content)
+            (string_literal_encoding))))))
   (global_statement
     (local_declaration_statement
       (variable_declaration

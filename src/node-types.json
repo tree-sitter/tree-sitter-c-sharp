@@ -2370,6 +2370,12 @@
     }
   },
   {
+    "type": "documentation_comment",
+    "named": true,
+    "extra": true,
+    "fields": {}
+  },
+  {
     "type": "element_access_expression",
     "named": true,
     "fields": {
@@ -3655,6 +3661,16 @@
     "type": "join_clause",
     "named": true,
     "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
       "type": {
         "multiple": false,
         "required": false,
@@ -3675,10 +3691,6 @@
           "named": true
         },
         {
-          "type": "identifier",
-          "named": true
-        },
-        {
           "type": "join_into_clause",
           "named": true
         }
@@ -3688,16 +3700,17 @@
   {
     "type": "join_into_clause",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        }
-      ]
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -3792,17 +3805,24 @@
   {
     "type": "let_clause",
     "named": true,
-    "fields": {},
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
           "type": "expression",
-          "named": true
-        },
-        {
-          "type": "identifier",
           "named": true
         }
       ]
@@ -5149,7 +5169,18 @@
   {
     "type": "query_expression",
     "named": true,
-    "fields": {},
+    "fields": {
+      "name": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
@@ -5160,10 +5191,6 @@
         },
         {
           "type": "group_clause",
-          "named": true
-        },
-        {
-          "type": "identifier",
           "named": true
         },
         {
@@ -6363,6 +6390,29 @@
     }
   },
   {
+    "type": "verbatim_string_literal",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_sequence",
+          "named": true
+        },
+        {
+          "type": "string_literal_content",
+          "named": true
+        },
+        {
+          "type": "string_literal_encoding",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "when_clause",
     "named": true,
     "fields": {},
@@ -6588,6 +6638,10 @@
     "named": false
   },
   {
+    "type": "///",
+    "named": false
+  },
+  {
     "type": "/=",
     "named": false
   },
@@ -6665,6 +6719,10 @@
   },
   {
     "type": "??=",
+    "named": false
+  },
+  {
+    "type": "@\"",
     "named": false
   },
   {
@@ -7276,10 +7334,6 @@
   {
     "type": "var",
     "named": false
-  },
-  {
-    "type": "verbatim_string_literal",
-    "named": true
   },
   {
     "type": "virtual",
